@@ -3,11 +3,23 @@
 //Default Constructor for Hero class
 Hero::Hero()
 {
-  //Should he start at the middle?
+  //Should the Hero start at the middle?
   //Does the map specify this?
-  location.x = 0;
-  location.y = 0;
+  location.x = 4; //Change these 5's
+  location.y = 4;
   energy = DEFAULT_ENERGY;
   whiffles = DEFAULT_WHIFFLES;
-  int visibilityRadius = DEFAULT_VIS;
+  visibilityRadius = DEFAULT_VIS;
+}
+
+//Returns the location of the Hero
+Location Hero::getLocation()
+{
+  return location;
+}
+
+//Returns the visibilityRadius
+int Hero::getVisibilityRadius()
+{
+  return visibilityRadius;
 }

@@ -7,8 +7,13 @@ string const simpleMap = "simpleMap.txt";
 
 int main()
 {
-  Map map;
+
+  Hero * hero = new Hero();
+
+  Map map(MAX); //Create a map of size MAX
+  map.setHero(hero); 
   map.loadMapFromFile(simpleMap);
   map.displayMap();
+
   return 0;
 }

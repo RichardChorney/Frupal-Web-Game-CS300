@@ -26,3 +26,15 @@ void Grovnick::setCharToDisplay(char newCharToDisplay)
 {
   charToDisplay = newCharToDisplay;
 }
+
+//Sets the isVisibile data member
+void Grovnick::setVisibilty(bool newIsVisible)
+{
+  isVisible = newIsVisible;
+}
+
+//Returns the isVisible data member
+bool Grovnick::getVisibility()
+{
+  return isVisible;
+}
