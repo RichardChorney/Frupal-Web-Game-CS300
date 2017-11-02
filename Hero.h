@@ -18,6 +18,8 @@ struct Location {
 class Hero {
   public:
     Hero();
+    Location getLocation();
+    int getVisibilityRadius();
   protected:
     Location location; //Coordinates of the player on the map
     int energy; //Amount of energy that the play has

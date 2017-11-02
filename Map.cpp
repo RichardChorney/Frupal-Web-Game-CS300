@@ -17,6 +17,7 @@ Map::Map(int newMapSize)
   {
     map[i] = new Grovnick[mapSize];
   }
+  hero = NULL; //Point the hero to NULL
 }
 
 //Destructor for the Map Class
@@ -57,15 +58,61 @@ int Map::loadMapFromFile(string fileName)
 }
 
 //Displays the map as a grid in the terminal
+//FIXME Needs to display the player if it's in the Grovnick
 void Map::displayMap()
 {
+  //Get the location of the Hero
+  Location heroLocation = hero->getLocation();
+  int visibility = hero->getVisibilityRadius();
+  //Set the isVisibile flags for display
+  setVisibileGrovnicksOnMap(heroLocation, visibility);
+
+  //Display the Grovnicks to the map while checking
+  //if isVisibile is true or not.
   for (int i = 0; i < mapSize; ++i)
   {
     for (int j = 0; j < mapSize; ++j)
     {
-      map[i][j].displayChar();
+      //Check if flag is set first
+      if (map[i][j].getVisibility())
+        map[i][j].displayChar();
+      else
+        cout << 'X'; //Display the "mist" character
+
       cout << " ";
     }
     cout << endl;
   }
+}
+
+//Sets what grovnicks should be displayed on the map,
+//given the location of the Hero.
+void Map::setVisibileGrovnicksOnMap(Location & location, int visibility)
+{
+  //These are the coordinates to traverse over
+  //and enable them to be visible. (except the middle)
+  int minSize = location.x - visibility;
+  int maxSize = location .x + visibility;
+
+  //Iterate through the range of minSize-maxSize
+  //This will cover the entire square of grovnicks
+  //around the Hero
+  for (int i = minSize; i <= maxSize; ++i)
+  {
+    for (int j = minSize; j <= maxSize; ++j)
+    {
+      //Check to make sure it's inbounds of the map
+      if (minSize >= 0 && minSize <= mapSize
+        && maxSize >= 0 && maxSize <= mapSize)
+        {
+          map[i][j].setVisibilty(true);
+        }
+    }
+  }
+}
+
+//Points the hero pointer to the new Hero
+void Map::setHero(Hero * newHero)
+{
+  hero = newHero;
 }
