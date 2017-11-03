@@ -21,6 +21,7 @@ class Hero {
     Location getLocation();
     int getVisibilityRadius();
     int checkEnergy();
+    int changeEnergy();
     bool checkAlive();
   protected:
     Location location; //Coordinates of the player on the map
