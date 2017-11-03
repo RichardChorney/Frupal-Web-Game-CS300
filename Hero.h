@@ -20,9 +20,13 @@ class Hero {
     Hero();
     Location getLocation();
     int getVisibilityRadius();
+    int checkEnergy();
+    int changeEnergy();
+    bool checkAlive();
   protected:
     Location location; //Coordinates of the player on the map
     int energy; //Amount of energy that the play has
+    bool alive; //is the user alive?
     int whiffles; //Amount of whiffles that the player has
     int visibilityRadius; //How far the Hero can see around him
 };
