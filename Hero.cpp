@@ -27,7 +27,7 @@ int Hero::getVisibilityRadius()
 
 //returns the hero's energy.  
 //Will in the future call the check alive function after removing energy
-bool Hero::checkEnergy()
+int Hero::checkEnergy()
 {
   return energy;
 }
