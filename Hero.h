@@ -22,7 +22,7 @@ class Hero {
     int getVisibilityRadius();
     int checkEnergy();
     int changeEnergy();
-    bool alive();
+    bool checkAlive();
   protected:
     Location location; //Coordinates of the player on the map
     int energy; //Amount of energy that the play has
