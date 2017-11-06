@@ -9,8 +9,9 @@
 //A map size may be used for initialization,
 //but otherwise a default value will be used
 //that is called "MAX" (declared in Map.h)
-Map::Map(int newMapSize)
+Map::Map() : hero(NULL)
 {
+    /*
     //Allocate memory for the 2D Map
     mapSize = newMapSize;
     map = new Grovnick * [mapSize];
@@ -21,6 +22,7 @@ Map::Map(int newMapSize)
 
     }
     hero = NULL; //Point the hero to NULL
+    */
 }
 
 //Destructor for the Map Class
@@ -42,7 +44,14 @@ int Map::loadMapFromFile(string fileName)
 
     int row = 0;
     string line;
+    
+    // Get Game map function
+    std::getline(file,line);
 
+    // Get map size + allocate
+    std::getline(file, line);
+    allocateMap(stoi(line));
+/*
     //Iterate map line by line
     while (std::getline(file, line))
     {
@@ -60,7 +69,7 @@ int Map::loadMapFromFile(string fileName)
         }
         ++row; //Go down to the next line
     }
-
+*/
     file.close();
     return 1;
 
@@ -118,10 +127,23 @@ void Map::setVisibileGrovnicksOnMap(Location & location, int visibility)
                 }
             }
         }
-    }
+}
 
-    //Points the hero pointer to the new Hero
-    void Map::setHero(Hero * newHero)
+//Points the hero pointer to the new Hero
+void Map::setHero(Hero * newHero)
+{
+    hero = newHero;
+}
+
+void Map::allocateMap(int newMapSize)
+{
+    //Allocate memory for the 2D Map
+    mapSize = newMapSize;
+    map = new Grovnick * [mapSize];
+    for (int i = 0; i < mapSize; ++i)
     {
-        hero = newHero;
+        //Allocate row of Grovnicks
+        map[i] = new Grovnick[mapSize];
+
     }
+}

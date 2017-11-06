@@ -10,7 +10,7 @@ int main()
 
     Hero * hero = new Hero();
 
-    Map map(MAX); //Create a map of size MAX
+    Map map; //Create a map of size MAX
     map.setHero(hero);
     map.loadMapFromFile(simpleMap);
     map.displayMap();

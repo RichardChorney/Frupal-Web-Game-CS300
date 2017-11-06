@@ -42,13 +42,14 @@ protected:
 class Map
 {
 public:
-    Map(int newMapSize = MAX); //Default constructor
+    Map(); //Default constructor
     ~Map();
     void displayMap();
     int loadMapFromFile(string fileName); //Loads the file into the array
     void setHero(Hero * newHero);
     void setVisibileGrovnicksOnMap(Location & location, int visibility);
 protected:
+    void allocateMap(int newMapSize = MAX);
     int mapSize; //Size of the map (and thus the size of each array)
     Grovnick ** map; //2D array of Grovnick pointers
     Hero * hero; //A pointer to the user
