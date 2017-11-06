@@ -59,9 +59,10 @@ int Hero::checkEnergy()
 }
 
 //In the future, this will change the hero's energy.
+//Will pass in an integer with the amount of energy to change (negative or positive)
 int Hero::changeEnergy(int amnt)
 {
-	//call checkAlive()
+	energy = energy + amnt;
 	return energy;
 }
 
@@ -71,6 +72,7 @@ bool Hero::checkAlive()
   	if(energy<=0)
   	{
   		alive = false;
+  		cout << "DEAD";
   	}
   	return alive;
 }
