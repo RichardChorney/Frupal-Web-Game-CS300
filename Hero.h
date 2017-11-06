@@ -16,15 +16,7 @@ struct Location {
 	char terrainType;
 };
 
-//Temporary?? Item class stub
-class Item
-{
-	Item();
-	~Item();
-
-	char * name;
-
-};	
+class Type;
 
 //The Player
 class Hero {
@@ -40,7 +32,7 @@ class Hero {
 	bool setBalance(int whifls);//Adjust whiffle account, returns success
 	int  getBalance();			//Queries whiffle account
 	bool moveHero(int mv, char newTerrain);		//Argument tells Hero how to update its location, 1 move north, 2 east, 3 south, 4 west, returns success
-	int fillBag(Item * obj);	//Places an Item ptr into the Heroes inventory list of item pointers, returns 0 for full bag, 1 for success, 2 for fail	
+	int fillBag(Type * obj);	//Places an Item ptr into the Heroes inventory list of item pointers, returns 0 for full bag, 1 for success, 2 for fail	
 	bool useItem(int num);		//Updates heroes pointer list 
 	void printStatus();			//Prints heroes status
 	
