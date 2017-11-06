@@ -8,12 +8,12 @@ string const simpleMap = "simpleMap.txt";
 int main()
 {
 
-  Hero * hero = new Hero();
+    Hero * hero = new Hero();
 
-  Map map(MAX); //Create a map of size MAX
-  map.setHero(hero); 
-  map.loadMapFromFile(simpleMap);
-  map.displayMap();
+    Map map(MAX); //Create a map of size MAX
+    map.setHero(hero);
+    map.loadMapFromFile(simpleMap);
+    map.displayMap();
 
-  return 0;
+    return 0;
 }
