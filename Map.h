@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream> //To read/save from files
 #include <string>
+#include <cstdlib>
 #include "Hero.h"
 #include "Types.h"
 

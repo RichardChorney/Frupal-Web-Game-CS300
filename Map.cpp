@@ -39,9 +39,9 @@ int Map::loadMapFromFile(string fileName)
 
     //Open the file for reading
     ifstream file;
-    file.open(fileName);
+    file.open(fileName.c_str());
     if (!file) return 0;
-
+    
     int row = 0;
     string line;
     
@@ -50,7 +50,7 @@ int Map::loadMapFromFile(string fileName)
 
     // Get map size + allocate
     std::getline(file, line);
-    allocateMap(stoi(line));
+    allocateMap(atoi(line.c_str()));
 /*
     //Iterate map line by line
     while (std::getline(file, line))
