@@ -1,32 +1,46 @@
-
 #pragma once
 #include <iostream>
 #include <string>
+#include "Map.h"
 
 int const DEFAULT_ENERGY = 100;
 int const DEFAULT_WHIFFLES = 100;
 int const DEFAULT_VIS = 1; //Visibility Radius
+const int BAG_MAX = 10;
 
 //Struct that holds the x and y Coordinates
-//for a map cell
+//for a map cell, and the terrain type
 struct Location {
-    int x;
-    int y;
+	int x;
+	int y;
+	char terrainType;
 };
+
+class Type;
 
 //The Player
 class Hero {
-public:
-    Hero();
-    Location getLocation();
-    int getVisibilityRadius();
-    int checkEnergy();
-    int changeEnergy();
-    bool checkAlive();
-protected:
-    Location location; //Coordinates of the player on the map
-    int energy; //Amount of energy that the play has
-    bool alive; //is the user alive?
-    int whiffles; //Amount of whiffles that the player has
-    int visibilityRadius; //How far the Hero can see around him
+  public:
+    Hero();						//Default constructor
+	~Hero();
+    Location getLocation();		//Returns Heroes current x and y coordinates, along with terrain type
+	int getVisibilityRadius();	//Returns Heroes current vis range
+	bool setVisibility(bool range);	//Sets visual range if binoculars found, true argument changes to greater vis, returns success
+    int checkEnergy();			//Returns Heroes current energy level
+    int changeEnergy(int amnt);	//Adjusts Heroes current energy level		
+    bool checkAlive();			//Returns whether Heroes energy level is sufficient to remain alive or not
+	bool setBalance(int whifls);//Adjust whiffle account, returns success
+	int  getBalance();			//Queries whiffle account
+	bool moveHero(int mv, char newTerrain);		//Argument tells Hero how to update its location, 1 move north, 2 east, 3 south, 4 west, returns success
+	int fillBag(Type * obj);	//Places an Item ptr into the Heroes inventory list of item pointers, returns 0 for full bag, 1 for success, 2 for fail	
+	bool useItem(int num);		//Updates heroes pointer list 
+	void printStatus();			//Prints heroes status
+	
+  protected:
+    Location location; 		//Coordinates of the player on the map
+    int energy; 			//Amount of energy that the play has
+    bool alive; 			//is the user alive?
+    int whiffles; 			//Amount of whiffles that the player has
+    int visibilityRadius; 	//How far the Hero can see around him
+	Type * list [BAG_MAX];	//Inventory list, using a stub class for now
 };
