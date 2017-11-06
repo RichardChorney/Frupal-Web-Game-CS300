@@ -11,26 +11,23 @@
 //that is called "MAX" (declared in Map.h)
 Map::Map(int newMapSize)
 {
-  //Allocate memory for the 2D Map
-  mapSize = newMapSize;
-  map = new Grovnick * [mapSize];
-  for (int i = 0; i < mapSize; ++i)
-  {
-    //Allocate row of Grovnicks
-    map[i] = new Grovnick[mapSize];
+    //Allocate memory for the 2D Map
+    mapSize = newMapSize;
+    map = new Grovnick * [mapSize];
+    for (int i = 0; i < mapSize; ++i)
+    {
+        //Allocate row of Grovnicks
+        map[i] = new Grovnick[mapSize];
 
-    //FIXME You will need to reallocate the 2D array of
-    //pointer slightly different if they are actually
-    //pointers! I'm very confused what is going on.
-
-  }
-  hero = NULL; //Point the hero to NULL
+    }
+    hero = NULL; //Point the hero to NULL
 }
 
 //Destructor for the Map Class
 Map::~Map()
 {
-  //Free the 2D array
+    //FIXME
+    //Free the 2D array
 }
 
 //Loads the map (2D array) from a file
@@ -38,37 +35,34 @@ Map::~Map()
 int Map::loadMapFromFile(string fileName)
 {
 
-  //Open the file for reading
-  ifstream file;
-  file.open(fileName);
-  if (!file) return 0;
+    //Open the file for reading
+    ifstream file;
+    file.open(fileName);
+    if (!file) return 0;
 
-  int row = 0;
-  string line;
+    int row = 0;
+    string line;
 
-  //Iterate map line by line
-  while (std::getline(file, line))
-  {
-    //Iterate line, char by char
-    for (int column = 0; column < mapSize; ++column)
+    //Iterate map line by line
+    while (std::getline(file, line))
     {
+        //Iterate line, char by char
+        for (int column = 0; column < mapSize; ++column)
+        {
 
-//****
-      //FIXME You need to make sure that the
-      //Grovnick class is a 2D array of POINTERS!!!
-      //Look at this URL
-      //https://stackoverflow.com/questions/1768294/how-to-allocate-a-2d-array-of-pointers-in-c
-      //For some clues perhaps.
-//*****
+            // This is what we 'want' to do, but type is protected...
+            // map[row][column].type = new Tool();
+            //Don't forget that line[column] is the current character
 
-      map[row][column] = new Tool();
-      map[row][column].setCharToDisplay(line[column]);
+            //Test this code out
+            map[row][column].mapCharToType(line[column]);
+            map[row][column].setCharToDisplay(line[column]);
+        }
+        ++row; //Go down to the next line
     }
-    ++row; //Go down to the next line
-  }
 
-  file.close();
-  return 1;
+    file.close();
+    return 1;
 
 }
 
@@ -76,61 +70,58 @@ int Map::loadMapFromFile(string fileName)
 //FIXME Needs to display the player if it's in the Grovnick
 void Map::displayMap()
 {
-  //Get the location of the Hero
-  Location heroLocation = hero->getLocation();
-  int visibility = hero->getVisibilityRadius();
-  //Set the isVisibile flags for display
-  setVisibileGrovnicksOnMap(heroLocation, visibility);
+    //Get the location of the Hero
+    Location heroLocation = hero->getLocation();
+    int visibility = hero->getVisibilityRadius();
+    //Set the isVisibile flags for display
+    setVisibileGrovnicksOnMap(heroLocation, visibility);
 
-  //Display the Grovnicks to the map while checking
-  //if isVisibile is true or not.
-  for (int i = 0; i < mapSize; ++i)
-  {
-    for (int j = 0; j < mapSize; ++j)
+    //Display the Grovnicks to the map while checking
+    //if isVisibile is true or not.
+    for (int i = 0; i < mapSize; ++i)
     {
-
-      //* FIXME Point Grovnick object at appropriate type *//
-
-      //Check if flag is set first
-      if (map[i][j].getVisibility())
-        map[i][j].displayChar();
-      else
-        cout << 'X'; //Display the "mist" character
-
-      cout << " ";
+        for (int j = 0; j < mapSize; ++j)
+        {
+            //Check if flag is set first
+            if (map[i][j].getVisibility()) {
+                map[i][j].displayChar();
+            } else {
+                cout << 'X'; //Display the "mist" character
+            }
+            cout << " "; //Spaces characters on x-axis
+        }
+        cout << endl;
     }
-    cout << endl;
-  }
 }
 
 //Sets what grovnicks should be displayed on the map,
 //given the location of the Hero.
 void Map::setVisibileGrovnicksOnMap(Location & location, int visibility)
 {
-  //These are the coordinates to traverse over
-  //and enable them to be visible. (except the middle)
-  int minSize = location.x - visibility;
-  int maxSize = location .x + visibility;
+    //These are the coordinates to traverse over
+    //and enable them to be visible.
+    int minSize = location.x - visibility;
+    int maxSize = location .x + visibility;
 
-  //Iterate through the range of minSize-maxSize
-  //This will cover the entire square of grovnicks
-  //around the Hero
-  for (int i = minSize; i <= maxSize; ++i)
-  {
-    for (int j = minSize; j <= maxSize; ++j)
+    //Iterate through the range of minSize-maxSize
+    //This will cover the entire square of grovnicks
+    //around the Hero
+    for (int i = minSize; i <= maxSize; ++i)
     {
-      //Check to make sure it's inbounds of the map
-      if (minSize >= 0 && minSize <= mapSize
-        && maxSize >= 0 && maxSize <= mapSize)
+        for (int j = minSize; j <= maxSize; ++j)
         {
-          map[i][j].setVisibilty(true);
+            //Check to make sure it's inbounds of the map
+            if (minSize >= 0 && minSize <= mapSize
+                && maxSize >= 0 && maxSize <= mapSize)
+                {
+                    map[i][j].setVisibilty(true);
+                }
+            }
         }
     }
-  }
-}
 
-//Points the hero pointer to the new Hero
-void Map::setHero(Hero * newHero)
-{
-  hero = newHero;
-}
+    //Points the hero pointer to the new Hero
+    void Map::setHero(Hero * newHero)
+    {
+        hero = newHero;
+    }
