@@ -3,6 +3,7 @@
 ///////////////////////////////////
 
 #include "Map.h"
+#include "Types.h"
 
 //Default constructor for the Map Class
 //A map size may be used for initialization,
@@ -15,7 +16,13 @@ Map::Map(int newMapSize)
   map = new Grovnick * [mapSize];
   for (int i = 0; i < mapSize; ++i)
   {
+    //Allocate row of Grovnicks
     map[i] = new Grovnick[mapSize];
+
+    //FIXME You will need to reallocate the 2D array of
+    //pointer slightly different if they are actually
+    //pointers! I'm very confused what is going on.
+
   }
   hero = NULL; //Point the hero to NULL
 }
@@ -27,9 +34,7 @@ Map::~Map()
 }
 
 //Loads the map (2D array) from a file
-//*** FIXME This is just a simple version of it for now
-//This needs to be redone to conform to the format provided
-//by the Frupal Product Vision Document
+//FIXME This is just a simple version of it for now
 int Map::loadMapFromFile(string fileName)
 {
 
@@ -47,6 +52,16 @@ int Map::loadMapFromFile(string fileName)
     //Iterate line, char by char
     for (int column = 0; column < mapSize; ++column)
     {
+
+//****
+      //FIXME You need to make sure that the
+      //Grovnick class is a 2D array of POINTERS!!!
+      //Look at this URL
+      //https://stackoverflow.com/questions/1768294/how-to-allocate-a-2d-array-of-pointers-in-c
+      //For some clues perhaps.
+//*****
+
+      map[row][column] = new Tool();
       map[row][column].setCharToDisplay(line[column]);
     }
     ++row; //Go down to the next line
@@ -73,6 +88,9 @@ void Map::displayMap()
   {
     for (int j = 0; j < mapSize; ++j)
     {
+
+      //* FIXME Point Grovnick object at appropriate type *//
+
       //Check if flag is set first
       if (map[i][j].getVisibility())
         map[i][j].displayChar();
