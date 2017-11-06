@@ -7,7 +7,7 @@ Hero::Hero()
   	//Does the map specify this?
   	location.x = 4; //Change these 5's
   	location.y = 4;
-  	location.terrainType = 'G'; 
+  	location.terrainType = 'G';
   	energy = DEFAULT_ENERGY;
   	alive = true;
   	whiffles = DEFAULT_WHIFFLES;
@@ -23,11 +23,12 @@ Hero::~Hero()
 {
 	for(int i = 0; i < BAG_MAX; ++i){
 		if(list[i] != NULL){
-			delete list[i];
-			list[i] = NULL;	
+            //FIXME
+            //delete list[i];
+            //list[i] = NULL;
 		}
 	}
-}	
+}
 
 //Returns the location of the Hero
 Location Hero::getLocation()
@@ -44,7 +45,7 @@ int Hero::getVisibilityRadius()
 //Sets the visibility radius to max of 2 returns true if successful
 bool Hero::setVisibility(bool range)
 {
-	if(range){ 
+	if(range){
 		visibilityRadius = 2;
 		return true;
 	}
@@ -58,7 +59,7 @@ int Hero::checkEnergy()
 }
 
 //In the future, this will change the hero's energy.
-int Hero::changeEnergy()
+int Hero::changeEnergy(int amnt)
 {
 	//call checkAlive()
 	return energy;
@@ -82,7 +83,7 @@ bool Hero::setBalance(int amount)
 		return true;
 	}
 	else{ return amount; }
-}	
+}
 
 //Returns Heroes whiffle balance
 int Hero::getBalance()
@@ -93,11 +94,11 @@ int Hero::getBalance()
 //Function to update the current location of the Hero
 bool Hero::moveHero(int mv, char newTerrain)
 {
-	location.terrain = newTerrain;
+	location.terrainType = newTerrain;
 	if(mv == 1){
 		if(location.y == (MAX - 1)){
 			location.y = 0;
-		}		
+		}
 		else{
 			++location.y;
 		}
@@ -110,16 +111,16 @@ bool Hero::moveHero(int mv, char newTerrain)
 		else{
 			++location.x;
 		}
-		return true;	
+		return true;
 	}
 	if(mv == 3){
 		if(location.y == 0){
 			location.y = (MAX - 1);
-		}		
+		}
 		else{
 			--location.y;
 		}
-		return true;		
+		return true;
 	}
 	if(mv == 4){
 		if(location.x == 0){
@@ -128,10 +129,10 @@ bool Hero::moveHero(int mv, char newTerrain)
 		else{
 			--location.x;
 		}
-		return true;	
+		return true;
 	}
-	return false;	
-}	
+	return false;
+}
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 0 for success, 1 for a full bag, 2 for fail
 int Hero::fillBag(Type * itemToAdd)
@@ -139,32 +140,32 @@ int Hero::fillBag(Type * itemToAdd)
 	if(itemToAdd){
 		for(int i = 0; i < BAG_MAX; ++i){
 			if(list[i] == NULL){
-				list[i] = itemToAdd;	
+				list[i] = itemToAdd;
 				return 1;
 			}
 			if(i == (BAG_MAX - 1)){
 				return 0;
 			}
 		}
-	}	
+	}
 	return 2;
-}	
+}
 
 //Function to remove an Items pointer from the inventory list
 bool Hero::useItem(int itemToUse){
 	if((itemToUse > 0) && (itemToUse < (BAG_MAX - 1))){
-		delete list[itemToUse];
+//		delete list[itemToUse]; //FIXME
 		list[itemToUse] = NULL;
 		return true;
 	}
 	else{ return false; }
-}		
+}
 
 //Prints relevant Hero status information
 void Hero::printStatus()
 {
 	cout << "The Heroes location is " << location.x << " X " << location.y << endl;
-	cout << "The Hero is currently on terrain type: " << location.terrain << endl << endl;
+	cout << "The Hero is currently on terrain type: " << location.terrainType << endl << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
-	cout << "Remaining energy: " << energy << " units" << endl;	 
-}		
+	cout << "Remaining energy: " << energy << " units" << endl;
+}

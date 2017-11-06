@@ -13,6 +13,8 @@
 #include <vector>
 
 class Type; //Forward decleration
+class Hero;
+struct Location;
 
 using namespace std;
 
@@ -25,7 +27,7 @@ class Grovnick
 public:
     Grovnick(char newCharToDisplay = 'G'); //Default Constructor
     void displayChar();
-    void mapCharToType(char charToMap); //Maps the char to type
+    void mapIntToType(int intToMap); //Maps the char to type
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
     bool getVisibility(); //Returns if it's visibile
