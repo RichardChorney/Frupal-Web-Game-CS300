@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include "Hero.h"
 #include "Types.h"
+#include <vector>
 
 class Type; //Forward decleration
 
@@ -26,7 +27,7 @@ public:
     void displayChar();
     void mapCharToType(char charToMap); //Maps the char to type
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
-    void setVisibilty(bool newIsVisible);
+    void setVisibility(bool newIsVisible);
     bool getVisibility(); //Returns if it's visibile
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)
@@ -51,6 +52,7 @@ public:
     void setVisibileGrovnicksOnMap(Location & location, int visibility);
 protected:
     void allocateMap(int newMapSize = MAX);
+    void split(const string& s, char delim, vector<string>& v);
     int mapSize; //Size of the map (and thus the size of each array)
     Grovnick ** map; //2D array of Grovnick pointers
     Hero * hero; //A pointer to the user

@@ -45,7 +45,7 @@ void Grovnick::setCharToDisplay(char newCharToDisplay)
 }
 
 //Sets the isVisibile data member
-void Grovnick::setVisibilty(bool newIsVisible)
+void Grovnick::setVisibility(bool newIsVisible)
 {
     isVisible = newIsVisible;
 }

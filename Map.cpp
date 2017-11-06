@@ -37,13 +37,16 @@ Map::~Map()
 int Map::loadMapFromFile(string fileName)
 {
 
+    int energy = 0;
+    int whiffles = 0;
+    string line;
+
     //Open the file for reading
     ifstream file;
     file.open(fileName.c_str());
     if (!file) return 0;
     
-    int row = 0;
-    string line;
+    //int row = 0;
     
     // Get Game map function
     std::getline(file,line);
@@ -51,6 +54,41 @@ int Map::loadMapFromFile(string fileName)
     // Get map size + allocate
     std::getline(file, line);
     allocateMap(atoi(line.c_str()));
+    // consume the ### line of the map file 
+    std::getline(file, line);
+
+    // TODO 
+    // Get hero coordinates
+    std::getline(file, line);
+    // Get hero energy level
+    std::getline(file, line);
+    energy = atoi(line.c_str());
+    // Get hero whiffle amount
+    std::getline(file, line);
+    whiffles = atoi(line.c_str());
+
+    // TODO items
+    //
+    //
+
+    // consume the ### line of the map file 
+    std::getline(file, line);
+
+    vector<string> v;
+    char delim = ',';
+    while(getline(file, line)) {
+        split(line, delim, v);
+        //map[v[0]][v[1]].setCharToDisplay(NULL);
+        
+        map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
+
+
+        v.clear();
+    }
+
+    
+
+
 /*
     //Iterate map line by line
     while (std::getline(file, line))
@@ -123,7 +161,7 @@ void Map::setVisibileGrovnicksOnMap(Location & location, int visibility)
             if (minSize >= 0 && minSize <= mapSize
                 && maxSize >= 0 && maxSize <= mapSize)
                 {
-                    map[i][j].setVisibilty(true);
+                    map[i][j].setVisibility(true);
                 }
             }
         }
@@ -146,4 +184,17 @@ void Map::allocateMap(int newMapSize)
         map[i] = new Grovnick[mapSize];
 
     }
+}
+
+void Map::split(const string& s, char delim, vector<string>& v) {
+    unsigned int i = 0;
+    unsigned int pos = s.find(delim);
+
+    while (pos <= s.length()) {
+        v.push_back(s.substr(i, pos-i));
+        i = ++pos;
+        pos = s.find(delim, pos);
+
+    }
+    v.push_back(s.substr(i, s.length()-i));
 }
