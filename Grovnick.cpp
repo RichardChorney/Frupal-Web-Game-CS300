@@ -3,6 +3,7 @@
 ////////////////////////////////
 
 #include "Map.h"
+//#include "TypeMappings.h"
 
 //Default constructor for the Grovnick Class
 //The default grovnick is Grass is nothing
@@ -22,20 +23,15 @@ void Grovnick::displayChar()
     else cout << charToDisplay;
 }
 
-//Takes a character and maps it what kind of type
+//Takes an integer and maps it to the kind of type
 //that it is. Then it upcasts it into the type.
-void Grovnick::mapCharToType(char charToMap)
+void Grovnick::mapIntToType(int intToMap)
 {
-    //<upcasting example>
-    // type = new Tool();
-    // type->interactWithType(); //This would be implemented somewhere else
-    //</example>
-
-    //Should the characters be hardcoded in?
-    if (charToMap == 'T') type = new Tool();
-    else if (charToMap == 'C') type = new Clue();
-    else if (charToMap == '$') type = new Chest();
-    else if (charToMap == 'S') type = new Swamp();
+    //    TypeIndex type = intToMap;
+    if (intToMap == 0) type = new Tool();
+    else if (intToMap == 1) type = new Clue();
+    else if (intToMap == 2) type = new Chest();
+    else if (intToMap == 3) type = new Swamp();
 }
 
 //Sets the char data member
