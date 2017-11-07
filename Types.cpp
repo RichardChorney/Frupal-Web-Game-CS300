@@ -14,31 +14,107 @@ Type::Type()
     message = "This is a typeless Grovnick.";
 }
 
+//Constructor with arguments
+Type::Type(string newName, string newMessage)
+{
+    //This copy is SO deep.
+    name = newName;
+    message = newMessage;
+}
+
+//Default Clue Constructor
+Clue::Clue()
+{
+    cout << "Clue constructor!" << endl; //Test
+}
+
+//Clue Constructor with arguments
+Clue::Clue(string newName, string newMessage)
+{
+    //Should probably use init lists instead, huh?
+    name = newName;
+    message = newMessage;
+}
+
 //Tool
 //Virtual function override of Type class
 int Tool::interactWithType()
 {
-    cout << "You called the TOOL function." << endl;
+    cout << "You called the TOOL function." << endl; //Test
     return 0;
 }
 
 //Clue
 int Clue::interactWithType()
 {
-    cout << "You called the CLUE function." << endl;
+    cout << "You called the CLUE function." << endl; //Test
     return 0;
 }
 
 //Chest
 int Chest::interactWithType()
 {
-    cout << "Chest" << endl;
+    cout << "Chest" << endl; //Test
     return 0;
 }
 
-//Swamp
-int Swamp::interactWithType()
+//Explosive Chest
+int ExplosiveChest::interactWithType()
 {
-    cout << "Swamp" << endl;
+    return 0;
+}
+
+//Bog / Swamp
+int Bog::interactWithType()
+{
+    cout << "Swamp" << endl; //Test
+    return 0;
+}
+
+//Power Bar
+int PowerBar::interactWithType()
+{
+    return 0;
+}
+
+//Boulder
+int Boulder::interactWithType()
+{
+    return 0;
+}
+
+//Wall
+int Wall::interactWithType()
+{
+    return 0;
+}
+
+//Royal Diamonds
+int RoyalDiamonds::interactWithType()
+{
+    return 0;
+}
+
+//Binoculars
+int Binoculars::interactWithType()
+{
+    return 0;
+}
+
+//Bush
+int Bush::interactWithType()
+{
+    return 0;
+}
+
+//Tree
+int Tree::interactWithType()
+{
+    return 0;
+}
+
+//Axe
+int Axe::interactWithType()
+{
     return 0;
 }

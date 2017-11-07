@@ -94,7 +94,8 @@ int Hero::getBalance()
 //Function to update the current location of the Hero
 bool Hero::moveHero(int mv, char newTerrain)
 {
-	location.terrainType = newTerrain;
+	location.terrainType = newTerrain; //FIXME
+
 	if(mv == 1){
 		if(location.y == (MAX - 1)){
 			location.y = 0;
