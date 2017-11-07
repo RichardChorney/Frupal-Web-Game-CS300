@@ -18,13 +18,19 @@ using namespace std;
 class Type {
 public:
     Type(); //Default Constructor
+    Type(string newName, string newMessage);
     virtual int interactWithType() = 0; //Dynamic Binding!
 protected:
-    string name;
+    string name; //The name of the Type
     string message; //Message to display to user.
 };
 
 //('T')
+//FIXME
+//Need to decied if we should only subclass
+//specific tools (e.g axe, chainsaw, etc)
+//Or if we can have a generic Tool and simply
+//just change the name and data members
 class Tool : public Type {
 public:
     int interactWithType();
@@ -36,6 +42,8 @@ protected:
 //('C')
 class Clue : public Type {
 public:
+    Clue();
+    Clue(string newName, string newMessage);
     int interactWithType();
 protected:
     bool isLegit;
@@ -53,9 +61,58 @@ protected:
     int whiffleAmount;
 };
 
-//('S') The swamp class is the same thing
-//as a bog.
-class Swamp : public Type {
+class ExplosiveChest : public Type {
+public:
+    int interactWithType();
+};
+
+//('S') The bog class is the same thing
+//as a Swamp.
+class Bog : public Type {
+public:
+    int interactWithType();
+};
+
+
+//('P')
+class PowerBar : public Type {
+public:
+    int interactWithType();
+};
+
+//('B')
+class Boulder : public Type {
+public:
+    int interactWithType();
+};
+
+//('|')
+class Wall : public Type {
+public:
+    int interactWithType();
+};
+
+class RoyalDiamonds : public Type {
+public:
+    int interactWithType();
+};
+
+class Binoculars : public Type {
+public:
+    int interactWithType();
+};
+
+class Bush : public Type {
+public:
+    int interactWithType();
+};
+
+class Tree : public Type {
+public:
+    int interactWithType();
+};
+
+class Axe : public Type {
 public:
     int interactWithType();
 };

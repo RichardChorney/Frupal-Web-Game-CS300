@@ -45,19 +45,19 @@ int Map::loadMapFromFile(string fileName)
     ifstream file;
     file.open(fileName.c_str());
     if (!file) return 0;
-    
+
     //int row = 0;
-    
+
     // Get Game map function
     std::getline(file,line);
 
     // Get map size + allocate
     std::getline(file, line);
     allocateMap(atoi(line.c_str()));
-    // consume the ### line of the map file 
+    // consume the ### line of the map file
     std::getline(file, line);
 
-    // TODO 
+    // TODO
     // Get hero coordinates
     std::getline(file, line);
     // Get hero energy level
@@ -71,7 +71,7 @@ int Map::loadMapFromFile(string fileName)
     //
     //
 
-    // consume the ### line of the map file 
+    // consume the ### line of the map file
     std::getline(file, line);
 
     vector<string> v;
@@ -79,14 +79,14 @@ int Map::loadMapFromFile(string fileName)
     while(getline(file, line)) {
         split(line, delim, v);
         //map[v[0]][v[1]].setCharToDisplay(NULL);
-        
+
         map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
 
 
         v.clear();
     }
 
-    
+
 
 
 /*
