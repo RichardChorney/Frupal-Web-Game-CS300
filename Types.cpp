@@ -47,5 +47,11 @@ int Swamp::interactWithType()
 int Diamonds::interactWithType()
 {
     cout << "Congratulations, you found the royal diamonds!\nYOU WIN!" << endl;
-    //restartGame(); TODO
+    cout << "Press Enter to restart" << endl;
+    getchar(); //So that the game does not flash the win message and restart w/out prompt
+    cout << "Restarting game..." << endl;
+    //restart game
+    delete hero; //Flush inventory
+    map.resetVisibilityToDefault(); //Set all squares back to Not Visible
+    map.setHero(new Hero()); //Place the player at the starting location with starting values
 }
