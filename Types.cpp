@@ -42,3 +42,10 @@ int Swamp::interactWithType()
     cout << "Swamp" << endl;
     return 0;
 }
+
+//Diamonds
+int Diamonds::interactWithType()
+{
+    cout << "Congratulations, you found the royal diamonds!\nYOU WIN!" << endl;
+    //restartGame(); TODO
+}
