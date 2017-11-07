@@ -59,3 +59,11 @@ class Swamp : public Type {
 public:
     int interactWithType();
 };
+
+//('R')
+//This is for Royal Diamonds
+//finding this is the object of the game
+class Diamonds : public Type {
+public:
+    int interactWithType();
+};
