@@ -1,4 +1,6 @@
 ///////////////////////////////////
+//Map.cpp
+//CS300 Group E
 //Implementation of the Map class
 ///////////////////////////////////
 
@@ -11,18 +13,7 @@
 //that is called "MAX" (declared in Map.h)
 Map::Map() : hero(NULL)
 {
-    /*
-    //Allocate memory for the 2D Map
-    mapSize = newMapSize;
-    map = new Grovnick * [mapSize];
-    for (int i = 0; i < mapSize; ++i)
-    {
-        //Allocate row of Grovnicks
-        map[i] = new Grovnick[mapSize];
 
-    }
-    hero = NULL; //Point the hero to NULL
-    */
 }
 
 //Destructor for the Map Class
@@ -86,28 +77,6 @@ int Map::loadMapFromFile(string fileName)
         v.clear();
     }
 
-
-
-
-/*
-    //Iterate map line by line
-    while (std::getline(file, line))
-    {
-        //Iterate line, char by char
-        for (int column = 0; column < mapSize; ++column)
-        {
-
-            // This is what we 'want' to do, but type is protected...
-            // map[row][column].type = new Tool();
-            //Don't forget that line[column] is the current character
-
-            //Test this code out
-            map[row][column].mapCharToType(line[column]);
-            map[row][column].setCharToDisplay(line[column]);
-        }
-        ++row; //Go down to the next line
-    }
-*/
     file.close();
     return 1;
 
@@ -129,8 +98,12 @@ void Map::displayMap()
     {
         for (int j = 0; j < mapSize; ++j)
         {
+
+            //Display the Hero if he is on this Grovnick.
+            if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
+                cout << HERO_CHAR;
             //Check if flag is set first
-            if (map[i][j].getVisibility()) {
+            } else if (map[i][j].getVisibility()) {
                 map[i][j].displayChar();
             } else {
                 cout << 'X'; //Display the "mist" character

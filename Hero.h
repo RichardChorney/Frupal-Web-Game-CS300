@@ -1,15 +1,18 @@
+///////////////////////////////////////
+//Hero.h
+//CS 300 Group E
+//This file contains the class header
+//for the Hero class, which is the
+//player in the world of Frupal.
+//////////////////////////////////////
+
+
 #pragma once
 #include <iostream>
 #include <string>
 #include "Map.h"
-
-#include "Map.h"
 #include "Types.h"
-
-int const DEFAULT_ENERGY = 100;
-int const DEFAULT_WHIFFLES = 100;
-int const DEFAULT_VIS = 1; //Visibility Radius
-const int BAG_MAX = 10;
+#include "Constants.h"
 
 class Type;
 

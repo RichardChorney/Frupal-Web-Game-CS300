@@ -1,4 +1,6 @@
 /////////////////////////////
+//Map.h
+//CS300 Group E
 //This file contains the headers for the Map
 //and Grovnick classes.
 /////////////////////////////
@@ -20,6 +22,8 @@ using namespace std;
 
 int const MAX = 10; //Default size for map
 char const MIST = 'X'; //Invisible terrain tile
+char const HERO_CHAR = 'H'; //Display Char for Hero
+int const DEFAULT_STARTING_LOCATION = MAX / 2;
 
 //Grovnick class
 class Grovnick
