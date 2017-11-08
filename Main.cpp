@@ -43,10 +43,10 @@ int main()
 		}
 
 		switch(keyPress){
-			case '1':  hero->moveHero(1, 'G'); break;
-			case '2':  hero->moveHero(2, 'G'); break;
-			case '3':  hero->moveHero(3, 'G'); break; 
-			case '4':  hero->moveHero(4, 'G'); break;
+			case '1':  hero->moveHero(1); break;
+			case '2':  hero->moveHero(2); break;
+			case '3':  hero->moveHero(3); break; 
+			case '4':  hero->moveHero(4); break;
 			case '5':  proceed = false; break;	
 		}
 
