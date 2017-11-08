@@ -32,7 +32,7 @@ class Hero {
     Hero();						//Default constructor
 	Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy);		//Parameterized constructor
 	~Hero();
-	
+
     Location getLocation();		//Returns Heroes current x and y coordinates, along with terrain type
 	int getVisibilityRadius();	//Returns Heroes current vis range
 	bool setVisibility(bool range);	//Sets visual range if binoculars found, true argument changes to greater vis, returns success

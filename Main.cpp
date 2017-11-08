@@ -16,7 +16,7 @@ string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
 string const basicMap = "basicMap.txt";
 
-	
+
 int main()
 {
 
@@ -25,13 +25,13 @@ int main()
     Map map; //Create a map of size MAX
     map.loadMapFromFile(basicMap);
     hero = map.getHeroPtr();
-	
+
 	bool proceed = true;
 	char keyPress = '0';
-	
+
 	while(proceed){
 		system("clear");
-		
+
 		cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
 		map.displayMap();
 		hero->printStatus();
