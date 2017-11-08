@@ -32,6 +32,12 @@ void Grovnick::displayChar()
     else cout << charToDisplay;
 }
 
+//Returns the char the grovnick will display
+char Grovnick::getCharToDisplay()
+{
+     return charToDisplay;
+}
+
 //Takes an integer and maps it to the kind of type
 //that it is. Then it upcasts it into the type.
 void Grovnick::mapIntToType(int intToMap, int terrain)

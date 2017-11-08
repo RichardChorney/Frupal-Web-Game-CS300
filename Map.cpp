@@ -100,32 +100,44 @@ int Map::loadMapFromFile(string fileName)
 
         v.clear();
     }
-
-
-
-
-/*
-    //Iterate map line by line
-    while (std::getline(file, line))
-    {
-        //Iterate line, char by char
-        for (int column = 0; column < mapSize; ++column)
-        {
-
-            // This is what we 'want' to do, but type is protected...
-            // map[row][column].type = new Tool();
-            //Don't forget that line[column] is the current character
-
-            //Test this code out
-            map[row][column].mapCharToType(line[column]);
-            map[row][column].setCharToDisplay(line[column]);
-        }
-        ++row; //Go down to the next line
-    }
-*/
-    file.close();
     return 1;
+}
 
+//Loads the map (2D array) to a file
+int Map::loadMapToFile(string fileName)
+{
+//Opens or creates the file
+    ofstream file;
+    file.open(fileName.c_str());
+
+//Checks if file was opened successfully and ends the
+//functions returning 0 if it didn't.     
+    if(!file)
+        return 0;
+
+//Nested For loops to process the 2D array.
+    int i = 0;
+    int k = 0;
+    for(i = 0; i <  MAX ; ++i)
+    {
+        for(k = 0; k < MAX; ++k)
+        {
+            file << map[i][k].getCharToDisplay(); 
+
+            if(k == (MAX - 1))
+            {
+
+                file << "<br>";
+                file << "\n";
+            }
+
+        }
+    }
+
+//Closes file
+    file.close();
+//Returns 1 upon successful function usage
+    return 1;
 }
 
 //Displays the map as a grid in the terminal
