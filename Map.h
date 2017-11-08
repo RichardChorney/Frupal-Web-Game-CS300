@@ -55,6 +55,7 @@ public:
     void setHero(Hero * newHero);
     void setVisibileGrovnicksOnMap(Location & location, int visibility);
     void resetVisibleToDefault();
+    void resetMapState();
 protected:
     void allocateMap(int newMapSize = MAX);
     void split(const string& s, char delim, vector<string>& v);
