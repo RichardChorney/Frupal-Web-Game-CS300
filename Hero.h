@@ -21,6 +21,7 @@ class Type;
 struct Location {
 	int x;
 	int y;
+	
 };
 
 class Type;
