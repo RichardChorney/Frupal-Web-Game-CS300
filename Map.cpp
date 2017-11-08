@@ -13,7 +13,7 @@
 //that is called "MAX" (declared in Map.h)
 Map::Map() : hero(NULL)
 {
-    
+
 }
 
 //Destructor for the Map Class
@@ -94,11 +94,11 @@ void Map::displayMap()
 
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
-    for (int i = 0; i < mapSize; ++i)
-    {
-        for (int j = 0; j < mapSize; ++j)
-        {
 
+    for (int i = (mapSize - 1); i >= 0; --i)
+    {
+        for (int j = (mapSize - 1); j >= 0; --j)
+        {
             //Display the Hero if he is on this Grovnick.
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
                 cout << HERO_CHAR;
