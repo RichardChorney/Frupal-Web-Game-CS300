@@ -55,8 +55,13 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     split(line, delim, v);
     Location heroLoc;
-    heroLoc.x = atoi(v[0].c_str());
-    heroLoc.y = atoi(v[1].c_str());
+    int a = mapSize - 1 - atoi(v[0].c_str());
+    int b = mapSize - 1 - atoi(v[1].c_str());
+    heroLoc.x = a;
+    heroLoc.y = b;
+    // TODO delete
+    //heroLoc.x = atoi(v[0].c_str());
+    //heroLoc.y = atoi(v[1].c_str());
     v.clear();
     // Get hero energy level
     std::getline(file, line);
@@ -66,6 +71,7 @@ int Map::loadMapFromFile(string fileName)
     whiffles = atoi(line.c_str());
 
     hero = new Hero(heroLoc, energy, whiffles); 
+    setHero(hero);
     // TODO items
     //
     //
@@ -77,7 +83,10 @@ int Map::loadMapFromFile(string fileName)
         split(line, delim, v);
         //map[v[0]][v[1]].setCharToDisplay(NULL);
 
-        map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
+        //map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
+        int x = mapSize - 1 - atoi(v[0].c_str());
+        int y = mapSize - 1 - atoi(v[1].c_str());
+        map[x][y].setVisibility(v[2].c_str());
 
 
         v.clear();
@@ -197,4 +206,14 @@ void Map::split(const string& s, char delim, vector<string>& v) {
 
     }
     v.push_back(s.substr(i, s.length()-i));
+}
+
+void Map::printHeroStatus()
+{
+    hero->printStatus();
+}
+
+Hero* Map::getHeroPtr() 
+{
+    return hero;
 }
