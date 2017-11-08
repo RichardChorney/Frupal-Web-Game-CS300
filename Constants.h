@@ -12,7 +12,7 @@
 int const DEFAULT_ENERGY = 100; //Starting amount of Energy
 int const DEFAULT_WHIFFLES = 100; //Starting amount of Whiffles
 int const DEFAULT_VIS = 1; //Visibility Radius
-const int BAG_MAX = 10; //Amount of items that may be held in inventory.
+int const BAG_MAX = 10; //Amount of items that may be held in inventory.
 
 /* Map Constants */
 int const MAX = 10; //Default size for map
