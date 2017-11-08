@@ -26,7 +26,7 @@ enum typeIndex {
 
 //Terrain Index enumeration
 enum terrainIndex {
-    medow = 0,
+    meadow = 0,
     water = 1,
     bog = 2,
     forest = 3
