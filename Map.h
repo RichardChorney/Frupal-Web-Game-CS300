@@ -68,7 +68,6 @@ public:
     Hero* getHeroPtr();
     void printHeroStatus();
 	Grovnick ** getMap();
-
 protected:
     void allocateMap(int newMapSize = MAX);
     void split(const string& s, char delim, vector<string>& v);

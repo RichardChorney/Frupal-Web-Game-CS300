@@ -280,3 +280,13 @@ Grovnick ** Map::getMap()
 {
 	return map;
 }
+
+void Map::resetMapState() {
+    delete hero; //Clears inventory once destructor is finished
+    resetVisibleToDefault();
+    setHero(new Hero());
+    //TODO find way to restore obstacles/items
+    
+    //Perhaps we should store filepath as a variable, and just 
+    //call loadMapFromFile to make things simpler
+}
