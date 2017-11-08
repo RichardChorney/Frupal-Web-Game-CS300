@@ -90,7 +90,7 @@ bool Hero::checkAlive()
   	if(energy<=0)
   	{
   		alive = false;
-  		cout << "DEAD";
+  		cout << "DEAD\n";
   	}
   	return alive;
 }
@@ -115,7 +115,9 @@ int Hero::getBalance()
 bool Hero::moveHero(int mv, char newTerrain)
 {
 	location.terrainType = newTerrain; //FIXME
-
+	//todo: change based on terrain type
+	int energyAmount = -1;
+	changeEnergy(energyAmount);
 	if(mv == 1){
 		if(location.y == (MAX - 1)){
 			location.y = 0;
