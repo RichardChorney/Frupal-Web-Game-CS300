@@ -31,6 +31,8 @@ int Map::loadMapFromFile(string fileName)
     int energy = 0;
     int whiffles = 0;
     string line;
+    vector<string> v;
+    char delim = ',';
 
     //Open the file for reading
     ifstream file;
@@ -51,6 +53,11 @@ int Map::loadMapFromFile(string fileName)
     // TODO
     // Get hero coordinates
     std::getline(file, line);
+    split(line, delim, v);
+    Location heroLoc;
+    heroLoc.x = atoi(v[0].c_str());
+    heroLoc.y = atoi(v[1].c_str());
+    v.clear();
     // Get hero energy level
     std::getline(file, line);
     energy = atoi(line.c_str());
@@ -58,6 +65,7 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
+    hero = new Hero(heroLoc, energy, whiffles); 
     // TODO items
     //
     //
@@ -65,8 +73,6 @@ int Map::loadMapFromFile(string fileName)
     // consume the ### line of the map file
     std::getline(file, line);
 
-    vector<string> v;
-    char delim = ',';
     while(getline(file, line)) {
         split(line, delim, v);
         //map[v[0]][v[1]].setCharToDisplay(NULL);
@@ -76,6 +82,9 @@ int Map::loadMapFromFile(string fileName)
 
         v.clear();
     }
+
+
+
 
 /*
     //Iterate map line by line
@@ -96,7 +105,6 @@ int Map::loadMapFromFile(string fileName)
         ++row; //Go down to the next line
     }
 */
-
     file.close();
     return 1;
 
