@@ -86,7 +86,8 @@ int Map::loadMapFromFile(string fileName)
         //map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
         int x = mapSize - 1 - atoi(v[0].c_str());
         int y = mapSize - 1 - atoi(v[1].c_str());
-        map[x][y].setVisibility(v[2].c_str());
+        //map[x][y].setVisibility(v[2].c_str());
+        map[x][y].setIsVisibleLocally(v[2].c_str());
 
         v.clear();
     }
@@ -131,60 +132,82 @@ int Map::loadMapToFile(string fileName)
 }
 
 //Displays the map as a grid in the terminal
-//FIXME Needs to display the player if it's in the Grovnick
 void Map::displayMap()
 {
-    //Get the location of the Hero
+    //Get the location of the Hero and local visibility radius
     Location heroLocation = hero->getLocation();
     int visibility = hero->getVisibilityRadius();
-    //Set the isVisibile flags for display
-    setVisibileGrovnicksOnMap(heroLocation, visibility);
+
+    //Sets the location where the hero is to true, and will keep it true until the game is over.
+    map[heroLocation.x][heroLocation.y].setVisibility(true);
+
+    /* Map Visibility */
+    //Clear out all local visibility
+    setAllLocalVisibleGrovnicksOnMap(false);
+
+    //Set the local visibility around the Hero to true
+    setLocalVisibileGrovnicksOnMap(heroLocation, visibility);
 
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
-    for (int i = (mapSize - 1); i >= 0; --i)
-    {
-        for (int j = (mapSize - 1); j >= 0; --j)
-        {
-            //Display the Hero if he is on this Grovnick.
+    for (int i = (mapSize - 1); i >= 0; --i) {
+        for (int j = (mapSize - 1); j >= 0; --j) {
+
+            //Display the Hero if he is on this Grovnick, and
+            //ignore the type that would have been displayed
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
-                cout << HERO_CHAR;
-            //Check if flag is set first
-            } else if (map[i][j].getVisibility()) {
-                map[i][j].displayChar();
+                cout << HERO_CHAR; //Display the Hero
             } else {
-                cout << 'X'; //Display the "mist" character
+                map[i][j].displayChar();
             }
             cout << " "; //Spaces characters on x-axis
         }
-        cout << endl;
+        cout << endl; //At the end of a row
     }
 }
 
 //Sets what grovnicks should be displayed on the map,
 //given the location of the Hero.
-void Map::setVisibileGrovnicksOnMap(Location & location, int visibility)
+void Map::setLocalVisibileGrovnicksOnMap(Location & location, int visibility)
 {
     //These are the coordinates to traverse over
     //and enable them to be visible.
-    int minSize = location.x - visibility;
-    int maxSize = location .x + visibility;
+    int minX = location.x - visibility;
+    int maxX = location .x + visibility;
+    int minY = location.y - visibility;
+    int maxY = location .y + visibility;
 
     //Iterate through the range of minSize-maxSize
     //This will cover the entire square of grovnicks
     //around the Hero
-    for (int i = minSize; i <= maxSize; ++i)
-    {
-        for (int j = minSize; j <= maxSize; ++j)
-        {
+    for (int i = minX; i <= maxX; ++i) {
+        for (int j = minY; j <= maxY; ++j) {
             //Check to make sure it's inbounds of the map
-            if (minSize >= 0 && minSize <= mapSize
-                && maxSize >= 0 && maxSize <= mapSize)
+            //TODO Check if the minSize <= mapSize is segfaulting something
+
+            //Make sure that the Grovnick is within bounds of
+            //the map
+            if (i >= 0 && i < mapSize
+                && j >= 0 && j < mapSize)
                 {
-                    map[i][j].setVisibility(true);
+                    map[i][j].setIsVisibleLocally(true);
                 }
+
             }
         }
+
+}
+
+//Sets all Grovnicks in the map to have a
+//LOCAL visibility of newValue
+void Map::setAllLocalVisibleGrovnicksOnMap(bool newValue)
+{
+    for (int i = 0; i < mapSize; ++i) {
+        for (int j = 0; j < mapSize; ++j) {
+            map[i][j].setIsVisibleLocally(newValue);
+            //map[i][j].setVisibility(newValue);
+        }
+    }
 }
 
 //Points the hero pointer to the new Hero
