@@ -11,7 +11,6 @@ Hero::Hero()
 {
   	location.x = DEFAULT_STARTING_LOCATION;
   	location.y = DEFAULT_STARTING_LOCATION;
-  	location.terrainType = 'G';
   	energy = DEFAULT_ENERGY;
   	alive = true;
   	whiffles = DEFAULT_WHIFFLES;
@@ -23,13 +22,10 @@ Hero::Hero()
 }
 
 //Parmeterized Constructor
-Hero::Hero(Location locToCopy, int energyToCopy, int whifflesToCopy)
+Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy)
 {
 	location.x = locToCopy.x;
 	location.y = locToCopy.y;
-	//location.terrainType = locToCopy.terrainType;
-    //FIXME
-  	location.terrainType = 'G';
   	alive = true;
 	energy   = energyToCopy;
 	whiffles = whifflesToCopy;
@@ -112,18 +108,19 @@ int Hero::getBalance()
 }
 
 //Function to update the current location of the Hero
-bool Hero::moveHero(int mv, char newTerrain)
+bool Hero::moveHero(int mv)
 {
-	location.terrainType = newTerrain; //FIXME
+
 	//todo: change based on terrain type
 	int energyAmount = -1;
 	changeEnergy(energyAmount);
+
 	if(mv == 1){
-		if(location.y == (MAX - 1)){
-			location.y = 0;
+		if(location.y == 0){
+			location.y = (MAX - 1);
 		}
 		else{
-			++location.y;
+			--location.y;
 		}
 		return true;
 	}
@@ -137,11 +134,11 @@ bool Hero::moveHero(int mv, char newTerrain)
 		return true;
 	}
 	if(mv == 3){
-		if(location.y == 0){
-			location.y = (MAX - 1);
+		if(location.y == (MAX - 1)){
+			location.y = 0;
 		}
 		else{
-			--location.y;
+			++location.y;
 		}
 		return true;
 	}
@@ -157,7 +154,7 @@ bool Hero::moveHero(int mv, char newTerrain)
 	return false;
 }
 
-//Places a pointer to an "Item" into the heroes inventory list, returns 0 for success, 1 for a full bag, 2 for fail
+//Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
 int Hero::fillBag(Type * itemToAdd)
 {
 	if(itemToAdd){
@@ -188,7 +185,6 @@ bool Hero::useItem(int itemToUse){
 void Hero::printStatus()
 {
 	cout << "The Heroes location is " << location.x << " X " << location.y << endl;
-	cout << "The Hero is currently on terrain type: " << location.terrainType << endl << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
 }
