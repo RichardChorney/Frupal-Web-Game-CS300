@@ -27,9 +27,13 @@ Hero::Hero(Location locToCopy, int energyToCopy, int whifflesToCopy)
 {
 	location.x = locToCopy.x;
 	location.y = locToCopy.y;
-	location.terrainType = locToCopy.terrainType;
+	//location.terrainType = locToCopy.terrainType;
+    //FIXME
+  	location.terrainType = 'G';
+  	alive = true;
 	energy   = energyToCopy;
 	whiffles = whifflesToCopy;
+  	visibilityRadius = DEFAULT_VIS;
 }
 
 //Destructor to clean up inventory list

@@ -54,8 +54,8 @@ public:
     int loadMapFromFile(string fileName); //Loads the file into the array
     void setHero(Hero * newHero);
     void setVisibileGrovnicksOnMap(Location & location, int visibility);
-    void resetVisibleToDefault();
-    void resetMapState();
+    Hero* getHeroPtr();
+    void printHeroStatus();
 protected:
     void allocateMap(int newMapSize = MAX);
     void split(const string& s, char delim, vector<string>& v);
