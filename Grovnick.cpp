@@ -83,6 +83,10 @@ void Grovnick::mapIntToType(int intToMap, int terrain)
         terrainName = "forest";
         canWalkOn = true;
         energyConsumption = 1;
+    } else if (terrain == wall) {
+        terrainName = "wall";
+        canWalkOn = false;
+        energyConsumption = 1;
     }
 
 }
