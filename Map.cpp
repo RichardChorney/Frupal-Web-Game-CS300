@@ -77,7 +77,7 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-    hero = new Hero(heroLoc, energy, whiffles); 
+    hero = new Hero(heroLoc, energy, whiffles);
     setHero(hero);
     // TODO items
     //
@@ -97,7 +97,6 @@ int Map::loadMapFromFile(string fileName)
         int y = mapSize - 1 - atoi(v[1].c_str());
         map[x][y].setVisibility(v[2].c_str());
 
-
         v.clear();
     }
     return 1;
@@ -111,7 +110,7 @@ int Map::loadMapToFile(string fileName)
     file.open(fileName.c_str());
 
 //Checks if file was opened successfully and ends the
-//functions returning 0 if it didn't.     
+//functions returning 0 if it didn't.
     if(!file)
         return 0;
 
@@ -122,7 +121,7 @@ int Map::loadMapToFile(string fileName)
     {
         for(k = 0; k < MAX; ++k)
         {
-            file << map[i][k].getCharToDisplay(); 
+            file << map[i][k].getCharToDisplay();
 
             if(k == (MAX - 1))
             {
@@ -232,7 +231,7 @@ void Map::printHeroStatus()
     hero->printStatus();
 }
 
-Hero* Map::getHeroPtr() 
+Hero* Map::getHeroPtr()
 {
     return hero;
 }
