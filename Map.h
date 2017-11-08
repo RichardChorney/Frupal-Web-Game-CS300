@@ -33,6 +33,7 @@ public:
     void setVisibility(bool newIsVisible);
     bool getVisibility(); //Returns if it's visibile
     int getEnergyConsumption();
+    char getCharToDisplay();
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)
     string terrainName;
@@ -53,6 +54,7 @@ public:
     ~Map();
     void displayMap();
     int loadMapFromFile(string fileName); //Loads the file into the array
+    int loadMapToFile(string fileName); //Stores array into file
     void setHero(Hero * newHero);
     void setVisibileGrovnicksOnMap(Location & location, int visibility);
     Hero* getHeroPtr();
