@@ -155,7 +155,7 @@ bool Hero::moveHero(int mv, char newTerrain)
 	return false;
 }
 
-//Places a pointer to an "Item" into the heroes inventory list, returns 0 for success, 1 for a full bag, 2 for fail
+//Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
 int Hero::fillBag(Type * itemToAdd)
 {
 	if(itemToAdd){
