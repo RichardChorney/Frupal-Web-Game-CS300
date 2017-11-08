@@ -198,14 +198,3 @@ void Map::split(const string& s, char delim, vector<string>& v) {
     }
     v.push_back(s.substr(i, s.length()-i));
 }
-
-void Map::resetVisibleToDefault() {
-    int i;
-    int j;
-    
-    for(i = 0; i < MAX; i++) {
-        for(j = 0; j < MAX; j++) {
-             map[i][j].setVisiblity(false);
-        }
-    }
-}
