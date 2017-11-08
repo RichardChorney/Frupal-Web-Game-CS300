@@ -11,7 +11,6 @@ Hero::Hero()
 {
   	location.x = DEFAULT_STARTING_LOCATION;
   	location.y = DEFAULT_STARTING_LOCATION;
-  	location.terrainType = 'G';
   	energy = DEFAULT_ENERGY;
   	alive = true;
   	whiffles = DEFAULT_WHIFFLES;
@@ -181,7 +180,6 @@ bool Hero::useItem(int itemToUse){
 void Hero::printStatus()
 {
 	cout << "The Heroes location is " << location.x << " X " << location.y << endl;
-	cout << "The Hero is currently on terrain type: " << location.terrainType << endl << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
 }
