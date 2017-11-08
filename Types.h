@@ -1,4 +1,6 @@
 ///////////////////////////////////////////
+//Types.h
+//CS300 Group E
 //This file contains all derived classes
 //from Grovnick, which are the types
 //of different objects that may exist on
@@ -113,14 +115,6 @@ public:
 };
 
 class Axe : public Type {
-public:
-    int interactWithType();
-};
-
-//('R')
-//This is for Royal Diamonds
-//finding this is the object of the game
-class Diamonds : public Type {
 public:
     int interactWithType();
 };

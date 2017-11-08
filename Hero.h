@@ -1,15 +1,18 @@
+///////////////////////////////////////
+//Hero.h
+//CS 300 Group E
+//This file contains the class header
+//for the Hero class, which is the
+//player in the world of Frupal.
+//////////////////////////////////////
+
+
 #pragma once
 #include <iostream>
 #include <string>
 #include "Map.h"
-
-#include "Map.h"
 #include "Types.h"
-
-int const DEFAULT_ENERGY = 100;
-int const DEFAULT_WHIFFLES = 100;
-int const DEFAULT_VIS = 1; //Visibility Radius
-const int BAG_MAX = 10;
+#include "Constants.h"
 
 class Type;
 
@@ -27,7 +30,9 @@ class Type;
 class Hero {
   public:
     Hero();						//Default constructor
+	Hero(Location locToCopy, int energyToCopy, int whifflesToCopy);		//Parameterized constructor
 	~Hero();
+	
     Location getLocation();		//Returns Heroes current x and y coordinates, along with terrain type
 	int getVisibilityRadius();	//Returns Heroes current vis range
 	bool setVisibility(bool range);	//Sets visual range if binoculars found, true argument changes to greater vis, returns success

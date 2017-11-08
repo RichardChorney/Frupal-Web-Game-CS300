@@ -1,6 +1,9 @@
-////////////////////////////////
-//Grovnick Implementation
-////////////////////////////////
+//////////////////////////////////////////
+//Grovnick.cpp
+//CS300 Group E
+//This file contains the implementation of
+//the Grovnick class.
+//////////////////////////////////////////
 
 #include "Map.h"
 #include "Enums.h"
@@ -14,12 +17,17 @@ Grovnick::Grovnick(char newCharToDisplay)
     type = NULL;
     charToDisplay = newCharToDisplay;
     isVisible = false;
+    canWalkOn = true;
+    energyConsumption = 1;
 }
 
 //Displays just the character associated
-//with the Grovnick.
+//with the Grovnick. If the hero is on this
+//current grovnick, then it will display the
+//Hero instead.
 void Grovnick::displayChar()
 {
+//    if (isHeroOnGrovnick) cout << HERO_CHAR;
     if (!isVisible) cout << MIST;
     else cout << charToDisplay;
 }
@@ -53,8 +61,8 @@ void Grovnick::mapIntToType(int intToMap, int terrain)
     else if (intToMap == axe) type = new Axe();
 
     //Parse what kind of terrain it is
-    if (terrain == medow) {
-        terrainName = "Medow";
+    if (terrain == meadow) {
+        terrainName = "Meadow";
         canWalkOn = true;
         energyConsumption = 1;
     } else if (terrain == water) {
