@@ -1,3 +1,13 @@
+///////////////////////////////////////////
+//Main.cpp
+//CS300 Group E
+//This file contains the main function
+//for our Frupal application. It is also
+//where the main game loop is implemented.
+///////////////////////////////////////////
+
+
+
 #include "Map.h"
 using namespace std;
 

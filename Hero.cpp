@@ -1,12 +1,16 @@
+////////////////////////////////////////
+//Hero.cpp
+//Implementation file for the Hero Class
+////////////////////////////////////////
+
+
 #include "Hero.h"
 
 //Default Constructor for Hero class
 Hero::Hero()
 {
-  	//Should the Hero start at the middle?
-  	//Does the map specify this?
-  	location.x = 4; //Change these 5's
-  	location.y = 4;
+  	location.x = DEFAULT_STARTING_LOCATION;
+  	location.y = DEFAULT_STARTING_LOCATION;
   	location.terrainType = 'G';
   	energy = DEFAULT_ENERGY;
   	alive = true;
@@ -33,7 +37,7 @@ Hero::~Hero()
 {
 	for(int i = 0; i < BAG_MAX; ++i){
 		if(list[i] != NULL){
-            //FIXME
+            //FIXME Throwing errors.
             //delete list[i];
             //list[i] = NULL;
 		}

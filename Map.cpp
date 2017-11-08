@@ -1,4 +1,6 @@
 ///////////////////////////////////
+//Map.cpp
+//CS300 Group E
 //Implementation of the Map class
 ///////////////////////////////////
 
@@ -11,18 +13,7 @@
 //that is called "MAX" (declared in Map.h)
 Map::Map() : hero(NULL)
 {
-    /*
-    //Allocate memory for the 2D Map
-    mapSize = newMapSize;
-    map = new Grovnick * [mapSize];
-    for (int i = 0; i < mapSize; ++i)
-    {
-        //Allocate row of Grovnicks
-        map[i] = new Grovnick[mapSize];
 
-    }
-    hero = NULL; //Point the hero to NULL
-    */
 }
 
 //Destructor for the Map Class
@@ -86,9 +77,6 @@ int Map::loadMapFromFile(string fileName)
         v.clear();
     }
 
-
-
-
 /*
     //Iterate map line by line
     while (std::getline(file, line))
@@ -108,6 +96,7 @@ int Map::loadMapFromFile(string fileName)
         ++row; //Go down to the next line
     }
 */
+
     file.close();
     return 1;
 
@@ -125,12 +114,15 @@ void Map::displayMap()
 
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
-    for (int i = 0; i < mapSize; ++i)
+    for (int i = (mapSize - 1); i >= 0; --i)
     {
-        for (int j = 0; j < mapSize; ++j)
+        for (int j = (mapSize - 1); j >= 0; --j)
         {
+            //Display the Hero if he is on this Grovnick.
+            if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
+                cout << HERO_CHAR;
             //Check if flag is set first
-            if (map[i][j].getVisibility()) {
+            } else if (map[i][j].getVisibility()) {
                 map[i][j].displayChar();
             } else {
                 cout << 'X'; //Display the "mist" character

@@ -1,25 +1,26 @@
 /////////////////////////////
+//Map.h
+//CS300 Group E
 //This file contains the headers for the Map
 //and Grovnick classes.
 /////////////////////////////
 
 #pragma once
 #include <iostream>
-#include <fstream> //To read/save from files
+#include <fstream>
 #include <string>
 #include <cstdlib>
+#include <vector>
 #include "Hero.h"
 #include "Types.h"
-#include <vector>
+#include "Constants.h"
+
 
 class Type; //Forward decleration
 class Hero;
 struct Location;
 
 using namespace std;
-
-int const MAX = 10; //Default size for map
-char const MIST = 'X'; //Invisible terrain tile
 
 //Grovnick class
 class Grovnick
