@@ -7,23 +7,20 @@
 
 #pragma once
 #include <iostream>
-#include <fstream> //To read/save from files
+#include <fstream> 
 #include <string>
 #include <cstdlib>
+#include <vector>
 #include "Hero.h"
 #include "Types.h"
-#include <vector>
+#include "Constants.h"
+
 
 class Type; //Forward decleration
 class Hero;
 struct Location;
 
 using namespace std;
-
-int const MAX = 10; //Default size for map
-char const MIST = 'X'; //Invisible terrain tile
-char const HERO_CHAR = 'H'; //Display Char for Hero
-int const DEFAULT_STARTING_LOCATION = MAX / 2;
 
 //Grovnick class
 class Grovnick
