@@ -53,8 +53,8 @@ void Grovnick::mapIntToType(int intToMap, int terrain)
     else if (intToMap == axe) type = new Axe();
 
     //Parse what kind of terrain it is
-    if (terrain == medow) {
-        terrainName = "Medow";
+    if (terrain == meadow) {
+        terrainName = "Meadow";
         canWalkOn = true;
         energyConsumption = 1;
     } else if (terrain == water) {
