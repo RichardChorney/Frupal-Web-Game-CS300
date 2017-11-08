@@ -20,11 +20,9 @@ string const basicMap = "basicMap.txt";
 int main()
 {
 
-    //Hero * hero = new Hero();
     Hero * hero;
 
     Map map; //Create a map of size MAX
-    //map.setHero(hero);
     map.loadMapFromFile(basicMap);
     hero = map.getHeroPtr();
 	

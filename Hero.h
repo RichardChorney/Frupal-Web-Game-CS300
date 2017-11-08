@@ -21,7 +21,6 @@ class Type;
 struct Location {
 	int x;
 	int y;
-	char terrainType;
 };
 
 class Type;
@@ -30,7 +29,7 @@ class Type;
 class Hero {
   public:
     Hero();						//Default constructor
-	Hero(Location locToCopy, int energyToCopy, int whifflesToCopy);		//Parameterized constructor
+	Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy);		//Parameterized constructor
 	~Hero();
 	
     Location getLocation();		//Returns Heroes current x and y coordinates, along with terrain type

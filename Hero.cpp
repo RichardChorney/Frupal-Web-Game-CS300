@@ -23,13 +23,10 @@ Hero::Hero()
 }
 
 //Parmeterized Constructor
-Hero::Hero(Location locToCopy, int energyToCopy, int whifflesToCopy)
+Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy)
 {
 	location.x = locToCopy.x;
 	location.y = locToCopy.y;
-	//location.terrainType = locToCopy.terrainType;
-    //FIXME
-  	location.terrainType = 'G';
   	alive = true;
 	energy   = energyToCopy;
 	whiffles = whifflesToCopy;
@@ -112,16 +109,14 @@ int Hero::getBalance()
 }
 
 //Function to update the current location of the Hero
-bool Hero::moveHero(int mv, char newTerrain)
+bool Hero::moveHero(int mv)
 {
-	location.terrainType = newTerrain; //FIXME
-
 	if(mv == 1){
-		if(location.y == (MAX - 1)){
-			location.y = 0;
+		if(location.y == 0){
+			location.y = (MAX - 1);
 		}
 		else{
-			++location.y;
+			--location.y;
 		}
 		return true;
 	}
@@ -135,11 +130,11 @@ bool Hero::moveHero(int mv, char newTerrain)
 		return true;
 	}
 	if(mv == 3){
-		if(location.y == 0){
-			location.y = (MAX - 1);
+		if(location.y == (MAX - 1)){
+			location.y = 0;
 		}
 		else{
-			--location.y;
+			++location.y;
 		}
 		return true;
 	}
