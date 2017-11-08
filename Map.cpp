@@ -77,6 +77,26 @@ int Map::loadMapFromFile(string fileName)
         v.clear();
     }
 
+/*
+    //Iterate map line by line
+    while (std::getline(file, line))
+    {
+        //Iterate line, char by char
+        for (int column = 0; column < mapSize; ++column)
+        {
+
+            // This is what we 'want' to do, but type is protected...
+            // map[row][column].type = new Tool();
+            //Don't forget that line[column] is the current character
+
+            //Test this code out
+            map[row][column].mapCharToType(line[column]);
+            map[row][column].setCharToDisplay(line[column]);
+        }
+        ++row; //Go down to the next line
+    }
+*/
+
     file.close();
     return 1;
 
@@ -94,7 +114,6 @@ void Map::displayMap()
 
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
-
     for (int i = (mapSize - 1); i >= 0; --i)
     {
         for (int j = (mapSize - 1); j >= 0; --j)
