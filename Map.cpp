@@ -144,14 +144,22 @@ void Map::displayMap()
     /* Map Visibility */
     //Clear out all local visibility
     setAllLocalVisibleGrovnicksOnMap(false);
-
     //Set the local visibility around the Hero to true
     setLocalVisibileGrovnicksOnMap(heroLocation, visibility);
 
+    if (SHOW_ALL_GROVNICKS) {
+        setAllLocalVisibleGrovnicksOnMap(true);
+    }
+
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
-    for (int i = (mapSize - 1); i >= 0; --i) {
-        for (int j = (mapSize - 1); j >= 0; --j) {
+    for (int j = 0; j < mapSize; ++j) {
+        for (int i = 0; i < mapSize; ++i) {
+
+            //Debug Mode
+            if (DISPLAY_COORDINATES) {
+                cout << "(" << j << ", " << i << ") ";
+            }
 
             //Display the Hero if he is on this Grovnick, and
             //ignore the type that would have been displayed

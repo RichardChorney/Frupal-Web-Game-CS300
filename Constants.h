@@ -9,6 +9,13 @@
 #pragma once
 #include "Struct.h"
 
+/* Debug Mode */
+//Shows the coordinates next to the Grovnick
+bool const DISPLAY_COORDINATES = false;
+
+//All grovnick's can be seen on the entire map
+bool const SHOW_ALL_GROVNICKS = false;
+
 /* Hero Constants */
 int const DEFAULT_ENERGY = 100; //Starting amount of Energy
 int const DEFAULT_WHIFFLES = 100; //Starting amount of Whiffles
@@ -20,4 +27,3 @@ int const MAX = 10; //Default size for map
 char const MIST = 'X'; //Invisible terrain tile
 char const HERO_CHAR = 'H'; //Display Char for Hero
 int const DEFAULT_STARTING_LOCATION = (MAX / 2) - 1;
-
