@@ -37,6 +37,8 @@ public:
     bool getLocalVisibility(); //Returns the local visibility
     int getEnergyConsumption();
     char getCharToDisplay();
+	Terrain * getTerrain();
+
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)
     bool isVisibleLocally; //Sets the visibility around the player temporarily, which is different than isVisibile (those are fixed)
@@ -61,6 +63,8 @@ public:
     void setAllLocalVisibleGrovnicksOnMap(bool newValue); //Sets all grovnicks local visibilty
     Hero* getHeroPtr();
     void printHeroStatus();
+	Grovnick ** getMap();
+
 protected:
     void allocateMap(int newMapSize = MAX);
     void split(const string& s, char delim, vector<string>& v);

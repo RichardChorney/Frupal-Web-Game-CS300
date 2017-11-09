@@ -20,6 +20,7 @@
 struct Terrain;
 
 class Type;
+class Map;
 
 //The Player
 class Hero {
@@ -36,7 +37,7 @@ class Hero {
     bool checkAlive();			//Returns whether Heroes energy level is sufficient to remain alive or not
 	bool setBalance(int whifls);//Adjust whiffle account, returns success
 	int  getBalance();			//Queries whiffle account
-	bool moveHero(int mv);		//Argument tells Hero how to update its location, 1 move north, 2 east, 3 south, 4 west, returns success
+	bool moveHero(int mv, Map& map);		//Argument tells Hero how to update its location, 1 move north, 2 east, 3 south, 4 west, returns success
 	int fillBag(Type * obj);	//Places an Item ptr into the Heroes inventory list of item pointers, returns 0 for full bag, 1 for success, 2 for fail
 	bool useItem(int num);		//Updates heroes pointer list
 	void printStatus();			//Prints heroes status
