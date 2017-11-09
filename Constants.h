@@ -7,6 +7,7 @@
 ////////////////////////////////////////
 
 #pragma once
+#include "Struct.h"
 
 /* Hero Constants */
 int const DEFAULT_ENERGY = 100; //Starting amount of Energy
@@ -18,4 +19,5 @@ int const BAG_MAX = 10; //Amount of items that may be held in inventory.
 int const MAX = 10; //Default size for map
 char const MIST = 'X'; //Invisible terrain tile
 char const HERO_CHAR = 'H'; //Display Char for Hero
-int const DEFAULT_STARTING_LOCATION = (MAX / 2) - 1; 
+int const DEFAULT_STARTING_LOCATION = (MAX / 2) - 1;
+

@@ -16,13 +16,6 @@
 
 //struct Terrain;
 
-//Struct that holds the x and y Coordinates
-//for a map cell, and the terrain type
-struct Location {
-	int x;
-	int y;
-	
-};
 
 struct Terrain;
 
