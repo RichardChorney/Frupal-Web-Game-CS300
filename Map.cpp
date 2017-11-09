@@ -29,8 +29,15 @@ Map::Map() : hero(NULL)
 //Destructor for the Map Class
 Map::~Map()
 {
-    //FIXME
     //Free the 2D array
+	for(int i = 0; i < mapSize; ++i){
+		delete [] map[i];	
+		map[i] = NULL;	
+	}
+	delete [] map;
+	delete hero;
+	map = NULL;
+	hero = NULL;
 }
 
 //Loads the map (2D array) from a file

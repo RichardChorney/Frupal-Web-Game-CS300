@@ -175,7 +175,7 @@ bool Hero::lookAhead(Map & map)
     ahead.terrainName = (map.getMap()[location.y][location.x].getTerrain())->terrainName;
     ahead.charToDisplay = map.getMap()[location.y][location.x].getTerrain()->charToDisplay;
     ahead.canWalkOn = map.getMap()[location.y][location.x].getTerrain()->canWalkOn;
-    terrain.energyConsumption = map.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+    ahead.energyConsumption = map.getMap()[location.y][location.x].getTerrain()->energyConsumption;
 
     //If the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
