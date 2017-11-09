@@ -70,12 +70,12 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-	Terrain temporaryTerrain;		//FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
+    Terrain temporaryTerrain; //FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
+
     hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
     setHero(hero);
     // TODO items
-    //
-    //
+
 
     // consume the ### line of the map file
     std::getline(file, line);
@@ -83,8 +83,7 @@ int Map::loadMapFromFile(string fileName)
     while(getline(file, line)) {
         split(line, delim, v);
         //map[v[0]][v[1]].setCharToDisplay(NULL);
-
-        map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
+        //map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
         //int x = mapSize - 1 - atoi(v[0].c_str());
         //int y = mapSize - 1 - atoi(v[1].c_str());
         //map[x][y].setVisibility(v[2].c_str());
@@ -125,9 +124,9 @@ int Map::loadMapToFile(string fileName)
         }
     }
 
-//Closes file
+    //Closes file
     file.close();
-//Returns 1 upon successful function usage
+    //Returns 1 upon successful function usage
     return 1;
 }
 
@@ -213,7 +212,6 @@ void Map::setAllLocalVisibleGrovnicksOnMap(bool newValue)
     for (int i = 0; i < mapSize; ++i) {
         for (int j = 0; j < mapSize; ++j) {
             map[i][j].setIsVisibleLocally(newValue);
-            //map[i][j].setVisibility(newValue);
         }
     }
 }

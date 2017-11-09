@@ -13,12 +13,9 @@
 #include "Map.h"
 #include "Types.h"
 #include "Constants.h"
-
-//struct Terrain;
-
+#include "Struct.h"
 
 struct Terrain;
-
 class Type;
 class Map;
 
@@ -41,10 +38,11 @@ class Hero {
 	int fillBag(Type * obj);	//Places an Item ptr into the Heroes inventory list of item pointers, returns 0 for full bag, 1 for success, 2 for fail
 	bool useItem(int num);		//Updates heroes pointer list
 	void printStatus();			//Prints heroes status
-        void displayInventory();
+	void displayInventory();
+	bool lookAhead(Map & map); //Checks Grovnick ahead of Hero
 
   protected:
-    Terrain terrain;
+    Terrain terrain;        //Terrain that the hero is on
 	Location location; 		//Coordinates of the player on the map
     int energy; 			//Amount of energy that the play has
     bool alive; 			//is the user alive?

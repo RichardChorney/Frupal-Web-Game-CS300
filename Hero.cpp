@@ -116,56 +116,73 @@ int Hero::getBalance()
 }
 
 //Function to update the current location of the Hero
-bool Hero::moveHero(int mv, Map& mapToCopy)
+bool Hero::moveHero(int mv, Map & mapToCopy)
 {
+    //Temporary vaiables for the Hero's location
+    int x = location.x;
+    int y = location.y;
 
-	//todo: change based on terrain type
+	//TODO: change based on terrain type
 	int energyAmount = -1;
 	changeEnergy(energyAmount);
 
-	//Move North
-	if(mv == 1){
-		if(location.y == 0){
-			location.y = (MAX - 1);
-		}
-		else{
-			--location.y;
-		}
-	}
-	//Move East
-	else if(mv == 2){
-		if(location.x == (MAX - 1)){
-			location.x = 0;
-		}
-		else{
-			++location.x;
-		}
-	}
-	//Move South	
-	else if(mv == 3){
-		if(location.y == (MAX - 1)){
-			location.y = 0;
-		}
-		else{
-			++location.y;
-		}
-	}
-	//Move West
-	else if(mv == 4){
-		if(location.x == 0){
-			location.x = (MAX - 1);
-		}
-		else{
-			--location.x;
-		}
-	}
-	//Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these) 
-	terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
-	terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
-	terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
-	terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
-		
+    //Move North
+    if(mv == 1) {
+		if(y == 0) { y = (MAX - 1); }
+        else { --y; }
+    //Move East
+	} else if(mv == 2) {
+		if(x == (MAX - 1)){ x = 0; }
+		else { ++x; }
+    //Move South
+	} else if(mv == 3) {
+		if(y == (MAX - 1)){ y = 0; }
+        else { ++y; }
+    //Move West
+    } else if(mv == 4) {
+        if(x == 0) { x = (MAX - 1); }
+		else { --x; }
+	} else { return false; }
+
+    //Look ahead before actually stepping.
+    if (lookAhead(mapToCopy))
+    {
+        //Move the Hero
+        location.x = x;
+        location.y = y;
+
+        //Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
+        terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
+        terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
+        terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
+        terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+
+    }
+
 	return true;
+}
+
+//Looks at the Grovnick that the Hero is ABOUT to step into
+//and returns true if the player
+bool Hero::lookAhead(Map & map)
+{
+    //Collect the terrain ahead of the hero
+    Terrain ahead;
+    ahead.terrainName = (map.getMap()[location.y][location.x].getTerrain())->terrainName;
+    ahead.charToDisplay = map.getMap()[location.y][location.x].getTerrain()->charToDisplay;
+    ahead.canWalkOn = map.getMap()[location.y][location.x].getTerrain()->canWalkOn;
+    terrain.energyConsumption = map.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+
+    //If the Hero can't walk on it, then deduct energy and return false
+    if (ahead.canWalkOn == false) {
+        //Deduct energy for trying to walk
+        return false;
+    } else {
+        //TODO
+        //* Deduct energy here
+        //* Check if he died
+        return true;
+    }
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
@@ -202,14 +219,14 @@ void Hero::printStatus()
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
 	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
-	if(terrain.canWalkOn){ 
-		cout << "You are able to walk on this Grovnick" << endl; 
+	if(terrain.canWalkOn){
+		cout << "You are able to walk on this Grovnick" << endl;
 	}
-	else{ 
-		cout << "You are not able to walk on this Grovnick" << endl; 
+	else{
+		cout << "You are not able to walk on this Grovnick" << endl;
 	}
 	cout << "It takes " << terrain.energyConsumption << " energy bean(s) to walk on this Grovnick" << endl;
-	
+
 }
 
 //TODO As the items are implemented this needs to be reviewed
@@ -220,12 +237,12 @@ void Hero::displayInventory()
     int i = 0;
     for(i = 0; i < BAG_MAX; ++i)
     {
-        //If an array element has a pointer to a tool, then this 
+        //If an array element has a pointer to a tool, then this
         //branch will execute.
         if(list[i])
         {
            //This if/else is for formatting, it adds an extra space
-           //for 1 digit numbers, so the list will display 
+           //for 1 digit numbers, so the list will display
            //vertically inline
            if(i < 9)
            {
@@ -237,7 +254,7 @@ void Hero::displayInventory()
            }
            //This hero inventory display function will then call that
            //specific type's display function
-           list[i]->displayType(); 
+           list[i]->displayType();
         }
         /*This branch displays a generic "no tool" message if
         the array element is NULL*/
@@ -256,5 +273,5 @@ void Hero::displayInventory()
 
     }
     cout << endl;
+    cout << "The Hero is standing on " << terrain.terrainName << " ." << endl;
 }
-

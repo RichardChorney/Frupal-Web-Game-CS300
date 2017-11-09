@@ -19,6 +19,8 @@ Grovnick::Grovnick(char newCharToDisplay)
     terrain.charToDisplay = newCharToDisplay;
     isVisible = false;
     isVisibleLocally = false;
+    terrain.terrainName = "meadow";
+    terrain.charToDisplay = 'G';
     terrain.canWalkOn = true;
     terrain.energyConsumption = 1;
 }

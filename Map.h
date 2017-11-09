@@ -14,7 +14,7 @@
 #include "Hero.h"
 #include "Types.h"
 #include "Constants.h"
-
+#include "Struct.h"
 
 class Type; //Forward decleration
 class Hero;
