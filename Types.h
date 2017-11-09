@@ -24,6 +24,7 @@ public:
     Type(); //Default Constructor
     Type(string newName, string newMessage);
     virtual int interactWithType() = 0; //Dynamic Binding!
+    void displayType();
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
