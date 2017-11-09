@@ -39,7 +39,7 @@ class Hero {
 	bool useItem(int num);		//Updates heroes pointer list
 	void printStatus();			//Prints heroes status
 	void displayInventory();
-	//void updateTerrain(Location location);
+	bool lookAhead(Map & map); //Checks Grovnick ahead of Hero
 
   protected:
     Terrain terrain;        //Terrain that the hero is on
