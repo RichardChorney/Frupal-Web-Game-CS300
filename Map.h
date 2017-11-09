@@ -27,16 +27,18 @@ char const MIST = 'X'; //Invisible terrain tile
 class Grovnick
 {
 public:
-    Grovnick(char newCharToDisplay = 'G'); //Default Constructor
+    Grovnick();
+    Grovnick(char newCharToDisplay, Hero * copyHero); //Default Constructor
     void displayChar(); //Displays the map character
-    void mapIntToType(int intToMap, int terrain); //Maps the char to type
+    void mapIntToType(int intToMap, int terrain, Hero * heroPtr); //Maps the char to type
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
     void setIsVisibleLocally(bool newVisible);
     bool getVisibility(); //Returns if it's visibile
     bool getLocalVisibility(); //Returns the local visibility
     int getEnergyConsumption();
-    char getCharToDisplay();
+    char getCharToDisplay(); //Returns the display character
+    void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Hero * newHero);
 	Terrain * getTerrain();
 
 protected:
