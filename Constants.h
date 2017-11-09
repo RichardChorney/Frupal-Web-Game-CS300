@@ -7,6 +7,7 @@
 ////////////////////////////////////////
 
 #pragma once
+#include "Struct.h"
 
 /* Debug Mode */
 //Shows the coordinates next to the Grovnick

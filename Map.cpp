@@ -77,7 +77,8 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-    hero = new Hero(heroLoc, energy, whiffles);
+	Terrain temporaryTerrain;		//FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
+    hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
     setHero(hero);
     // TODO items
     //
