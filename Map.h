@@ -10,7 +10,8 @@
 #include <cstdlib>
 #include "Hero.h"
 #include "Types.h"
-#include <vector>
+#include "Constants.h"
+#include "Struct.h"
 
 class Type; //Forward decleration
 class Hero;

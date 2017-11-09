@@ -63,12 +63,25 @@ int Clue::interactWithType()
     return 0;
 }
 
+//Default constructor for Chest
+Chest::Chest()
+{
+    whifflesRecieved = CHEST_WHIFFLES_RECIEVED;
+}
+
 //Chest
 int Chest::interactWithType()
 {
     cout << "Chest" << endl; //Test
     return 0;
 }
+
+//Explosive chest constructor
+ExplosiveChest::ExplosiveChest()
+{
+    whifflesDeducted = CHEST_WHIFFLES_DEDUCTED;
+}
+
 
 //Explosive Chest
 int ExplosiveChest::interactWithType()
