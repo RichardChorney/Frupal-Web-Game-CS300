@@ -38,11 +38,8 @@ class Hero {
 	int fillBag(Type * obj);	//Places an Item ptr into the Heroes inventory list of item pointers, returns 0 for full bag, 1 for success, 2 for fail
 	bool useItem(int num);		//Updates heroes pointer list
 	void printStatus();			//Prints heroes status
-<<<<<<< HEAD
-        void displayInventory();
-=======
+	void displayInventory();
 	//void updateTerrain(Location location);
->>>>>>> Changed the Hero movement function so that a look ahead could be implemented.
 
   protected:
     Terrain terrain;        //Terrain that the hero is on
