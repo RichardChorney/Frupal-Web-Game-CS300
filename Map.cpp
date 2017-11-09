@@ -92,10 +92,9 @@ int Map::loadMapFromFile(string fileName)
     while(getline(file, line)) {
         split(line, delim, v);
         //map[v[0]][v[1]].setCharToDisplay(NULL);
-
         //map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
-        int x = mapSize - 1 - atoi(v[0].c_str());
-        int y = mapSize - 1 - atoi(v[1].c_str());
+        //int x = mapSize - 1 - atoi(v[0].c_str());
+        //int y = mapSize - 1 - atoi(v[1].c_str());
         //map[x][y].setVisibility(v[2].c_str());
         map[x][y].setIsVisibleLocally(v[2].c_str());
 
@@ -223,7 +222,6 @@ void Map::setAllLocalVisibleGrovnicksOnMap(bool newValue)
     for (int i = 0; i < mapSize; ++i) {
         for (int j = 0; j < mapSize; ++j) {
             map[i][j].setIsVisibleLocally(newValue);
-            //map[i][j].setVisibility(newValue);
         }
     }
 }
