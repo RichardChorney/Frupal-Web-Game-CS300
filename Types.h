@@ -15,7 +15,6 @@
 using namespace std;
 
 
-
 //Type class is the Base class for all of
 //the different types that a Grovnick could be.
 //e.g. Tool, Boulder, Clue, Bog...
@@ -55,20 +54,24 @@ protected:
 };
 
 //('$')
-//This could either be an explosive chest,
-//or a treasure chest.
+//Regular Chest that gives you whiffles.
 class Chest : public Type {
 public:
+    Chest();
     int interactWithType();
 protected:
-    //A negative amount of whiffles means it's an exploding chest
-    //Use addition when integrating them.
-    int whiffleAmount;
+    int whifflesRecieved;
 };
 
+//FIXME
+//This class should be deleted if the Chest class
+//can be treated as either explosive or regular.
 class ExplosiveChest : public Type {
 public:
+    ExplosiveChest();
     int interactWithType();
+protected:
+    int whifflesDeducted;
 };
 
 //('S') The bog class is the same thing

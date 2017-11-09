@@ -118,47 +118,33 @@ int Hero::getBalance()
 //Function to update the current location of the Hero
 bool Hero::moveHero(int mv, Map& mapToCopy)
 {
+    //Temporary vaiables for the Hero's location
+    int x = location.x;
+    int y = location.y;
 
-	//todo: change based on terrain type
+	//TODO: change based on terrain type
 	int energyAmount = -1;
 	changeEnergy(energyAmount);
 
-	//Move North
-	if(mv == 1){
-		if(location.y == 0){
-			location.y = (MAX - 1);
-		}
-		else{
-			--location.y;
-		}
-	}
-	//Move East
-	else if(mv == 2){
-		if(location.x == (MAX - 1)){
-			location.x = 0;
-		}
-		else{
-			++location.x;
-		}
-	}
-	//Move South
-	else if(mv == 3){
-		if(location.y == (MAX - 1)){
-			location.y = 0;
-		}
-		else{
-			++location.y;
-		}
-	}
-	//Move West
-	else if(mv == 4){
-		if(location.x == 0){
-			location.x = (MAX - 1);
-		}
-		else{
-			--location.x;
-		}
-	}
+    //Move North
+    if(mv == 1) {
+		if(y == 0) { y = (MAX - 1); }
+        else { --y; }
+    //Move East
+	} else if(mv == 2) {
+		if(x == (MAX - 1)){ x = 0; }
+		else { ++x; }
+    //Move South
+	} else if(mv == 3) {
+		if(y == (MAX - 1)){ y = 0; }
+        else { ++y; }
+    //Move West
+    } else if(mv == 4) {
+        if(x == 0) { x = (MAX - 1); }
+		else { --x; }
+	} else { return false; }
+
+
 	//Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
 	terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
 	terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
@@ -201,6 +187,7 @@ void Hero::printStatus()
 	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
+<<<<<<< HEAD
 	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
 	if(terrain.canWalkOn){
 		cout << "You are able to walk on this Grovnick" << endl;
@@ -256,4 +243,7 @@ void Hero::displayInventory()
 
     }
     cout << endl;
+=======
+    cout << "The Hero is standing on " << terrain.terrainName << " ." << endl;
+>>>>>>> Changed the Hero movement function so that a look ahead could be implemented.
 }
