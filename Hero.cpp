@@ -188,3 +188,50 @@ void Hero::printStatus()
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
 }
+
+//TODO As the items are implemented this needs to be reviewed
+//to make sure it displays correctly
+void Hero::displayInventory()
+{
+//For loop processes through inventory array
+    int i = 0;
+    for(i = 0; i < BAG_MAX; ++i)
+    {
+        //If an array element has a pointer to a tool, then this 
+        //branch will execute.
+        if(list[i])
+        {
+           //This if/else is for formatting, it adds an extra space
+           //for 1 digit numbers, so the list will display 
+           //vertically inline
+           if(i < 9)
+           {
+               cout << endl << i+1 << ".  ";
+           }
+           else
+           {
+               cout << endl << i+1 << ". ";
+           }
+           //This hero inventory display function will then call that
+           //specific type's display function
+           list[i]->displayType(); 
+        }
+        /*This branch displays a generic "no tool" message if
+        the array element is NULL*/
+        else
+        {
+            //If/Else for formatting digits less than 10.
+            if(i < 9)
+            {
+                cout << endl << i+1 << ".  No tool in slot.";
+            }
+            else
+            {
+                cout << endl << i+1 << ". No tool in slot.";
+            }
+        }
+
+    }
+    cout << endl;
+}
+
