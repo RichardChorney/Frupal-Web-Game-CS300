@@ -5,12 +5,6 @@
 #include "Map.h"
 #include "Types.h"
 
-struct Terrain {
-	string name;
-    char charToDisplay;
-    bool canWalkOn;
-    int energyConsumption;
-};
 
 //Default constructor for the Map Class
 //A map size may be used for initialization,

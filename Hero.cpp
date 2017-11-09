@@ -15,6 +15,10 @@ Hero::Hero()
   	alive = true;
   	whiffles = DEFAULT_WHIFFLES;
   	visibilityRadius = DEFAULT_VIS;
+	terrain.terrainName = "meadow";
+	terrain.charToDisplay = 'G';
+	terrain.canWalkOn = true;
+	terrain.energyConsumption = 1;
 
 	for(int i = 0; i < BAG_MAX; ++i){
 		list[i] = NULL;
@@ -22,7 +26,7 @@ Hero::Hero()
 }
 
 //Parmeterized Constructor
-Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy)
+Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy, Terrain& terrainToCopy)
 {
 	location.x = locToCopy.x;
 	location.y = locToCopy.y;
@@ -30,6 +34,10 @@ Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy)
 	energy   = energyToCopy;
 	whiffles = whifflesToCopy;
   	visibilityRadius = DEFAULT_VIS;
+	terrain.terrainName = terrainToCopy.terrainName;
+	terrain.charToDisplay = terrainToCopy.charToDisplay;
+	terrain.canWalkOn = terrainToCopy.canWalkOn;
+	terrain.energyConsumption = terrainToCopy.energyConsumption;
 }
 
 //Destructor to clean up inventory list

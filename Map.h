@@ -15,6 +15,7 @@
 class Type; //Forward decleration
 class Hero;
 struct Location;
+struct Terrain;
 
 using namespace std;
 
@@ -37,12 +38,9 @@ public:
     char getCharToDisplay();
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)
-    string terrainName;
-    char charToDisplay; //Char to be displayed on the actual map
     bool isVisibleLocally; //Sets the visibility around the player temporarily, which is different than isVisibile (those are fixed)
     bool isVisible; //If the player can see it
-    bool canWalkOn; //If the player can walk on it
-    int energyConsumption; //Amount of energy consumed for walking onto this Grovnick
+	Terrain terrain; //Terrain struct to hold a Grovnicks terrain specific information
 };
 
 //Map Class
