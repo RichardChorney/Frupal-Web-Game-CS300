@@ -116,13 +116,14 @@ int Hero::getBalance()
 }
 
 //Function to update the current location of the Hero
-bool Hero::moveHero(int mv)
+bool Hero::moveHero(int mv, Map& mapToCopy)
 {
 
 	//todo: change based on terrain type
 	int energyAmount = -1;
 	changeEnergy(energyAmount);
 
+	//Move North
 	if(mv == 1){
 		if(location.y == 0){
 			location.y = (MAX - 1);
@@ -130,36 +131,41 @@ bool Hero::moveHero(int mv)
 		else{
 			--location.y;
 		}
-		return true;
 	}
-	if(mv == 2){
+	//Move East
+	else if(mv == 2){
 		if(location.x == (MAX - 1)){
 			location.x = 0;
 		}
 		else{
 			++location.x;
 		}
-		return true;
 	}
-	if(mv == 3){
+	//Move South	
+	else if(mv == 3){
 		if(location.y == (MAX - 1)){
 			location.y = 0;
 		}
 		else{
 			++location.y;
 		}
-		return true;
 	}
-	if(mv == 4){
+	//Move West
+	else if(mv == 4){
 		if(location.x == 0){
 			location.x = (MAX - 1);
 		}
 		else{
 			--location.x;
 		}
-		return true;
 	}
-	return false;
+	//Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these) 
+	terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
+	terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
+	terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
+	terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+		
+	return true;
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
@@ -192,9 +198,18 @@ bool Hero::useItem(int itemToUse){
 //Prints relevant Hero status information
 void Hero::printStatus()
 {
-	cout << "The Heroes location is " << location.x << " X " << location.y << endl;
+	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
+	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
+	if(terrain.canWalkOn){ 
+		cout << "You are able to walk on this Grovnick" << endl; 
+	}
+	else{ 
+		cout << "You are not able to walk on this Grovnick" << endl; 
+	}
+	cout << "It takes " << terrain.energyConsumption << " energy bean(s) to walk on this Grovnick" << endl;
+	
 }
 
 //TODO As the items are implemented this needs to be reviewed

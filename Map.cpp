@@ -259,3 +259,8 @@ Hero* Map::getHeroPtr()
 {
     return hero;
 }
+
+Grovnick ** Map::getMap()
+{
+	return map;
+}

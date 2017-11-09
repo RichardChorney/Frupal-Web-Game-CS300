@@ -9,6 +9,7 @@
 #include "Enums.h"
 #include "Types.h"
 
+using namespace std;
 //Default constructor for the Grovnick Class
 //The default grovnick is Grass is nothing
 //else is specified
@@ -107,3 +108,5 @@ bool Grovnick::getVisibility() { return isVisible; }
 
 //Returns the energy consumption data member
 int Grovnick::getEnergyConsumption() { return terrain.energyConsumption; }
+
+Terrain * Grovnick::getTerrain() { return &terrain; }
