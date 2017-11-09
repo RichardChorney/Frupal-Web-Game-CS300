@@ -116,7 +116,7 @@ int Hero::getBalance()
 }
 
 //Function to update the current location of the Hero
-bool Hero::moveHero(int mv, Map& mapToCopy)
+bool Hero::moveHero(int mv, Map & mapToCopy)
 {
     //Temporary vaiables for the Hero's location
     int x = location.x;
@@ -144,18 +144,45 @@ bool Hero::moveHero(int mv, Map& mapToCopy)
 		else { --x; }
 	} else { return false; }
 
-    location.x = x;
-    location.y = y;
+    //Look ahead before actually stepping.
+    if (lookAhead(mapToCopy))
+    {
+        //Move the Hero
+        location.x = x;
+        location.y = y;
 
-	//Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
-	terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
-	terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
-	terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
-	terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+        //Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
+        terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
+        terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
+        terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
+        terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
 
-
+    }
 
 	return true;
+}
+
+//Looks at the Grovnick that the Hero is ABOUT to step into
+//and returns true if the player
+bool Hero::lookAhead(Map & map)
+{
+    //Collect the terrain ahead of the hero
+    Terrain ahead;
+    ahead.terrainName = (map.getMap()[location.y][location.x].getTerrain())->terrainName;
+    ahead.charToDisplay = map.getMap()[location.y][location.x].getTerrain()->charToDisplay;
+    ahead.canWalkOn = map.getMap()[location.y][location.x].getTerrain()->canWalkOn;
+    terrain.energyConsumption = map.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+
+    //If the Hero can't walk on it, then deduct energy and return false
+    if (ahead.canWalkOn == false) {
+        //Deduct energy for trying to walk
+        return false;
+    } else {
+        //TODO
+        //* Deduct energy here
+        //* Check if he died
+        return true;
+    }
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
