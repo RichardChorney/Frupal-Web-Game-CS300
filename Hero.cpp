@@ -144,12 +144,16 @@ bool Hero::moveHero(int mv, Map& mapToCopy)
 		else { --x; }
 	} else { return false; }
 
+    location.x = x;
+    location.y = y;
 
 	//Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
 	terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
 	terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
 	terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
 	terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+
+
 
 	return true;
 }
@@ -242,4 +246,5 @@ void Hero::displayInventory()
 
     }
     cout << endl;
+    cout << "The Hero is standing on " << terrain.terrainName << " ." << endl;
 }
