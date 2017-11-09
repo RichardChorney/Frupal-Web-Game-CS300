@@ -11,7 +11,7 @@
 
 /* Debug Mode */
 //Shows the coordinates next to the Grovnick
-bool const DISPLAY_COORDINATES = false;
+bool const DISPLAY_COORDINATES = true;
 
 //All grovnick's can be seen on the entire map
 bool const SHOW_ALL_GROVNICKS = false;
