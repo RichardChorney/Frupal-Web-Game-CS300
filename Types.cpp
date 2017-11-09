@@ -17,17 +17,17 @@ Type::Type()
     message = "This is a typeless Grovnick.";
 
     //NOTE If the default constructor is called then you will need to write
-    //a spereate Hero allocation function.
-    hero = NULL;
+    //a spereate Map allocation function.
+    map = NULL;
 }
 
 //Constructor with arguments
-Type::Type(string newName, string newMessage, Hero * newHero)
+Type::Type(string newName, string newMessage, Map * newMap)
 {
     //This copy is SO deep.
     name = newName;
     message = newMessage;
-    hero = newHero;
+    map = newMap;
 }
 
 //A display function to show a tools
@@ -49,12 +49,12 @@ Clue::Clue()
 }
 
 //Clue Constructor with arguments
-Clue::Clue(string newName, string newMessage, Hero * heroPtr)
+Clue::Clue(string newName, string newMessage, Map * mapPtr)
 {
     //Should probably use init lists instead, huh?
     name = newName;
     message = newMessage;
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Tool
@@ -73,9 +73,9 @@ int Clue::interactWithType()
 }
 
 //Default constructor for Chest
-Chest::Chest(Hero * heroPtr)
+Chest::Chest(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
     whifflesToRecieved = CHEST_WHIFFLES_RECIEVED;
 }
 
@@ -83,28 +83,35 @@ Chest::Chest(Hero * heroPtr)
 int Chest::interactWithType()
 {
     cout << "*** You openned a chest, and recieved $" << whifflesToRecieved << "!" << endl;
-    hero->addToWhiffles(whifflesToRecieved);
 
-    return 0;
+    Hero * currHero = map->getHeroPtr();
+    currHero->addToWhiffles(whifflesToRecieved);
+
+    return 1;
 }
 
 //Explosive chest constructor
-ExplosiveChest::ExplosiveChest(Hero * heroPtr)
+ExplosiveChest::ExplosiveChest(Map * mapPtr)
 {
-    hero = heroPtr;
-    whifflesDeducted = CHEST_WHIFFLES_DEDUCTED;
+    map = mapPtr;
+    whifflesToDeduct = CHEST_WHIFFLES_DEDUCTED;
 }
 
 
 //Explosive Chest
 int ExplosiveChest::interactWithType()
 {
-    return 0;
+    cout << "*** You openned an Exploading Chest! You lose $" << whifflesToDeduct << "!" << endl;
+
+    Hero * currHero = map->getHeroPtr();
+    currHero->addToWhiffles(whifflesToDeduct);
+
+    return 1; //Not really needed
 }
 
-Bog::Bog(Hero * heroPtr)
+Bog::Bog(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Bog / Swamp
@@ -114,9 +121,9 @@ int Bog::interactWithType()
     return 0;
 }
 
-PowerBar::PowerBar(Hero * heroPtr)
+PowerBar::PowerBar(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Power Bar
@@ -125,9 +132,9 @@ int PowerBar::interactWithType()
     return 0;
 }
 
-Boulder::Boulder(Hero * heroPtr)
+Boulder::Boulder(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Boulder
@@ -136,7 +143,7 @@ int Boulder::interactWithType()
     return 0;
 }
 
-Wall::Wall(Hero * heroPtr)
+Wall::Wall(Map * mapPtr)
 {
 
 }
@@ -147,9 +154,9 @@ int Wall::interactWithType()
     return 0;
 }
 
-RoyalDiamonds::RoyalDiamonds(Hero * heroPtr)
+RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Royal Diamonds
@@ -158,9 +165,9 @@ int RoyalDiamonds::interactWithType()
     return 0;
 }
 
-Binoculars::Binoculars(Hero * heroPtr)
+Binoculars::Binoculars(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Binoculars
@@ -169,9 +176,9 @@ int Binoculars::interactWithType()
     return 0;
 }
 
-Bush::Bush(Hero * heroPtr)
+Bush::Bush(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Bush
@@ -180,9 +187,9 @@ int Bush::interactWithType()
     return 0;
 }
 
-Tree::Tree(Hero * heroPtr)
+Tree::Tree(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Tree
@@ -191,9 +198,9 @@ int Tree::interactWithType()
     return 0;
 }
 
-Axe::Axe(Hero * heroPtr)
+Axe::Axe(Map * mapPtr)
 {
-    hero = heroPtr;
+    map = mapPtr;
 }
 
 //Axe

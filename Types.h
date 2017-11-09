@@ -11,11 +11,10 @@
 
 #pragma once
 #include "Map.h"
-#include "Hero.h"
 
 using namespace std;
 
-class Hero;
+class Map;
 
 //Type class is the Base class for all of
 //the different types that a Grovnick could be.
@@ -23,13 +22,13 @@ class Hero;
 class Type {
 public:
     Type(); //Default Constructor
-    Type(string newName, string newMessage, Hero * newHero);
+    Type(string newName, string newMessage, Map * newMap);
     virtual int interactWithType() = 0; //Dynamic Binding!
     void displayType();
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
-    Hero * hero; //Pointer to the Hero
+    Map * map; //Pointer to the Map
 };
 
 //('T')
@@ -50,7 +49,7 @@ protected:
 class Clue : public Type {
 public:
     Clue();
-    Clue(string newName, string newMessage, Hero * heroPtr);
+    Clue(string newName, string newMessage, Map * mapPtr);
     int interactWithType();
 protected:
     bool isLegit;
@@ -60,7 +59,7 @@ protected:
 //Regular Chest that gives you whiffles.
 class Chest : public Type {
 public:
-    Chest(Hero * heroPtr);
+    Chest(Map * mapPtr);
     int interactWithType();
 protected:
     int whifflesToRecieved;
@@ -71,17 +70,17 @@ protected:
 //can be treated as either explosive or regular.
 class ExplosiveChest : public Type {
 public:
-    ExplosiveChest(Hero * heroPtr);
+    ExplosiveChest(Map * mapPtr);
     int interactWithType();
 protected:
-    int whifflesDeducted;
+    int whifflesToDeduct;
 };
 
 //('S') The bog class is the same thing
 //as a Swamp.
 class Bog : public Type {
 public:
-    Bog(Hero * heroPtr);
+    Bog(Map * mapPtr);
     int interactWithType();
 };
 
@@ -89,50 +88,50 @@ public:
 //('P')
 class PowerBar : public Type {
 public:
-    PowerBar(Hero * heroPtr);
+    PowerBar(Map * mapPtr);
     int interactWithType();
 };
 
 //('B')
 class Boulder : public Type {
 public:
-    Boulder(Hero * heroPtr);
+    Boulder(Map * mapPtr);
     int interactWithType();
 };
 
 //('|')
 class Wall : public Type {
 public:
-    Wall(Hero * heroPtr);
+    Wall(Map * mapPtr);
     int interactWithType();
 };
 
 class RoyalDiamonds : public Type {
 public:
-    RoyalDiamonds(Hero * heroPtr);
+    RoyalDiamonds(Map * mapPtr);
     int interactWithType();
 };
 
 class Binoculars : public Type {
 public:
-    Binoculars(Hero * heroPtr);
+    Binoculars(Map * mapPtr);
     int interactWithType();
 };
 
 class Bush : public Type {
 public:
-    Bush(Hero * heroPtr);
+    Bush(Map * mapPtr);
     int interactWithType();
 };
 
 class Tree : public Type {
 public:
-    Tree(Hero * heroPtr);
+    Tree(Map * mapPtr);
     int interactWithType();
 };
 
 class Axe : public Type {
 public:
-    Axe(Hero * heroPtr);
+    Axe(Map * mapPtr);
     int interactWithType();
 };
