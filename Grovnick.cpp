@@ -15,11 +15,11 @@
 Grovnick::Grovnick(char newCharToDisplay)
 {
     type = NULL;
-    charToDisplay = newCharToDisplay;
+    terrain.charToDisplay = newCharToDisplay;
     isVisible = false;
     isVisibleLocally = false;
-    canWalkOn = true;
-    energyConsumption = 1;
+    terrain.canWalkOn = true;
+    terrain.energyConsumption = 1;
 }
 
 //Displays just the character associated
@@ -29,19 +29,19 @@ Grovnick::Grovnick(char newCharToDisplay)
 void Grovnick::displayChar()
 {
     //if (isHeroOnGrovnick) cout << HERO_CHAR;
-    if (isVisible || isVisibleLocally) cout << charToDisplay;
+    if (isVisible || isVisibleLocally) cout << terrain.charToDisplay;
     else cout << MIST;
 }
 
 //Returns the char the grovnick will display
 char Grovnick::getCharToDisplay()
 {
-     return charToDisplay;
+     return terrain.charToDisplay;
 }
 
 //Takes an integer and maps it to the kind of type
 //that it is. Then it upcasts it into the type.
-void Grovnick::mapIntToType(int intToMap, int terrain)
+void Grovnick::mapIntToType(int intToMap, int terra)
 {
     //Parse what kind of Type it is and Then
     //Upcast type into that Class
@@ -68,31 +68,31 @@ void Grovnick::mapIntToType(int intToMap, int terrain)
     else if (intToMap == axe) type = new Axe();
 
     //Parse what kind of terrain it is
-    if (terrain == meadow) {
-        terrainName = "Meadow";
-        canWalkOn = true;
-        energyConsumption = 1;
-    } else if (terrain == water) {
-        terrainName = "Water";
-        canWalkOn = false;
-        energyConsumption = 1;
-    } else if (terrain == bog) {
-        terrainName = "Bog";
-        canWalkOn = true;
-        energyConsumption = 2;
-    } else if (terrain == forest) {
-        terrainName = "forest";
-        canWalkOn = true;
-        energyConsumption = 1;
-    } else if (terrain == wall) {
-        terrainName = "wall";
-        canWalkOn = false;
-        energyConsumption = 1;
+    if (terra == meadow) {
+        terrain.terrainName = "Meadow";
+        terrain.canWalkOn = true;
+        terrain.energyConsumption = 1;
+    } else if (terra == water) {
+        terrain.terrainName = "Water";
+        terrain.canWalkOn = false;
+        terrain.energyConsumption = 1;
+    } else if (terra == bog) {
+        terrain.terrainName = "Bog";
+        terrain.canWalkOn = true;
+        terrain.energyConsumption = 2;
+    } else if (terra == forest) {
+        terrain.terrainName = "forest";
+        terrain.canWalkOn = true;
+        terrain.energyConsumption = 1;
+    } else if (terra == wall) {
+        terrain.terrainName = "wall";
+        terrain.canWalkOn = false;
+        terrain.energyConsumption = 1;
     }
 }
 
 //Sets the char data member
-void Grovnick::setCharToDisplay(char newCharToDisplay) { charToDisplay = newCharToDisplay; }
+void Grovnick::setCharToDisplay(char newCharToDisplay) { terrain.charToDisplay = newCharToDisplay; }
 
 //Sets the isVisibile data member
 void Grovnick::setVisibility(bool newIsVisible) { isVisible = newIsVisible; }
@@ -106,4 +106,4 @@ bool Grovnick::getLocalVisibility() { return isVisibleLocally; }
 bool Grovnick::getVisibility() { return isVisible; }
 
 //Returns the energy consumption data member
-int Grovnick::getEnergyConsumption() { return energyConsumption; }
+int Grovnick::getEnergyConsumption() { return terrain.energyConsumption; }

@@ -14,15 +14,10 @@
 #include "Types.h"
 #include "Constants.h"
 
-class Type;
+//struct Terrain;
 
-//Struct that holds the x and y Coordinates
-//for a map cell, and the terrain type
-struct Location {
-	int x;
-	int y;
-	
-};
+
+struct Terrain;
 
 class Type;
 
@@ -30,7 +25,7 @@ class Type;
 class Hero {
   public:
     Hero();						//Default constructor
-	Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy);		//Parameterized constructor
+	Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy, Terrain& terrainToCopy);		//Parameterized constructor
 	~Hero();
 
     Location getLocation();		//Returns Heroes current x and y coordinates, along with terrain type
@@ -47,7 +42,8 @@ class Hero {
 	void printStatus();			//Prints heroes status
 
   protected:
-    Location location; 		//Coordinates of the player on the map
+    Terrain terrain;
+	Location location; 		//Coordinates of the player on the map
     int energy; 			//Amount of energy that the play has
     bool alive; 			//is the user alive?
     int whiffles; 			//Amount of whiffles that the player has

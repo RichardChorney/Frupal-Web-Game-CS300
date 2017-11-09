@@ -14,6 +14,8 @@
 
 using namespace std;
 
+
+
 //Type class is the Base class for all of
 //the different types that a Grovnick could be.
 //e.g. Tool, Boulder, Clue, Bog...
