@@ -1,4 +1,6 @@
-/////////////////////////////
+///////////////////////////////
+//Map.h
+//CS300 Group E
 //This file contains the headers for the Map
 //and Grovnick classes.
 /////////////////////////////
@@ -28,9 +30,9 @@ class Grovnick
 {
 public:
     Grovnick();
-    Grovnick(char newCharToDisplay, Hero * copyHero); //Default Constructor
+    Grovnick(char newCharToDisplay, Map * mapPtr); //Default Constructor
     void displayChar(); //Displays the map character
-    void mapIntToType(int intToMap, int terrain, Hero * heroPtr); //Maps the char to type
+    void mapIntToType(int intToMap, int terrain, Map * mapPtr); //Maps the char to type
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
     void setIsVisibleLocally(bool newVisible);
@@ -38,7 +40,7 @@ public:
     bool getLocalVisibility(); //Returns the local visibility
     int getEnergyConsumption();
     char getCharToDisplay(); //Returns the display character
-    void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Hero * newHero);
+    void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
 	Terrain * getTerrain();
 
 protected:
