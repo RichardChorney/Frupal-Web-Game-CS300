@@ -25,6 +25,18 @@ Type::Type(string newName, string newMessage)
     message = newMessage;
 }
 
+//A display function to show a tools
+//name and description. This function 
+//is called by the hero class's display
+//inventory function
+//TODO this need to be revisited as tools are implemented
+void Type::displayType()
+{
+     /**/
+     cout << "Tool: " << name << endl << "Description: " << message;
+     
+}
+
 //Default Clue Constructor
 Clue::Clue()
 {
