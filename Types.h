@@ -14,6 +14,13 @@
 
 using namespace std;
 
+struct Terrain {
+	string terrainName;
+    char charToDisplay;
+    bool canWalkOn;
+    int energyConsumption;
+};
+
 //Type class is the Base class for all of
 //the different types that a Grovnick could be.
 //e.g. Tool, Boulder, Clue, Bog...
