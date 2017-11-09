@@ -10,10 +10,20 @@
 #include "Types.h"
 
 using namespace std;
+
+//Default Constructor for Grovnick
+Grovnick::Grovnick()
+{
+    type = NULL;
+    isVisible = false;
+    isVisibleLocally = false;
+    //Terrain
+}
+
 //Default constructor for the Grovnick Class
-//The default grovnick is Grass is nothing
+//The default grovnick is Grass if nothing
 //else is specified
-Grovnick::Grovnick(char newCharToDisplay)
+Grovnick::Grovnick(char newCharToDisplay, Map * mapPtr)
 {
     type = NULL;
     terrain.charToDisplay = newCharToDisplay;
@@ -23,6 +33,15 @@ Grovnick::Grovnick(char newCharToDisplay)
     terrain.charToDisplay = 'G';
     terrain.canWalkOn = true;
     terrain.energyConsumption = 1;
+}
+
+//Copies the parameters into the data members
+void Grovnick::copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newTerrain, int newType, Map * newMap)
+{
+    isVisibleLocally = newIsVisibleLocally;
+    isVisible = newIsVisible;
+
+    mapIntToType(newType, newTerrain, newMap);
 }
 
 //Displays just the character associated
@@ -44,31 +63,32 @@ char Grovnick::getCharToDisplay()
 
 //Takes an integer and maps it to the kind of type
 //that it is. Then it upcasts it into the type.
-void Grovnick::mapIntToType(int intToMap, int terra)
+void Grovnick::mapIntToType(int intToMap, int terra, Map * MapPtr)
 {
+
     //Parse what kind of Type it is and Then
     //Upcast type into that Class
     if (intToMap == clue) {
 
-        //FIXME (Issue on Github - Generate Clue)
+        //TODO (Issue on Github - Generate Clue)
         //We will need to pull clue messages from somewhere right here,
         //and then put them in clueMessage to be passed through
         //the constructor
 
         string clueMessage = "Example message.";
-        type = new Clue("Clue", clueMessage);
+        type = new Clue("Clue", clueMessage, MapPtr);
     }
-    else if (intToMap == chest) type = new Chest();
-    else if (intToMap == bog) type = new Bog();
-    else if (intToMap == powerBar) type = new PowerBar();
-    else if (intToMap == boulder) type = new Boulder();
-    else if (intToMap == wall) type = new Wall();
-    else if (intToMap == royalDiamonds) type = new RoyalDiamonds();
-    else if (intToMap == explosiveChest) type = new ExplosiveChest();
-    else if (intToMap == binoculars) type = new Binoculars();
-    else if (intToMap == bush) type = new Bush();
-    else if (intToMap == tree) type = new Tree();
-    else if (intToMap == axe) type = new Axe();
+    else if (intToMap == chest) type = new Chest(MapPtr);
+    else if (intToMap == bog) type = new Bog(MapPtr);
+    else if (intToMap == powerBar) type = new PowerBar(MapPtr);
+    else if (intToMap == boulder) type = new Boulder(MapPtr);
+    else if (intToMap == wall) type = new Wall(MapPtr);
+    else if (intToMap == royalDiamonds) type = new RoyalDiamonds(MapPtr);
+    else if (intToMap == explosiveChest) type = new ExplosiveChest(MapPtr);
+    else if (intToMap == binoculars) type = new Binoculars(MapPtr);
+    else if (intToMap == bush) type = new Bush(MapPtr);
+    else if (intToMap == tree) type = new Tree(MapPtr);
+    else if (intToMap == axe) type = new Axe(MapPtr);
 
     //Parse what kind of terrain it is
     if (terra == meadow) {

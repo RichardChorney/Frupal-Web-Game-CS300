@@ -27,7 +27,7 @@ int const DEFAULT_ENERGY_CONSUMPTION = 1;
 //Amount of whiffles recieved if you open the chest
 int const CHEST_WHIFFLES_RECIEVED = 100;
 //Amount of whiffles that you lose if you open an exploding chest
-int const CHEST_WHIFFLES_DEDUCTED = 100;
+int const CHEST_WHIFFLES_DEDUCTED = -100;
 
 
  /* Debug Mode Constants

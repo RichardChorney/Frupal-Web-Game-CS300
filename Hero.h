@@ -40,6 +40,7 @@ class Hero {
 	void printStatus();			//Prints heroes status
 	void displayInventory();
 	bool lookAhead(Map & map); //Checks Grovnick ahead of Hero
+	void addToWhiffles(int whifflesToAdd); //Either add or subtract whiffles
 
   protected:
     Terrain terrain;        //Terrain that the hero is on

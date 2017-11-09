@@ -159,6 +159,10 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 
     }
 
+    /* TODO */
+    //Check if he died (this is after he gets to the Grovnick, since after all
+    //he did spend an energy getting there...)
+
 	return true;
 }
 
@@ -179,8 +183,8 @@ bool Hero::lookAhead(Map & map)
         return false;
     } else {
         //TODO
+        //* Call interactWithType() ???
         //* Deduct energy here
-        //* Check if he died
         return true;
     }
 }
@@ -274,4 +278,11 @@ void Hero::displayInventory()
     }
     cout << endl;
     cout << "The Hero is standing on " << terrain.terrainName << " ." << endl;
+}
+
+//Adds whiffles to the Hero's bank account
+//If you provide a negative number than it subtracts
+void Hero::addToWhiffles(int whifflesToAdd)
+{
+    whiffles += whifflesToAdd;
 }
