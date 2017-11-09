@@ -141,7 +141,7 @@ bool Hero::moveHero(int mv, Map& mapToCopy)
 			++location.x;
 		}
 	}
-	//Move South	
+	//Move South
 	else if(mv == 3){
 		if(location.y == (MAX - 1)){
 			location.y = 0;
@@ -159,12 +159,12 @@ bool Hero::moveHero(int mv, Map& mapToCopy)
 			--location.x;
 		}
 	}
-	//Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these) 
+	//Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
 	terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
 	terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
 	terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
 	terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
-		
+
 	return true;
 }
 
@@ -202,14 +202,14 @@ void Hero::printStatus()
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
 	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
-	if(terrain.canWalkOn){ 
-		cout << "You are able to walk on this Grovnick" << endl; 
+	if(terrain.canWalkOn){
+		cout << "You are able to walk on this Grovnick" << endl;
 	}
-	else{ 
-		cout << "You are not able to walk on this Grovnick" << endl; 
+	else{
+		cout << "You are not able to walk on this Grovnick" << endl;
 	}
 	cout << "It takes " << terrain.energyConsumption << " energy bean(s) to walk on this Grovnick" << endl;
-	
+
 }
 
 //TODO As the items are implemented this needs to be reviewed
@@ -220,12 +220,12 @@ void Hero::displayInventory()
     int i = 0;
     for(i = 0; i < BAG_MAX; ++i)
     {
-        //If an array element has a pointer to a tool, then this 
+        //If an array element has a pointer to a tool, then this
         //branch will execute.
         if(list[i])
         {
            //This if/else is for formatting, it adds an extra space
-           //for 1 digit numbers, so the list will display 
+           //for 1 digit numbers, so the list will display
            //vertically inline
            if(i < 9)
            {
@@ -237,7 +237,7 @@ void Hero::displayInventory()
            }
            //This hero inventory display function will then call that
            //specific type's display function
-           list[i]->displayType(); 
+           list[i]->displayType();
         }
         /*This branch displays a generic "no tool" message if
         the array element is NULL*/
@@ -257,4 +257,3 @@ void Hero::displayInventory()
     }
     cout << endl;
 }
-
