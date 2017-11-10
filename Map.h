@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include "Hero.h"
 #include "Types.h"
+#include "Constants.h"
 #include <vector>
 
 class Type; //Forward decleration
@@ -17,9 +18,6 @@ class Hero;
 struct Location;
 
 using namespace std;
-
-int const MAX = 10; //Default size for map
-char const MIST = 'X'; //Invisible terrain tile
 
 //Grovnick class
 class Grovnick

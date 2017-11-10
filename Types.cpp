@@ -36,6 +36,28 @@ Clue::Clue(string newName, string newMessage)
     message = newMessage;
 }
 
+bool Type::promptPurchase(int cost) {
+    char userInput;
+    cout << "Would you like to purchase this item for " << cost << " whiffles? Y/N" << endl;  
+    while (true) {
+        cin >> userInput; 
+        switch (userInput) {
+            case 'Y':
+            case 'y':
+                //hero.setBalance(-price);
+                return true;
+                break;
+            case 'N':
+            case 'n':
+                //Do nothing
+                return false;
+                break;
+            default:
+                cout << "I didn't quite catch that. Please enter another character\n";
+        };
+    }
+}
+    
 //Tool
 //Virtual function override of Type class
 int Tool::interactWithType()
@@ -67,19 +89,27 @@ int ExplosiveChest::interactWithType()
 //Bog / Swamp
 int Bog::interactWithType()
 {
-    cout << "Swamp" << endl; //Test
+    cout << "Gross, you've stepped into a swamp! You lose an extra energy point." << endl;
+    //hero.changeEnergy(changeInEnergy);
+    
     return 0;
 }
 
 //Power Bar
 int PowerBar::interactWithType()
 {
+    cout << "You've found a power bar! It gives " << changeInEnergy << "energy." << endl;
+    if (promptPurchase(price)) { 
+        //hero.changeEnergy(changeInEnergy);
+    }
+        
     return 0;
 }
 
 //Boulder
 int Boulder::interactWithType()
 {
+    //hero.changeEnergy(-removalCost);
     return 0;
 }
 
@@ -92,24 +122,33 @@ int Wall::interactWithType()
 //Royal Diamonds
 int RoyalDiamonds::interactWithType()
 {
+    cout << "Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
+    //resetGameState();
     return 0;
 }
 
 //Binoculars
 int Binoculars::interactWithType()
 {
+    cout << "You've found the binoculars! They increase your vision radius by 1 tile." << endl;
+    if (promptPurchase(price)) {
+        //hero.setVisibility(true);
+    }
+
     return 0;
 }
 
 //Bush
 int Bush::interactWithType()
 {
+    //hero.changeInEnergy(-removalCost);
     return 0;
 }
 
 //Tree
 int Tree::interactWithType()
 {
+    //hero.changeInEnergy(-removalCost);
     return 0;
 }
 
@@ -118,10 +157,11 @@ int Axe::interactWithType()
 {
     return 0;
 }
-
+/*
 //Diamonds
 int Diamonds::interactWithType()
 {
     cout << "Congratulations, you found the royal diamonds!\nYOU WIN!" << endl;
     return 0;
 }
+*/
