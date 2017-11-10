@@ -138,7 +138,7 @@ Bog::Bog(Map * mapPtr)
 //Bog / Swamp
 int Bog::interactWithType()
 {
-    //cout << "Gross, you've stepped into a swamp! You lose an extra energy point." << endl;
+    cout << "Gross, you've stepped into a swamp! You lose an extra energy point." << endl;
     //map->getHeroPtr()->changeEnergy(changeInEnergy);
     
     return 0;
