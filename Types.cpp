@@ -62,7 +62,7 @@ bool Type::promptPurchase(int cost) {
         switch (userInput) {
             case 'Y':
             case 'y':
-                //hero.setBalance(-price);
+                map->getHeroPtr()->setBalance(-cost);
                 return true;
                 break;
             case 'N':
@@ -101,7 +101,7 @@ Chest::Chest(Map * mapPtr)
 //Chest
 int Chest::interactWithType()
 {
-    cout << "*** You openned a chest, and recieved $" << whifflesToRecieved << "!" << endl;
+    cout << "*** You opened a chest, and recieved $" << whifflesToRecieved << "!" << endl;
 
     Hero * currHero = map->getHeroPtr();
     currHero->addToWhiffles(whifflesToRecieved);
@@ -120,7 +120,7 @@ ExplosiveChest::ExplosiveChest(Map * mapPtr)
 //Explosive Chest
 int ExplosiveChest::interactWithType()
 {
-    cout << "*** You openned an Exploading Chest! You lose $" << whifflesToDeduct << "!" << endl;
+    cout << "*** You opened an Exploading Chest! You lose $" << whifflesToDeduct << "!" << endl;
 
     Hero * currHero = map->getHeroPtr();
     currHero->addToWhiffles(whifflesToDeduct);
@@ -136,8 +136,8 @@ Bog::Bog(Map * mapPtr)
 //Bog / Swamp
 int Bog::interactWithType()
 {
-    cout << "Gross, you've stepped into a swamp! You lose an extra energy point." << endl;
-    //hero.changeEnergy(changeInEnergy);
+    //cout << "Gross, you've stepped into a swamp! You lose an extra energy point." << endl;
+    //map->getHeroPtr()->changeEnergy(changeInEnergy);
     
     return 0;
 }
@@ -150,12 +150,14 @@ PowerBar::PowerBar(Map * mapPtr)
 //Power Bar
 int PowerBar::interactWithType()
 {
+/*
     cout << "You've found a power bar! It gives " << changeInEnergy << "energy." << endl;
     if (promptPurchase(price)) { 
-        //hero.changeEnergy(changeInEnergy);
+        map->getHeroPtr()->changeEnergy(changeInEnergy);
     }
         
     return 0;
+*/
 }
 
 Boulder::Boulder(Map * mapPtr)
@@ -166,7 +168,7 @@ Boulder::Boulder(Map * mapPtr)
 //Boulder
 int Boulder::interactWithType()
 {
-    //hero.changeEnergy(-removalCost);
+    map->getHeroPtr()->changeEnergy(-removalCost);
     return 0;
 }
 
@@ -190,7 +192,7 @@ RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 int RoyalDiamonds::interactWithType()
 {
     cout << "Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
-    //resetGameState();
+    map->resetMapState();
     return 0;
 }
 
@@ -204,7 +206,7 @@ int Binoculars::interactWithType()
 {
     cout << "You've found the binoculars! They increase your vision radius by 1 tile." << endl;
     if (promptPurchase(price)) {
-        //hero.setVisibility(true);
+        map->getHeroPtr()->setVisibility(true);
     }
 
     return 0;
@@ -218,7 +220,7 @@ Bush::Bush(Map * mapPtr)
 //Bush
 int Bush::interactWithType()
 {
-    //hero.changeInEnergy(-removalCost);
+    map->getHeroPtr()->changeEnergy(-removalCost);
     return 0;
 }
 
@@ -230,7 +232,7 @@ Tree::Tree(Map * mapPtr)
 //Tree
 int Tree::interactWithType()
 {
-    //hero.changeInEnergy(-removalCost);
+    map->getHeroPtr()->changeEnergy(-removalCost);
     return 0;
 }
 
