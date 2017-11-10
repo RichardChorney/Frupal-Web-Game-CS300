@@ -47,7 +47,6 @@ int Map::loadMapFromFile(string fileName)
     file.open(fileName.c_str());
     if (!file) return 0;
 
-    //int row = 0;
 
     // Get Game map function
     std::getline(file,line);
@@ -55,21 +54,19 @@ int Map::loadMapFromFile(string fileName)
     // Get map size + allocate
     std::getline(file, line);
     allocateMap(atoi(line.c_str()));
+
     // consume the ### line of the map file
     std::getline(file, line);
 
-    // TODO
     // Get hero coordinates
     std::getline(file, line);
     split(line, delim, v);
+
     Location heroLoc;
-    //int a = mapSize - 1 - atoi(v[0].c_str());
-    //int b = mapSize - 1 - atoi(v[1].c_str());
-    //heroLoc.x = a;
-    //heroLoc.y = b;
     heroLoc.x = atoi(v[0].c_str());
     heroLoc.y = atoi(v[1].c_str());
     v.clear();
+
     // Get hero energy level
     std::getline(file, line);
     energy = atoi(line.c_str());
@@ -87,13 +84,17 @@ int Map::loadMapFromFile(string fileName)
     // consume the ### line of the map file
     std::getline(file, line);
 
+    int x = 0;
+    int y = 0;
     while(getline(file, line)) {
+        Terrain t;
         split(line, delim, v);
-        //map[v[0]][v[1]].setCharToDisplay(NULL);
+        x = atoi(v[0].c_str());
+        y = atoi(v[1].c_str());
         //map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
-        //int x = mapSize - 1 - atoi(v[0].c_str());
-        //int y = mapSize - 1 - atoi(v[1].c_str());
-        //map[x][y].setVisibility(v[2].c_str());
+        map[x][y].setVisibility(v[2].c_str());
+        //generateTerrain(v[3], t); 
+        map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
 
         v.clear();
     }
@@ -269,3 +270,44 @@ Grovnick ** Map::getMap()
 {
 	return map;
 }
+/*
+void Map::generateTerrain(string& name, Terrain& t)
+{
+    if (name.compare("meadow") == 0) {
+        t.terrainName = "meadow";
+        t.charToDisplay = 'G';
+        t.canWalkOn = true;
+		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION;
+    }
+    else if (name.compare("forest") == 0) {
+        t.terrainName = "forest";
+        t.charToDisplay = 'F';
+        t.canWalkOn = true;
+		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION;
+    }
+    else if (name.compare("water") == 0) {
+        t.terrainName = "water";
+        t.charToDisplay = 'W';
+        t.canWalkOn = false;
+		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION;
+    }
+    else if (name.compare("wall") == 0) {
+        t.terrainName = "wall";
+        t.charToDisplay = '|';
+        t.canWalkOn = false;
+		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION;
+    }
+    else if (name.compare("bog") == 0) {
+        t.terrainName = "bog";
+        t.charToDisplay = 'S';
+        t.canWalkOn = true;
+		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION + 1;
+    }
+    else {
+        t.terrainName = "swamp";
+        t.charToDisplay = 'S';
+        t.canWalkOn = true;
+		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION + 1;
+    }
+}
+*/

@@ -14,7 +14,7 @@ enum typeIndex {
     clue = 1,
     powerBar = 2,
     boulder = 3,
-    wall = 4,
+    //wall = 4,
     royalDiamonds = 5,
     chest = 6,
     explosiveChest = 7,
@@ -29,7 +29,9 @@ enum typeIndex {
 //Terrain Index enumeration
 enum terrainIndex {
     meadow = 0,
-    water = 1,
-    bog = 2,
-    forest = 3
+    forest = 1,
+    water = 2,
+    wall = 3,
+    bog = 4,
+    swamp = 5
 };
