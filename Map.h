@@ -69,6 +69,7 @@ public:
     Hero* getHeroPtr();
     void printHeroStatus();
 	Grovnick ** getMap();
+    void resetMapState();
 
 protected:
     void allocateMap(int newMapSize = MAX);
@@ -78,4 +79,5 @@ protected:
     int mapSize; //Size of the map (and thus the size of each array)
     Grovnick ** map; //2D array of Grovnick pointers
     Hero * hero; //A pointer to the user
+    string fileName;
 };

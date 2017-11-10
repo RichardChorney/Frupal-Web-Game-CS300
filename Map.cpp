@@ -47,7 +47,6 @@ int Map::loadMapFromFile(string fileName)
     file.open(fileName.c_str());
     if (!file) return 0;
 
-
     // Get Game map function
     std::getline(file,line);
 
@@ -270,44 +269,8 @@ Grovnick ** Map::getMap()
 {
 	return map;
 }
-/*
-void Map::generateTerrain(string& name, Terrain& t)
-{
-    if (name.compare("meadow") == 0) {
-        t.terrainName = "meadow";
-        t.charToDisplay = 'G';
-        t.canWalkOn = true;
-		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION;
-    }
-    else if (name.compare("forest") == 0) {
-        t.terrainName = "forest";
-        t.charToDisplay = 'F';
-        t.canWalkOn = true;
-		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION;
-    }
-    else if (name.compare("water") == 0) {
-        t.terrainName = "water";
-        t.charToDisplay = 'W';
-        t.canWalkOn = false;
-		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION;
-    }
-    else if (name.compare("wall") == 0) {
-        t.terrainName = "wall";
-        t.charToDisplay = '|';
-        t.canWalkOn = false;
-		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION;
-    }
-    else if (name.compare("bog") == 0) {
-        t.terrainName = "bog";
-        t.charToDisplay = 'S';
-        t.canWalkOn = true;
-		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION + 1;
-    }
-    else {
-        t.terrainName = "swamp";
-        t.charToDisplay = 'S';
-        t.canWalkOn = true;
-		t.energyConsumption = DEFAULT_ENERGY_CONSUMPTION + 1;
-    }
-}
-*/
+
+void Map::resetMapState() {
+    delete hero;
+    loadMapFromFile(fileName);
+} 
