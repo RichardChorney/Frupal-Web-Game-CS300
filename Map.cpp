@@ -47,6 +47,8 @@ int Map::loadMapFromFile(string fileName)
     file.open(fileName.c_str());
     if (!file) return 0;
 
+    fileName = fileName;
+
     //int row = 0;
 
     // Get Game map function
@@ -269,3 +271,8 @@ Grovnick ** Map::getMap()
 {
 	return map;
 }
+
+void Map::resetMapState() {
+    delete hero;
+    loadMapFromFile(fileName);
+} 

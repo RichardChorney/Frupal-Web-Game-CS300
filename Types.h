@@ -25,6 +25,7 @@ public:
     Type(string newName, string newMessage, Map * newMap);
     virtual int interactWithType() = 0; //Dynamic Binding!
     void displayType();
+    bool promptPurchase(int cost);
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
@@ -43,6 +44,7 @@ public:
     //Add to inventory?
 protected:
     int multiplier; //X1, X2, X3 ...
+    int price;
 };
 
 //('C')
@@ -82,6 +84,8 @@ class Bog : public Type {
 public:
     Bog(Map * mapPtr);
     int interactWithType();
+protected:
+    int changeInEnergy;
 };
 
 
@@ -97,6 +101,8 @@ class Boulder : public Type {
 public:
     Boulder(Map * mapPtr);
     int interactWithType();
+protected:
+    int removalCost;
 };
 
 //('|')
@@ -116,18 +122,24 @@ class Binoculars : public Type {
 public:
     Binoculars(Map * mapPtr);
     int interactWithType();
+protected:
+    int price;
 };
 
 class Bush : public Type {
 public:
     Bush(Map * mapPtr);
     int interactWithType();
+protected:
+    int removalCost;
 };
 
 class Tree : public Type {
 public:
     Tree(Map * mapPtr);
     int interactWithType();
+protected:
+    int removalCost;
 };
 
 class Axe : public Type {
