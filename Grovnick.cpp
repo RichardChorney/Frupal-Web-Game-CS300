@@ -131,4 +131,8 @@ bool Grovnick::getVisibility() { return isVisible; }
 //Returns the energy consumption data member
 int Grovnick::getEnergyConsumption() { return terrain.energyConsumption; }
 
+//Returns a pointer to a Grovnicks terrain 
 Terrain * Grovnick::getTerrain() { return &terrain; }
+
+//Returns a pointer to a Grovnicks current Type
+Type * Grovnick::getType() { return type; }

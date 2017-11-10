@@ -106,7 +106,7 @@ bool Hero::setBalance(int amount)
 		whiffles += amount;
 		return true;
 	}
-	else{ return amount; }
+	else{ return false; }
 }
 
 //Returns Heroes whiffle balance
@@ -122,9 +122,8 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     int x = location.x;
     int y = location.y;
 
-	//TODO: change based on terrain type
-	int energyAmount = -1;
-	changeEnergy(energyAmount);
+	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties 
+	changeEnergy(-terrain.energyConsumption);
 
     //Move North
     if(mv == 1) {
@@ -152,16 +151,14 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         location.y = y;
 
         //Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
-        terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
+        terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
         terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
         terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
         terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
 
     }
 
-    /* TODO */
-    //Check if he died (this is after he gets to the Grovnick, since after all
-    //he did spend an energy getting there...)
+    if(!checkAlive()) { cout << "GAME OVER you lose "; }
 
 	return true;
 }
@@ -172,21 +169,37 @@ bool Hero::lookAhead(Map & map)
 {
     //Collect the terrain ahead of the hero
     Terrain ahead;
-    ahead.terrainName = (map.getMap()[location.y][location.x].getTerrain())->terrainName;
+    ahead.terrainName = map.getMap()[location.y][location.x].getTerrain()->terrainName;
     ahead.charToDisplay = map.getMap()[location.y][location.x].getTerrain()->charToDisplay;
     ahead.canWalkOn = map.getMap()[location.y][location.x].getTerrain()->canWalkOn;
     ahead.energyConsumption = map.getMap()[location.y][location.x].getTerrain()->energyConsumption;
 
+	Type * typePtr = NULL;
+	typePtr = map.getMap()[location.y][location.x].getType();
+
     //If the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
-        //Deduct energy for trying to walk
-        return false;
-    } else {
-        //TODO
-        //* Call interactWithType() ???
-        //* Deduct energy here
-        return true;
+        cout << "There are impassable " << ahead.terrainName << "s in front of you!!" << endl;
+		
+		//This (if) will guard against calling interactWithType() for water
+		if(typePtr){			
+			typePtr->interactWithType();
+		}
+		else{
+			cout << "There is water ahead!!, you do not have a BOAT!!" << endl;		//TODO change when boat is available
+		}
+		cout << "You lose your turn and " << ahead.energyConsumption << " Energy points." << endl;		//TODO Need to change this for boats
+		changeEnergy(-ahead.energyConsumption);																
+        
+		return false;
+    } 
+	if(typePtr){								//This (if) will guard against using interactWithType() for meadows
+        typePtr->interactWithType(); 
     }
+	else{
+		cout << "You are walking to some pleasant meadows ahead..." << endl; 
+	}
+	return true;
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
