@@ -16,7 +16,6 @@ string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
 string const basicMap = "basicMap.txt";
 
-
 int main()
 {
 
@@ -31,8 +30,6 @@ int main()
 	char keyPress = '0';
 
 	while(proceed){
-		system("clear");
-
 		cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
 		map.displayMap();
 		hero->printStatus();
@@ -48,6 +45,8 @@ int main()
 
 
 		cin >> keyPress;
+		system("clear");
+		
 		if((keyPress < '0') || (keyPress > '6')){
 			continue;
 		}

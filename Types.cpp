@@ -147,15 +147,27 @@ PowerBar::PowerBar(Map * mapPtr)
     map = mapPtr;
 }
 
-//Power Bar
+//Power Bar  TODO not sure how to use the return type for this yet
 int PowerBar::interactWithType()
 {
-    cout << "You've found a power bar! It gives " << changeInEnergy << "energy." << endl;
-    if (promptPurchase(price)) { 
-        //hero.changeEnergy(changeInEnergy);
-    }
-        
-    return 0;
+    char keyPress = '0';
+	do{
+		system("clear");
+		cout << "You are standing on a yummy Power Bar..." << endl;
+		cout << "Would you like to buy it for a Whiffle??  Y/N";
+		cin >> keyPress;
+	}
+	while((keyPress != 'y') || (keyPress != 'Y') || (keyPress != 'n') || (keyPress != 'N')); 
+
+	if((keyPress == 'Y') || (keyPress == 'y')){
+		//TODO Call Levis transaction function
+		Hero * currHero = map->getHeroPtr();
+		currHero->changeEnergy(20);
+		currHero->setBalance(-1);
+		return 1;
+	}
+	
+	return 0;
 }
 
 Boulder::Boulder(Map * mapPtr)
