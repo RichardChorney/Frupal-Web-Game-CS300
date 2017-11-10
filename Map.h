@@ -40,6 +40,7 @@ public:
     char getCharToDisplay(); //Returns the display character
     void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
 	Terrain * getTerrain();
+	Type * getType();
 
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)
