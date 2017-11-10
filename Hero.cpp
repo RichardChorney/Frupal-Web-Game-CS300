@@ -11,11 +11,14 @@ Hero::Hero()
 {
   	location.x = DEFAULT_STARTING_LOCATION;
   	location.y = DEFAULT_STARTING_LOCATION;
-  	location.terrainType = 'G';
   	energy = DEFAULT_ENERGY;
   	alive = true;
   	whiffles = DEFAULT_WHIFFLES;
   	visibilityRadius = DEFAULT_VIS;
+	terrain.terrainName = "meadow";
+	terrain.charToDisplay = 'G';
+	terrain.canWalkOn = true;
+	terrain.energyConsumption = 1;
 
 	for(int i = 0; i < BAG_MAX; ++i){
 		list[i] = NULL;
@@ -23,13 +26,18 @@ Hero::Hero()
 }
 
 //Parmeterized Constructor
-Hero::Hero(Location locToCopy, int energyToCopy, int whifflesToCopy)
+Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy, Terrain& terrainToCopy)
 {
 	location.x = locToCopy.x;
 	location.y = locToCopy.y;
-	location.terrainType = locToCopy.terrainType;
+  	alive = true;
 	energy   = energyToCopy;
 	whiffles = whifflesToCopy;
+  	visibilityRadius = DEFAULT_VIS;
+	terrain.terrainName = terrainToCopy.terrainName;
+	terrain.charToDisplay = terrainToCopy.charToDisplay;
+	terrain.canWalkOn = terrainToCopy.canWalkOn;
+	terrain.energyConsumption = terrainToCopy.energyConsumption;
 }
 
 //Destructor to clean up inventory list
@@ -86,7 +94,7 @@ bool Hero::checkAlive()
   	if(energy<=0)
   	{
   		alive = false;
-  		cout << "DEAD";
+  		cout << "DEAD\n";
   	}
   	return alive;
 }
@@ -108,50 +116,80 @@ int Hero::getBalance()
 }
 
 //Function to update the current location of the Hero
-bool Hero::moveHero(int mv, char newTerrain)
+bool Hero::moveHero(int mv, Map & mapToCopy)
 {
-	location.terrainType = newTerrain; //FIXME
+    //Temporary vaiables for the Hero's location
+    int x = location.x;
+    int y = location.y;
 
-	if(mv == 1){
-		if(location.y == (MAX - 1)){
-			location.y = 0;
-		}
-		else{
-			++location.y;
-		}
-		return true;
-	}
-	if(mv == 2){
-		if(location.x == (MAX - 1)){
-			location.x = 0;
-		}
-		else{
-			++location.x;
-		}
-		return true;
-	}
-	if(mv == 3){
-		if(location.y == 0){
-			location.y = (MAX - 1);
-		}
-		else{
-			--location.y;
-		}
-		return true;
-	}
-	if(mv == 4){
-		if(location.x == 0){
-			location.x = (MAX - 1);
-		}
-		else{
-			--location.x;
-		}
-		return true;
-	}
-	return false;
+	//TODO: change based on terrain type
+	int energyAmount = -1;
+	changeEnergy(energyAmount);
+
+    //Move North
+    if(mv == 1) {
+		if(y == 0) { y = (MAX - 1); }
+        else { --y; }
+    //Move East
+	} else if(mv == 2) {
+		if(x == (MAX - 1)){ x = 0; }
+		else { ++x; }
+    //Move South
+	} else if(mv == 3) {
+		if(y == (MAX - 1)){ y = 0; }
+        else { ++y; }
+    //Move West
+    } else if(mv == 4) {
+        if(x == 0) { x = (MAX - 1); }
+		else { --x; }
+	} else { return false; }
+
+    //Look ahead before actually stepping.
+    if (lookAhead(mapToCopy))
+    {
+        //Move the Hero
+        location.x = x;
+        location.y = y;
+
+        //Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
+        terrain.terrainName = (mapToCopy.getMap()[location.y][location.x].getTerrain())->terrainName;
+        terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
+        terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
+        terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+
+    }
+
+    /* TODO */
+    //Check if he died (this is after he gets to the Grovnick, since after all
+    //he did spend an energy getting there...)
+
+	return true;
 }
 
-//Places a pointer to an "Item" into the heroes inventory list, returns 0 for success, 1 for a full bag, 2 for fail
+//Looks at the Grovnick that the Hero is ABOUT to step into
+//and returns true if the player
+bool Hero::lookAhead(Map & map)
+{
+    //Collect the terrain ahead of the hero
+    Terrain ahead;
+    ahead.terrainName = (map.getMap()[location.y][location.x].getTerrain())->terrainName;
+    ahead.charToDisplay = map.getMap()[location.y][location.x].getTerrain()->charToDisplay;
+    ahead.canWalkOn = map.getMap()[location.y][location.x].getTerrain()->canWalkOn;
+    ahead.energyConsumption = map.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+
+    //If the Hero can't walk on it, then deduct energy and return false
+    if (ahead.canWalkOn == false) {
+        //Deduct energy for trying to walk
+        return false;
+    } else {
+        //TODO
+        //* Call interactWithType() ???
+        //* Deduct energy here
+        return true;
+    }
+}
+
+//Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
 int Hero::fillBag(Type * itemToAdd)
 {
 	if(itemToAdd){
@@ -181,8 +219,70 @@ bool Hero::useItem(int itemToUse){
 //Prints relevant Hero status information
 void Hero::printStatus()
 {
-	cout << "The Heroes location is " << location.x << " X " << location.y << endl;
-	cout << "The Hero is currently on terrain type: " << location.terrainType << endl << endl;
+	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
+	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
+	if(terrain.canWalkOn){
+		cout << "You are able to walk on this Grovnick" << endl;
+	}
+	else{
+		cout << "You are not able to walk on this Grovnick" << endl;
+	}
+	cout << "It takes " << terrain.energyConsumption << " energy bean(s) to walk on this Grovnick" << endl;
+
+}
+
+//TODO As the items are implemented this needs to be reviewed
+//to make sure it displays correctly
+void Hero::displayInventory()
+{
+//For loop processes through inventory array
+    int i = 0;
+    for(i = 0; i < BAG_MAX; ++i)
+    {
+        //If an array element has a pointer to a tool, then this
+        //branch will execute.
+        if(list[i])
+        {
+           //This if/else is for formatting, it adds an extra space
+           //for 1 digit numbers, so the list will display
+           //vertically inline
+           if(i < 9)
+           {
+               cout << endl << i+1 << ".  ";
+           }
+           else
+           {
+               cout << endl << i+1 << ". ";
+           }
+           //This hero inventory display function will then call that
+           //specific type's display function
+           list[i]->displayType();
+        }
+        /*This branch displays a generic "no tool" message if
+        the array element is NULL*/
+        else
+        {
+            //If/Else for formatting digits less than 10.
+            if(i < 9)
+            {
+                cout << endl << i+1 << ".  No tool in slot.";
+            }
+            else
+            {
+                cout << endl << i+1 << ". No tool in slot.";
+            }
+        }
+
+    }
+    cout << endl;
+    cout << "The Hero is standing on " << terrain.terrainName << " ." << endl;
+}
+
+//Adds whiffles to the Hero's bank account
+//If you provide a negative number than it subtracts
+void Hero::addToWhiffles(int whifflesToAdd)
+{
+    whiffles += whifflesToAdd;
 }
