@@ -44,7 +44,6 @@ Map::~Map()
 //FIXME This is just a simple version of it for now
 int Map::loadMapFromFile(string fileName)
 {
-
     int energy = 0;
     int whiffles = 0;
     string line;
@@ -53,6 +52,8 @@ int Map::loadMapFromFile(string fileName)
     ifstream file;
     file.open(fileName.c_str());
     if (!file) return 0;
+
+    fileName = fileName;
 
     //int row = 0;
 
@@ -283,10 +284,7 @@ Grovnick ** Map::getMap()
 
 void Map::resetMapState() {
     delete hero; //Clears inventory once destructor is finished
-    resetVisibleToDefault();
-    setHero(new Hero());
-    //TODO find way to restore obstacles/items
-    
+    loadMapFromFile(fileName); 
     //Perhaps we should store filepath as a variable, and just 
     //call loadMapFromFile to make things simpler
 }
