@@ -22,7 +22,7 @@ class Map;
 class Type {
 public:
     Type(); //Default Constructor
-    Type(string newName, string newMessage, Map * newMap);
+	Type(string newName, string newMessage, Map * newMap);
     virtual int interactWithType() = 0; //Dynamic Binding!
     void displayType();
     bool promptPurchase(int cost);
@@ -33,18 +33,15 @@ protected:
 };
 
 //('T')
-//FIXME
-//Need to decied if we should only subclass
-//specific tools (e.g axe, chainsaw, etc)
-//Or if we can have a generic Tool and simply
-//just change the name and data members
 class Tool : public Type {
 public:
-    int interactWithType();
-    //Add to inventory?
+	Tool(Map * mapPtr);
+	int interactWithType();
 protected:
-    int multiplier; //X1, X2, X3 ...
-    int price;
+    int multiplier; 	//X1, X2, X3 ...
+    int price;			//Tool cost
+	int energyCost;		//How much energy the tool deducts from energy balance
+	int worksOn;		//Identifies which kind of obstacle this tool will work on
 };
 
 //('C')
@@ -124,8 +121,51 @@ protected:
     int removalCost;
 };
 
-class Axe : public Type {
+class Hatchet : public Tool {
+public:	
+	Hatchet(Map * mapPtr);
+	int interactWithType();
+};
+
+class Axe : public Tool {
 public:
     Axe(Map * mapPtr);
     int interactWithType();
 };
+
+
+class Chainsaw : public Tool {
+public:
+	Chainsaw(Map * mapPtr);
+	int interactWithType();
+};
+
+class Chisel : public Tool {
+public:
+	Chisel(Map * mapPtr);
+	int interactWithType();
+};
+
+class Sledgehammer : public Tool {
+public:
+	Sledgehammer(Map * mapPtr);
+	int interactWithType();
+};
+
+class Jackhammer : public Tool {
+public:
+	Jackhammer(Map * mapPtr);	
+	int interactWithType();
+};
+
+class Machete : public Tool {
+public:
+	Machete(Map * mapPtr);
+	int interactWithType();
+};
+
+class Shears : public Tool {
+public:
+	Shears(Map * mapPtr);
+	int interactWithType();
+}; 	

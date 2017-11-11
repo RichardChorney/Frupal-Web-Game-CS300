@@ -121,6 +121,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     //Temporary vaiables for the Hero's location
     int x = location.x;
     int y = location.y;
+	int temp = 0;
 
 	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties
 	changeEnergy(-terrain.energyConsumption);
@@ -149,11 +150,16 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     aheadLoc.y = y;
 
     //Look ahead before actually stepping.
-    if (lookAhead(mapToCopy, aheadLoc))
+    temp = lookAhead(mapToCopy, aheadLoc);						//Type and terrain checking
+	  if((temp == 1) || (temp ==2))
     {
-        //Move the Hero since we can walk on it
+        //Move the Hero
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
+		
+		    if(temp == 1){ 				//NULLs out Type pointer if an object was used and deletes the Type object TODO figure out how we will free tool mem
+		        mapToCopy.getMap()[location.y][location.x].setType(NULL); 
+		    }		
 
         //Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
         terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
@@ -161,7 +167,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
         terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
 
-		displayTerrainMsg(terrain.terrainName);
+		    displayTerrainMsg(terrain.terrainName);
     }
 
     if(!checkAlive()) { cout << "GAME OVER you lose "; }
@@ -171,7 +177,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 
 //Looks at the Grovnick that the Hero is ABOUT to step into
 //and returns true if the player
-bool Hero::lookAhead(Map & map, Location aheadLoc)
+int Hero::lookAhead(Map & map, Location aheadLoc)
 {
     //Collect the terrain ahead of the hero
     Terrain ahead;
@@ -187,16 +193,18 @@ bool Hero::lookAhead(Map & map, Location aheadLoc)
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
 		displayTerrainMsg(ahead.terrainName);
-        cout << "You lose your turn and " << ahead.energyConsumption << " Energy points." << endl;		//TODO Need to change this for boats
-
-		return false;
+		cout << "You lose your turn and " << ahead.energyConsumption << " Energy points." << endl;		//TODO Need to change this for boats
+		changeEnergy(-ahead.energyConsumption);																
+        
+		return 0;								//Returns a 0 so no movement is executed for impassable terrains
+    } 
+	if(typePtr){								//This (if) will guard against SEG FAULTs
+        if(typePtr->interactWithType()){		
+			return 1;							//Call interactWithType() and returns a 1 if the type was used or altered
+		}
     }
-    //This (if) will guard against using interactWithType() for meadows
-	if(typePtr){
-        typePtr->interactWithType();
-    }
-
-	return true;
+	
+	return 2;									//Returs a 2 if a Type was found but not used
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
@@ -305,7 +313,9 @@ void Hero::displayTerrainMsg(string terra)
 	} else if (terra == "Forest") {
    		cout << "You have walked into a deep, dark forest..." << endl;
 	} else if (terra == "Water") {
-   		cout << "You can not go into the water without a boati..." << endl;		//TODO will need to change when we add boats
+
+   		cout << "You can not go into the water without a boat..." << endl;		//TODO will need to change when we add boats  
+
 	} else if (terra == "Wall") {
    		cout << "You can not climb over the border wall, it is just too high..." << endl;
 	} else if (terra == "Bog") {
