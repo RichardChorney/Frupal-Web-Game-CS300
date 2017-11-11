@@ -121,6 +121,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     //Temporary vaiables for the Hero's location
     int x = location.x;
     int y = location.y;
+	int temp = 0;
 
 	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties 
 	changeEnergy(-terrain.energyConsumption);
@@ -144,12 +145,16 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 	} else { return false; }
 
     //Look ahead before actually stepping.
-    if (lookAhead(mapToCopy))
+    temp = lookAhead(mapToCopy);						//Type and terrain checking
+	if((temp == 1) || (temp ==2))
     {
         //Move the Hero
         location.x = x;
         location.y = y;
-
+		
+		if(temp == 1){ 				//NULLs out Type pointer if an object was used and deletes the Type object TODO figure out how we will free tool mem
+			mapToCopy.getMap()[location.y][location.x].setType(NULL); 
+		}		
         //Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
         terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
         terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
@@ -166,7 +171,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 
 //Looks at the Grovnick that the Hero is ABOUT to step into
 //and returns true if the player
-bool Hero::lookAhead(Map & map)
+int Hero::lookAhead(Map & map)
 {
     //Collect the terrain ahead of the hero
     Terrain ahead;
@@ -185,13 +190,15 @@ bool Hero::lookAhead(Map & map)
 		cout << "You lose your turn and " << ahead.energyConsumption << " Energy points." << endl;		//TODO Need to change this for boats
 		changeEnergy(-ahead.energyConsumption);																
         
-		return false;
+		return 0;								//Returns a 0 so no movement is executed for impassable terrains
     } 
-	if(typePtr){								//This (if) will guard against using interactWithType() for meadows
-        typePtr->interactWithType(); 
+	if(typePtr){								//This (if) will guard against SEG FAULTs
+        if(typePtr->interactWithType()){		
+			return 1;							//Call interactWithType() and returns a 1 if the type was used or altered
+		}
     }
 	
-	return true;
+	return 2;									//Returs a 2 if a Type was found but not used
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
@@ -300,7 +307,7 @@ void Hero::displayTerrainMsg(string terra)
 	} else if (terra == "Forest") {
    		cout << "You have walked into a deep, dark forest..." << endl; 
 	} else if (terra == "Water") {
-   		cout << "You can not go into the water without a boati..." << endl;		//TODO will need to change when we add boats  
+   		cout << "You can not go into the water without a boat..." << endl;		//TODO will need to change when we add boats  
 	} else if (terra == "Wall") {
    		cout << "You can not climb over the border wall, it is just too high..." << endl; 
 	} else if (terra == "Bog") {

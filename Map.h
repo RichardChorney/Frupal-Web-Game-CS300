@@ -15,6 +15,7 @@
 #include "Types.h"
 #include "Constants.h"
 #include "Struct.h"
+#include "Enums.h"
 
 class Type; //Forward decleration
 class Hero;
@@ -42,6 +43,7 @@ public:
     void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
 	Terrain * getTerrain();
 	Type * getType();
+	void setType(Type * newPtr);
 
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)

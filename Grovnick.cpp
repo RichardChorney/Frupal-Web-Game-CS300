@@ -6,7 +6,6 @@
 //////////////////////////////////////////
 
 #include "Map.h"
-#include "Enums.h"
 #include "Types.h"
 
 using namespace std;
@@ -89,9 +88,17 @@ void Grovnick::mapIntToType(int intToMap, Map * MapPtr)
     else if (intToMap == bush) type = new Bush(MapPtr);
     else if (intToMap == tree) type = new Tree(MapPtr);
     else if (intToMap == axe) type = new Axe(MapPtr);
+	else if (intToMap == hatchet) type = new Hatchet(MapPtr);
+	else if (intToMap == chainsaw) type = new Chainsaw(MapPtr);
+	else if (intToMap == chisel) type = new Chisel(MapPtr);
+	else if (intToMap == sledgehammer) type = new Sledgehammer(MapPtr);
+	else if (intToMap == jackhammer) type = new Jackhammer(MapPtr);
+	else if (intToMap == machete) type = new Machete(MapPtr);
+	else if (intToMap == shears) type = new Shears(MapPtr);
 
 }
 
+//Translates map file field into proper terrain
 void Grovnick::mapIntToTerrain(int terra) 
 {
     if (terra == meadow) {
@@ -149,3 +156,6 @@ Terrain * Grovnick::getTerrain() { return &terrain; }
 
 //Returns a pointer to a Grovnicks current Type
 Type * Grovnick::getType() { return type; }
+
+//Sets Type pointer (used to NULL out used objects)
+void Grovnick::setType(Type * newPtr) { type = newPtr; } 
