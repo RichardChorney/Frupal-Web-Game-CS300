@@ -81,10 +81,8 @@ void Grovnick::mapIntToType(int intToMap, Map * MapPtr)
         type = new Clue("Clue", clueMessage, MapPtr);
     }
     else if (intToMap == chest) type = new Chest(MapPtr);
-    else if (intToMap == bog) type = new Bog(MapPtr);
     else if (intToMap == powerBar) type = new PowerBar(MapPtr);
     else if (intToMap == boulder) type = new Boulder(MapPtr);
-    //else if (intToMap == wall) type = new Wall(MapPtr);
     else if (intToMap == royalDiamonds) type = new RoyalDiamonds(MapPtr);
     else if (intToMap == explosiveChest) type = new ExplosiveChest(MapPtr);
     else if (intToMap == binoculars) type = new Binoculars(MapPtr);
@@ -102,7 +100,7 @@ void Grovnick::mapIntToTerrain(int terra)
         terrain.canWalkOn = true;
         terrain.energyConsumption = 1;
     } else if (terra == forest) {
-        terrain.terrainName = "forest";
+        terrain.terrainName = "Forest";
         terrain.charToDisplay = 'F';
         terrain.canWalkOn = true;
         terrain.energyConsumption = 1;
@@ -112,20 +110,20 @@ void Grovnick::mapIntToTerrain(int terra)
         terrain.canWalkOn = false;
         terrain.energyConsumption = 1;
     } else if (terra == wall) {
-        terrain.terrainName = "wall";
+        terrain.terrainName = "Wall";
         terrain.charToDisplay = '|';
         terrain.canWalkOn = false;
         terrain.energyConsumption = 1;
     } else if (terra == bog) {
         terrain.terrainName = "Bog";
-        terrain.charToDisplay = 'S';
+        terrain.charToDisplay = 'B';
         terrain.canWalkOn = true;
         terrain.energyConsumption = 2;
     } else if (terra == swamp) {
         terrain.terrainName = "Swamp";
         terrain.charToDisplay = 'S';
         terrain.canWalkOn = true;
-        terrain.energyConsumption = 2;
+        terrain.energyConsumption = 1;
     }
 }
 

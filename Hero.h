@@ -41,6 +41,7 @@ class Hero {
 	void displayInventory();
 	bool lookAhead(Map & map); //Checks Grovnick ahead of Hero
 	void addToWhiffles(int whifflesToAdd); //Either add or subtract whiffles
+	void displayTerrainMsg(string terraName);	//Displays correct message based on terrain type
 
   protected:
     Terrain terrain;        //Terrain that the hero is on

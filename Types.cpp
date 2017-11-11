@@ -59,7 +59,7 @@ Clue::Clue(string newName, string newMessage, Map * mapPtr)
 
 bool Type::promptPurchase(int cost) {
     char userInput;
-    cout << "Would you like to purchase this item for " << cost << " whiffles? Y/N" << endl;  
+    cout << "Would you like to purchase this item for " << cost << " whiffle(s)? Y/N" << endl;  
     while (true) {
         cin >> userInput; 
         switch (userInput) {
@@ -130,20 +130,6 @@ int ExplosiveChest::interactWithType()
     return 1; //Not really needed
 }
 
-Bog::Bog(Map * mapPtr)
-{
-    map = mapPtr;
-}
-
-//Bog / Swamp
-int Bog::interactWithType()
-{
-    cout << "Gross, you've stepped into a swamp! You lose an extra energy point." << endl;
-    //map->getHeroPtr()->changeEnergy(changeInEnergy);
-    
-    return 0;
-}
-
 PowerBar::PowerBar(Map * mapPtr)
 {
     map = mapPtr;
@@ -152,30 +138,20 @@ PowerBar::PowerBar(Map * mapPtr)
 //Power Bar  TODO not sure how to use the return type for this yet
 int PowerBar::interactWithType()
 {
-    char keyPress = '0';
-	do{
-		system("clear");
-		cout << "You are standing on a yummy Power Bar..." << endl;
-		cout << "Would you like to buy it for a Whiffle??  Y/N";
-		cin >> keyPress;
-	}
-	while((keyPress != 'y') || (keyPress != 'Y') || (keyPress != 'n') || (keyPress != 'N')); 
-
-	if((keyPress == 'Y') || (keyPress == 'y')){
-		//TODO Call Levis transaction function
-		Hero * currHero = map->getHeroPtr();
-		currHero->changeEnergy(20);
-		currHero->setBalance(-1);
-		return 1;
-	}
+	system("clear");
+	cout << "You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
 	
-	return 0;
-    /*cout << "You've found a power bar! It gives " << changeInEnergy << "energy." << endl;
-    if (promptPurchase(price)) { 
-        map->getHeroPtr()->changeEnergy(changeInEnergy);
-    }
-        
-    return 0;*/
+	if (promptPurchase(1)) { 
+    	Hero * currHero = map->getHeroPtr();
+		currHero->changeEnergy(20);
+		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty...." << endl;
+
+		return 1;	
+	}
+
+	cout << "Oh well, I guess not everyone likes Power Bars...." << endl;
+            
+    return 0;
 }
 
 Boulder::Boulder(Map * mapPtr)
@@ -187,17 +163,6 @@ Boulder::Boulder(Map * mapPtr)
 int Boulder::interactWithType()
 {
     map->getHeroPtr()->changeEnergy(-removalCost);
-    return 0;
-}
-
-Wall::Wall(Map * mapPtr)
-{
-
-}
-
-//Wall
-int Wall::interactWithType()
-{
     return 0;
 }
 

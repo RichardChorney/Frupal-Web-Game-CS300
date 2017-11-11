@@ -78,17 +78,6 @@ protected:
     int whifflesToDeduct;
 };
 
-//('S') The bog class is the same thing
-//as a Swamp.
-class Bog : public Type {
-public:
-    Bog(Map * mapPtr);
-    int interactWithType();
-protected:
-    int changeInEnergy;
-};
-
-
 //('P')
 class PowerBar : public Type {
 public:
@@ -103,13 +92,6 @@ public:
     int interactWithType();
 protected:
     int removalCost;
-};
-
-//('|')
-class Wall : public Type {
-public:
-    Wall(Map * mapPtr);
-    int interactWithType();
 };
 
 class RoyalDiamonds : public Type {
