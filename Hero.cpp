@@ -143,12 +143,16 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 		else { --x; }
 	} else { return false; }
 
+    Location aheadLoc;
+    aheadLoc.x = x;
+    aheadLoc.y = y;
+
     //Look ahead before actually stepping.
-    if (lookAhead(mapToCopy))
+    if (lookAhead(mapToCopy, aheadLoc))
     {
         //Move the Hero
-        location.x = x;
-        location.y = y;
+        location.x = aheadLoc.x;
+        location.y = aheadLoc.y;
 
         //Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
         terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
@@ -166,17 +170,17 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 
 //Looks at the Grovnick that the Hero is ABOUT to step into
 //and returns true if the player
-bool Hero::lookAhead(Map & map)
+bool Hero::lookAhead(Map & map, Location aheadLoc)
 {
     //Collect the terrain ahead of the hero
     Terrain ahead;
-    ahead.terrainName = map.getMap()[location.y][location.x].getTerrain()->terrainName;
-    ahead.charToDisplay = map.getMap()[location.y][location.x].getTerrain()->charToDisplay;
-    ahead.canWalkOn = map.getMap()[location.y][location.x].getTerrain()->canWalkOn;
-    ahead.energyConsumption = map.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+    ahead.terrainName = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->terrainName;
+    ahead.charToDisplay = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->charToDisplay;
+    ahead.canWalkOn = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->canWalkOn;
+    ahead.energyConsumption = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->energyConsumption;
 
 	Type * typePtr = NULL;
-	typePtr = map.getMap()[location.y][location.x].getType();
+	typePtr = map.getMap()[aheadLoc.y][aheadLoc.x].getType();
 
     //If the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
