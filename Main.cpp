@@ -15,6 +15,7 @@ using namespace std;
 string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
 string const basicMap = "basicMap.txt";
+string const basicMap2 = "basicMap2.txt";
 
 int main()
 {
@@ -22,15 +23,15 @@ int main()
     Hero * hero;
 
     Map map; //Create a map of size MAX
-    map.loadMapFromFile(basicMap);
+    map.loadMapFromFile(basicMap2);
     hero = map.getHeroPtr();
 
 	bool proceed = true;
-        bool showInventory = false;
+    bool showInventory = false;
 	char keyPress = '0';
-
+	
+	cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
 	while(proceed){
-		cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
 		map.displayMap();
 		hero->printStatus();
 		cout << endl << "Which direction would you like to go in?" << endl;
@@ -63,7 +64,7 @@ int main()
 		}
 
 		if(!hero->checkAlive()){
-			cout << "You died!! GAME OVER" << endl << endl;
+			cout << "GAME OVER" << endl << endl;
 			proceed = false;
 		}
 	}
