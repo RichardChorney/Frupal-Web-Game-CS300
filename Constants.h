@@ -7,6 +7,7 @@
 ////////////////////////////////////////
 
 #pragma once
+#include <string>
 
 /* Hero Constants */
 int const DEFAULT_ENERGY = 100; //Starting amount of Energy
@@ -21,7 +22,8 @@ char const MIST = 'X'; //Invisible terrain tile
 char const HERO_CHAR = 'H'; //Display Char for Hero
 int const DEFAULT_STARTING_LOCATION = (MAX / 2) - 1;
 int const DEFAULT_ENERGY_CONSUMPTION = 1;
-
+std::string const HORIZONTAL_OUTLINE = "######################";
+char const MAP_OUTLINE_CHAR = '#';
 
 /* Type Constants */
 //Amount of whiffles recieved if you open the chest
@@ -38,3 +40,6 @@ int const CHEST_WHIFFLES_DEDUCTED = -100;
 bool const DISPLAY_COORDINATES = false;
 //All grovnick's can be seen on the entire map
 bool const SHOW_ALL_GROVNICKS = false;
+//Toggle on to show an outline around the map,
+//and not display the mist ('X') character
+bool const SHOW_MIST = false;

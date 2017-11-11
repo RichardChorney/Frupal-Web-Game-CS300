@@ -157,9 +157,13 @@ void Map::displayMap()
         setAllLocalVisibleGrovnicksOnMap(true);
     }
 
+    //Display an outline of the map if toggled
+    if (!SHOW_MIST) cout << HORIZONTAL_OUTLINE << endl;
+
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
     for (int j = 0; j < mapSize; ++j) {
+        if (!SHOW_MIST) cout << MAP_OUTLINE_CHAR;
         for (int i = 0; i < mapSize; ++i) {
 
             //Debug Mode
@@ -176,8 +180,11 @@ void Map::displayMap()
             }
             cout << " "; //Spaces characters on x-axis
         }
+        if (!SHOW_MIST) cout << MAP_OUTLINE_CHAR;
         cout << endl; //At the end of a row
     }
+
+    if (!SHOW_MIST) cout << HORIZONTAL_OUTLINE << endl;
 }
 
 //Sets what grovnicks should be displayed on the map,
