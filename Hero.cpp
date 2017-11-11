@@ -143,6 +143,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 		else { --x; }
 	} else { return false; }
 
+    //The location of the Grovnick the Hero is about to step on.
     Location aheadLoc;
     aheadLoc.x = x;
     aheadLoc.y = y;
@@ -150,7 +151,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     //Look ahead before actually stepping.
     if (lookAhead(mapToCopy, aheadLoc))
     {
-        //Move the Hero
+        //Move the Hero since we can walk on it
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
 
@@ -186,12 +187,12 @@ bool Hero::lookAhead(Map & map, Location aheadLoc)
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
 		displayTerrainMsg(ahead.terrainName);
-		cout << "You lose your turn and " << ahead.energyConsumption << " Energy points." << endl;		//TODO Need to change this for boats
-		changeEnergy(-ahead.energyConsumption);
+        cout << "You lose your turn and " << ahead.energyConsumption << " Energy points." << endl;		//TODO Need to change this for boats
 
 		return false;
     }
-	if(typePtr){								//This (if) will guard against using interactWithType() for meadows
+    //This (if) will guard against using interactWithType() for meadows
+	if(typePtr){
         typePtr->interactWithType();
     }
 
