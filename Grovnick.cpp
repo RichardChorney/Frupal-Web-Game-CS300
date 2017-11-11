@@ -41,7 +41,8 @@ void Grovnick::copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int new
     isVisibleLocally = newIsVisibleLocally;
     isVisible = newIsVisible;
 
-    mapIntToType(newType, newTerrain, newMap);
+    //mapIntToType(newType, newTerrain, newMap);
+    mapIntToType(newType, newMap);
 }
 
 //Displays just the character associated
@@ -63,7 +64,8 @@ char Grovnick::getCharToDisplay()
 
 //Takes an integer and maps it to the kind of type
 //that it is. Then it upcasts it into the type.
-void Grovnick::mapIntToType(int intToMap, int terra, Map * MapPtr)
+//void Grovnick::mapIntToType(int intToMap, int terra, Map * MapPtr)
+void Grovnick::mapIntToType(int intToMap, Map * MapPtr)
 {
 
     //Parse what kind of Type it is and Then
@@ -82,7 +84,7 @@ void Grovnick::mapIntToType(int intToMap, int terra, Map * MapPtr)
     else if (intToMap == bog) type = new Bog(MapPtr);
     else if (intToMap == powerBar) type = new PowerBar(MapPtr);
     else if (intToMap == boulder) type = new Boulder(MapPtr);
-    else if (intToMap == wall) type = new Wall(MapPtr);
+    //else if (intToMap == wall) type = new Wall(MapPtr);
     else if (intToMap == royalDiamonds) type = new RoyalDiamonds(MapPtr);
     else if (intToMap == explosiveChest) type = new ExplosiveChest(MapPtr);
     else if (intToMap == binoculars) type = new Binoculars(MapPtr);
@@ -90,27 +92,40 @@ void Grovnick::mapIntToType(int intToMap, int terra, Map * MapPtr)
     else if (intToMap == tree) type = new Tree(MapPtr);
     else if (intToMap == axe) type = new Axe(MapPtr);
 
-    //Parse what kind of terrain it is
+}
+
+void Grovnick::mapIntToTerrain(int terra) 
+{
     if (terra == meadow) {
         terrain.terrainName = "Meadow";
+        terrain.charToDisplay = 'G';
+        terrain.canWalkOn = true;
+        terrain.energyConsumption = 1;
+    } else if (terra == forest) {
+        terrain.terrainName = "forest";
+        terrain.charToDisplay = 'F';
         terrain.canWalkOn = true;
         terrain.energyConsumption = 1;
     } else if (terra == water) {
         terrain.terrainName = "Water";
+        terrain.charToDisplay = 'W';
+        terrain.canWalkOn = false;
+        terrain.energyConsumption = 1;
+    } else if (terra == wall) {
+        terrain.terrainName = "wall";
+        terrain.charToDisplay = '|';
         terrain.canWalkOn = false;
         terrain.energyConsumption = 1;
     } else if (terra == bog) {
         terrain.terrainName = "Bog";
+        terrain.charToDisplay = 'S';
         terrain.canWalkOn = true;
         terrain.energyConsumption = 2;
-    } else if (terra == forest) {
-        terrain.terrainName = "forest";
+    } else if (terra == swamp) {
+        terrain.terrainName = "Swamp";
+        terrain.charToDisplay = 'S';
         terrain.canWalkOn = true;
-        terrain.energyConsumption = 1;
-    } else if (terra == wall) {
-        terrain.terrainName = "wall";
-        terrain.canWalkOn = false;
-        terrain.energyConsumption = 1;
+        terrain.energyConsumption = 2;
     }
 }
 

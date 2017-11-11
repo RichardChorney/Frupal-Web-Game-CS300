@@ -30,7 +30,8 @@ public:
     Grovnick();
     Grovnick(char newCharToDisplay, Map * mapPtr); //Default Constructor
     void displayChar(); //Displays the map character
-    void mapIntToType(int intToMap, int terrain, Map * mapPtr); //Maps the char to type
+    void mapIntToType(int intToMap, Map * mapPtr); //Maps the char to type
+    void mapIntToTerrain(int terra); 
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
     void setIsVisibleLocally(bool newVisible);

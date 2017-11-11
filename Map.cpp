@@ -32,7 +32,6 @@ Map::~Map()
 }
 
 //Loads the map (2D array) from a file
-//FIXME This is just a simple version of it for now
 int Map::loadMapFromFile(string fileName)
 {
 
@@ -47,31 +46,25 @@ int Map::loadMapFromFile(string fileName)
     file.open(fileName.c_str());
     if (!file) return 0;
 
-    fileName = fileName;
-
-    //int row = 0;
-
     // Get Game map function
     std::getline(file,line);
 
     // Get map size + allocate
     std::getline(file, line);
     allocateMap(atoi(line.c_str()));
+
     // consume the ### line of the map file
     std::getline(file, line);
 
-    // TODO
     // Get hero coordinates
     std::getline(file, line);
     split(line, delim, v);
+
     Location heroLoc;
-    //int a = mapSize - 1 - atoi(v[0].c_str());
-    //int b = mapSize - 1 - atoi(v[1].c_str());
-    //heroLoc.x = a;
-    //heroLoc.y = b;
     heroLoc.x = atoi(v[0].c_str());
     heroLoc.y = atoi(v[1].c_str());
     v.clear();
+
     // Get hero energy level
     std::getline(file, line);
     energy = atoi(line.c_str());
@@ -79,9 +72,9 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-    Terrain temporaryTerrain; //FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
+    //Terrain temporaryTerrain; //FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
 
-    hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
+    //hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
     setHero(hero);
     // TODO items
 
@@ -89,16 +82,21 @@ int Map::loadMapFromFile(string fileName)
     // consume the ### line of the map file
     std::getline(file, line);
 
+    int x = 0;
+    int y = 0;
     while(getline(file, line)) {
+        Terrain t;
         split(line, delim, v);
-        //map[v[0]][v[1]].setCharToDisplay(NULL);
-        //map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
-        //int x = mapSize - 1 - atoi(v[0].c_str());
-        //int y = mapSize - 1 - atoi(v[1].c_str());
-        //map[x][y].setVisibility(v[2].c_str());
+        x = atoi(v[0].c_str());
+        y = atoi(v[1].c_str());
+        map[x][y].setVisibility(v[2].c_str());
+        map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
 
         v.clear();
     }
+    
+    Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
+    hero = new Hero(heroLoc, energy, whiffles, *t);
     return 1;
 }
 
