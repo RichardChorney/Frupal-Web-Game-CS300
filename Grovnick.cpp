@@ -52,7 +52,8 @@ void Grovnick::displayChar()
 {
     //if (isHeroOnGrovnick) cout << HERO_CHAR;
     if (isVisible || isVisibleLocally) cout << terrain.charToDisplay;
-    else cout << MIST;
+    else if (SHOW_MIST) cout << MIST;
+    else cout << " ";
 }
 
 //Returns the char the grovnick will display
@@ -98,8 +99,10 @@ void Grovnick::mapIntToType(int intToMap, Map * MapPtr)
 
 }
 
+
 //Translates map file field into proper terrain
 void Grovnick::mapIntToTerrain(int terra) 
+
 {
     if (terra == meadow) {
         terrain.terrainName = "Meadow";
@@ -151,7 +154,7 @@ bool Grovnick::getVisibility() { return isVisible; }
 //Returns the energy consumption data member
 int Grovnick::getEnergyConsumption() { return terrain.energyConsumption; }
 
-//Returns a pointer to a Grovnicks terrain 
+//Returns a pointer to a Grovnicks terrain
 Terrain * Grovnick::getTerrain() { return &terrain; }
 
 //Returns a pointer to a Grovnicks current Type

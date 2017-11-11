@@ -123,7 +123,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     int y = location.y;
 	int temp = 0;
 
-	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties 
+	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties
 	changeEnergy(-terrain.energyConsumption);
 
     //Move North
@@ -144,24 +144,30 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 		else { --x; }
 	} else { return false; }
 
+    //The location of the Grovnick the Hero is about to step on.
+    Location aheadLoc;
+    aheadLoc.x = x;
+    aheadLoc.y = y;
+
     //Look ahead before actually stepping.
-    temp = lookAhead(mapToCopy);						//Type and terrain checking
-	if((temp == 1) || (temp ==2))
+    temp = lookAhead(mapToCopy, aheadLoc);						//Type and terrain checking
+	  if((temp == 1) || (temp ==2))
     {
         //Move the Hero
-        location.x = x;
-        location.y = y;
+        location.x = aheadLoc.x;
+        location.y = aheadLoc.y;
 		
-		if(temp == 1){ 				//NULLs out Type pointer if an object was used and deletes the Type object TODO figure out how we will free tool mem
-			mapToCopy.getMap()[location.y][location.x].setType(NULL); 
-		}		
+		    if(temp == 1){ 				//NULLs out Type pointer if an object was used and deletes the Type object TODO figure out how we will free tool mem
+		        mapToCopy.getMap()[location.y][location.x].setType(NULL); 
+		    }		
+
         //Update Heroes terrain struct info with correct terrain struct info from the map 2d array, (HOLY S**T, you need a flow chart for these)
         terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
         terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
         terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
         terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
 
-		displayTerrainMsg(terrain.terrainName);
+		    displayTerrainMsg(terrain.terrainName);
     }
 
     if(!checkAlive()) { cout << "GAME OVER you lose "; }
@@ -171,17 +177,17 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 
 //Looks at the Grovnick that the Hero is ABOUT to step into
 //and returns true if the player
-int Hero::lookAhead(Map & map)
+int Hero::lookAhead(Map & map, Location aheadLoc)
 {
     //Collect the terrain ahead of the hero
     Terrain ahead;
-    ahead.terrainName = map.getMap()[location.y][location.x].getTerrain()->terrainName;
-    ahead.charToDisplay = map.getMap()[location.y][location.x].getTerrain()->charToDisplay;
-    ahead.canWalkOn = map.getMap()[location.y][location.x].getTerrain()->canWalkOn;
-    ahead.energyConsumption = map.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+    ahead.terrainName = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->terrainName;
+    ahead.charToDisplay = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->charToDisplay;
+    ahead.canWalkOn = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->canWalkOn;
+    ahead.energyConsumption = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->energyConsumption;
 
 	Type * typePtr = NULL;
-	typePtr = map.getMap()[location.y][location.x].getType();
+	typePtr = map.getMap()[aheadLoc.y][aheadLoc.x].getType();
 
     //If the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
@@ -303,16 +309,18 @@ void Hero::addToWhiffles(int whifflesToAdd)
 void Hero::displayTerrainMsg(string terra)
 {
 	if (terra == "Meadow") {
-   		cout << "You have walked into a beautiful meadow..." << endl; 
+   		cout << "You have walked into a beautiful meadow..." << endl;
 	} else if (terra == "Forest") {
-   		cout << "You have walked into a deep, dark forest..." << endl; 
+   		cout << "You have walked into a deep, dark forest..." << endl;
 	} else if (terra == "Water") {
+
    		cout << "You can not go into the water without a boat..." << endl;		//TODO will need to change when we add boats  
+
 	} else if (terra == "Wall") {
-   		cout << "You can not climb over the border wall, it is just too high..." << endl; 
+   		cout << "You can not climb over the border wall, it is just too high..." << endl;
 	} else if (terra == "Bog") {
-   		cout << "Eewww, you have walked into a nast Bog, it will take 2 energy points to crawl out..." << endl; 
+   		cout << "Eewww, you have walked into a nast Bog, it will take 2 energy points to crawl out..." << endl;
 	} else if (terra == "Swamp") {
-   		cout << "Yuck, you have walked into a swamp, watch out for alligators!!" << endl; 
+   		cout << "Yuck, you have walked into a swamp, watch out for alligators!!" << endl;
 	}
 }

@@ -86,7 +86,7 @@ bool Type::promptPurchase(int cost) {
 		return false;
 	}
 }
-    
+
 //Tool
 //Virtual function override of Type class
 int Tool::interactWithType()
@@ -153,8 +153,8 @@ int PowerBar::interactWithType()
 {
 	system("clear");
 	cout << "You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
-	
-	if (promptPurchase(1)) { 
+
+	if (promptPurchase(1)) {
     	Hero * currHero = map->getHeroPtr();
 		currHero->changeEnergy(20);
 		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty...." << endl;
@@ -163,7 +163,7 @@ int PowerBar::interactWithType()
 	}
 
 	cout << "Oh well, I guess not everyone likes Power Bars...." << endl;
-            
+
     return 0;
 }
 

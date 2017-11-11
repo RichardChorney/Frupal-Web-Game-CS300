@@ -39,9 +39,9 @@ class Hero {
 	bool useItem(int num);		//Updates heroes pointer list
 	void printStatus();			//Prints heroes status
 	void displayInventory();
-	int lookAhead(Map & map); //Checks Grovnick ahead of Hero, returns info based on used items etc.
+	int lookAhead(Map & map, Loation aheadLoc); //Checks Grovnick ahead of Hero, returns info based on used items etc.
 	void addToWhiffles(int whifflesToAdd); //Either add or subtract whiffles
-	void displayTerrainMsg(string terraName);	//Displays correct message based on terrain type
+	void displayTerrainMsg(string terraName);
 
   protected:
     Terrain terrain;        //Terrain that the hero is on
