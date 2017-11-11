@@ -47,16 +47,22 @@ int main()
 
 		cin >> keyPress;
 		system("clear");
-		
-		if((keyPress < '0') || (keyPress > '6')){
-			continue;
+
+		if (!((keyPress >= '0' && keyPress <= '6')
+        || keyPress == 'w' || keyPress == 'a'
+        || keyPress == 's' || keyPress == 'd')) {
+			continue; 
 		}
 
 		switch(keyPress){
 
+            case 'w':
 			case '1':  hero->moveHero(1, map); break;
+            case 'd':
 			case '2':  hero->moveHero(2, map); break;
+            case 's':
 			case '3':  hero->moveHero(3, map); break;
+            case 'a':
 			case '4':  hero->moveHero(4, map); break;
             case '5':   showInventory = true; break;
 			case '6':  proceed = false; break;
