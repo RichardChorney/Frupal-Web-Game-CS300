@@ -32,7 +32,6 @@ Map::~Map()
 }
 
 //Loads the map (2D array) from a file
-//FIXME This is just a simple version of it for now
 int Map::loadMapFromFile(string fileName)
 {
 
@@ -73,9 +72,9 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-    Terrain temporaryTerrain; //FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
+    //Terrain temporaryTerrain; //FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
 
-    hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
+    //hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
     setHero(hero);
     // TODO items
 
@@ -95,6 +94,9 @@ int Map::loadMapFromFile(string fileName)
 
         v.clear();
     }
+    
+    Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
+    hero = new Hero(heroLoc, energy, whiffles, *t);
     return 1;
 }
 
