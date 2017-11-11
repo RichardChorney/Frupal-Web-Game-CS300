@@ -17,6 +17,7 @@ Grovnick::Grovnick()
     isVisible = false;
     isVisibleLocally = false;
     //Terrain
+	terrain.terrainName = "Meadow";
 }
 
 //Default constructor for the Grovnick Class
@@ -28,7 +29,7 @@ Grovnick::Grovnick(char newCharToDisplay, Map * mapPtr)
     terrain.charToDisplay = newCharToDisplay;
     isVisible = false;
     isVisibleLocally = false;
-    terrain.terrainName = "meadow";
+    terrain.terrainName = "Meadow";
     terrain.charToDisplay = 'G';
     terrain.canWalkOn = true;
     terrain.energyConsumption = 1;
