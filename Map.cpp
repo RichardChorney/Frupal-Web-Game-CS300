@@ -90,9 +90,7 @@ int Map::loadMapFromFile(string fileName)
         split(line, delim, v);
         x = atoi(v[0].c_str());
         y = atoi(v[1].c_str());
-        //map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
         map[x][y].setVisibility(v[2].c_str());
-        //generateTerrain(v[3], t); 
         map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
 
         v.clear();

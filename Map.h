@@ -31,7 +31,6 @@ public:
     Grovnick(char newCharToDisplay, Map * mapPtr); //Default Constructor
     void displayChar(); //Displays the map character
     void mapIntToType(int intToMap, Map * mapPtr); //Maps the char to type
-    //void mapIntToType(int intToMap, int terrain, Map * mapPtr); //Maps the char to type
     void mapIntToTerrain(int terra); 
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
@@ -74,8 +73,6 @@ public:
 protected:
     void allocateMap(int newMapSize = MAX);
     void split(const string& s, char delim, vector<string>& v);
-    // FIXME
-    //void generateTerrain(string& name, Terrain& t);
     int mapSize; //Size of the map (and thus the size of each array)
     Grovnick ** map; //2D array of Grovnick pointers
     Hero * hero; //A pointer to the user
