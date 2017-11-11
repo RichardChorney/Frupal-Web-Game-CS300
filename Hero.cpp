@@ -122,7 +122,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     int x = location.x;
     int y = location.y;
 
-	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties 
+	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties
 	changeEnergy(-terrain.energyConsumption);
 
     //Move North
@@ -183,14 +183,14 @@ bool Hero::lookAhead(Map & map)
 		//Display appropriate terrain message
 		displayTerrainMsg(ahead.terrainName);
 		cout << "You lose your turn and " << ahead.energyConsumption << " Energy points." << endl;		//TODO Need to change this for boats
-		changeEnergy(-ahead.energyConsumption);																
-        
+		changeEnergy(-ahead.energyConsumption);
+
 		return false;
-    } 
-	if(typePtr){								//This (if) will guard against using interactWithType() for meadows
-        typePtr->interactWithType(); 
     }
-	
+	if(typePtr){								//This (if) will guard against using interactWithType() for meadows
+        typePtr->interactWithType();
+    }
+
 	return true;
 }
 
@@ -296,16 +296,16 @@ void Hero::addToWhiffles(int whifflesToAdd)
 void Hero::displayTerrainMsg(string terra)
 {
 	if (terra == "Meadow") {
-   		cout << "You have walked into a beautiful meadow..." << endl; 
+   		cout << "You have walked into a beautiful meadow..." << endl;
 	} else if (terra == "Forest") {
-   		cout << "You have walked into a deep, dark forest..." << endl; 
+   		cout << "You have walked into a deep, dark forest..." << endl;
 	} else if (terra == "Water") {
-   		cout << "You can not go into the water without a boati..." << endl;		//TODO will need to change when we add boats  
+   		cout << "You can not go into the water without a boati..." << endl;		//TODO will need to change when we add boats
 	} else if (terra == "Wall") {
-   		cout << "You can not climb over the border wall, it is just too high..." << endl; 
+   		cout << "You can not climb over the border wall, it is just too high..." << endl;
 	} else if (terra == "Bog") {
-   		cout << "Eewww, you have walked into a nast Bog, it will take 2 energy points to crawl out..." << endl; 
+   		cout << "Eewww, you have walked into a nast Bog, it will take 2 energy points to crawl out..." << endl;
 	} else if (terra == "Swamp") {
-   		cout << "Yuck, you have walked into a swamp, watch out for alligators!!" << endl; 
+   		cout << "Yuck, you have walked into a swamp, watch out for alligators!!" << endl;
 	}
 }

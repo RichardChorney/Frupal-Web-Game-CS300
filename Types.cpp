@@ -59,9 +59,9 @@ Clue::Clue(string newName, string newMessage, Map * mapPtr)
 
 bool Type::promptPurchase(int cost) {
     char userInput;
-    cout << "Would you like to purchase this item for " << cost << " whiffle(s)? Y/N" << endl;  
+    cout << "Would you like to purchase this item for " << cost << " whiffle(s)? Y/N" << endl;
     while (true) {
-        cin >> userInput; 
+        cin >> userInput;
         switch (userInput) {
             case 'Y':
             case 'y':
@@ -78,7 +78,7 @@ bool Type::promptPurchase(int cost) {
         };
     }
 }
-    
+
 //Tool
 //Virtual function override of Type class
 int Tool::interactWithType()
@@ -140,17 +140,17 @@ int PowerBar::interactWithType()
 {
 	system("clear");
 	cout << "You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
-	
-	if (promptPurchase(1)) { 
+
+	if (promptPurchase(1)) {
     	Hero * currHero = map->getHeroPtr();
 		currHero->changeEnergy(20);
 		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty...." << endl;
 
-		return 1;	
+		return 1;
 	}
 
 	cout << "Oh well, I guess not everyone likes Power Bars...." << endl;
-            
+
     return 0;
 }
 
@@ -226,6 +226,6 @@ Axe::Axe(Map * mapPtr)
 
 //Axe
 int Axe::interactWithType() {
-    
+
     return 0;
 }

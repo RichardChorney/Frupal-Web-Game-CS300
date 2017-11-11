@@ -22,8 +22,8 @@ Map::~Map()
 {
     //Free the 2D array
 	for(int i = 0; i < mapSize; ++i){
-		delete [] map[i];	
-		map[i] = NULL;	
+		delete [] map[i];
+		map[i] = NULL;
 	}
 	delete [] map;
 	delete hero;
@@ -94,7 +94,7 @@ int Map::loadMapFromFile(string fileName)
 
         v.clear();
     }
-    
+
     Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
     hero = new Hero(heroLoc, energy, whiffles, *t);
     return 1;
@@ -273,4 +273,4 @@ Grovnick ** Map::getMap()
 void Map::resetMapState() {
     delete hero;
     loadMapFromFile(fileName);
-} 
+}
