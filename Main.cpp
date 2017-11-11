@@ -48,10 +48,11 @@ int main()
 		cin >> keyPress;
 		system("clear");
 
+        //Make sure the keypress is within the menu items
 		if (!((keyPress >= '0' && keyPress <= '6')
         || keyPress == 'w' || keyPress == 'a'
         || keyPress == 's' || keyPress == 'd')) {
-			continue; 
+			continue;
 		}
 
 		switch(keyPress){
