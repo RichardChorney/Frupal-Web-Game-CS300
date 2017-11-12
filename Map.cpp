@@ -20,12 +20,18 @@ Map::Map() : hero(NULL)
 //Destructor for the Map Class
 Map::~Map()
 {
-    //FIXME
     //Free the 2D array
+	for(int i = 0; i < mapSize; ++i){
+		delete [] map[i];
+		map[i] = NULL;
+	}
+	delete [] map;
+	delete hero;
+	map = NULL;
+	hero = NULL;
 }
 
 //Loads the map (2D array) from a file
-//FIXME This is just a simple version of it for now
 int Map::loadMapFromFile(string fileName)
 {
 
@@ -40,29 +46,25 @@ int Map::loadMapFromFile(string fileName)
     file.open(fileName.c_str());
     if (!file) return 0;
 
-    //int row = 0;
-
     // Get Game map function
     std::getline(file,line);
 
     // Get map size + allocate
     std::getline(file, line);
     allocateMap(atoi(line.c_str()));
+
     // consume the ### line of the map file
     std::getline(file, line);
 
-    // TODO
     // Get hero coordinates
     std::getline(file, line);
     split(line, delim, v);
+
     Location heroLoc;
-    //int a = mapSize - 1 - atoi(v[0].c_str());
-    //int b = mapSize - 1 - atoi(v[1].c_str());
-    //heroLoc.x = a;
-    //heroLoc.y = b;
     heroLoc.x = atoi(v[0].c_str());
     heroLoc.y = atoi(v[1].c_str());
     v.clear();
+
     // Get hero energy level
     std::getline(file, line);
     energy = atoi(line.c_str());
@@ -70,27 +72,31 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-	Terrain temporaryTerrain;		//FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
-    hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
+    //Terrain temporaryTerrain; //FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
+
+    //hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
     setHero(hero);
     // TODO items
-    //
-    //
+
 
     // consume the ### line of the map file
     std::getline(file, line);
 
+    int x = 0;
+    int y = 0;
     while(getline(file, line)) {
+        Terrain t;
         split(line, delim, v);
-        //map[v[0]][v[1]].setCharToDisplay(NULL);
-
-        map[atoi(v[0].c_str())][atoi(v[1].c_str())].setVisibility(v[2].c_str());
-        //int x = mapSize - 1 - atoi(v[0].c_str());
-        //int y = mapSize - 1 - atoi(v[1].c_str());
-        //map[x][y].setVisibility(v[2].c_str());
+        x = atoi(v[0].c_str());
+        y = atoi(v[1].c_str());
+        map[x][y].setVisibility(v[2].c_str());
+        map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
 
         v.clear();
     }
+
+    Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
+    hero = new Hero(heroLoc, energy, whiffles, *t);
     return 1;
 }
 
@@ -125,9 +131,9 @@ int Map::loadMapToFile(string fileName)
         }
     }
 
-//Closes file
+    //Closes file
     file.close();
-//Returns 1 upon successful function usage
+    //Returns 1 upon successful function usage
     return 1;
 }
 
@@ -151,9 +157,13 @@ void Map::displayMap()
         setAllLocalVisibleGrovnicksOnMap(true);
     }
 
+    //Display an outline of the map if toggled
+    if (!SHOW_MIST) cout << HORIZONTAL_OUTLINE << endl;
+
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
     for (int j = 0; j < mapSize; ++j) {
+        if (!SHOW_MIST) cout << MAP_OUTLINE_CHAR;
         for (int i = 0; i < mapSize; ++i) {
 
             //Debug Mode
@@ -170,8 +180,11 @@ void Map::displayMap()
             }
             cout << " "; //Spaces characters on x-axis
         }
+        if (!SHOW_MIST) cout << MAP_OUTLINE_CHAR;
         cout << endl; //At the end of a row
     }
+
+    if (!SHOW_MIST) cout << HORIZONTAL_OUTLINE << endl;
 }
 
 //Sets what grovnicks should be displayed on the map,
@@ -213,7 +226,6 @@ void Map::setAllLocalVisibleGrovnicksOnMap(bool newValue)
     for (int i = 0; i < mapSize; ++i) {
         for (int j = 0; j < mapSize; ++j) {
             map[i][j].setIsVisibleLocally(newValue);
-            //map[i][j].setVisibility(newValue);
         }
     }
 }
@@ -258,4 +270,14 @@ void Map::printHeroStatus()
 Hero* Map::getHeroPtr()
 {
     return hero;
+}
+
+Grovnick ** Map::getMap()
+{
+	return map;
+}
+
+void Map::resetMapState() {
+    delete hero;
+    loadMapFromFile(fileName);
 }

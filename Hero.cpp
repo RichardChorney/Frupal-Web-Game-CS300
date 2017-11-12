@@ -15,7 +15,7 @@ Hero::Hero()
   	alive = true;
   	whiffles = DEFAULT_WHIFFLES;
   	visibilityRadius = DEFAULT_VIS;
-	terrain.terrainName = "meadow";
+	terrain.terrainName = "Meadow";
 	terrain.charToDisplay = 'G';
 	terrain.canWalkOn = true;
 	terrain.energyConsumption = 1;
@@ -94,7 +94,7 @@ bool Hero::checkAlive()
   	if(energy<=0)
   	{
   		alive = false;
-  		cout << "DEAD\n";
+  		cout << "You ran out of energy and DIED!!\n";
   	}
   	return alive;
 }
@@ -106,7 +106,7 @@ bool Hero::setBalance(int amount)
 		whiffles += amount;
 		return true;
 	}
-	else{ return amount; }
+	else{ return false; }
 }
 
 //Returns Heroes whiffle balance
@@ -116,50 +116,94 @@ int Hero::getBalance()
 }
 
 //Function to update the current location of the Hero
-bool Hero::moveHero(int mv)
+bool Hero::moveHero(int mv, Map & mapToCopy)
 {
+    //Temporary vaiables for the Hero's location
+    int x = location.x;
+    int y = location.y;
+	int temp = 0;
 
-	//todo: change based on terrain type
-	int energyAmount = -1;
-	changeEnergy(energyAmount);
+	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties
+	changeEnergy(-terrain.energyConsumption);
 
-	if(mv == 1){
-		if(location.y == 0){
-			location.y = (MAX - 1);
+    //Move North
+    if(mv == 1) {
+		if(y == 0) { y = (MAX - 1); }
+        else { --y; }
+    //Move East
+	} else if(mv == 2) {
+		if(x == (MAX - 1)){ x = 0; }
+		else { ++x; }
+    //Move South
+	} else if(mv == 3) {
+		if(y == (MAX - 1)){ y = 0; }
+        else { ++y; }
+    //Move West
+    } else if(mv == 4) {
+        if(x == 0) { x = (MAX - 1); }
+		else { --x; }
+	} else { return false; }
+
+    //The location of the Grovnick the Hero is about to step on.
+    Location aheadLoc;
+    aheadLoc.x = x;
+    aheadLoc.y = y;
+
+    //Look ahead before actually stepping.
+    temp = lookAhead(mapToCopy, aheadLoc);						//Type and terrain checking
+	
+	if((temp == 1) || (temp ==2))
+    {
+        //Move the Hero
+        location.x = aheadLoc.x;
+        location.y = aheadLoc.y;
+		
+		if(temp == 1){ 		//NULLs out Type pointer if an object was used and deletes the Type object TODO figure out how we will free tool mem
+			mapToCopy.getMap()[location.y][location.x].setType(NULL); 
+		}		
+
+        //Update Heroes terrain struct info with correct terrain struct info from the map 2d array
+        terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
+        terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
+        terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
+        terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+    }
+	
+	displayTerrainMsg(terrain.terrainName);
+	
+	return true;
+}
+
+//Looks at the Grovnick that the Hero is ABOUT to step into
+//and returns true if the player
+int Hero::lookAhead(Map & map, Location aheadLoc)
+{
+    //Collect the terrain ahead of the hero
+    Terrain ahead;
+    ahead.terrainName = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->terrainName;
+    ahead.charToDisplay = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->charToDisplay;
+    ahead.canWalkOn = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->canWalkOn;
+    ahead.energyConsumption = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->energyConsumption;
+
+	Type * typePtr = NULL;
+	typePtr = map.getMap()[aheadLoc.y][aheadLoc.x].getType();
+
+    //If the Hero can't walk on it, then deduct energy and return false
+    if (ahead.canWalkOn == false) {
+		//Display appropriate terrain message
+		displayTerrainMsg(ahead.terrainName);
+		cout << "You lose your turn and " << ahead.energyConsumption << " Energy point." << endl;		//TODO Need to change this for boats
+		changeEnergy(-ahead.energyConsumption);																
+        
+		return 0;								//Returns a 0 so no movement is executed for impassable terrains
+    } 
+	if(typePtr){								//This (if) will guard against SEG FAULTs
+        if(typePtr->interactWithType()){		
+			return 1;							//Call interactWithType() and returns a 1 if the type was used or altered
 		}
-		else{
-			--location.y;
-		}
-		return true;
-	}
-	if(mv == 2){
-		if(location.x == (MAX - 1)){
-			location.x = 0;
-		}
-		else{
-			++location.x;
-		}
-		return true;
-	}
-	if(mv == 3){
-		if(location.y == (MAX - 1)){
-			location.y = 0;
-		}
-		else{
-			++location.y;
-		}
-		return true;
-	}
-	if(mv == 4){
-		if(location.x == 0){
-			location.x = (MAX - 1);
-		}
-		else{
-			--location.x;
-		}
-		return true;
-	}
-	return false;
+    }
+	
+	return 2;									//Returs a 2 if a Type was found but not used
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
@@ -192,7 +236,88 @@ bool Hero::useItem(int itemToUse){
 //Prints relevant Hero status information
 void Hero::printStatus()
 {
-	cout << "The Heroes location is " << location.x << " X " << location.y << endl;
+	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
 	cout << "Remaining energy: " << energy << " units" << endl;
+	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
+	if(terrain.canWalkOn){
+		cout << "You are able to walk on this Grovnick" << endl;
+	}
+	else{
+		cout << "You are not able to walk on this Grovnick" << endl;
+	}
+	cout << "It takes " << terrain.energyConsumption << " energy unit(s) to walk on this Grovnick" << endl;
+
+}
+
+//TODO As the items are implemented this needs to be reviewed
+//to make sure it displays correctly
+void Hero::displayInventory()
+{
+//For loop processes through inventory array
+    int i = 0;
+    for(i = 0; i < BAG_MAX; ++i)
+    {
+        //If an array element has a pointer to a tool, then this
+        //branch will execute.
+        if(list[i])
+        {
+           //This if/else is for formatting, it adds an extra space
+           //for 1 digit numbers, so the list will display
+           //vertically inline
+           if(i < 9)
+           {
+               cout << endl << i+1 << ".  ";
+           }
+           else
+           {
+               cout << endl << i+1 << ". ";
+           }
+           //This hero inventory display function will then call that
+           //specific type's display function
+           list[i]->displayType();
+        }
+        /*This branch displays a generic "no tool" message if
+        the array element is NULL*/
+        else
+        {
+            //If/Else for formatting digits less than 10.
+            if(i < 9)
+            {
+                cout << endl << i+1 << ".  No tool in slot.";
+            }
+            else
+            {
+                cout << endl << i+1 << ". No tool in slot.";
+            }
+        }
+
+    }
+    cout << endl;
+    cout << "The Hero is standing on " << terrain.terrainName << " ." << endl;
+}
+
+//Adds whiffles to the Hero's bank account
+//If you provide a negative number than it subtracts
+void Hero::addToWhiffles(int whifflesToAdd)
+{
+    whiffles += whifflesToAdd;
+}
+
+//Displays appropriate message when you walk on a passable terrain, or try to walk on an impassable terrain
+void Hero::displayTerrainMsg(string terra)
+{
+	if (terra == "Meadow") {
+   		cout << "You have walked into a beautiful Meadow..." << endl;
+	} else if (terra == "Forest") {
+   		cout << "You have walked into a deep, dark Forest..." << endl;
+	} else if (terra == "Water") {
+   		cout << "You can not go into the Water without a boat..." << endl;		//TODO will need to change when we add boats  
+	} else if (terra == "Wall") {
+   		cout << "You can not climb over the border Wall, it is just too high..." << endl;
+	} else if (terra == "Bog") {
+   		cout << "Eewww, you have walked into a nasty Bog, it will take 2 energy points to crawl out..." << endl;
+	} else if (terra == "Swamp") {
+   		cout << "Yuck, you have walked into a Swamp, watch out for alligators!!" << endl;
+	}
 }

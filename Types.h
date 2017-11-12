@@ -14,7 +14,7 @@
 
 using namespace std;
 
-
+class Map;
 
 //Type class is the Base class for all of
 //the different types that a Grovnick could be.
@@ -22,101 +22,150 @@ using namespace std;
 class Type {
 public:
     Type(); //Default Constructor
-    Type(string newName, string newMessage);
+	Type(string newName, string newMessage, Map * newMap);
     virtual int interactWithType() = 0; //Dynamic Binding!
+    void displayType();
+    bool promptPurchase(int cost);
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
+    Map * map; //Pointer to the Map
 };
 
 //('T')
-//FIXME
-//Need to decied if we should only subclass
-//specific tools (e.g axe, chainsaw, etc)
-//Or if we can have a generic Tool and simply
-//just change the name and data members
 class Tool : public Type {
 public:
-    int interactWithType();
-    //Add to inventory?
+	Tool(Map * mapPtr);
+	int interactWithType();
 protected:
-    int multiplier; //X1, X2, X3 ...
+    int multiplier; 	//X1, X2, X3 ...
+    int price;			//Tool cost
+	int energyCost;		//How much energy the tool deducts from energy balance
+	int worksOn;		//Identifies which kind of obstacle this tool will work on
 };
 
 //('C')
 class Clue : public Type {
 public:
     Clue();
-    Clue(string newName, string newMessage);
+    Clue(string newName, string newMessage, Map * mapPtr);
     int interactWithType();
 protected:
     bool isLegit;
 };
 
 //('$')
-//This could either be an explosive chest,
-//or a treasure chest.
+//Regular Chest that gives you whiffles.
 class Chest : public Type {
 public:
+    Chest(Map * mapPtr);
     int interactWithType();
 protected:
-    //A negative amount of whiffles means it's an exploding chest
-    //Use addition when integrating them.
-    int whiffleAmount;
+    int whifflesToRecieved;
 };
 
+//FIXME
+//This class should be deleted if the Chest class
+//can be treated as either explosive or regular.
 class ExplosiveChest : public Type {
 public:
+    ExplosiveChest(Map * mapPtr);
     int interactWithType();
+protected:
+    int whifflesToDeduct;
 };
-
-//('S') The bog class is the same thing
-//as a Swamp.
-class Bog : public Type {
-public:
-    int interactWithType();
-};
-
 
 //('P')
 class PowerBar : public Type {
 public:
+    PowerBar(Map * mapPtr);
     int interactWithType();
 };
 
 //('B')
 class Boulder : public Type {
 public:
+    Boulder(Map * mapPtr);
     int interactWithType();
-};
-
-//('|')
-class Wall : public Type {
-public:
-    int interactWithType();
+protected:
+    int removalCost;
 };
 
 class RoyalDiamonds : public Type {
 public:
+    RoyalDiamonds(Map * mapPtr);
     int interactWithType();
 };
 
 class Binoculars : public Type {
 public:
+    Binoculars(Map * mapPtr);
     int interactWithType();
+protected:
+    int price;
 };
 
 class Bush : public Type {
 public:
+    Bush(Map * mapPtr);
     int interactWithType();
+protected:
+    int removalCost;
 };
 
 class Tree : public Type {
 public:
+    Tree(Map * mapPtr);
+    int interactWithType();
+protected:
+    int removalCost;
+};
+
+class Hatchet : public Tool {
+public:	
+	Hatchet(Map * mapPtr);
+	int interactWithType();
+};
+
+class Axe : public Tool {
+public:
+    Axe(Map * mapPtr);
     int interactWithType();
 };
 
-class Axe : public Type {
+
+class Chainsaw : public Tool {
 public:
-    int interactWithType();
+	Chainsaw(Map * mapPtr);
+	int interactWithType();
 };
+
+class Chisel : public Tool {
+public:
+	Chisel(Map * mapPtr);
+	int interactWithType();
+};
+
+class Sledgehammer : public Tool {
+public:
+	Sledgehammer(Map * mapPtr);
+	int interactWithType();
+};
+
+class Jackhammer : public Tool {
+public:
+	Jackhammer(Map * mapPtr);	
+	int interactWithType();
+};
+
+class Machete : public Tool {
+public:
+	Machete(Map * mapPtr);
+	int interactWithType();
+};
+
+class Shears : public Tool {
+public:
+	Shears(Map * mapPtr);
+	int interactWithType();
+}; 	

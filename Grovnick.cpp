@@ -6,20 +6,43 @@
 //////////////////////////////////////////
 
 #include "Map.h"
-#include "Enums.h"
 #include "Types.h"
 
+using namespace std;
+
+//Default Constructor for Grovnick
+Grovnick::Grovnick()
+{
+    type = NULL;
+    isVisible = false;
+    isVisibleLocally = false;
+    //Terrain
+	terrain.terrainName = "Meadow";
+}
+
 //Default constructor for the Grovnick Class
-//The default grovnick is Grass is nothing
+//The default grovnick is Grass if nothing
 //else is specified
-Grovnick::Grovnick(char newCharToDisplay)
+Grovnick::Grovnick(char newCharToDisplay, Map * mapPtr)
 {
     type = NULL;
     terrain.charToDisplay = newCharToDisplay;
     isVisible = false;
     isVisibleLocally = false;
+    terrain.terrainName = "Meadow";
+    terrain.charToDisplay = 'G';
     terrain.canWalkOn = true;
     terrain.energyConsumption = 1;
+}
+
+//Copies the parameters into the data members
+void Grovnick::copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newTerrain, int newType, Map * newMap)
+{
+    isVisibleLocally = newIsVisibleLocally;
+    isVisible = newIsVisible;
+
+    //mapIntToType(newType, newTerrain, newMap);
+    mapIntToType(newType, newMap);
 }
 
 //Displays just the character associated
@@ -30,7 +53,8 @@ void Grovnick::displayChar()
 {
     //if (isHeroOnGrovnick) cout << HERO_CHAR;
     if (isVisible || isVisibleLocally) cout << terrain.charToDisplay;
-    else cout << MIST;
+    else if (SHOW_MIST) cout << MIST;
+    else cout << " ";
 }
 
 //Returns the char the grovnick will display
@@ -41,52 +65,75 @@ char Grovnick::getCharToDisplay()
 
 //Takes an integer and maps it to the kind of type
 //that it is. Then it upcasts it into the type.
-void Grovnick::mapIntToType(int intToMap, int terra)
+//void Grovnick::mapIntToType(int intToMap, int terra, Map * MapPtr)
+void Grovnick::mapIntToType(int intToMap, Map * MapPtr)
 {
+
     //Parse what kind of Type it is and Then
     //Upcast type into that Class
     if (intToMap == clue) {
 
-        //FIXME (Issue on Github - Generate Clue)
+        //TODO (Issue on Github - Generate Clue)
         //We will need to pull clue messages from somewhere right here,
         //and then put them in clueMessage to be passed through
         //the constructor
 
         string clueMessage = "Example message.";
-        type = new Clue("Clue", clueMessage);
+        type = new Clue("Clue", clueMessage, MapPtr);
     }
-    else if (intToMap == chest) type = new Chest();
-    else if (intToMap == bog) type = new Bog();
-    else if (intToMap == powerBar) type = new PowerBar();
-    else if (intToMap == boulder) type = new Boulder();
-    else if (intToMap == wall) type = new Wall();
-    else if (intToMap == royalDiamonds) type = new RoyalDiamonds();
-    else if (intToMap == explosiveChest) type = new ExplosiveChest();
-    else if (intToMap == binoculars) type = new Binoculars();
-    else if (intToMap == bush) type = new Bush();
-    else if (intToMap == tree) type = new Tree();
-    else if (intToMap == axe) type = new Axe();
+    else if (intToMap == chest) type = new Chest(MapPtr);
+    else if (intToMap == powerBar) type = new PowerBar(MapPtr);
+    else if (intToMap == boulder) type = new Boulder(MapPtr);
+    else if (intToMap == royalDiamonds) type = new RoyalDiamonds(MapPtr);
+    else if (intToMap == explosiveChest) type = new ExplosiveChest(MapPtr);
+    else if (intToMap == binoculars) type = new Binoculars(MapPtr);
+    else if (intToMap == bush) type = new Bush(MapPtr);
+    else if (intToMap == tree) type = new Tree(MapPtr);
+    else if (intToMap == axe) type = new Axe(MapPtr);
+	else if (intToMap == hatchet) type = new Hatchet(MapPtr);
+	else if (intToMap == chainsaw) type = new Chainsaw(MapPtr);
+	else if (intToMap == chisel) type = new Chisel(MapPtr);
+	else if (intToMap == sledgehammer) type = new Sledgehammer(MapPtr);
+	else if (intToMap == jackhammer) type = new Jackhammer(MapPtr);
+	else if (intToMap == machete) type = new Machete(MapPtr);
+	else if (intToMap == shears) type = new Shears(MapPtr);
 
-    //Parse what kind of terrain it is
+}
+
+
+//Translates map file field into proper terrain
+void Grovnick::mapIntToTerrain(int terra) 
+
+{
     if (terra == meadow) {
         terrain.terrainName = "Meadow";
+        terrain.charToDisplay = 'G';
+        terrain.canWalkOn = true;
+        terrain.energyConsumption = 1;
+    } else if (terra == forest) {
+        terrain.terrainName = "Forest";
+        terrain.charToDisplay = 'F';
         terrain.canWalkOn = true;
         terrain.energyConsumption = 1;
     } else if (terra == water) {
         terrain.terrainName = "Water";
+        terrain.charToDisplay = 'W';
+        terrain.canWalkOn = false;
+        terrain.energyConsumption = 1;
+    } else if (terra == wall) {
+        terrain.terrainName = "Wall";
+        terrain.charToDisplay = '|';
         terrain.canWalkOn = false;
         terrain.energyConsumption = 1;
     } else if (terra == bog) {
         terrain.terrainName = "Bog";
+        terrain.charToDisplay = 'B';
         terrain.canWalkOn = true;
         terrain.energyConsumption = 2;
-    } else if (terra == forest) {
-        terrain.terrainName = "forest";
+    } else if (terra == swamp) {
+        terrain.terrainName = "Swamp";
+        terrain.charToDisplay = 'S';
         terrain.canWalkOn = true;
-        terrain.energyConsumption = 1;
-    } else if (terra == wall) {
-        terrain.terrainName = "wall";
-        terrain.canWalkOn = false;
         terrain.energyConsumption = 1;
     }
 }
@@ -107,3 +154,12 @@ bool Grovnick::getVisibility() { return isVisible; }
 
 //Returns the energy consumption data member
 int Grovnick::getEnergyConsumption() { return terrain.energyConsumption; }
+
+//Returns a pointer to a Grovnicks terrain
+Terrain * Grovnick::getTerrain() { return &terrain; }
+
+//Returns a pointer to a Grovnicks current Type
+Type * Grovnick::getType() { return type; }
+
+//Sets Type pointer (used to NULL out used objects)
+void Grovnick::setType(Type * newPtr) { type = newPtr; } 

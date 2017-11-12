@@ -1,4 +1,4 @@
-/////////////////////////////
+///////////////////////////////
 //Map.h
 //CS300 Group E
 //This file contains the headers for the Map
@@ -14,7 +14,8 @@
 #include "Hero.h"
 #include "Types.h"
 #include "Constants.h"
-
+#include "Struct.h"
+#include "Enums.h"
 
 class Type; //Forward decleration
 class Hero;
@@ -27,16 +28,23 @@ using namespace std;
 class Grovnick
 {
 public:
-    Grovnick(char newCharToDisplay = 'G'); //Default Constructor
+    Grovnick();
+    Grovnick(char newCharToDisplay, Map * mapPtr); //Default Constructor
     void displayChar(); //Displays the map character
-    void mapIntToType(int intToMap, int terrain); //Maps the char to type
+    void mapIntToType(int intToMap, Map * mapPtr); //Maps the char to type
+    void mapIntToTerrain(int terra); 
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
     void setIsVisibleLocally(bool newVisible);
     bool getVisibility(); //Returns if it's visibile
     bool getLocalVisibility(); //Returns the local visibility
     int getEnergyConsumption();
-    char getCharToDisplay();
+    char getCharToDisplay(); //Returns the display character
+    void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
+	Terrain * getTerrain();
+	Type * getType();
+	void setType(Type * newPtr);
+
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)
     bool isVisibleLocally; //Sets the visibility around the player temporarily, which is different than isVisibile (those are fixed)
@@ -61,10 +69,14 @@ public:
     void setAllLocalVisibleGrovnicksOnMap(bool newValue); //Sets all grovnicks local visibilty
     Hero* getHeroPtr();
     void printHeroStatus();
+	Grovnick ** getMap();
+    void resetMapState();
+
 protected:
     void allocateMap(int newMapSize = MAX);
     void split(const string& s, char delim, vector<string>& v);
     int mapSize; //Size of the map (and thus the size of each array)
     Grovnick ** map; //2D array of Grovnick pointers
     Hero * hero; //A pointer to the user
+    string fileName;
 };
