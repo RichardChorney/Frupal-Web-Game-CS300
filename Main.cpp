@@ -23,7 +23,7 @@ int main()
     Hero * hero;
 
     Map map; //Create a map of size MAX
-    map.loadMapFromFile(basicMap2);
+    map.loadMapFromFile(basicMap);
     hero = map.getHeroPtr();
 
 	bool proceed = true;
