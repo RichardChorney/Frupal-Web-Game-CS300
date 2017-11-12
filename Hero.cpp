@@ -38,6 +38,10 @@ Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy, Terrain& t
 	terrain.charToDisplay = terrainToCopy.charToDisplay;
 	terrain.canWalkOn = terrainToCopy.canWalkOn;
 	terrain.energyConsumption = terrainToCopy.energyConsumption;
+
+	for(int i = 0; i < BAG_MAX; ++i){
+		list[i] = NULL;
+	}
 }
 
 //Destructor to clean up inventory list
@@ -159,6 +163,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         location.y = aheadLoc.y;
 		
 		if(temp == 1){ 		//NULLs out Type pointer if an object was used and deletes the Type object TODO figure out how we will free tool mem
+			delete mapToCopy.getMap()[location.y][location.x].getType();
 			mapToCopy.getMap()[location.y][location.x].setType(NULL); 
 		}		
 
@@ -199,7 +204,8 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
     } 
 	if(typePtr){								//This (if) will guard against SEG FAULTs
         if(typePtr->interactWithType()){		
-			return 1;							//Call interactWithType() and returns a 1 if the type was used or altered
+			return 1;
+			fillBag(typePtr);					//Call interactWithType() and returns a 1 if the type was used or altered
 		}
     }
 	
@@ -238,7 +244,7 @@ void Hero::printStatus()
 {
 	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
-	cout << "Remaining energy: " << energy << " units" << endl;
+	//cout << "Remaining energy: " << energy << " units" << endl;
 	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
 	if(terrain.canWalkOn){
 		cout << "You are able to walk on this Grovnick" << endl;
