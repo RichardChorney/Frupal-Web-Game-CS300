@@ -30,6 +30,11 @@ Type::Type(string newName, string newMessage, Map * newMap)
     map = newMap;
 }
 
+Type::~Type()
+{
+
+}
+
 //A display function to show a tools
 //name and description. This function
 //is called by the hero class's display
@@ -98,6 +103,11 @@ int Tool::interactWithType()
 Tool::Tool(Map * mapPtr) 
 {
 	map = mapPtr;
+}
+
+Tool::~Tool()
+{
+
 }
 
 //Clue

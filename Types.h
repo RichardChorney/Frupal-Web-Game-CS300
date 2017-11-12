@@ -23,6 +23,7 @@ class Type {
 public:
     Type(); //Default Constructor
 	Type(string newName, string newMessage, Map * newMap);
+	virtual ~Type() = 0;
 	virtual int interactWithType() = 0; //Dynamic Binding!
     void displayType();
     bool promptPurchase(int cost);
@@ -37,6 +38,7 @@ class Tool : public Type {
 public:
 	Tool(Map * mapPtr);
 	int interactWithType();
+	virtual ~Tool() = 0;
 
 protected:
     int multiplier; 	//X1, X2, X3 ...
