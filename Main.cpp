@@ -9,6 +9,7 @@
 
 
 #include "Map.h"
+#include "Animation.h"
 using namespace std;
 
 //Test maps (these don't conform to the stanard map files)
@@ -19,6 +20,7 @@ string const basicMap2 = "basicMap2.txt";
 
 int main()
 {
+    if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
 
     Hero * hero;
 
@@ -29,7 +31,7 @@ int main()
 	bool proceed = true;
     bool showInventory = false;
 	char keyPress = '0';
-	
+
 	cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
 	while(proceed){
 		map.displayMap();
