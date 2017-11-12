@@ -184,7 +184,7 @@ void Map::displayMap()
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
                 cout << HERO_CHAR; //Display the Hero
             } else {
-                map[i][j].displayChar();
+                map[j][i].displayChar();
             }
             cout << " "; //Spaces characters on x-axis
         }
