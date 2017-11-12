@@ -247,7 +247,7 @@ int Hatchet::interactWithType()
 	
 	if (promptPurchase(price)) { 
     	Hero * currHero = map->getHeroPtr();
-		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		cout << "Congratulations on your purchase of this fine FRUPAL product, hope it will be useful...." << endl;
 		
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
 	
@@ -274,10 +274,10 @@ int Axe::interactWithType()
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 	
 	if (promptPurchase(price)) { 
-    	Hero * currHero = map->getHeroPtr();
-		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+    	//Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of this fine FRUPAL product, hope it will be useful...." << endl;
 		
-		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+		//currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
 	
 		return 1;	
 	}

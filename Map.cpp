@@ -20,11 +20,21 @@ Map::Map() : hero(NULL)
 //Destructor for the Map Class
 Map::~Map()
 {
-    //Free the 2D array
+    for(int i = 0; i < mapSize; ++i){
+		for(int j = 0; j < mapSize; ++j){
+			if(map[i][j].getType()){
+				delete map[i][j].getType();
+				map[i][j].setType(NULL);
+			}
+		}
+	}
+
+	//Free the 2D array
 	for(int i = 0; i < mapSize; ++i){
 		delete [] map[i];
 		map[i] = NULL;
 	}
+				
 	delete [] map;
 	delete hero;
 	map = NULL;
@@ -92,7 +102,7 @@ int Map::loadMapFromFile(string fileName)
 
         v.clear();
     }
-
+	cout << energy;
     Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
     hero = new Hero(heroLoc, energy, whiffles, *t);
     return 1;
@@ -276,6 +286,6 @@ Grovnick ** Map::getMap()
 }
 
 void Map::resetMapState() {
-    delete hero;
+    //delete hero;
     loadMapFromFile(fileName);
 }
