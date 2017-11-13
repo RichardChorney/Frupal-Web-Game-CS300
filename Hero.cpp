@@ -161,7 +161,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 
 		if((temp == 1) || (temp == 2)){
 			if(temp == 1){
-				delete mapToCopy.getMap()[location.y][location.x].getType();			
+				delete mapToCopy.getMap()[location.y][location.x].getType();
 			}
 			mapToCopy.getMap()[location.y][location.x].setType(NULL);
 		}
@@ -172,9 +172,9 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
         terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
     }
-	
-	displayTerrainMsg(terrain.terrainName);
-	
+
+	//displayTerrainMsg(terrain.terrainName);
+
 	return true;
 }
 
@@ -195,22 +195,22 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
     //If the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
-		displayTerrainMsg(ahead.terrainName);
+		//displayTerrainMsg(ahead.terrainName);
 		cout << "You lose your turn and " << ahead.energyConsumption << " Energy point." << endl;		//TODO Need to change this for boats
-		changeEnergy(-ahead.energyConsumption);																
-        
+		changeEnergy(-ahead.energyConsumption);
+
 		return 0;								//Returns a 0 so no movement is executed for impassable terrains
-    } 
+    }
 	if(typePtr){								//This (if) will guard against SEG FAULTs
-        int result = typePtr->interactWithType();		
-		if(result == 1) {												//If interactWithType returns 1 it means a power bar or chest was encountered 
+        int result = typePtr->interactWithType();
+		if(result == 1) {												//If interactWithType returns 1 it means a power bar or chest was encountered
 			return 1;													//and needs deleted
 		}
 		else if(result == 2) { 											//If interactWithType returns 2 it means an item was purchased and the type ptr
 			return 2;													//needs NULLed out for that Grovnick
 		}
     }
-	
+
 	return 3;
 }
 
@@ -236,7 +236,7 @@ bool Hero::useItem(int itemToUse){
 	if((itemToUse > 0) && (itemToUse <= BAG_MAX)){
 		//TODO we need to call a function to use each item HERE
 
-		delete list[itemToUse - 1]; 
+		delete list[itemToUse - 1];
 		list[itemToUse - 1] = NULL;
 		return true;
 	}
@@ -246,17 +246,22 @@ bool Hero::useItem(int itemToUse){
 //Prints relevant Hero status information
 void Hero::printStatus()
 {
-	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
-	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
-	cout << "Remaining energy: " << energy << " units" << endl;
-	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
-	if(terrain.canWalkOn){
-		cout << "You are able to walk on this Grovnick" << endl;
-	}
-	else{
-		cout << "You are not able to walk on this Grovnick" << endl;
-	}
-	cout << "It takes " << terrain.energyConsumption << " energy unit(s) to walk on this Grovnick" << endl;
+
+    cout << endl;
+    cout << "-----------------------------\n";
+	cout << "Whiffles:\t" << whiffles << " whiffles" << endl;
+    cout << "Energy: \t" << energy << " units" << endl;
+    cout << "Location:\t(" << location.x << ", " << location.y << ")" << endl;
+    cout << "Terrain:\t";
+    displayTerrainMsg(terrain.terrainName);
+
+    //cout << "Terrain:\t" << terrain.terrainName << endl;
+    cout << "-----------------------------\n";
+
+
+    //	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
+	//cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
+    //	cout << "It takes " << terrain.energyConsumption << " energy unit(s) to walk on this Grovnick" << endl;
 
 }
 
@@ -322,7 +327,7 @@ void Hero::displayTerrainMsg(string terra)
 	} else if (terra == "Forest") {
    		cout << "You have walked into a deep, dark Forest..." << endl;
 	} else if (terra == "Water") {
-   		cout << "You can not go into the Water without a boat..." << endl;		//TODO will need to change when we add boats  
+   		cout << "You can not go into the Water without a boat..." << endl;		//TODO will need to change when we add boats
 	} else if (terra == "Wall") {
    		cout << "You can not climb over the border Wall, it is just too high..." << endl;
 	} else if (terra == "Bog") {

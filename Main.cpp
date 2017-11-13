@@ -20,7 +20,8 @@ string const basicMap2 = "basicMap2.txt";
 
 int main()
 {
-    //if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
+    if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
+    system("clear");
 
     Hero * hero;
 
@@ -33,18 +34,19 @@ int main()
 	char keyPress = '0';
 
 	cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
-	while(proceed){
-		map.displayMap();
-		hero->printStatus();
-		cout << endl << "Which direction would you like to go in?" << endl;
-		cout << "1.) NORTH" << endl << "2.) EAST" << endl << "3.) SOUTH" << endl << "4.) WEST";
-                cout << endl << "5.) INVENTORY" << endl << "6.) QUIT ON FRUPAL" << endl << endl;
 
-                if(showInventory)
-                {
-                    hero->displayInventory();
-                    showInventory = false;
-                }
+	while(proceed){
+        map.displayMap();
+        hero->printStatus();
+		cout << endl << "What would you like to do?" << endl;
+		cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
+        cout << endl << "5) INVENTORY" << endl << "6) QUIT ON FRUPAL" << endl << endl;
+
+        if(showInventory)
+        {
+            hero->displayInventory();
+            showInventory = false;
+        }
 
 
 		cin >> keyPress;

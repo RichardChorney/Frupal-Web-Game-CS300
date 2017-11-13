@@ -24,6 +24,7 @@ int const DEFAULT_STARTING_LOCATION = (MAX / 2) - 1;
 int const DEFAULT_ENERGY_CONSUMPTION = 1;
 std::string const HORIZONTAL_OUTLINE = "######################";
 char const MAP_OUTLINE_CHAR = '#';
+std::string const SPACE_BEFORE_MAP = "   "; //Space indented before map is displayed
 
 /* Type Constants */
 //Amount of whiffles recieved if you open the chest
