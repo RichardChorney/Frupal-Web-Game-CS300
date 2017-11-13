@@ -44,4 +44,4 @@ bool const SHOW_ALL_GROVNICKS = false;
 //and not display the mist ('X') character
 bool const SHOW_MIST = false;
 //Shows an animated welcome greeting to FRUPAL
-bool const SHOW_WELCOME_ANIMATION = true;
+bool const SHOW_WELCOME_ANIMATION = false;
