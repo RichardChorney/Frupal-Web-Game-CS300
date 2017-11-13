@@ -43,7 +43,7 @@ Type::~Type()
 void Type::displayType()
 {
      /**/
-     cout << "Tool: " << name << endl << "Description: " << message;
+     cout << "Tool: " << name << ": " << message;
 
 }
 
@@ -203,7 +203,7 @@ int RoyalDiamonds::interactWithType()
 {
     cout << "Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
     map->resetMapState();
-    return 0;
+    return 0;													//This may cause issues where interactWithType is called by lookAhead in Hero.cpp TODO
 }
 
 Binoculars::Binoculars(Map * mapPtr)
@@ -294,12 +294,12 @@ int Axe::interactWithType()
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 	
 	if (promptPurchase(price)) { 
-    	//Hero * currHero = map->getHeroPtr();
+    	Hero * currHero = map->getHeroPtr();
 		cout << "Congratulations on your purchase of this fine FRUPAL product, hope it will be useful...." << endl;
 		
-		//currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+		currHero->fillBag(this);			//Adds a pointer for the purchased item to the Heroes inventory		
 	
-		return 1;	
+		return 2;	
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
