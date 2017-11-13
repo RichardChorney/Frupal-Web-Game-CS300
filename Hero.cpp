@@ -49,9 +49,8 @@ Hero::~Hero()
 {
 	for(int i = 0; i < BAG_MAX; ++i){
 		if(list[i] != NULL){
-            //FIXME Throwing errors.
-            //delete list[i];
-            //list[i] = NULL;
+            delete list[i];
+           	list[i] = NULL;
 		}
 	}
 }
@@ -153,11 +152,19 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     aheadLoc.y = y;
 
     //Look ahead before actually stepping.
-	if(lookAhead(mapToCopy, aheadLoc))
+	int temp = lookAhead(mapToCopy, aheadLoc);
+	if(temp)
     {
         //Move the Hero
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
+
+		if((temp == 1) || (temp == 2)){
+			if(temp == 1){
+				delete mapToCopy.getMap()[location.y][location.x].getType();			
+			}
+			mapToCopy.getMap()[location.y][location.x].setType(NULL);
+		}
 
         //Update Heroes terrain struct info with correct terrain struct info from the map 2d array
         terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
@@ -197,15 +204,14 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 	if(typePtr){								//This (if) will guard against SEG FAULTs
         int result = typePtr->interactWithType();		
 		if(result == 1) {												//If interactWithType returns 1 it means a power bar or chest was encountered 
-			delete typePtr;												//and needs deleted
-			map.getMap()[location.y][location.x].setType(NULL); 
+			return 1;													//and needs deleted
 		}
 		else if(result == 2) { 											//If interactWithType returns 2 it means an item was purchased and the type ptr
-			map.getMap()[location.y][location.x].setType(NULL);			//needs NULLed out
+			return 2;													//needs NULLed out for that Grovnick
 		}
     }
 	
-	return 1;									//Returs a 2 if a Type was found but not used
+	return 3;
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
@@ -227,9 +233,11 @@ int Hero::fillBag(Type * itemToAdd)
 
 //Function to remove an Items pointer from the inventory list
 bool Hero::useItem(int itemToUse){
-	if((itemToUse > 0) && (itemToUse < (BAG_MAX - 1))){
-//		delete list[itemToUse]; //FIXME
-		list[itemToUse] = NULL;
+	if((itemToUse > 0) && (itemToUse <= BAG_MAX)){
+		//TODO we need to call a function to use each item HERE
+
+		delete list[itemToUse - 1]; 
+		list[itemToUse - 1] = NULL;
 		return true;
 	}
 	else{ return false; }
@@ -240,7 +248,7 @@ void Hero::printStatus()
 {
 	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
-	//cout << "Remaining energy: " << energy << " units" << endl;
+	cout << "Remaining energy: " << energy << " units" << endl;
 	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
 	if(terrain.canWalkOn){
 		cout << "You are able to walk on this Grovnick" << endl;

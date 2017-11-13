@@ -100,6 +100,13 @@ int Tool::interactWithType()
     return 0;
 }
 
+Tool::Tool(){
+	multiplier = 0;
+	price = 0;
+	energyCost = 0;
+	worksOn = -1;
+}
+
 Tool::Tool(Map * mapPtr) 
 {
 	map = mapPtr;
@@ -118,9 +125,8 @@ int Clue::interactWithType()
 }
 
 //Default constructor for Chest
-Chest::Chest(Map * mapPtr) 
+Chest::Chest(Map * mapPtr) : Type("Reward Chest", "I give $$$", mapPtr) 
 {
-    map = mapPtr;
 	whifflesToRecieved = CHEST_WHIFFLES_RECIEVED;
 }
 
@@ -136,9 +142,8 @@ int Chest::interactWithType()
 }
 
 //Explosive chest constructor
-ExplosiveChest::ExplosiveChest(Map * mapPtr)
+ExplosiveChest::ExplosiveChest(Map * mapPtr) : Type("Exploding Chest", "I blow up!!", mapPtr)
 {
-    map = mapPtr;
 	whifflesToDeduct = CHEST_WHIFFLES_DEDUCTED;
 }
 
@@ -150,14 +155,14 @@ int ExplosiveChest::interactWithType()
     Hero * currHero = map->getHeroPtr();
     currHero->addToWhiffles(whifflesToDeduct);
 
-    return 1; //Not really needed
+    return 1;
 }
 
 PowerBar::PowerBar(Map * mapPtr)
 {
 	map = mapPtr;
-        name = "Power Bar";
-        message = "A Power Bar to regain energy.";
+	name = "Power Bar";
+    message = "A Power Bar to regain energy.";
 }
 
 //Power Bar  TODO not sure how to use the return type for this yet
@@ -170,7 +175,7 @@ int PowerBar::interactWithType()
     	Hero * currHero = map->getHeroPtr();
 		currHero->changeEnergy(20);
 		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty...." << endl;
-		
+
 		return 1;	
 	}
 
@@ -179,7 +184,7 @@ int PowerBar::interactWithType()
     return 0;
 }
 
-Boulder::Boulder(Map * mapPtr) 
+Boulder::Boulder(Map * mapPtr)
 {
 	map = mapPtr;
 }
@@ -206,8 +211,7 @@ int RoyalDiamonds::interactWithType()
     return 0;													//This may cause issues where interactWithType is called by lookAhead in Hero.cpp TODO
 }
 
-Binoculars::Binoculars(Map * mapPtr)
-{
+Binoculars::Binoculars(Map * mapPtr){
 	map = mapPtr;
         name = "Binoculars";
         message = "Increases visibility range to 2.";
@@ -236,7 +240,7 @@ int Bush::interactWithType()
     return 0;
 }
 
-Tree::Tree(Map * mapPtr) 
+Tree::Tree(Map * mapPtr)
 {
 	map = mapPtr;
 }
@@ -265,7 +269,7 @@ int Hatchet::interactWithType()
 	
 	if (promptPurchase(price)) { 
     	Hero * currHero = map->getHeroPtr();
-		cout << "Congratulations on your purchase of this fine FRUPAL product, hope it will be useful...." << endl;
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
 		
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
 	
@@ -275,6 +279,11 @@ int Hatchet::interactWithType()
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
             
     return 0;
+}
+
+bool Hatchet::useTool()
+{
+	return false;
 }
 
 Axe::Axe(Map * mapPtr) : Tool(mapPtr)
@@ -295,7 +304,7 @@ int Axe::interactWithType()
 	
 	if (promptPurchase(price)) { 
     	Hero * currHero = map->getHeroPtr();
-		cout << "Congratulations on your purchase of this fine FRUPAL product, hope it will be useful...." << endl;
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
 		
 		currHero->fillBag(this);			//Adds a pointer for the purchased item to the Heroes inventory		
 	
@@ -305,6 +314,11 @@ int Axe::interactWithType()
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
    
     return 0;
+}
+
+bool Axe::useTool()
+{
+	return false;
 }
 
 Chainsaw::Chainsaw(Map * mapPtr) : Tool(mapPtr)
@@ -336,6 +350,11 @@ int Chainsaw::interactWithType()
 	return 0;
 }
 
+bool Chainsaw::useTool()
+{
+	return false;
+}
+
 Chisel::Chisel(Map * mapPtr) : Tool(mapPtr)
 {
 	price = 5;
@@ -365,6 +384,11 @@ int Chisel::interactWithType()
 	return 0;
 }
 
+bool Chisel::useTool()
+{
+	return false;
+}
+
 Sledgehammer::Sledgehammer(Map * mapPtr) : Tool(mapPtr)
 {
 	price = 25;
@@ -390,6 +414,11 @@ int Sledgehammer::interactWithType()
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
 	return 0;
+}
+
+bool Sledgehammer::useTool()
+{
+	return false;
 }
 
 Jackhammer::Jackhammer(Map * mapPtr) : Tool(mapPtr)
@@ -421,6 +450,11 @@ int Jackhammer::interactWithType()
 	return 0;
 }
 
+bool Jackhammer::useTool()
+{
+	return false;
+}
+
 Machete::Machete(Map * mapPtr) : Tool(mapPtr)
 {
 	price = 25;
@@ -448,6 +482,11 @@ int Machete::interactWithType()
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
 	return 0;
+}
+
+bool Machete::useTool()
+{
+	return false;
 }
 
 Shears::Shears(Map * mapPtr) : Tool(mapPtr)
@@ -478,3 +517,8 @@ int Shears::interactWithType()
 
 	return 0;
 }  
+
+bool Shears::useTool()
+{
+	return false;
+}

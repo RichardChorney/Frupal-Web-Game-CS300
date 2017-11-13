@@ -36,9 +36,10 @@ protected:
 //('T')
 class Tool : public Type {
 public:
+	Tool();	
 	Tool(Map * mapPtr);
 	int interactWithType();
-	virtual ~Tool() = 0;
+	virtual ~Tool();
 
 protected:
     int multiplier; 	//X1, X2, X3 ...
@@ -128,12 +129,14 @@ class Hatchet : public Tool {
 public:	
 	Hatchet(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Axe : public Tool {
 public:
     Axe(Map * mapPtr);
     int interactWithType();
+	bool useTool();
 };
 
 
@@ -141,34 +144,40 @@ class Chainsaw : public Tool {
 public:
 	Chainsaw(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Chisel : public Tool {
 public:
 	Chisel(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Sledgehammer : public Tool {
 public:
 	Sledgehammer(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Jackhammer : public Tool {
 public:
 	Jackhammer(Map * mapPtr);	
 	int interactWithType();
+	bool useTool();
 };
 
 class Machete : public Tool {
 public:
 	Machete(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Shears : public Tool {
 public:
 	Shears(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 }; 	
