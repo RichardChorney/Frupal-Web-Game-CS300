@@ -156,6 +156,8 @@ int ExplosiveChest::interactWithType()
 PowerBar::PowerBar(Map * mapPtr)
 {
 	map = mapPtr;
+        name = "Power Bar";
+        message = "A Power Bar to regain energy.";
 }
 
 //Power Bar  TODO not sure how to use the return type for this yet
@@ -192,6 +194,8 @@ int Boulder::interactWithType()
 RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 {
 	map = mapPtr;
+        name = "Royal Diamonds";
+        message = "Unimaginable Wealth...";
 }
 
 //Royal Diamonds
@@ -205,6 +209,8 @@ int RoyalDiamonds::interactWithType()
 Binoculars::Binoculars(Map * mapPtr)
 {
 	map = mapPtr;
+        name = "Binoculars";
+        message = "Increases visibility range to 2.";
 }
 
 //Binoculars
@@ -247,6 +253,8 @@ Hatchet::Hatchet(Map * mapPtr) : Tool(mapPtr)
 	price = 15;
 	energyCost = 8;
 	worksOn = tree;
+        name = "Hatchet";
+        message = "Consume to decrease tree clearing energy cost.";
 }
 
 int Hatchet::interactWithType() 
@@ -274,6 +282,8 @@ Axe::Axe(Map * mapPtr) : Tool(mapPtr)
 	price = 30;
 	energyCost = 6;
 	worksOn = tree;
+        name = "Axe";
+        message = "Consume to decrease tree clearing energy cost.";
 }
 
 //Axe
@@ -302,6 +312,8 @@ Chainsaw::Chainsaw(Map * mapPtr) : Tool(mapPtr)
 	price = 60;
 	energyCost = 2;
 	worksOn = tree;
+        name = "Chainsaw";
+        message = "Consume to decrease tree clearing energy cost.";
 }
 
 int Chainsaw::interactWithType()
@@ -329,6 +341,8 @@ Chisel::Chisel(Map * mapPtr) : Tool(mapPtr)
 	price = 5;
 	energyCost = 15;
 	worksOn = boulder;
+        name = "Chisel";
+        message = "Consume to decrease boulder clearing energy cost.";
 }
 
 int Chisel::interactWithType()
@@ -383,6 +397,8 @@ Jackhammer::Jackhammer(Map * mapPtr) : Tool(mapPtr)
 	price = 100;
 	energyCost = 4;
 	worksOn = boulder;
+        name = "Jackhammer";
+        message = "Consume to decrease boulder clearing energy cost.";
 }
 
 int Jackhammer::interactWithType()
@@ -410,6 +426,8 @@ Machete::Machete(Map * mapPtr) : Tool(mapPtr)
 	price = 25;
 	energyCost = 2;
 	worksOn = bush;	
+        name = "Machete";
+        message = "Consume to decrease bush clearing energy cost.";
 }
 
 int Machete::interactWithType()
@@ -437,6 +455,8 @@ Shears::Shears(Map * mapPtr) : Tool(mapPtr)
 	price = 35;
 	energyCost = 2;
 	worksOn = bush;
+        name = "Shears";
+        message = "Consume to decrease bush clearing energy cost.";
 }	  
 
 int Shears::interactWithType()
