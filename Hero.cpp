@@ -125,7 +125,6 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     //Temporary vaiables for the Hero's location
     int x = location.x;
     int y = location.y;
-	int temp = 0;
 
 	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties
 	changeEnergy(-terrain.energyConsumption);
@@ -154,18 +153,11 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     aheadLoc.y = y;
 
     //Look ahead before actually stepping.
-    temp = lookAhead(mapToCopy, aheadLoc);						//Type and terrain checking
-	
-	if((temp == 1) || (temp ==2))
+	if(lookAhead(mapToCopy, aheadLoc))
     {
         //Move the Hero
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
-		
-		if(temp == 1){ 		//NULLs out Type pointer if an object was used and deletes the Type object TODO figure out how we will free tool mem
-			delete mapToCopy.getMap()[location.y][location.x].getType();
-			mapToCopy.getMap()[location.y][location.x].setType(NULL); 
-		}		
 
         //Update Heroes terrain struct info with correct terrain struct info from the map 2d array
         terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
@@ -203,13 +195,17 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 		return 0;								//Returns a 0 so no movement is executed for impassable terrains
     } 
 	if(typePtr){								//This (if) will guard against SEG FAULTs
-        if(typePtr->interactWithType()){		
-			return 1;
-			fillBag(typePtr);					//Call interactWithType() and returns a 1 if the type was used or altered
+        int result = typePtr->interactWithType();		
+		if(result == 1) {												//If interactWithType returns 1 it means a power bar or chest was encountered 
+			delete typePtr;												//and needs deleted
+			map.getMap()[location.y][location.x].setType(NULL); 
+		}
+		else if(result == 2) { 											//If interactWithType returns 2 it means an item was purchased and the type ptr
+			map.getMap()[location.y][location.x].setType(NULL);			//needs NULLed out
 		}
     }
 	
-	return 2;									//Returs a 2 if a Type was found but not used
+	return 1;									//Returs a 2 if a Type was found but not used
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail

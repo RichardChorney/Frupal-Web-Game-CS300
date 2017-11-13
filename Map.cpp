@@ -102,7 +102,6 @@ int Map::loadMapFromFile(string fileName)
 
         v.clear();
     }
-	cout << energy;
     Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
     hero = new Hero(heroLoc, energy, whiffles, *t);
     return 1;
