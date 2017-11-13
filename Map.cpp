@@ -153,7 +153,7 @@ void Map::displayMap()
     int visibility = hero->getVisibilityRadius();
 
     //Sets the location where the hero is to true, and will keep it true until the game is over.
-    map[heroLocation.x][heroLocation.y].setVisibility(true);
+    map[heroLocation.y][heroLocation.x].setVisibility(true);
 
     /* Map Visibility */
     //Clear out all local visibility
@@ -219,7 +219,7 @@ void Map::setLocalVisibileGrovnicksOnMap(Location & location, int visibility)
             if (i >= 0 && i < mapSize
                 && j >= 0 && j < mapSize)
                 {
-                    map[i][j].setIsVisibleLocally(true);
+                    map[j][i].setIsVisibleLocally(true);
                 }
 
             }
