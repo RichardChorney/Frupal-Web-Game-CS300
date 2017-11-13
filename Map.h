@@ -31,7 +31,8 @@ public:
     Grovnick();
     Grovnick(char newCharToDisplay, Map * mapPtr); //Default Constructor
     void displayChar(); //Displays the map character
-    void mapIntToType(int intToMap, Map * mapPtr); //Maps the char to type
+    //void mapIntToType(int intToMap, Map * mapPtr); //Maps the char to type
+    void setTypeFromMapFile(string & typeString, Map * mapPtr); //Maps the char to type
     void mapIntToTerrain(int terra); 
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
@@ -40,7 +41,7 @@ public:
     bool getLocalVisibility(); //Returns the local visibility
     int getEnergyConsumption();
     char getCharToDisplay(); //Returns the display character
-    void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
+    //void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
 	Terrain * getTerrain();
 	Type * getType();
 	void setType(Type * newPtr);

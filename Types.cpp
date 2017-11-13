@@ -30,6 +30,11 @@ Type::Type(string newName, string newMessage, Map * newMap)
     map = newMap;
 }
 
+Type::~Type()
+{
+
+}
+
 //A display function to show a tools
 //name and description. This function
 //is called by the hero class's display
@@ -38,7 +43,7 @@ Type::Type(string newName, string newMessage, Map * newMap)
 void Type::displayType()
 {
      /**/
-     cout << "Tool: " << name << endl << "Description: " << message;
+     cout << "Tool: " << name << ": " << message;
 
 }
 
@@ -100,6 +105,11 @@ Tool::Tool(Map * mapPtr)
 	map = mapPtr;
 }
 
+Tool::~Tool()
+{
+
+}
+
 //Clue
 int Clue::interactWithType()
 {
@@ -146,6 +156,8 @@ int ExplosiveChest::interactWithType()
 PowerBar::PowerBar(Map * mapPtr)
 {
 	map = mapPtr;
+        name = "Power Bar";
+        message = "A Power Bar to regain energy.";
 }
 
 //Power Bar  TODO not sure how to use the return type for this yet
@@ -182,6 +194,8 @@ int Boulder::interactWithType()
 RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 {
 	map = mapPtr;
+        name = "Royal Diamonds";
+        message = "Unimaginable Wealth...";
 }
 
 //Royal Diamonds
@@ -189,12 +203,14 @@ int RoyalDiamonds::interactWithType()
 {
     cout << "Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
     map->resetMapState();
-    return 0;
+    return 0;													//This may cause issues where interactWithType is called by lookAhead in Hero.cpp TODO
 }
 
 Binoculars::Binoculars(Map * mapPtr)
 {
 	map = mapPtr;
+        name = "Binoculars";
+        message = "Increases visibility range to 2.";
 }
 
 //Binoculars
@@ -237,6 +253,8 @@ Hatchet::Hatchet(Map * mapPtr) : Tool(mapPtr)
 	price = 15;
 	energyCost = 8;
 	worksOn = tree;
+        name = "Hatchet";
+        message = "Consume to decrease tree clearing energy cost.";
 }
 
 int Hatchet::interactWithType() 
@@ -247,7 +265,7 @@ int Hatchet::interactWithType()
 	
 	if (promptPurchase(price)) { 
     	Hero * currHero = map->getHeroPtr();
-		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		cout << "Congratulations on your purchase of this fine FRUPAL product, hope it will be useful...." << endl;
 		
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
 	
@@ -264,6 +282,8 @@ Axe::Axe(Map * mapPtr) : Tool(mapPtr)
 	price = 30;
 	energyCost = 6;
 	worksOn = tree;
+        name = "Axe";
+        message = "Consume to decrease tree clearing energy cost.";
 }
 
 //Axe
@@ -275,11 +295,11 @@ int Axe::interactWithType()
 	
 	if (promptPurchase(price)) { 
     	Hero * currHero = map->getHeroPtr();
-		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		cout << "Congratulations on your purchase of this fine FRUPAL product, hope it will be useful...." << endl;
 		
-		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+		currHero->fillBag(this);			//Adds a pointer for the purchased item to the Heroes inventory		
 	
-		return 1;	
+		return 2;	
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
@@ -292,6 +312,8 @@ Chainsaw::Chainsaw(Map * mapPtr) : Tool(mapPtr)
 	price = 60;
 	energyCost = 2;
 	worksOn = tree;
+        name = "Chainsaw";
+        message = "Consume to decrease tree clearing energy cost.";
 }
 
 int Chainsaw::interactWithType()
@@ -319,6 +341,8 @@ Chisel::Chisel(Map * mapPtr) : Tool(mapPtr)
 	price = 5;
 	energyCost = 15;
 	worksOn = boulder;
+        name = "Chisel";
+        message = "Consume to decrease boulder clearing energy cost.";
 }
 
 int Chisel::interactWithType()
@@ -373,6 +397,8 @@ Jackhammer::Jackhammer(Map * mapPtr) : Tool(mapPtr)
 	price = 100;
 	energyCost = 4;
 	worksOn = boulder;
+        name = "Jackhammer";
+        message = "Consume to decrease boulder clearing energy cost.";
 }
 
 int Jackhammer::interactWithType()
@@ -400,6 +426,8 @@ Machete::Machete(Map * mapPtr) : Tool(mapPtr)
 	price = 25;
 	energyCost = 2;
 	worksOn = bush;	
+        name = "Machete";
+        message = "Consume to decrease bush clearing energy cost.";
 }
 
 int Machete::interactWithType()
@@ -427,6 +455,8 @@ Shears::Shears(Map * mapPtr) : Tool(mapPtr)
 	price = 35;
 	energyCost = 2;
 	worksOn = bush;
+        name = "Shears";
+        message = "Consume to decrease bush clearing energy cost.";
 }	  
 
 int Shears::interactWithType()

@@ -9,6 +9,7 @@
 
 
 #include "Map.h"
+#include "Animation.h"
 using namespace std;
 
 //Test maps (these don't conform to the stanard map files)
@@ -19,17 +20,18 @@ string const basicMap2 = "basicMap2.txt";
 
 int main()
 {
+    if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
 
     Hero * hero;
 
     Map map; //Create a map of size MAX
-    map.loadMapFromFile(basicMap2);
+    map.loadMapFromFile(basicMap);
     hero = map.getHeroPtr();
 
 	bool proceed = true;
     bool showInventory = false;
 	char keyPress = '0';
-	
+
 	cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
 	while(proceed){
 		map.displayMap();
@@ -47,16 +49,23 @@ int main()
 
 		cin >> keyPress;
 		system("clear");
-		
-		if((keyPress < '0') || (keyPress > '6')){
+
+        //Make sure the keypress is within the menu items
+		if (!((keyPress >= '0' && keyPress <= '6')
+        || keyPress == 'w' || keyPress == 'a'
+        || keyPress == 's' || keyPress == 'd')) {
 			continue;
 		}
 
 		switch(keyPress){
 
+            case 'w':
 			case '1':  hero->moveHero(1, map); break;
+            case 'd':
 			case '2':  hero->moveHero(2, map); break;
+            case 's':
 			case '3':  hero->moveHero(3, map); break;
+            case 'a':
 			case '4':  hero->moveHero(4, map); break;
             case '5':   showInventory = true; break;
 			case '6':  proceed = false; break;

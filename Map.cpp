@@ -20,11 +20,21 @@ Map::Map() : hero(NULL)
 //Destructor for the Map Class
 Map::~Map()
 {
-    //Free the 2D array
+    for(int i = 0; i < mapSize; ++i){
+		for(int j = 0; j < mapSize; ++j){
+			if(map[i][j].getType()){
+				delete map[i][j].getType();
+				map[i][j].setType(NULL);
+			}
+		}
+	}
+
+	//Free the 2D array
 	for(int i = 0; i < mapSize; ++i){
 		delete [] map[i];
 		map[i] = NULL;
 	}
+				
 	delete [] map;
 	delete hero;
 	map = NULL;
@@ -72,9 +82,6 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-    //Terrain temporaryTerrain; //FIXME Temporary so we can compile, need to figure out how to set Heroes terrain from file, same directly below
-
-    //hero = new Hero(heroLoc, energy, whiffles, temporaryTerrain);  //FIXME
     setHero(hero);
     // TODO items
 
@@ -91,10 +98,10 @@ int Map::loadMapFromFile(string fileName)
         y = atoi(v[1].c_str());
         map[x][y].setVisibility(v[2].c_str());
         map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
+        map[x][y].setTypeFromMapFile(v[4], this);
 
         v.clear();
     }
-
     Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
     hero = new Hero(heroLoc, energy, whiffles, *t);
     return 1;
@@ -145,7 +152,7 @@ void Map::displayMap()
     int visibility = hero->getVisibilityRadius();
 
     //Sets the location where the hero is to true, and will keep it true until the game is over.
-    map[heroLocation.x][heroLocation.y].setVisibility(true);
+    map[heroLocation.y][heroLocation.x].setVisibility(true);
 
     /* Map Visibility */
     //Clear out all local visibility
@@ -176,7 +183,7 @@ void Map::displayMap()
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
                 cout << HERO_CHAR; //Display the Hero
             } else {
-                map[i][j].displayChar();
+                map[j][i].displayChar();
             }
             cout << " "; //Spaces characters on x-axis
         }
@@ -211,7 +218,7 @@ void Map::setLocalVisibileGrovnicksOnMap(Location & location, int visibility)
             if (i >= 0 && i < mapSize
                 && j >= 0 && j < mapSize)
                 {
-                    map[i][j].setIsVisibleLocally(true);
+                    map[j][i].setIsVisibleLocally(true);
                 }
 
             }
@@ -278,6 +285,6 @@ Grovnick ** Map::getMap()
 }
 
 void Map::resetMapState() {
-    delete hero;
+    //delete hero;
     loadMapFromFile(fileName);
 }

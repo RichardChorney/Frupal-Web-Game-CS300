@@ -34,7 +34,7 @@ Grovnick::Grovnick(char newCharToDisplay, Map * mapPtr)
     terrain.canWalkOn = true;
     terrain.energyConsumption = 1;
 }
-
+/*
 //Copies the parameters into the data members
 void Grovnick::copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newTerrain, int newType, Map * newMap)
 {
@@ -44,6 +44,7 @@ void Grovnick::copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int new
     //mapIntToType(newType, newTerrain, newMap);
     mapIntToType(newType, newMap);
 }
+*/
 
 //Displays just the character associated
 //with the Grovnick. If the hero is on this
@@ -65,7 +66,7 @@ char Grovnick::getCharToDisplay()
 
 //Takes an integer and maps it to the kind of type
 //that it is. Then it upcasts it into the type.
-//void Grovnick::mapIntToType(int intToMap, int terra, Map * MapPtr)
+/*
 void Grovnick::mapIntToType(int intToMap, Map * MapPtr)
 {
 
@@ -98,6 +99,39 @@ void Grovnick::mapIntToType(int intToMap, Map * MapPtr)
 	else if (intToMap == machete) type = new Machete(MapPtr);
 	else if (intToMap == shears) type = new Shears(MapPtr);
 
+}
+*/
+void Grovnick::setTypeFromMapFile(string & typeString, Map * MapPtr)
+{
+
+    //Parse what kind of Type it is and Then
+    //Upcast type into that Class
+    if (typeString == "Clue") {
+
+        //TODO (Issue on Github - Generate Clue)
+        //We will need to pull clue messages from somewhere right here,
+        //and then put them in clueMessage to be passed through
+        //the constructor
+
+        string clueMessage = "Example message.";
+        type = new Clue("Clue", clueMessage, MapPtr);
+    }
+    else if (typeString == "Type 1 Treasure Chest") type = new Chest(MapPtr);
+    else if (typeString == "Power Bar") type = new PowerBar(MapPtr);
+    else if (typeString == "Boulder") type = new Boulder(MapPtr);
+    else if (typeString == "Royal Diamonds") type = new RoyalDiamonds(MapPtr);
+    else if (typeString == "Type 2 Treasure Chest") type = new ExplosiveChest(MapPtr);
+    else if (typeString == "Binoculars") type = new Binoculars(MapPtr);
+    else if (typeString == "Blackberry Bush") type = new Bush(MapPtr);
+    else if (typeString == "Tree") type = new Tree(MapPtr);
+    else if (typeString == "Axe") type = new Axe(MapPtr);
+	else if (typeString == "Hatchet") type = new Hatchet(MapPtr);
+	else if (typeString == "Chainsaw") type = new Chainsaw(MapPtr);
+	else if (typeString == "Chisel") type = new Chisel(MapPtr);
+	else if (typeString == "Sledgehammer") type = new Sledgehammer(MapPtr);
+	else if (typeString == "Jackhammer") type = new Jackhammer(MapPtr);
+	else if (typeString == "Machete") type = new Machete(MapPtr);
+	else if (typeString == "Shears") type = new Shears(MapPtr);
 }
 
 
