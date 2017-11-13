@@ -15,6 +15,7 @@
 #include "Types.h"
 #include "Constants.h"
 #include "Struct.h"
+#include "Enums.h"
 
 class Type; //Forward decleration
 class Hero;
@@ -30,7 +31,9 @@ public:
     Grovnick();
     Grovnick(char newCharToDisplay, Map * mapPtr); //Default Constructor
     void displayChar(); //Displays the map character
-    void mapIntToType(int intToMap, int terrain, Map * mapPtr); //Maps the char to type
+    //void mapIntToType(int intToMap, Map * mapPtr); //Maps the char to type
+    void setTypeFromMapFile(string & typeString, Map * mapPtr); //Maps the char to type
+    void mapIntToTerrain(int terra); 
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
     void setIsVisibleLocally(bool newVisible);
@@ -38,9 +41,10 @@ public:
     bool getLocalVisibility(); //Returns the local visibility
     int getEnergyConsumption();
     char getCharToDisplay(); //Returns the display character
-    void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
+    //void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
 	Terrain * getTerrain();
 	Type * getType();
+	void setType(Type * newPtr);
 
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)
@@ -67,6 +71,7 @@ public:
     Hero* getHeroPtr();
     void printHeroStatus();
 	Grovnick ** getMap();
+    void resetMapState();
 
 protected:
     void allocateMap(int newMapSize = MAX);
@@ -74,4 +79,5 @@ protected:
     int mapSize; //Size of the map (and thus the size of each array)
     Grovnick ** map; //2D array of Grovnick pointers
     Hero * hero; //A pointer to the user
+    string fileName;
 };

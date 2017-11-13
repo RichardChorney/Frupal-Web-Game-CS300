@@ -14,22 +14,29 @@ enum typeIndex {
     clue = 1,
     powerBar = 2,
     boulder = 3,
-    wall = 4,
-    royalDiamonds = 5,
-    chest = 6,
-    explosiveChest = 7,
-    binoculars = 8,
-    bush = 9,
-    tree = 10,
-    axe = 11,
-    chainsaw = 12
+    royalDiamonds = 4,
+    chest = 5,
+    explosiveChest = 6,
+    binoculars = 7,
+    bush = 8,
+    tree = 9,
+   	hatchet = 10, 
+	axe = 11,
+    chainsaw = 12,
+	chisel = 13,
+	sledgehammer = 14,
+	jackhammer = 15,
+	machete = 16,
+	shears = 17
 
 };
 
 //Terrain Index enumeration
 enum terrainIndex {
     meadow = 0,
-    water = 1,
-    bog = 2,
-    forest = 3
+    forest = 1,
+    water = 2,
+    wall = 3,
+    bog = 4,
+    swamp = 5
 };

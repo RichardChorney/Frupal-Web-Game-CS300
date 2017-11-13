@@ -18,13 +18,18 @@ Type::Type()
     map = NULL;
 }
 
-//Constructor with arguments
+//Constructor with 3 arguments
 Type::Type(string newName, string newMessage, Map * newMap)
 {
     //This copy is SO deep.
     name = newName;
     message = newMessage;
     map = newMap;
+}
+
+Type::~Type()
+{
+
 }
 
 //A display function to show a tools
@@ -35,7 +40,7 @@ Type::Type(string newName, string newMessage, Map * newMap)
 void Type::displayType()
 {
      /**/
-     cout << "Tool: " << name << endl << "Description: " << message;
+     cout << "Tool: " << name << ": " << message;
 
 }
 
@@ -54,34 +59,59 @@ Clue::Clue(string newName, string newMessage, Map * mapPtr)
     map = mapPtr;
 }
 
+//Purchase UI, returns true for a successful transaction, false if not enough funds or user decides to not purchase
 bool Type::promptPurchase(int cost) {
     char userInput;
-    cout << "Would you like to purchase this item for " << cost << " whiffles? Y/N" << endl;  
-    while (true) {
-        cin >> userInput; 
-        switch (userInput) {
-            case 'Y':
-            case 'y':
-                //hero.setBalance(-price);
-                return true;
-                break;
-            case 'N':
-            case 'n':
-                //Do nothing
-                return false;
-                break;
-            default:
-                cout << "I didn't quite catch that. Please enter another character\n";
-        };
-    }
+   	Hero * heroPtr = map->getHeroPtr();
+	if((heroPtr->getBalance()) >= cost){ 
+		cout << "Would you like to purchase this item for " << cost << " whiffle(s)? Y/N" << endl;  
+		while (true) {
+   		     cin >> userInput; 
+       		 switch (userInput) {
+           		case 'Y':
+            	case 'y':
+               		heroPtr->setBalance(-cost);
+                	return true;
+                	break;
+            	case 'N':
+            	case 'n':
+               		 //Do nothing
+                	return false;
+                	break;
+            	default:
+                	cout << "I didn't quite catch that. Please enter another character\n";
+        	};
+    	}
+	}
+	else {
+		cout << "Sorry you do not have enough Whiffles to pay for that..." << endl;
+		return false;
+	}
 }
-    
+
 //Tool
 //Virtual function override of Type class
 int Tool::interactWithType()
 {
     cout << "You called the TOOL function." << endl; //Test
     return 0;
+}
+
+Tool::Tool(){
+	multiplier = 0;
+	price = 0;
+	energyCost = 0;
+	worksOn = -1;
+}
+
+Tool::Tool(Map * mapPtr) 
+{
+	map = mapPtr;
+}
+
+Tool::~Tool()
+{
+
 }
 
 //Clue
@@ -92,16 +122,15 @@ int Clue::interactWithType()
 }
 
 //Default constructor for Chest
-Chest::Chest(Map * mapPtr)
+Chest::Chest(Map * mapPtr) : Type("Reward Chest", "I give $$$", mapPtr) 
 {
-    map = mapPtr;
-    whifflesToRecieved = CHEST_WHIFFLES_RECIEVED;
+	whifflesToRecieved = CHEST_WHIFFLES_RECIEVED;
 }
 
 //Chest
 int Chest::interactWithType()
 {
-    cout << "*** You openned a chest, and recieved $" << whifflesToRecieved << "!" << endl;
+    cout << "*** You opened a chest, and recieved $" << whifflesToRecieved << "!" << endl;
 
     Hero * currHero = map->getHeroPtr();
     currHero->addToWhiffles(whifflesToRecieved);
@@ -110,105 +139,79 @@ int Chest::interactWithType()
 }
 
 //Explosive chest constructor
-ExplosiveChest::ExplosiveChest(Map * mapPtr)
+ExplosiveChest::ExplosiveChest(Map * mapPtr) : Type("Exploding Chest", "I blow up!!", mapPtr)
 {
-    map = mapPtr;
-    whifflesToDeduct = CHEST_WHIFFLES_DEDUCTED;
+	whifflesToDeduct = CHEST_WHIFFLES_DEDUCTED;
 }
-
 
 //Explosive Chest
 int ExplosiveChest::interactWithType()
 {
-    cout << "*** You openned an Exploading Chest! You lose $" << whifflesToDeduct << "!" << endl;
+    cout << "*** You opened an Exploading Chest! You lose $" << whifflesToDeduct << "!" << endl;
 
     Hero * currHero = map->getHeroPtr();
     currHero->addToWhiffles(whifflesToDeduct);
 
-    return 1; //Not really needed
-}
-
-Bog::Bog(Map * mapPtr)
-{
-    map = mapPtr;
-}
-
-//Bog / Swamp
-int Bog::interactWithType()
-{
-    cout << "Gross, you've stepped into a swamp! You lose an extra energy point." << endl;
-    //hero.changeEnergy(changeInEnergy);
-    
-    return 0;
+    return 1;
 }
 
 PowerBar::PowerBar(Map * mapPtr)
 {
-    map = mapPtr;
+	map = mapPtr;
+	name = "Power Bar";
+    message = "A Power Bar to regain energy.";
 }
 
 //Power Bar  TODO not sure how to use the return type for this yet
 int PowerBar::interactWithType()
 {
-    char keyPress = '0';
-	do{
-		system("clear");
-		cout << "You are standing on a yummy Power Bar..." << endl;
-		cout << "Would you like to buy it for a Whiffle??  Y/N";
-		cin >> keyPress;
-	}
-	while((keyPress != 'y') || (keyPress != 'Y') || (keyPress != 'n') || (keyPress != 'N')); 
+	system("clear");
+	cout << "You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
 
-	if((keyPress == 'Y') || (keyPress == 'y')){
-		//TODO Call Levis transaction function
-		Hero * currHero = map->getHeroPtr();
+	if (promptPurchase(1)) {
+    	Hero * currHero = map->getHeroPtr();
 		currHero->changeEnergy(20);
-		currHero->setBalance(-1);
-		return 1;
+		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty...." << endl;
+
+		return 1;	
 	}
-	
-	return 0;
+
+	cout << "Oh well, I guess not everyone likes Power Bars...." << endl;
+
+    return 0;
 }
 
 Boulder::Boulder(Map * mapPtr)
 {
-    map = mapPtr;
+	map = mapPtr;
 }
 
 //Boulder
 int Boulder::interactWithType()
 {
-    //hero.changeEnergy(-removalCost);
-    return 0;
-}
-
-Wall::Wall(Map * mapPtr)
-{
-
-}
-
-//Wall
-int Wall::interactWithType()
-{
+    map->getHeroPtr()->changeEnergy(-removalCost);
     return 0;
 }
 
 RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 {
-    map = mapPtr;
+	map = mapPtr;
+        name = "Royal Diamonds";
+        message = "Unimaginable Wealth...";
 }
 
 //Royal Diamonds
 int RoyalDiamonds::interactWithType()
 {
     cout << "Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
-    //resetGameState();
-    return 0;
+    map->resetMapState();
+    return 0;													//This may cause issues where interactWithType is called by lookAhead in Hero.cpp TODO
 }
 
-Binoculars::Binoculars(Map * mapPtr)
-{
-    map = mapPtr;
+Binoculars::Binoculars(Map * mapPtr){
+	map = mapPtr;
+        name = "Binoculars";
+        message = "Increases visibility range to 2.";
 }
 
 //Binoculars
@@ -216,43 +219,303 @@ int Binoculars::interactWithType()
 {
     cout << "You've found the binoculars! They increase your vision radius by 1 tile." << endl;
     if (promptPurchase(price)) {
-        //hero.setVisibility(true);
+        map->getHeroPtr()->setVisibility(true);
     }
 
     return 0;
 }
 
-Bush::Bush(Map * mapPtr)
+Bush::Bush(Map * mapPtr) 
 {
-    map = mapPtr;
+	map = mapPtr;
 }
 
 //Bush
 int Bush::interactWithType()
 {
-    //hero.changeInEnergy(-removalCost);
+    map->getHeroPtr()->changeEnergy(-removalCost);
     return 0;
 }
 
 Tree::Tree(Map * mapPtr)
 {
-    map = mapPtr;
+	map = mapPtr;
 }
 
 //Tree
 int Tree::interactWithType()
 {
-    //hero.changeInEnergy(-removalCost);
+    map->getHeroPtr()->changeEnergy(-removalCost);
     return 0;
 }
 
-Axe::Axe(Map * mapPtr)
+Hatchet::Hatchet(Map * mapPtr) : Tool(mapPtr)
 {
-    map = mapPtr;
+	price = 15;
+	energyCost = 8;
+	worksOn = tree;
+        name = "Hatchet";
+        message = "Consume to decrease tree clearing energy cost.";
+}
+
+int Hatchet::interactWithType() 
+{
+	system("clear");
+	cout << "You have found a HATCHET" << endl;
+	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
+	
+	if (promptPurchase(price)) { 
+    	Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		
+		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+	
+		return 1;	
+	}
+
+	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+            
+    return 0;
+}
+
+bool Hatchet::useTool()
+{
+	return false;
+}
+
+Axe::Axe(Map * mapPtr) : Tool(mapPtr)
+{
+	price = 30;
+	energyCost = 6;
+	worksOn = tree;
+        name = "Axe";
+        message = "Consume to decrease tree clearing energy cost.";
 }
 
 //Axe
-int Axe::interactWithType()
+int Axe::interactWithType() 
 {
+ 	system("clear");
+	cout << "You have found an AXE" << endl;
+	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
+	
+	if (promptPurchase(price)) { 
+    	Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		
+		currHero->fillBag(this);			//Adds a pointer for the purchased item to the Heroes inventory		
+	
+		return 2;	
+	}
+
+	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+   
     return 0;
+}
+
+bool Axe::useTool()
+{
+	return false;
+}
+
+Chainsaw::Chainsaw(Map * mapPtr) : Tool(mapPtr)
+{
+	price = 60;
+	energyCost = 2;
+	worksOn = tree;
+        name = "Chainsaw";
+        message = "Consume to decrease tree clearing energy cost.";
+}
+
+int Chainsaw::interactWithType()
+{
+ 	system("clear");
+	cout << "You have found a CHAINSAW" << endl;
+	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
+	
+	if (promptPurchase(price)) { 
+    	Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		
+		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+	
+		return 1;	
+	}
+
+	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+
+	return 0;
+}
+
+bool Chainsaw::useTool()
+{
+	return false;
+}
+
+Chisel::Chisel(Map * mapPtr) : Tool(mapPtr)
+{
+	price = 5;
+	energyCost = 15;
+	worksOn = boulder;
+        name = "Chisel";
+        message = "Consume to decrease boulder clearing energy cost.";
+}
+
+int Chisel::interactWithType()
+{
+ 	system("clear");
+	cout << "You have found a CHISEL" << endl;
+	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
+	
+	if (promptPurchase(price)) { 
+    	Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		
+		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+	
+		return 1;	
+	}
+
+	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+
+	return 0;
+}
+
+bool Chisel::useTool()
+{
+	return false;
+}
+
+Sledgehammer::Sledgehammer(Map * mapPtr) : Tool(mapPtr)
+{
+	price = 25;
+	energyCost = 12;
+	worksOn = boulder;
+}
+
+int Sledgehammer::interactWithType()
+{
+ 	system("clear");
+	cout << "You have found a SLEDGEHAMMER" << endl;
+	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
+	
+	if (promptPurchase(price)) { 
+    	Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		
+		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+	
+		return 1;	
+	}
+
+	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+
+	return 0;
+}
+
+bool Sledgehammer::useTool()
+{
+	return false;
+}
+
+Jackhammer::Jackhammer(Map * mapPtr) : Tool(mapPtr)
+{
+	price = 100;
+	energyCost = 4;
+	worksOn = boulder;
+        name = "Jackhammer";
+        message = "Consume to decrease boulder clearing energy cost.";
+}
+
+int Jackhammer::interactWithType()
+{
+ 	system("clear");
+	cout << "You have found a JACKHAMMER" << endl;
+	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
+	
+	if (promptPurchase(price)) { 
+    	Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		
+		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+	
+		return 1;	
+	}
+
+	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+
+	return 0;
+}
+
+bool Jackhammer::useTool()
+{
+	return false;
+}
+
+Machete::Machete(Map * mapPtr) : Tool(mapPtr)
+{
+	price = 25;
+	energyCost = 2;
+	worksOn = bush;	
+        name = "Machete";
+        message = "Consume to decrease bush clearing energy cost.";
+}
+
+int Machete::interactWithType()
+{
+ 	system("clear");
+	cout << "You have found a MACHETE" << endl;
+	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
+	
+	if (promptPurchase(price)) { 
+    	Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		
+		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+	
+		return 1;	
+	}
+
+	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+
+	return 0;
+}
+
+bool Machete::useTool()
+{
+	return false;
+}
+
+Shears::Shears(Map * mapPtr) : Tool(mapPtr)
+{
+	price = 35;
+	energyCost = 2;
+	worksOn = bush;
+        name = "Shears";
+        message = "Consume to decrease bush clearing energy cost.";
+}	  
+
+int Shears::interactWithType()
+{
+ 	system("clear");
+	cout << "You have found SHEARS" << endl;
+	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
+	
+	if (promptPurchase(price)) { 
+    	Hero * currHero = map->getHeroPtr();
+		cout << "Congratulations on your purchase of a fine " << name << ", hope it will be useful...." << endl;
+		
+		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory		
+	
+		return 1;	
+	}
+
+	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+
+	return 0;
+}  
+
+bool Shears::useTool()
+{
+	return false;
 }

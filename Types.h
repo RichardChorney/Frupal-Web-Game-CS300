@@ -22,9 +22,11 @@ class Map;
 class Type {
 public:
     Type(); //Default Constructor
-    Type(string newName, string newMessage, Map * newMap);
-    virtual int interactWithType() = 0; //Dynamic Binding!
+	Type(string newName, string newMessage, Map * newMap);
+	virtual ~Type() = 0;
+	virtual int interactWithType() = 0; //Dynamic Binding!
     void displayType();
+    bool promptPurchase(int cost);
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
@@ -32,17 +34,18 @@ protected:
 };
 
 //('T')
-//FIXME
-//Need to decied if we should only subclass
-//specific tools (e.g axe, chainsaw, etc)
-//Or if we can have a generic Tool and simply
-//just change the name and data members
 class Tool : public Type {
 public:
-    int interactWithType();
-    //Add to inventory?
+	Tool();	
+	Tool(Map * mapPtr);
+	int interactWithType();
+	virtual ~Tool();
+
 protected:
-    int multiplier; //X1, X2, X3 ...
+    int multiplier; 	//X1, X2, X3 ...
+    int price;			//Tool cost
+	int energyCost;		//How much energy the tool deducts from energy balance
+	int worksOn;		//Identifies which kind of obstacle this tool will work on
 };
 
 //('C')
@@ -76,15 +79,6 @@ protected:
     int whifflesToDeduct;
 };
 
-//('S') The bog class is the same thing
-//as a Swamp.
-class Bog : public Type {
-public:
-    Bog(Map * mapPtr);
-    int interactWithType();
-};
-
-
 //('P')
 class PowerBar : public Type {
 public:
@@ -97,13 +91,8 @@ class Boulder : public Type {
 public:
     Boulder(Map * mapPtr);
     int interactWithType();
-};
-
-//('|')
-class Wall : public Type {
-public:
-    Wall(Map * mapPtr);
-    int interactWithType();
+protected:
+    int removalCost;
 };
 
 class RoyalDiamonds : public Type {
@@ -116,22 +105,79 @@ class Binoculars : public Type {
 public:
     Binoculars(Map * mapPtr);
     int interactWithType();
+protected:
+    int price;
 };
 
 class Bush : public Type {
 public:
     Bush(Map * mapPtr);
     int interactWithType();
+protected:
+    int removalCost;
 };
 
 class Tree : public Type {
 public:
     Tree(Map * mapPtr);
     int interactWithType();
+protected:
+    int removalCost;
 };
 
-class Axe : public Type {
+class Hatchet : public Tool {
+public:	
+	Hatchet(Map * mapPtr);
+	int interactWithType();
+	bool useTool();
+};
+
+class Axe : public Tool {
 public:
     Axe(Map * mapPtr);
     int interactWithType();
+	bool useTool();
 };
+
+
+class Chainsaw : public Tool {
+public:
+	Chainsaw(Map * mapPtr);
+	int interactWithType();
+	bool useTool();
+};
+
+class Chisel : public Tool {
+public:
+	Chisel(Map * mapPtr);
+	int interactWithType();
+	bool useTool();
+};
+
+class Sledgehammer : public Tool {
+public:
+	Sledgehammer(Map * mapPtr);
+	int interactWithType();
+	bool useTool();
+};
+
+class Jackhammer : public Tool {
+public:
+	Jackhammer(Map * mapPtr);	
+	int interactWithType();
+	bool useTool();
+};
+
+class Machete : public Tool {
+public:
+	Machete(Map * mapPtr);
+	int interactWithType();
+	bool useTool();
+};
+
+class Shears : public Tool {
+public:
+	Shears(Map * mapPtr);
+	int interactWithType();
+	bool useTool();
+}; 	
