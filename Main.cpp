@@ -74,10 +74,12 @@ int main()
 
 		}
 
+
 		if(!hero->checkAlive()){
 			cout << "GAME OVER" << endl << endl;
 			proceed = false;
 		}
+
 	}
 
 

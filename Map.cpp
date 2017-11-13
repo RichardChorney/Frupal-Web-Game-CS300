@@ -14,7 +14,7 @@
 //that is called "MAX" (declared in Map.h)
 Map::Map() : hero(NULL)
 {
-
+    
 }
 
 //Destructor for the Map Class

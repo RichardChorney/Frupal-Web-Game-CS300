@@ -31,7 +31,7 @@ Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy, Terrain& t
 	location.x = locToCopy.x;
 	location.y = locToCopy.y;
   	alive = true;
-	energy   = energyToCopy;
+	energy  = energyToCopy;
 	whiffles = whifflesToCopy;
   	visibilityRadius = DEFAULT_VIS;
 	terrain.terrainName = terrainToCopy.terrainName;
@@ -94,12 +94,13 @@ int Hero::changeEnergy(int amnt)
 //Is the hero alive?  Returns if so.
 bool Hero::checkAlive()
 {
-  	if(energy<=0)
+  	if(energy <= 0)
   	{
   		alive = false;
   		cout << "You ran out of energy and DIED!!\n";
   	}
-  	return alive;
+
+    return alive;
 }
 
 //Adjusts heroes whiffle balance
@@ -249,8 +250,8 @@ void Hero::printStatus()
 
     cout << endl;
     cout << "-----------------------------\n";
-	cout << "Whiffles:\t" << whiffles << " whiffles" << endl;
-    cout << "Energy: \t" << energy << " units" << endl;
+	cout << "Whiffles:\t" << whiffles << " W" << endl;
+    cout << "Energy: \t" << energy << " E" << endl;
     cout << "Location:\t(" << location.x << ", " << location.y << ")" << endl;
     cout << "Terrain:\t";
     displayTerrainMsg(terrain.terrainName);
