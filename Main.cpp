@@ -20,7 +20,7 @@ string const basicMap2 = "basicMap2.txt";
 
 int main()
 {
-    if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
+    //if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
 
     Hero * hero;
 
