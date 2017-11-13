@@ -247,7 +247,6 @@ bool Hero::useItem(int itemToUse){
 //Prints relevant Hero status information
 void Hero::printStatus()
 {
-
     cout << endl;
     cout << "-----------------------------\n";
 	cout << "Whiffles:\t" << whiffles << " W" << endl;
@@ -255,15 +254,7 @@ void Hero::printStatus()
     cout << "Location:\t(" << location.x << ", " << location.y << ")" << endl;
     cout << "Terrain:\t";
     displayTerrainMsg(terrain.terrainName);
-
-    //cout << "Terrain:\t" << terrain.terrainName << endl;
     cout << "-----------------------------\n";
-
-
-    //	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
-	//cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
-    //	cout << "It takes " << terrain.energyConsumption << " energy unit(s) to walk on this Grovnick" << endl;
-
 }
 
 //TODO As the items are implemented this needs to be reviewed
