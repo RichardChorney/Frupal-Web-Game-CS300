@@ -61,6 +61,8 @@ const char welcome_to[] = " #    # ###### #       ####   ####  #    # ######    
      usleep(out);
  }
 
+//Displays WELCOME TO FRUPAL
+//But does so with an animation
  void welcomeAnimation()
  {
    cout << flush;

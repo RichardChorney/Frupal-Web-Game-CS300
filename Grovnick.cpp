@@ -136,7 +136,7 @@ void Grovnick::setTypeFromMapFile(string & typeString, Map * MapPtr)
 
 
 //Translates map file field into proper terrain
-void Grovnick::mapIntToTerrain(int terra) 
+void Grovnick::mapIntToTerrain(int terra)
 
 {
     if (terra == meadow) {
@@ -196,4 +196,4 @@ Terrain * Grovnick::getTerrain() { return &terrain; }
 Type * Grovnick::getType() { return type; }
 
 //Sets Type pointer (used to NULL out used objects)
-void Grovnick::setType(Type * newPtr) { type = newPtr; } 
+void Grovnick::setType(Type * newPtr) { type = newPtr; }

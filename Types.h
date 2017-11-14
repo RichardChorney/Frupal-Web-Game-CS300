@@ -39,7 +39,7 @@ public:
 	Tool();	
 	Tool(Map * mapPtr);
 	int interactWithType();
-	virtual ~Tool();
+	virtual ~Tool() = 0;
 
 protected:
     int multiplier; 	//X1, X2, X3 ...
