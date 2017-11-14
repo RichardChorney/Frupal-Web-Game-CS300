@@ -133,7 +133,7 @@ Chest::Chest(Map * mapPtr) : Type("Reward Chest", "I give $$$", mapPtr)
 //Chest
 int Chest::interactWithType()
 {
-    cout << "*** You opened a chest, and recieved $" << whifflesToRecieved << "!" << endl;
+    cout << "*** You opened a chest, and recieved " << whifflesToRecieved << " whiffles!" << endl;
 
     Hero * currHero = map->getHeroPtr();
     currHero->addToWhiffles(whifflesToRecieved);
@@ -150,7 +150,7 @@ ExplosiveChest::ExplosiveChest(Map * mapPtr) : Type("Exploding Chest", "I blow u
 //Explosive Chest
 int ExplosiveChest::interactWithType()
 {
-    cout << "*** You opened an Exploading Chest! You lose $" << whifflesToDeduct << "!" << endl;
+    cout << "*** You opened an Exploading Chest! You lose " << whifflesToDeduct << " whiffles!" << endl;
 
     Hero * currHero = map->getHeroPtr();
     currHero->addToWhiffles(whifflesToDeduct);
@@ -184,6 +184,7 @@ int PowerBar::interactWithType()
     return 0;
 }
 
+//Constructor boulder
 Boulder::Boulder(Map * mapPtr)
 {
 	map = mapPtr;
