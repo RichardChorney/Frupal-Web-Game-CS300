@@ -14,7 +14,7 @@
 //that is called "MAX" (declared in Map.h)
 Map::Map() : hero(NULL)
 {
-    
+
 }
 
 //Destructor for the Map Class
@@ -122,13 +122,13 @@ int Map::loadMapToFile(string fileName)
 //Nested For loops to process the 2D array.
     int i = 0;
     int k = 0;
-    for(i = 0; i <  MAX ; ++i)
+    for(i = 0; i <  mapSize ; ++i)
     {
-        for(k = 0; k < MAX; ++k)
+        for(k = 0; k < mapSize; ++k)
         {
             file << map[i][k].getCharToDisplay();
 
-            if(k == (MAX - 1))
+            if(k == (mapSize - 1))
             {
 
                 file << "<br>";
@@ -153,6 +153,7 @@ void Map::displayMap()
 
     //Sets the location where the hero is to true, and will keep it true until the game is over.
     map[heroLocation.y][heroLocation.x].setVisibility(true);
+    //map[heroLocation.x][heroLocation.y].setVisibility(true);
 
     /* Map Visibility */
     //Clear out all local visibility
