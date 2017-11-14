@@ -28,6 +28,7 @@ Type::Type(string newName, string newMessage, Map * newMap)
     name = newName;
     message = newMessage;
     map = newMap;
+	charToDisplay = '*';
 }
 
 Type::~Type()
@@ -47,10 +48,17 @@ void Type::displayType()
 
 }
 
+//Getter for each Types char to display on the game map
+char Type::getCharToDisplay()
+{
+	return charToDisplay;
+}
+
 //Default Clue Constructor
 Clue::Clue()
 {
     cout << "Clue constructor!" << endl; //Test
+	charToDisplay = 'C';
 }
 
 //Clue Constructor with arguments
@@ -60,6 +68,7 @@ Clue::Clue(string newName, string newMessage, Map * mapPtr)
     name = newName;
     message = newMessage;
     map = mapPtr;
+	charToDisplay = 'C';
 }
 
 //Purchase UI, returns true for a successful transaction, false if not enough funds or user decides to not purchase
@@ -126,8 +135,9 @@ int Clue::interactWithType()
 }
 
 //Default constructor for Chest
-Chest::Chest(Map * mapPtr) : Type("Reward Chest", "I give $$$", mapPtr)
+Chest::Chest(Map * mapPtr)
 {
+	charToDisplay = '$';
 	map = mapPtr;
 	whifflesToRecieved = CHEST_WHIFFLES_RECIEVED;
 }
@@ -146,6 +156,7 @@ int Chest::interactWithType()
 //Explosive chest constructor
 ExplosiveChest::ExplosiveChest(Map * mapPtr)
 {
+	charToDisplay = '$';
 	map = mapPtr;
 	whifflesToDeduct = CHEST_WHIFFLES_DEDUCTED;
 }
@@ -163,6 +174,7 @@ int ExplosiveChest::interactWithType()
 
 PowerBar::PowerBar(Map * mapPtr)
 {
+	charToDisplay = 'P';
 	map = mapPtr;
 	name = "Power Bar";
     message = "A Power Bar to regain energy.";
@@ -190,6 +202,7 @@ int PowerBar::interactWithType()
 //Constructor boulder
 Boulder::Boulder(Map * mapPtr)
 {
+	charToDisplay = 'B';
 	map = mapPtr;
 	removalCost = 16;
 }
@@ -203,9 +216,10 @@ int Boulder::interactWithType()
 
 RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 {
+	charToDisplay = 'R';
 	map = mapPtr;
-        name = "Royal Diamonds";
-        message = "Unimaginable Wealth...";
+    name = "Royal Diamonds";
+    message = "Unimaginable Wealth...";
 }
 
 //Royal Diamonds
@@ -218,9 +232,10 @@ int RoyalDiamonds::interactWithType()
 
 Binoculars::Binoculars(Map * mapPtr){
 	map = mapPtr;
-        name = "Binoculars";
-        message = "Increases visibility range to 2.";
+    name = "Binoculars";
+    message = "Increases visibility range to 2.";
 	price = 50;
+	charToDisplay = '8';
 }
 
 //Binoculars
@@ -238,6 +253,7 @@ Bush::Bush(Map * mapPtr)
 {
 	map = mapPtr;
 	removalCost = 4;
+	charToDisplay = '@';
 }
 
 //Bush
@@ -251,6 +267,7 @@ Tree::Tree(Map * mapPtr)
 {
 	map = mapPtr;
 	removalCost = 10;
+	charToDisplay = '^';
 }
 
 //Tree
@@ -266,8 +283,9 @@ Hatchet::Hatchet(Map * mapPtr)
 	price = 15;
 	energyCost = 8;
 	worksOn = tree;
-        name = "Hatchet";
-        message = "Consume to decrease tree clearing energy cost.";
+    name = "Hatchet";
+    message = "Consume to decrease tree clearing energy cost to 8.";
+	charToDisplay = 'A';
 }
 
 int Hatchet::interactWithType()
@@ -301,8 +319,9 @@ Axe::Axe(Map * mapPtr)
 	price = 30;
 	energyCost = 6;
 	worksOn = tree;
-        name = "Axe";
-        message = "Consume to decrease tree clearing energy cost.";
+    name = "Axe";
+    message = "Consume to decrease tree clearing energy cost to 6.";
+	charToDisplay = 'A';
 }
 
 //Axe
@@ -337,8 +356,9 @@ Chainsaw::Chainsaw(Map * mapPtr)
 	price = 60;
 	energyCost = 2;
 	worksOn = tree;
-        name = "Chainsaw";
-        message = "Consume to decrease tree clearing energy cost.";
+    name = "Chainsaw";
+    message = "Consume to decrease tree clearing energy cost to 2.";
+	charToDisplay = 'A';
 }
 
 int Chainsaw::interactWithType()
@@ -372,8 +392,9 @@ Chisel::Chisel(Map * mapPtr)
 	price = 5;
 	energyCost = 15;
 	worksOn = boulder;
-        name = "Chisel";
-        message = "Consume to decrease boulder clearing energy cost.";
+   	name = "Chisel";
+    message = "Consume to decrease boulder clearing energy cost to 15.";
+	charToDisplay = 'J';
 }
 
 int Chisel::interactWithType()
@@ -407,6 +428,9 @@ Sledgehammer::Sledgehammer(Map * mapPtr)
 	price = 25;
 	energyCost = 12;
 	worksOn = boulder;
+	name = "Sledgehammer";
+	message = "Consume to decrease boulder clearing energy cost to 12.";
+	charToDisplay = 'J';
 }
 
 int Sledgehammer::interactWithType()
@@ -440,8 +464,9 @@ Jackhammer::Jackhammer(Map * mapPtr)
 	price = 100;
 	energyCost = 4;
 	worksOn = boulder;
-        name = "Jackhammer";
-        message = "Consume to decrease boulder clearing energy cost.";
+   	name = "Jackhammer";
+    message = "Consume to decrease boulder clearing energy cost to 4.";
+	charToDisplay = 'J';
 }
 
 int Jackhammer::interactWithType()
@@ -475,8 +500,9 @@ Machete::Machete(Map * mapPtr)
 	price = 25;
 	energyCost = 2;
 	worksOn = bush;
-        name = "Machete";
-        message = "Consume to decrease bush clearing energy cost.";
+    name = "Machete";
+    message = "Consume to decrease bush clearing energy cost to 2.";
+	charToDisplay = 'M';
 }
 
 int Machete::interactWithType()
@@ -510,8 +536,9 @@ Shears::Shears(Map * mapPtr)
 	price = 35;
 	energyCost = 2;
 	worksOn = bush;
-        name = "Shears";
-        message = "Consume to decrease bush clearing energy cost.";
+    name = "Shears";
+    message = "Consume to decrease bush clearing energy cost 2.";
+	charToDisplay = 'M';
 }
 
 int Shears::interactWithType()
