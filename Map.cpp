@@ -34,7 +34,7 @@ Map::~Map()
 		delete [] map[i];
 		map[i] = NULL;
 	}
-				
+
 	delete [] map;
 	delete hero;
 	map = NULL;
@@ -122,13 +122,13 @@ int Map::loadMapToFile(string fileName)
 //Nested For loops to process the 2D array.
     int i = 0;
     int k = 0;
-    for(i = 0; i <  MAX ; ++i)
+    for(i = 0; i <  mapSize ; ++i)
     {
-        for(k = 0; k < MAX; ++k)
+        for(k = 0; k < mapSize; ++k)
         {
             file << map[i][k].getCharToDisplay();
 
-            if(k == (MAX - 1))
+            if(k == (mapSize - 1))
             {
 
                 file << "<br>";
@@ -152,7 +152,8 @@ void Map::displayMap()
     int visibility = hero->getVisibilityRadius();
 
     //Sets the location where the hero is to true, and will keep it true until the game is over.
-    map[heroLocation.y][heroLocation.x].setVisibility(true);
+    //map[heroLocation.y][heroLocation.x].setVisibility(true);
+    map[heroLocation.x][heroLocation.y].setVisibility(true);
 
     /* Map Visibility */
     //Clear out all local visibility
@@ -164,13 +165,15 @@ void Map::displayMap()
         setAllLocalVisibleGrovnicksOnMap(true);
     }
 
+    cout << endl; //Space before map is shown
+
     //Display an outline of the map if toggled
-    if (!SHOW_MIST) cout << HORIZONTAL_OUTLINE << endl;
+    if (!SHOW_MIST) cout << SPACE_BEFORE_MAP << HORIZONTAL_OUTLINE << endl;
 
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
     for (int j = 0; j < mapSize; ++j) {
-        if (!SHOW_MIST) cout << MAP_OUTLINE_CHAR;
+        if (!SHOW_MIST) cout << SPACE_BEFORE_MAP << MAP_OUTLINE_CHAR;
         for (int i = 0; i < mapSize; ++i) {
 
             //Debug Mode
@@ -183,7 +186,7 @@ void Map::displayMap()
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
                 cout << HERO_CHAR; //Display the Hero
             } else {
-                map[j][i].displayChar();
+                map[i][j].displayChar();
             }
             cout << " "; //Spaces characters on x-axis
         }
@@ -191,7 +194,7 @@ void Map::displayMap()
         cout << endl; //At the end of a row
     }
 
-    if (!SHOW_MIST) cout << HORIZONTAL_OUTLINE << endl;
+    if (!SHOW_MIST) cout << SPACE_BEFORE_MAP << HORIZONTAL_OUTLINE << endl;
 }
 
 //Sets what grovnicks should be displayed on the map,
@@ -218,7 +221,7 @@ void Map::setLocalVisibileGrovnicksOnMap(Location & location, int visibility)
             if (i >= 0 && i < mapSize
                 && j >= 0 && j < mapSize)
                 {
-                    map[j][i].setIsVisibleLocally(true);
+                    map[i][j].setIsVisibleLocally(true);
                 }
 
             }
@@ -243,6 +246,8 @@ void Map::setHero(Hero * newHero)
     hero = newHero;
 }
 
+//Allocates the 2D array of Grovnicks
+//that forms the map.
 void Map::allocateMap(int newMapSize)
 {
     //Allocate memory for the 2D Map
@@ -256,7 +261,7 @@ void Map::allocateMap(int newMapSize)
     }
 }
 
-void Map::split(const string& s, char delim, vector<string>& v) {
+void Map::split(const string & s, char delim, vector<string>& v) {
     unsigned int i = 0;
     unsigned int pos = s.find(delim);
 
@@ -269,16 +274,21 @@ void Map::split(const string& s, char delim, vector<string>& v) {
     v.push_back(s.substr(i, s.length()-i));
 }
 
+//Prints the status of the Heroe
+//E.g. energy, whiffles, terrain ...
 void Map::printHeroStatus()
 {
     hero->printStatus();
 }
 
+//Returns a pointer to the Hero
 Hero* Map::getHeroPtr()
 {
     return hero;
 }
 
+//Returns the 2D array of Grovnicks
+//Aka the map
 Grovnick ** Map::getMap()
 {
 	return map;
