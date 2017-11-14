@@ -107,6 +107,7 @@ Tool::Tool(){
 	worksOn = -1;
 }
 
+
 Tool::Tool(Map * mapPtr)
 {
 	map = mapPtr;
@@ -127,6 +128,7 @@ int Clue::interactWithType()
 //Default constructor for Chest
 Chest::Chest(Map * mapPtr) : Type("Reward Chest", "I give $$$", mapPtr)
 {
+	map = mapPtr;
 	whifflesToRecieved = CHEST_WHIFFLES_RECIEVED;
 }
 
@@ -142,8 +144,9 @@ int Chest::interactWithType()
 }
 
 //Explosive chest constructor
-ExplosiveChest::ExplosiveChest(Map * mapPtr) : Type("Exploding Chest", "I blow up!!", mapPtr)
+ExplosiveChest::ExplosiveChest(Map * mapPtr)
 {
+	map = mapPtr;
 	whifflesToDeduct = CHEST_WHIFFLES_DEDUCTED;
 }
 
@@ -188,6 +191,7 @@ int PowerBar::interactWithType()
 Boulder::Boulder(Map * mapPtr)
 {
 	map = mapPtr;
+	removalCost = 16;
 }
 
 //Boulder
@@ -216,6 +220,7 @@ Binoculars::Binoculars(Map * mapPtr){
 	map = mapPtr;
         name = "Binoculars";
         message = "Increases visibility range to 2.";
+	price = 50;
 }
 
 //Binoculars
@@ -232,6 +237,7 @@ int Binoculars::interactWithType()
 Bush::Bush(Map * mapPtr)
 {
 	map = mapPtr;
+	removalCost = 4;
 }
 
 //Bush
@@ -244,6 +250,7 @@ int Bush::interactWithType()
 Tree::Tree(Map * mapPtr)
 {
 	map = mapPtr;
+	removalCost = 10;
 }
 
 //Tree
@@ -253,8 +260,9 @@ int Tree::interactWithType()
     return 0;
 }
 
-Hatchet::Hatchet(Map * mapPtr) : Tool(mapPtr)
+Hatchet::Hatchet(Map * mapPtr) 
 {
+	map = mapPtr;
 	price = 15;
 	energyCost = 8;
 	worksOn = tree;
@@ -287,8 +295,9 @@ bool Hatchet::useTool()
 	return false;
 }
 
-Axe::Axe(Map * mapPtr) : Tool(mapPtr)
+Axe::Axe(Map * mapPtr)
 {
+	map = mapPtr;
 	price = 30;
 	energyCost = 6;
 	worksOn = tree;
@@ -322,8 +331,9 @@ bool Axe::useTool()
 	return false;
 }
 
-Chainsaw::Chainsaw(Map * mapPtr) : Tool(mapPtr)
+Chainsaw::Chainsaw(Map * mapPtr) 
 {
+	map = mapPtr;
 	price = 60;
 	energyCost = 2;
 	worksOn = tree;
@@ -356,8 +366,9 @@ bool Chainsaw::useTool()
 	return false;
 }
 
-Chisel::Chisel(Map * mapPtr) : Tool(mapPtr)
+Chisel::Chisel(Map * mapPtr)
 {
+	map = mapPtr;
 	price = 5;
 	energyCost = 15;
 	worksOn = boulder;
@@ -390,8 +401,9 @@ bool Chisel::useTool()
 	return false;
 }
 
-Sledgehammer::Sledgehammer(Map * mapPtr) : Tool(mapPtr)
+Sledgehammer::Sledgehammer(Map * mapPtr)
 {
+	map = mapPtr;
 	price = 25;
 	energyCost = 12;
 	worksOn = boulder;
@@ -422,8 +434,9 @@ bool Sledgehammer::useTool()
 	return false;
 }
 
-Jackhammer::Jackhammer(Map * mapPtr) : Tool(mapPtr)
+Jackhammer::Jackhammer(Map * mapPtr) 
 {
+	map = mapPtr;
 	price = 100;
 	energyCost = 4;
 	worksOn = boulder;
@@ -456,8 +469,9 @@ bool Jackhammer::useTool()
 	return false;
 }
 
-Machete::Machete(Map * mapPtr) : Tool(mapPtr)
+Machete::Machete(Map * mapPtr) 
 {
+	map = mapPtr;
 	price = 25;
 	energyCost = 2;
 	worksOn = bush;
@@ -490,8 +504,9 @@ bool Machete::useTool()
 	return false;
 }
 
-Shears::Shears(Map * mapPtr) : Tool(mapPtr)
+Shears::Shears(Map * mapPtr) 
 {
+	map = mapPtr;
 	price = 35;
 	energyCost = 2;
 	worksOn = bush;
