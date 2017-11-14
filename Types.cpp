@@ -1,11 +1,8 @@
-//////////////////////////////////////////
-//Types.cpp
-//CS300 Group E
+//////////////////////////////////////
 //The Types file contains all implementations
 //of either Type-Class functions, or any child from
 //the type class. All virtual function overrides
 //should be implemented here.
-//////////////////////////////////////////
 
 #include "Types.h"
 
