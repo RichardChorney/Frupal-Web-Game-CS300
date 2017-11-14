@@ -27,10 +27,12 @@ public:
 	virtual int interactWithType() = 0; //Dynamic Binding!
     void displayType();
     bool promptPurchase(int cost);
+	char getCharToDisplay();
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
     Map * map; //Pointer to the Map
+	char charToDisplay;
 };
 
 //('T')

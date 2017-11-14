@@ -203,7 +203,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
     //If the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
-		//displayTerrainMsg(ahead.terrainName);
+		displayTerrainMsg(ahead.terrainName);
 		cout << "You lose your turn and " << ahead.energyConsumption << " Energy point." << endl;		//TODO Need to change this for boats
 		changeEnergy(-ahead.energyConsumption);
 
