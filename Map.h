@@ -72,6 +72,8 @@ public:
     void printHeroStatus();
 	Grovnick ** getMap();
     void resetMapState();
+    bool getWon();
+    void setWon(bool newStatus);
 
 protected:
     void allocateMap(int newMapSize = MAX);
@@ -80,4 +82,5 @@ protected:
     Grovnick ** map; //2D array of Grovnick pointers
     Hero * hero; //A pointer to the user
     string fileName;
+    bool wonMap;
 };

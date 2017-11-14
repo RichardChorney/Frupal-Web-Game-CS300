@@ -61,6 +61,11 @@ Location Hero::getLocation()
   	return location;
 }
 
+Terrain Hero::getTerrain()
+{
+    return terrain;
+}
+
 //Returns the visibilityRadius
 int Hero::getVisibilityRadius()
 {

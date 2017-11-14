@@ -14,7 +14,7 @@
 //that is called "MAX" (declared in Map.h)
 Map::Map() : hero(NULL)
 {
-
+    wonMap = false;
 }
 
 //Destructor for the Map Class
@@ -82,7 +82,6 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-    setHero(hero);
     // TODO items
 
 
@@ -104,6 +103,11 @@ int Map::loadMapFromFile(string fileName)
     }
     Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
     hero = new Hero(heroLoc, energy, whiffles, *t);
+    setHero(hero);
+    this->fileName = fileName;
+
+    file.close();
+
     return 1;
 }
 
@@ -294,7 +298,33 @@ Grovnick ** Map::getMap()
 	return map;
 }
 
+bool Map::getWon() {
+    return wonMap;
+}
+
+void Map::setWon(bool value) {
+    this->wonMap = value;
+}
+
 void Map::resetMapState() {
-    //delete hero;
+    
+    //Straight copy-paste of the destructor so that I don't have to delete the whole object
+    for(int i = 0; i < mapSize; ++i){
+		for(int j = 0; j < mapSize; ++j){
+			if(map[i][j].getType()){
+				delete map[i][j].getType();
+				map[i][j].setType(NULL);
+			}
+		}
+	}
+
+	//Free the 2D array
+	for(int i = 0; i < mapSize; ++i){
+		delete [] map[i];
+		map[i] = NULL;
+	}
+
+	delete [] map;
     loadMapFromFile(fileName);
+    wonMap = true;
 }
