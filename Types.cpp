@@ -38,7 +38,6 @@ Type::~Type()
 //TODO this need to be revisited as tools are implemented
 void Type::displayType()
 {
-     /**/
      cout << "Tool: " << name << ": " << message;
 
 }
@@ -272,7 +271,7 @@ int Tree::interactWithType()
     return 0;
 }
 
-Hatchet::Hatchet(Map * mapPtr) 
+Hatchet::Hatchet(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 15;
@@ -345,7 +344,7 @@ bool Axe::useTool()
 	return false;
 }
 
-Chainsaw::Chainsaw(Map * mapPtr) 
+Chainsaw::Chainsaw(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 60;
@@ -453,7 +452,7 @@ bool Sledgehammer::useTool()
 	return false;
 }
 
-Jackhammer::Jackhammer(Map * mapPtr) 
+Jackhammer::Jackhammer(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 100;
@@ -489,7 +488,7 @@ bool Jackhammer::useTool()
 	return false;
 }
 
-Machete::Machete(Map * mapPtr) 
+Machete::Machete(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 25;
@@ -525,7 +524,7 @@ bool Machete::useTool()
 	return false;
 }
 
-Shears::Shears(Map * mapPtr) 
+Shears::Shears(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 35;

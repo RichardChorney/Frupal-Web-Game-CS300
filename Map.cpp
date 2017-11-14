@@ -217,8 +217,6 @@ void Map::setLocalVisibileGrovnicksOnMap(Location & location, int visibility)
     //around the Hero
     for (int i = minX; i <= maxX; ++i) {
         for (int j = minY; j <= maxY; ++j) {
-            //Check to make sure it's inbounds of the map
-            //TODO Check if the minSize <= mapSize is segfaulting something
 
             //Make sure that the Grovnick is within bounds of
             //the map
@@ -307,7 +305,7 @@ void Map::setWon(bool value) {
 }
 
 void Map::resetMapState() {
-    
+
     //Straight copy-paste of the destructor so that I don't have to delete the whole object
     for(int i = 0; i < mapSize; ++i){
 		for(int j = 0; j < mapSize; ++j){

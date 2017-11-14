@@ -131,9 +131,6 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     int x = location.x;
     int y = location.y;
 
-	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties
-	changeEnergy(-terrain.energyConsumption);
-
     //Move North
     if(mv == 1) {
 		if(y == 0) { y = (MAX - 1); }
@@ -161,6 +158,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 	int temp = lookAhead(mapToCopy, aheadLoc);
 	if(temp)
     {
+        changeEnergy(-terrain.energyConsumption);
         //Move the Hero
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
