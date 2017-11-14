@@ -248,7 +248,7 @@ void Hero::printStatus()
 {
 	cout << endl << "The Heroes location is " << location.x << " X " << location.y << endl;
 	cout << "Whiffle balance: " << whiffles << " whiffles" << endl;
-	cout << "Remaining energy: " << energy << " units" << endl;
+	if(energy) { cout << "Remaining energy: " << energy << " units" << endl; }
 	cout << "You are in a " << terrain.terrainName << " enjoying the sun of FRUPAL" << endl;
 	if(terrain.canWalkOn){
 		cout << "You are able to walk on this Grovnick" << endl;
