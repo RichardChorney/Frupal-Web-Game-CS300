@@ -12,22 +12,20 @@ Type::Type()
     //These shouldn't ever be displayed
     name = "No name.";
     message = "This is a typeless Grovnick.";
-
-    //NOTE If the default constructor is called then you will need to write
-    //a spereate Map allocation function.
     map = NULL;
 }
 
 //Constructor with 3 arguments
 Type::Type(string newName, string newMessage, Map * newMap)
 {
-    //This copy is SO deep.
+    //This copy constructor is SO deep.
     name = newName;
     message = newMessage;
     map = newMap;
 	charToDisplay = '*';
 }
 
+//Destructor for Type class
 Type::~Type()
 {
 
