@@ -274,7 +274,7 @@ void Hero::displayInventory()
            //This if/else is for formatting, it adds an extra space
            //for 1 digit numbers, so the list will display
            //vertically inline
-           if(i < 9)
+           if(i < BAG_SIZE)
            {
                cout << endl << i+1 << ".  ";
            }
@@ -291,7 +291,7 @@ void Hero::displayInventory()
         else
         {
             //If/Else for formatting digits less than 10.
-            if(i < 9)
+            if(i < BAG_SIZE)
             {
                 cout << endl << i+1 << ".  No tool in slot.";
             }

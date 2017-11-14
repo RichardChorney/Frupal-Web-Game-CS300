@@ -246,6 +246,8 @@ void Map::setHero(Hero * newHero)
     hero = newHero;
 }
 
+//Allocates the 2D array of Grovnicks
+//that forms the map.
 void Map::allocateMap(int newMapSize)
 {
     //Allocate memory for the 2D Map
@@ -259,7 +261,7 @@ void Map::allocateMap(int newMapSize)
     }
 }
 
-void Map::split(const string& s, char delim, vector<string>& v) {
+void Map::split(const string & s, char delim, vector<string>& v) {
     unsigned int i = 0;
     unsigned int pos = s.find(delim);
 
@@ -272,16 +274,21 @@ void Map::split(const string& s, char delim, vector<string>& v) {
     v.push_back(s.substr(i, s.length()-i));
 }
 
+//Prints the status of the Heroe
+//E.g. energy, whiffles, terrain ...
 void Map::printHeroStatus()
 {
     hero->printStatus();
 }
 
+//Returns a pointer to the Hero
 Hero* Map::getHeroPtr()
 {
     return hero;
 }
 
+//Returns the 2D array of Grovnicks
+//Aka the map
 Grovnick ** Map::getMap()
 {
 	return map;
