@@ -152,8 +152,8 @@ void Map::displayMap()
     int visibility = hero->getVisibilityRadius();
 
     //Sets the location where the hero is to true, and will keep it true until the game is over.
-    map[heroLocation.y][heroLocation.x].setVisibility(true);
-    //map[heroLocation.x][heroLocation.y].setVisibility(true);
+    //map[heroLocation.y][heroLocation.x].setVisibility(true);
+    map[heroLocation.x][heroLocation.y].setVisibility(true);
 
     /* Map Visibility */
     //Clear out all local visibility
@@ -186,7 +186,7 @@ void Map::displayMap()
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
                 cout << HERO_CHAR; //Display the Hero
             } else {
-                map[j][i].displayChar();
+                map[i][j].displayChar();
             }
             cout << " "; //Spaces characters on x-axis
         }
@@ -221,7 +221,7 @@ void Map::setLocalVisibileGrovnicksOnMap(Location & location, int visibility)
             if (i >= 0 && i < mapSize
                 && j >= 0 && j < mapSize)
                 {
-                    map[j][i].setIsVisibleLocally(true);
+                    map[i][j].setIsVisibleLocally(true);
                 }
 
             }

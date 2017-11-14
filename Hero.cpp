@@ -162,16 +162,18 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 
 		if((temp == 1) || (temp == 2)){
 			if(temp == 1){
-				delete mapToCopy.getMap()[location.y][location.x].getType();
+				delete //mapToCopy.getMap()[location.y][location.x].getType();
+                mapToCopy.getMap()[location.x][location.y].getType();
 			}
-			mapToCopy.getMap()[location.y][location.x].setType(NULL);
+			//mapToCopy.getMap()[location.y][location.x].setType(NULL);
+            mapToCopy.getMap()[location.x][location.y].setType(NULL);
 		}
 
         //Update Heroes terrain struct info with correct terrain struct info from the map 2d array
-        terrain.terrainName = mapToCopy.getMap()[location.y][location.x].getTerrain()->terrainName;
-        terrain.charToDisplay = mapToCopy.getMap()[location.y][location.x].getTerrain()->charToDisplay;
-        terrain.canWalkOn = mapToCopy.getMap()[location.y][location.x].getTerrain()->canWalkOn;
-        terrain.energyConsumption = mapToCopy.getMap()[location.y][location.x].getTerrain()->energyConsumption;
+        terrain.terrainName = mapToCopy.getMap()[location.x][location.y].getTerrain()->terrainName;
+        terrain.charToDisplay = mapToCopy.getMap()[location.x][location.y].getTerrain()->charToDisplay;
+        terrain.canWalkOn = mapToCopy.getMap()[location.x][location.y].getTerrain()->canWalkOn;
+        terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
     }
 
 	//displayTerrainMsg(terrain.terrainName);
@@ -185,13 +187,13 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 {
     //Collect the terrain ahead of the hero
     Terrain ahead;
-    ahead.terrainName = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->terrainName;
-    ahead.charToDisplay = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->charToDisplay;
-    ahead.canWalkOn = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->canWalkOn;
-    ahead.energyConsumption = map.getMap()[aheadLoc.y][aheadLoc.x].getTerrain()->energyConsumption;
+    ahead.terrainName = map.getMap()[aheadLoc.x][aheadLoc.y].getTerrain()->terrainName;
+    ahead.charToDisplay = map.getMap()[aheadLoc.x][aheadLoc.y].getTerrain()->charToDisplay;
+    ahead.canWalkOn = map.getMap()[aheadLoc.x][aheadLoc.y].getTerrain()->canWalkOn;
+    ahead.energyConsumption = map.getMap()[aheadLoc.x][aheadLoc.y].getTerrain()->energyConsumption;
 
 	Type * typePtr = NULL;
-	typePtr = map.getMap()[aheadLoc.y][aheadLoc.x].getType();
+	typePtr = map.getMap()[aheadLoc.x][aheadLoc.y].getType();
 
     //If the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
