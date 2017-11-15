@@ -111,7 +111,7 @@ bool Hero::checkAlive()
 //Adjusts heroes whiffle balance
 bool Hero::setBalance(int amount)
 {
-	if(amount){
+    if(amount){
 		whiffles += amount;
 		return true;
 	}

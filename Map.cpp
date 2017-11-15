@@ -95,7 +95,10 @@ int Map::loadMapFromFile(string fileName)
         split(line, delim, v);
         x = atoi(v[0].c_str());
         y = atoi(v[1].c_str());
-        map[x][y].setVisibility(v[2].c_str());
+
+        //FIXME Talk to Elias about this!!!!!!!
+        //map[x][y].setVisibility(v[2].c_str());
+
         map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
         map[x][y].setTypeFromMapFile(v[4], this);
 
@@ -156,7 +159,6 @@ void Map::displayMap()
     int visibility = hero->getVisibilityRadius();
 
     //Sets the location where the hero is to true, and will keep it true until the game is over.
-    //map[heroLocation.y][heroLocation.x].setVisibility(true);
     map[heroLocation.x][heroLocation.y].setVisibility(true);
 
     /* Map Visibility */
@@ -190,6 +192,8 @@ void Map::displayMap()
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
                 cout << HERO_CHAR; //Display the Hero
             } else {
+                //If theres a type then display the type
+                
                 map[i][j].displayChar();
             }
             cout << " "; //Spaces characters on x-axis

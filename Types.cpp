@@ -158,10 +158,11 @@ ExplosiveChest::ExplosiveChest(Map * mapPtr)
 //Explosive Chest
 int ExplosiveChest::interactWithType()
 {
-    cout << "*** You opened an Exploading Chest! You lose " << whifflesToDeduct << " whiffles!" << endl;
+    cout << "You opened an Exploading Chest! You lose all of your whiflles!";
 
     Hero * currHero = map->getHeroPtr();
-    currHero->addToWhiffles(whifflesToDeduct);
+    //currHero->setBalance(0); //Zero out bank account
+    currHero->addToWhiffles(-currHero->getBalance());
 
     return 1;
 }
