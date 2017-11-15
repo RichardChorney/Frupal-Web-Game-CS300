@@ -17,6 +17,7 @@ string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
 string const basicMap = "basicMap.txt";
 string const basicMap2 = "basicMap2.txt";
+string const demoMap = "demoMap.txt";
 
 int main()
 {
@@ -26,7 +27,7 @@ int main()
     Hero * hero;
 
     Map map; //Create a map of size MAX
-    map.loadMapFromFile(basicMap);
+    map.loadMapFromFile(demoMap);
     hero = map.getHeroPtr();
 
 	bool proceed = true;

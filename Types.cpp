@@ -506,7 +506,7 @@ Machete::Machete(Map * mapPtr)
 	energyCost = 2;
 	worksOn = bush;
     name = "Machete";
-    message == "Consume to decrease bush clearing energy cost to 2.";
+    message = "Consume to decrease bush clearing energy cost to 2.";
 	charToDisplay = 'M';
 }
 
