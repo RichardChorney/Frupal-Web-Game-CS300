@@ -152,7 +152,6 @@ ExplosiveChest::ExplosiveChest(Map * mapPtr)
 {
 	charToDisplay = '$';
 	map = mapPtr;
-	whifflesToDeduct = CHEST_WHIFFLES_DEDUCTED;
 }
 
 //Explosive Chest
