@@ -329,7 +329,7 @@ void Hero::displayTerrainMsg(string terra)
 	} else if (terra == "Wall") {
    		cout << "You can not climb over the border Wall, it is just too high..." << endl;
 	} else if (terra == "Bog") {
-   		cout << "Eewww, you have walked into a nasty Bog, it will take 2 energy points to crawl out..." << endl;
+   		cout << "Eewww, you have walked into a nasty Bog, costing 2 energy..." << endl;
 	} else if (terra == "Swamp") {
    		cout << "Yuck, you have walked into a Swamp, watch out for alligators!!" << endl;
 	}
