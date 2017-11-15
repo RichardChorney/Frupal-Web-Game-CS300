@@ -158,7 +158,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 	int temp = lookAhead(mapToCopy, aheadLoc);
 	if(temp)
     {
-        changeEnergy(-terrain.energyConsumption);
+        //changeEnergy(-terrain.energyConsumption);
         //Move the Hero
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
@@ -177,6 +177,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         terrain.charToDisplay = mapToCopy.getMap()[location.x][location.y].getTerrain()->charToDisplay;
         terrain.canWalkOn = mapToCopy.getMap()[location.x][location.y].getTerrain()->canWalkOn;
         terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
+        changeEnergy(-terrain.energyConsumption);
     }
 
 	//displayTerrainMsg(terrain.terrainName);
