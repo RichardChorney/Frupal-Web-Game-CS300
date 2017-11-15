@@ -131,6 +131,7 @@ int Clue::interactWithType()
 //Default constructor for Chest
 Chest::Chest(Map * mapPtr)
 {
+    name = "Chest";
 	charToDisplay = '$';
 	map = mapPtr;
 	whifflesToRecieved = CHEST_WHIFFLES_RECIEVED;
@@ -150,6 +151,7 @@ int Chest::interactWithType()
 //Explosive chest constructor
 ExplosiveChest::ExplosiveChest(Map * mapPtr)
 {
+    name = "Explosive Chest";
 	charToDisplay = '$';
 	map = mapPtr;
 }
@@ -205,7 +207,7 @@ Boulder::Boulder(Map * mapPtr)
 int Boulder::interactWithType()
 {
     map->getHeroPtr()->changeEnergy(-removalCost);
-    return 0;
+    return 1;
 }
 
 RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
@@ -238,6 +240,7 @@ int Binoculars::interactWithType()
     cout << "You've found the binoculars! They increase your vision radius by 1 tile." << endl;
     if (promptPurchase(price)) {
         map->getHeroPtr()->setVisibility(true);
+        return 1;
     }
 
     return 0;
@@ -254,7 +257,7 @@ Bush::Bush(Map * mapPtr)
 int Bush::interactWithType()
 {
     map->getHeroPtr()->changeEnergy(-removalCost);
-    return 0;
+    return 1;
 }
 
 Tree::Tree(Map * mapPtr)
@@ -268,7 +271,7 @@ Tree::Tree(Map * mapPtr)
 int Tree::interactWithType()
 {
     map->getHeroPtr()->changeEnergy(-removalCost);
-    return 0;
+    return 1;
 }
 
 Hatchet::Hatchet(Map * mapPtr)
@@ -294,7 +297,7 @@ int Hatchet::interactWithType()
 
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory
 
-		return 1;
+		return 2;
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
@@ -367,7 +370,7 @@ int Chainsaw::interactWithType()
 
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory
 
-		return 1;
+		return 2;
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
@@ -403,7 +406,7 @@ int Chisel::interactWithType()
 
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory
 
-		return 1;
+		return 2;
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
@@ -439,7 +442,7 @@ int Sledgehammer::interactWithType()
 
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory
 
-		return 1;
+		return 2;
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
@@ -475,7 +478,7 @@ int Jackhammer::interactWithType()
 
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory
 
-		return 1;
+		return 2;
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
@@ -511,7 +514,7 @@ int Machete::interactWithType()
 
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory
 
-		return 1;
+		return 2;
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
@@ -547,7 +550,7 @@ int Shears::interactWithType()
 
 		currHero->fillBag(this);			//Adds a pointer for the purced item to the Heroes inventory
 
-		return 1;
+		return 2;
 	}
 
 	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
