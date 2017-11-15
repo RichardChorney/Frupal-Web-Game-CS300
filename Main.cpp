@@ -76,20 +76,9 @@ int main()
 		}
 
         if(map.getWon()) { //Win state
-            Location tempPos;
-            tempPos.x = hero->getLocation().x;
-            tempPos.y = hero->getLocation().y;
-
-            Terrain tempTerra;
-            tempTerra.terrainName = hero->getTerrain().terrainName;
-            tempTerra.charToDisplay = hero->getTerrain().charToDisplay;
-            tempTerra.canWalkOn = hero->getTerrain().canWalkOn;
-            tempTerra.energyConsumption = hero->getTerrain().canWalkOn;
-
-            Hero * temp = new Hero();//tempPos, hero->checkEnergy(), hero->getBalance(), tempTerra);
             delete hero;
-            hero = temp;
-            map.setHero(temp);
+            hero = new Hero();
+            map.setHero(hero);
             cout << "Would you like to restart...? Y/N ";
             while (keyPress != 'y' && keyPress != 'Y' && keyPress != 'n' && keyPress != 'N') {
                 cin >> keyPress;
