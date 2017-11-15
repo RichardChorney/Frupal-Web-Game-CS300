@@ -168,7 +168,7 @@ void Grovnick::mapIntToTerrain(int terra)
         terrain.terrainName = "Swamp";
         terrain.charToDisplay = 'S';
         terrain.canWalkOn = true;
-        terrain.energyConsumption = 1;
+        terrain.energyConsumption = 2;
     }
 }
 
