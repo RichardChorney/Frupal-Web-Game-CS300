@@ -41,11 +41,6 @@ Map::~Map()
 	hero = NULL;
 }
 
-//Converts a string to a bool
-bool strToBool(std::string & s) {
-   return s.at(0) == '1';
-}
-
 //Loads the map (2D array) from a file
 int Map::loadMapFromFile(string fileName)
 {
@@ -98,8 +93,7 @@ int Map::loadMapFromFile(string fileName)
         x = atoi(v[0].c_str());
         y = atoi(v[1].c_str());
 
-        bool vis = strToBool(v[2]); //Convert the string to a bool
-        map[x][y].setVisibility(vis);
+        map[x][y].setVisibility(atoi(v[2].c_str()));
         map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
         map[x][y].setTypeFromMapFile(v[4], this);
 
