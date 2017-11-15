@@ -12,22 +12,20 @@ Type::Type()
     //These shouldn't ever be displayed
     name = "No name.";
     message = "This is a typeless Grovnick.";
-
-    //NOTE If the default constructor is called then you will need to write
-    //a spereate Map allocation function.
     map = NULL;
 }
 
 //Constructor with 3 arguments
 Type::Type(string newName, string newMessage, Map * newMap)
 {
-    //This copy is SO deep.
+    //This copy constructor is SO deep.
     name = newName;
     message = newMessage;
     map = newMap;
 	charToDisplay = '*';
 }
 
+//Destructor for Type class
 Type::~Type()
 {
 
@@ -40,7 +38,6 @@ Type::~Type()
 //TODO this need to be revisited as tools are implemented
 void Type::displayType()
 {
-     /**/
      cout << "Tool: " << name << ": " << message;
 
 }
@@ -155,16 +152,16 @@ ExplosiveChest::ExplosiveChest(Map * mapPtr)
 {
 	charToDisplay = '$';
 	map = mapPtr;
-	whifflesToDeduct = CHEST_WHIFFLES_DEDUCTED;
 }
 
 //Explosive Chest
 int ExplosiveChest::interactWithType()
 {
-    cout << "*** You opened an Exploading Chest! You lose " << whifflesToDeduct << " whiffles!" << endl;
+    cout << "You opened an Exploading Chest! You lose all of your whiffles!";
 
     Hero * currHero = map->getHeroPtr();
-    currHero->addToWhiffles(whifflesToDeduct);
+    //currHero->setBalance(0); //Zero out bank account
+    currHero->addToWhiffles(-currHero->getBalance());
 
     return 1;
 }
@@ -274,7 +271,7 @@ int Tree::interactWithType()
     return 0;
 }
 
-Hatchet::Hatchet(Map * mapPtr) 
+Hatchet::Hatchet(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 15;
@@ -347,7 +344,7 @@ bool Axe::useTool()
 	return false;
 }
 
-Chainsaw::Chainsaw(Map * mapPtr) 
+Chainsaw::Chainsaw(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 60;
@@ -455,7 +452,7 @@ bool Sledgehammer::useTool()
 	return false;
 }
 
-Jackhammer::Jackhammer(Map * mapPtr) 
+Jackhammer::Jackhammer(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 100;
@@ -491,7 +488,7 @@ bool Jackhammer::useTool()
 	return false;
 }
 
-Machete::Machete(Map * mapPtr) 
+Machete::Machete(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 25;
@@ -527,7 +524,7 @@ bool Machete::useTool()
 	return false;
 }
 
-Shears::Shears(Map * mapPtr) 
+Shears::Shears(Map * mapPtr)
 {
 	map = mapPtr;
 	price = 35;

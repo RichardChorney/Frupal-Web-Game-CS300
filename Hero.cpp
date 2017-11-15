@@ -111,7 +111,7 @@ bool Hero::checkAlive()
 //Adjusts heroes whiffle balance
 bool Hero::setBalance(int amount)
 {
-	if(amount){
+    if(amount){
 		whiffles += amount;
 		return true;
 	}
@@ -130,9 +130,6 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     //Temporary vaiables for the Hero's location
     int x = location.x;
     int y = location.y;
-
-	//energy deduction based on terrain type TODO May need to alter this if it double counting impassable terrain penalties
-	changeEnergy(-terrain.energyConsumption);
 
     //Move North
     if(mv == 1) {
@@ -161,6 +158,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
 	int temp = lookAhead(mapToCopy, aheadLoc);
 	if(temp)
     {
+        changeEnergy(-terrain.energyConsumption);
         //Move the Hero
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;

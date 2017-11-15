@@ -30,8 +30,6 @@ std::string const SPACE_BEFORE_MAP = "   "; //Space indented before map is displ
 /* Type Constants */
 //Amount of whiffles recieved if you open the chest
 int const CHEST_WHIFFLES_RECIEVED = 100;
-//Amount of whiffles that you lose if you open an exploding chest
-int const CHEST_WHIFFLES_DEDUCTED = -100;
 
 
  /* Debug Mode Constants

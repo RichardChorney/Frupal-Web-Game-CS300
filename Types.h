@@ -38,7 +38,7 @@ protected:
 //('T')
 class Tool : public Type {
 public:
-	Tool();	
+	Tool();
 	Tool(Map * mapPtr);
 	int interactWithType();
 	virtual ~Tool() = 0;
@@ -77,8 +77,6 @@ class ExplosiveChest : public Type {
 public:
     ExplosiveChest(Map * mapPtr);
     int interactWithType();
-protected:
-    int whifflesToDeduct;
 };
 
 //('P')
@@ -128,7 +126,7 @@ protected:
 };
 
 class Hatchet : public Tool {
-public:	
+public:
 	Hatchet(Map * mapPtr);
 	int interactWithType();
 	bool useTool();
@@ -165,7 +163,7 @@ public:
 
 class Jackhammer : public Tool {
 public:
-	Jackhammer(Map * mapPtr);	
+	Jackhammer(Map * mapPtr);
 	int interactWithType();
 	bool useTool();
 };
@@ -182,4 +180,4 @@ public:
 	Shears(Map * mapPtr);
 	int interactWithType();
 	bool useTool();
-}; 	
+};

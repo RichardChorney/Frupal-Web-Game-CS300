@@ -90,7 +90,7 @@ int main()
             hero = temp;
             map.setHero(temp);
             cout << "Would you like to restart...? Y/N ";
-            while (keyPress != 'y' && keyPress != 'Y' && keyPress != 'n' && keyPress != 'N') { 
+            while (keyPress != 'y' && keyPress != 'Y' && keyPress != 'n' && keyPress != 'N') {
                 cin >> keyPress;
 
                 switch(keyPress) {
@@ -107,7 +107,7 @@ int main()
                 }
             }
         }
-        
+
 		if(!hero->checkAlive()){
 			cout << "GAME OVER" << endl << endl;
 			proceed = false;

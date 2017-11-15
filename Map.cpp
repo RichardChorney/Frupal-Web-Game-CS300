@@ -41,6 +41,11 @@ Map::~Map()
 	hero = NULL;
 }
 
+//Converts a string to a bool
+bool strToBool(std::string & s) {
+   return s.at(0) == '1';
+}
+
 //Loads the map (2D array) from a file
 int Map::loadMapFromFile(string fileName)
 {
@@ -82,9 +87,6 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-    // TODO items
-
-
     // consume the ### line of the map file
     std::getline(file, line);
 
@@ -95,7 +97,9 @@ int Map::loadMapFromFile(string fileName)
         split(line, delim, v);
         x = atoi(v[0].c_str());
         y = atoi(v[1].c_str());
-        map[x][y].setVisibility(v[2].c_str());
+
+        bool vis = strToBool(v[2]); //Convert the string to a bool
+        map[x][y].setVisibility(vis);
         map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
         map[x][y].setTypeFromMapFile(v[4], this);
 
@@ -156,7 +160,6 @@ void Map::displayMap()
     int visibility = hero->getVisibilityRadius();
 
     //Sets the location where the hero is to true, and will keep it true until the game is over.
-    //map[heroLocation.y][heroLocation.x].setVisibility(true);
     map[heroLocation.x][heroLocation.y].setVisibility(true);
 
     /* Map Visibility */
@@ -190,6 +193,8 @@ void Map::displayMap()
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
                 cout << HERO_CHAR; //Display the Hero
             } else {
+                //If theres a type then display the type
+
                 map[i][j].displayChar();
             }
             cout << " "; //Spaces characters on x-axis
@@ -217,8 +222,6 @@ void Map::setLocalVisibileGrovnicksOnMap(Location & location, int visibility)
     //around the Hero
     for (int i = minX; i <= maxX; ++i) {
         for (int j = minY; j <= maxY; ++j) {
-            //Check to make sure it's inbounds of the map
-            //TODO Check if the minSize <= mapSize is segfaulting something
 
             //Make sure that the Grovnick is within bounds of
             //the map
@@ -307,7 +310,7 @@ void Map::setWon(bool value) {
 }
 
 void Map::resetMapState() {
-    
+
     //Straight copy-paste of the destructor so that I don't have to delete the whole object
     for(int i = 0; i < mapSize; ++i){
 		for(int j = 0; j < mapSize; ++j){
