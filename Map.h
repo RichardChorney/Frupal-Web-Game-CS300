@@ -33,7 +33,7 @@ public:
     void displayChar(); //Displays the map character
     //void mapIntToType(int intToMap, Map * mapPtr); //Maps the char to type
     void setTypeFromMapFile(string & typeString, Map * mapPtr); //Maps the char to type
-    void mapIntToTerrain(int terra); 
+    void mapIntToTerrain(int terra);
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
     void setIsVisibleLocally(bool newVisible);
@@ -72,6 +72,8 @@ public:
     void printHeroStatus();
 	Grovnick ** getMap();
     void resetMapState();
+    bool getWon();
+    void setWon(bool newStatus);
 
 protected:
     void allocateMap(int newMapSize = MAX);
@@ -80,4 +82,5 @@ protected:
     Grovnick ** map; //2D array of Grovnick pointers
     Hero * hero; //A pointer to the user
     string fileName;
+    bool wonMap;
 };

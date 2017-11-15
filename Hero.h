@@ -27,6 +27,7 @@ class Hero {
 	~Hero();
 
     Location getLocation();		//Returns Heroes current x and y coordinates, along with terrain type
+    Terrain getTerrain();       //Returns a terrain object that the Hero is on 
 	int getVisibilityRadius();	//Returns Heroes current vis range
 	bool setVisibility(bool range);	//Sets visual range if binoculars found, true argument changes to greater vis, returns success
     int checkEnergy();			//Returns Heroes current energy level

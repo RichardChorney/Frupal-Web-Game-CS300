@@ -27,15 +27,18 @@ public:
 	virtual int interactWithType() = 0; //Dynamic Binding!
     void displayType();
     bool promptPurchase(int cost);
+	char getCharToDisplay();
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
     Map * map; //Pointer to the Map
+	char charToDisplay;
 };
 
 //('T')
 class Tool : public Type {
 public:
+	Tool();
 	Tool(Map * mapPtr);
 	int interactWithType();
 	virtual ~Tool() = 0;
@@ -74,8 +77,6 @@ class ExplosiveChest : public Type {
 public:
     ExplosiveChest(Map * mapPtr);
     int interactWithType();
-protected:
-    int whifflesToDeduct;
 };
 
 //('P')
@@ -125,15 +126,17 @@ protected:
 };
 
 class Hatchet : public Tool {
-public:	
+public:
 	Hatchet(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Axe : public Tool {
 public:
     Axe(Map * mapPtr);
     int interactWithType();
+	bool useTool();
 };
 
 
@@ -141,34 +144,40 @@ class Chainsaw : public Tool {
 public:
 	Chainsaw(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Chisel : public Tool {
 public:
 	Chisel(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Sledgehammer : public Tool {
 public:
 	Sledgehammer(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Jackhammer : public Tool {
 public:
-	Jackhammer(Map * mapPtr);	
+	Jackhammer(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Machete : public Tool {
 public:
 	Machete(Map * mapPtr);
 	int interactWithType();
+	bool useTool();
 };
 
 class Shears : public Tool {
 public:
 	Shears(Map * mapPtr);
 	int interactWithType();
-}; 	
+	bool useTool();
+};
