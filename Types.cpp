@@ -38,8 +38,19 @@ Type::~Type()
 //TODO this need to be revisited as tools are implemented
 void Type::displayType()
 {
-     cout << "Tool: " << name << ": " << message;
+     if(name == "Chainsaw")
+     {
+        cout << "Chainsaw: Consume to Clear Trees" ;
+     }
 
+     if(name == "Machete")
+     {
+        cout << "Machete: Consume to Clear Blackberry Bushes" ;
+     }
+     if(name == "Sledgehammer")
+     {
+        cout << "Sledgehammer: Consume to Clear Boulders" ;
+     }
 }
 
 //Getter for each Types char to display on the game map
@@ -495,7 +506,7 @@ Machete::Machete(Map * mapPtr)
 	energyCost = 2;
 	worksOn = bush;
     name = "Machete";
-    message = "Consume to decrease bush clearing energy cost to 2.";
+    message == "Consume to decrease bush clearing energy cost to 2.";
 	charToDisplay = 'M';
 }
 
