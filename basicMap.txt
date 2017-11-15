@@ -7,7 +7,7 @@ simple map
 ###################
 1,1,1,0,None
 2,2,1,2,None
-3,3,1,0,Boulder
+3,3,0,0,Boulder
 3,4,1,0,Tree
 3,5,1,0,Blackberry Bush
 4,3,1,0,Power Bar
