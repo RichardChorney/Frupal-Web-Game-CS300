@@ -51,6 +51,31 @@ void Type::displayType()
      {
         cout << "Sledgehammer: Consume to Clear Boulders" ;
      }
+
+     if(name == "Hatchet")
+     {
+        cout << "Sledgehammer: Consume to Clear Boulders" ;
+     }
+
+     if(name == "Axe")
+     {
+        cout << "Sledgehammer: Consume to Clear Boulders" ;
+     }
+
+     if(name == "Chisel")
+     {
+        cout << "Sledgehammer: Consume to Clear Boulders" ;
+     }
+
+     if(name == "Jackhammer")
+     {
+        cout << "Sledgehammer: Consume to Clear Boulders" ;
+     }
+
+     if(name == "Shears")
+     {
+        cout << "Sledgehammer: Consume to Clear Boulders" ;
+     }
 }
 
 //Getter for each Types char to display on the game map
