@@ -38,44 +38,65 @@ Type::~Type()
 //TODO this need to be revisited as tools are implemented
 void Type::displayType()
 {
+     /*
      if(name == "Chainsaw")
      {
-        cout << "Chainsaw: Consume to Clear Trees" ;
+//        cout << "Chainsaw: Consume to Clear Trees" ;
+         cout << name << ": ";
+         cout << message;
      }
 
      if(name == "Machete")
      {
-        cout << "Machete: Consume to Clear Blackberry Bushes" ;
+         cout << name << ": ";
+         cout << message;
+         //cout << "Machete: Consume to Clear Blackberry Bushes" ;
      }
      if(name == "Sledgehammer")
      {
-        cout << "Sledgehammer: Consume to Clear Boulders" ;
+         cout << name << ": ";
+         cout << message;
+         //cout << "Sledgehammer: Consume to Clear Boulders" ;
      }
 
      if(name == "Hatchet")
      {
-        cout << "Sledgehammer: Consume to Clear Boulders" ;
+         cout << name << ": ";
+         cout << message;
+         //cout << "Hatchet: Consume to Clear Trees" ;
      }
 
      if(name == "Axe")
      {
-        cout << "Sledgehammer: Consume to Clear Boulders" ;
+         cout << name << ": ";
+         cout << message;
+         //cout << "Axe: Consume to Clear Trees" ;
      }
 
      if(name == "Chisel")
      {
-        cout << "Sledgehammer: Consume to Clear Boulders" ;
+         cout << name << ": ";
+         cout << message;
+         //cout << "Chisel: Consume to Clear Boulders" ;
      }
 
      if(name == "Jackhammer")
      {
-        cout << "Sledgehammer: Consume to Clear Boulders" ;
+         cout << name << ": ";
+         cout << message;
+         //cout << "Jackhammer: Consume to Clear Boulders" ;
      }
 
      if(name == "Shears")
      {
-        cout << "Sledgehammer: Consume to Clear Boulders" ;
+         cout << name << ": ";
+         cout << message;
+         //cout << "Shears: Consume to Clear Blackberry Bushes" ;
      }
+*/
+
+         cout << name << ": ";
+         cout << message;
 }
 
 //Getter for each Types char to display on the game map
@@ -310,6 +331,7 @@ int Tree::interactWithType()
     return 1;
 }
 
+//Hatchet
 Hatchet::Hatchet(Map * mapPtr)
 {
 	map = mapPtr;
@@ -346,6 +368,7 @@ bool Hatchet::useTool()
 	return false;
 }
 
+//Axe
 Axe::Axe(Map * mapPtr)
 {
 	map = mapPtr;
@@ -383,6 +406,7 @@ bool Axe::useTool()
 	return false;
 }
 
+//Chainsaw
 Chainsaw::Chainsaw(Map * mapPtr)
 {
 	map = mapPtr;
@@ -419,6 +443,7 @@ bool Chainsaw::useTool()
 	return false;
 }
 
+//Chisel
 Chisel::Chisel(Map * mapPtr)
 {
 	map = mapPtr;
@@ -455,6 +480,7 @@ bool Chisel::useTool()
 	return false;
 }
 
+//Sledgehammer
 Sledgehammer::Sledgehammer(Map * mapPtr)
 {
 	map = mapPtr;
@@ -491,6 +517,7 @@ bool Sledgehammer::useTool()
 	return false;
 }
 
+//Jackhammer
 Jackhammer::Jackhammer(Map * mapPtr)
 {
 	map = mapPtr;
@@ -527,6 +554,7 @@ bool Jackhammer::useTool()
 	return false;
 }
 
+//Machete
 Machete::Machete(Map * mapPtr)
 {
 	map = mapPtr;
@@ -563,6 +591,7 @@ bool Machete::useTool()
 	return false;
 }
 
+//Shears
 Shears::Shears(Map * mapPtr)
 {
 	map = mapPtr;
