@@ -36,9 +36,7 @@ public:
     void mapIntToTerrain(int terra);
     void setCharToDisplay(char newCharToDisplay); //Sorry Karla!
     void setVisibility(bool newIsVisible);
-    void setIsVisibleLocally(bool newVisible);
     bool getVisibility(); //Returns if it's visibile
-    bool getLocalVisibility(); //Returns the local visibility
     int getEnergyConsumption();
     char getCharToDisplay(); //Returns the display character
     //void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
@@ -48,7 +46,6 @@ public:
 
 protected:
     Type * type; //Type of Grovnick (Dynamically bound)
-    bool isVisibleLocally; //Sets the visibility around the player temporarily, which is different than isVisibile (those are fixed)
     bool isVisible; //If the player can see it
 	Terrain terrain; //Terrain struct to hold a Grovnicks terrain specific information
 };

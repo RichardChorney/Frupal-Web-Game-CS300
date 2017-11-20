@@ -1,6 +1,6 @@
 CFLAGS = -Wall -pedantic
 
-frupal:
+all:
 	g++ $(CFLAGS) *.cpp -o frupal
 
 clean:
