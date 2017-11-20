@@ -156,12 +156,11 @@ void Map::displayMap()
     //Sets the location where the hero is to true, and will keep it true until the game is over.
     map[heroLocation.x][heroLocation.y].setVisibility(true);
 
-    /* Map Visibility */
-    //Clear out all local visibility
-    setAllLocalVisibleGrovnicksOnMap(false);
     //Set the local visibility around the Hero to true
     setLocalVisibileGrovnicksOnMap(heroLocation, visibility);
 
+    //Displays all grovnicks on the screen if
+    //Debug constant is set true
     if (SHOW_ALL_GROVNICKS) {
         setAllLocalVisibleGrovnicksOnMap(true);
     }
@@ -222,7 +221,7 @@ void Map::setLocalVisibileGrovnicksOnMap(Location & location, int visibility)
             if (i >= 0 && i < mapSize
                 && j >= 0 && j < mapSize)
                 {
-                    map[i][j].setIsVisibleLocally(true);
+                    map[i][j].setVisibility(true);
                 }
 
             }
@@ -236,7 +235,8 @@ void Map::setAllLocalVisibleGrovnicksOnMap(bool newValue)
 {
     for (int i = 0; i < mapSize; ++i) {
         for (int j = 0; j < mapSize; ++j) {
-            map[i][j].setIsVisibleLocally(newValue);
+            //map[i][j].setIsVisibleLocally(newValue);
+            map[i][j].setVisibility(newValue);
         }
     }
 }

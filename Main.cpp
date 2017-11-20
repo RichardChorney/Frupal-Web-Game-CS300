@@ -10,6 +10,7 @@
 
 #include "Map.h"
 #include "Animation.h"
+
 using namespace std;
 
 //Test maps (these don't conform to the stanard map files)

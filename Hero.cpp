@@ -199,7 +199,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 	Type * typePtr = NULL;
 	typePtr = map.getMap()[aheadLoc.x][aheadLoc.y].getType();
 
-    //If the Hero can't walk on it, then deduct energy and return false
+    //if the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
 		displayTerrainMsg(ahead.terrainName);
@@ -267,8 +267,19 @@ void Hero::printStatus()
 //to make sure it displays correctly
 void Hero::displayInventory()
 {
-//For loop processes through inventory array
+    int InventoryCounter = 0;
+//For loop counts how many tools are in the bag
     int i = 0;
+    for(i = 0; i < BAG_MAX; ++i)
+    {
+        if(list[i])
+            ++InventoryCounter;
+    }
+
+//Display number of tools
+    cout << "Tools Held: " << InventoryCounter << endl;
+
+//For loop processes through inventory array
     for(i = 0; i < BAG_MAX; ++i)
     {
         //If an array element has a pointer to a tool, then this
@@ -292,7 +303,7 @@ void Hero::displayInventory()
         }
         /*This branch displays a generic "no tool" message if
         the array element is NULL*/
-        else
+/*        else
         {
             //If/Else for formatting digits less than 10.
             if(i < BAG_SIZE)
@@ -304,9 +315,12 @@ void Hero::displayInventory()
                 cout << endl << i+1 << ". No tool in slot.";
             }
         }
+*/
 
     }
-    cout << endl;
+    cout << endl << endl<< "Tool slots left: " << (BAG_MAX - InventoryCounter);
+    cout << endl << endl;
+
     cout << "The Hero is standing on " << terrain.terrainName << " ." << endl;
 }
 
@@ -329,7 +343,7 @@ void Hero::displayTerrainMsg(string terra)
 	} else if (terra == "Wall") {
    		cout << "You can not climb over the border Wall, it is just too high..." << endl;
 	} else if (terra == "Bog") {
-   		cout << "Eewww, you have walked into a nasty Bog, it will take 2 energy points to crawl out..." << endl;
+   		cout << "Eewww, you have walked into a nasty Bog, costing 2 energy..." << endl;
 	} else if (terra == "Swamp") {
    		cout << "Yuck, you have walked into a Swamp, watch out for alligators!!" << endl;
 	}
