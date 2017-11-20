@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html>
+<title>Game Time!</title>
+
+<head>FRUPAL!
+<style>
+
+#container{
+	height: 250px;
+	width: 500px;
+	outline: 1px solid black;
+	position: absolute;
+}
+
+#block1{
+	position: absolute;
+	height: 50px;
+	width: 50px;
+	outline: 1px solid black;
+	background-color: Powderblue;
+	top:200px;
+	left:100px;
+	opacity: 0;
+	z-index: 2;
+}
+
+#guy{
+	position: absolute;
+	height: 25px;
+	width: 25px;
+	outline: 1px solid black;
+	background-color: red;
+	z-index: 3;
+
+}
+
+#block2{ position: absolute; height: 50px; width: 50px;	outline: 1px solid black; background-color: green; top:0px; left:0px;}
+#block3{ position: absolute; height: 50px; width: 50px;	outline: 1px solid black; background-color: green; top:0px; left:50px;}
+#block4{ position: absolute; height: 50px; width: 50px;	outline: 1px solid black; background-color: green; top:0px; left:100px;}
+#block5{ position: absolute; height: 50px; width: 50px;	outline: 1px solid black; background-color: green; top:0px; left:150px;}
+#block6{ position: absolute; height: 50px; width: 50px;	outline: 1px solid black; background-color: green; top:0px; left:200px;}
+#block7{ position: absolute; height: 50px; width: 50px;	outline: 1px solid black; background-color: green; top:0px; left:250px;}
+#block8{ position: absolute; height: 50px; width: 50px;	outline: 1px solid black; background-color: green; top:0px; left:300px;}
+#block9{ position: absolute; height: 50px; width: 50px;	outline: 1px solid black; background-color: green; top:0px; left:350px;}
+#block10{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: blue; top:0px; left:400px;}
+#block11{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:0px; left:450px;}
+
+#block12{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:0px;}
+#block13{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:50px;}
+#block14{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:100px;}
+#block15{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:150px;}
+#block16{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:200px;}
+#block17{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:250px;}
+#block18{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:300px;}
+#block19{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:350px;}
+#block20{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: blue; top:50px; left:400px;}
+#block21{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:50px; left:450px;}
+
+#block22{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:100px; left:0px;}
+#block23{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:100px; left:50px;}
+#block24{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:100px; left:100px;}
+#block25{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:100px; left:150px;}
+#block26{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:100px; left:200px;}
+#block27{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:100px; left:250px;}
+#block28{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:100px; left:300px;}
+#block29{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: brown; top:100px; left:350px;}
+#block30{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: brown; top:100px; left:400px;}
+#block31{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: brown; top:100px; left:450px;}
+
+#block32{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:0px;}
+#block33{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:50px;}
+#block34{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:100px;}
+#block35{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:150px;}
+#block36{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:200px;}
+#block37{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:250px;}
+#block38{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:300px;}
+#block39{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:350px;}
+#block40{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:400px;}
+#block41{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:150px; left:450px;}
+
+#block42{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:0px;}
+#block43{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:50px;}
+#block44{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:100px;}
+#block45{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:150px;}
+#block46{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:200px;}
+#block47{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:250px;}
+#block48{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:300px;}
+#block49{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:350px;}
+#block50{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:400px;}
+#block51{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:200px; left:450px;}
+
+#block52{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:0px;}
+#block53{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:50px;}
+#block54{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:100px;}
+#block55{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:150px;}
+#block56{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:200px;}
+#block57{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:250px;}
+#block58{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:300px;}
+#block59{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:350px;}
+#block60{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:400px;}
+#block61{ position: absolute; height: 50px; width: 50px; outline: 1px solid black; background-color: green; top:250px; left:450px;}
+
+
+</style>
+</head>
+
+<body>
+
+<p id="demo"></p>
+
+<div id="container">
+
+	<div id="guy"></div>
+	<div id="block1"></div>
+	<div id="block2"></div>
+	<div id="block3"></div>
+	<div id="block4"></div>
+	<div id="block5"></div>
+	<div id="block6"></div>
+	<div id="block7"></div>
+	<div id="block8"></div>
+	<div id="block9"></div>
+	<div id="block10"></div>
+	<div id="block11"></div>
+
+	<div id="block12"></div>
+	<div id="block13"></div>
+	<div id="block14"></div>
+	<div id="block15"></div>
+	<div id="block16"></div>
+	<div id="block17"></div>
+	<div id="block18"></div>
+	<div id="block19"></div>
+	<div id="block20"></div>
+	<div id="block21"></div>
+
+	<div id="block22"></div>
+	<div id="block23"></div>
+	<div id="block24"></div>
+	<div id="block25"></div>
+	<div id="block26"></div>
+	<div id="block27"></div>
+	<div id="block28"></div>
+	<div id="block29"></div>
+	<div id="block30"></div>
+	<div id="block31"></div>
+	
+	<div id="block32"></div>
+	<div id="block33"></div>
+	<div id="block34"></div>
+	<div id="block35"></div>
+	<div id="block36"></div>
+	<div id="block37"></div>
+	<div id="block38"></div>
+	<div id="block39"></div>
+	<div id="block40"></div>
+	<div id="block41"></div>
+
+	<div id="block42"></div>
+	<div id="block43"></div>
+	<div id="block44"></div>
+	<div id="block45"></div>
+	<div id="block46"></div>
+	<div id="block47"></div>
+	<div id="block48"></div>
+	<div id="block49"></div>
+	<div id="block50"></div>
+	<div id="block51"></div>
+	
+	<div id="block52"></div>
+	<div id="block53"></div>
+	<div id="block54"></div>
+	<div id="block55"></div>
+	<div id="block56"></div>
+	<div id="block57"></div>
+	<div id="block58"></div>
+	<div id="block59"></div>
+	<div id="block60"></div>
+	<div id="block61"></div>
+	
+</div>
+
+<div id="message" style="color:red;">
+<h1>This is a heading</h1>
+</div>
+
+<script>
+
+var guy = document.getElementById('guy');
+
+var guyLeft = 0;
+var guyTop = 0;
+var flag = 0;
+var secret_x = 100; 
+var secret_y = 200;
+var spooky = 0;
+
+displayLocation();
+
+function move(e) {
+	if(flag == 0) {
+		if(e.keyCode == 39 && guyLeft < 450) {	//right
+			guyLeft += 50;
+			guy.style.left = guyLeft + 'px';
+			displayLocation();	
+					
+		}
+		else if(e.keyCode == 37 && guyLeft > 0) {	//left
+			guyLeft -= 50;
+			guy.style.left = guyLeft + 'px';
+			displayLocation();	
+		}
+		else if(e.keyCode == 38 && guyTop > 0) {	//up
+			guyTop -= 50;
+			guy.style.top = guyTop + 'px';
+			displayLocation();	
+		}
+		else if(e.keyCode == 40 && guyTop < 250) {	//down
+			guyTop += 50;
+			guy.style.top = guyTop + 'px';
+			displayLocation();	
+		}
+			checkWater();
+			checkBlock();
+			checkForest();
+	}
+	else if(flag == -1) {
+		alert("GAME OVER. You died.");
+	}
+	else {
+		alert("You already won!");
+	}
+
+}
+
+function checkBlock() {
+	if(guyLeft == secret_x && guyTop == secret_y && flag == 0) 
+	{
+		alert("found the royal diamonds!!");
+		block1.style.opacity = 100;
+		flag = 1;	
+	}
+}
+
+function checkWater() {
+	if((guyLeft == 400 && guyTop == 0) || (guyLeft == 400 && guyTop == 50)) {
+		alert("your in water! You died. (" + guyLeft + ", " + guyTop + ")");
+		flag = -1;
+	}
+	
+}
+
+function checkForest() {
+	if((guyLeft == 350 && guyTop == 100) || (guyLeft == 400 && guyTop == 100) || (guyLeft == 450 && guyTop == 100)) {
+		if(spooky == 0) {
+			alert("You entered a dark forest. Spooky?");
+			spooky = 1;
+		}
+		else if(spooky == 1) {
+			alert("Already seen this dark forest. Not spooky.");
+			spooky = 2;
+		}
+	}
+}
+
+function displayLocation() {
+	document.getElementById("demo").innerHTML = "(" + guyLeft +", " + guyTop + ")";
+}
+
+document.onkeydown = move;
+
+
+</script>
+
+</body>
+
+</html>
