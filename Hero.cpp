@@ -199,7 +199,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 	Type * typePtr = NULL;
 	typePtr = map.getMap()[aheadLoc.x][aheadLoc.y].getType();
 
-    //If the Hero can't walk on it, then deduct energy and return false
+    //if the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
 		displayTerrainMsg(ahead.terrainName);

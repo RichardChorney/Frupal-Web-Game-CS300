@@ -15,7 +15,6 @@ Grovnick::Grovnick()
 {
     type = NULL;
     isVisible = false;
-    isVisibleLocally = false;
     //Terrain
 	terrain.terrainName = "Meadow";
 }
@@ -28,7 +27,6 @@ Grovnick::Grovnick(char newCharToDisplay, Map * mapPtr)
     type = NULL;
     terrain.charToDisplay = newCharToDisplay;
     isVisible = false;
-    isVisibleLocally = false;
     terrain.terrainName = "Meadow";
     terrain.charToDisplay = 'G';
     terrain.canWalkOn = true;
@@ -53,7 +51,7 @@ void Grovnick::copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int new
 void Grovnick::displayChar()
 {
     //if (isHeroOnGrovnick) cout << HERO_CHAR;
-    if (isVisible || isVisibleLocally) cout << terrain.charToDisplay;
+    if (isVisible) cout << terrain.charToDisplay;
     else if (SHOW_MIST) cout << MIST;
     else cout << " ";
 }
@@ -177,11 +175,6 @@ void Grovnick::setCharToDisplay(char newCharToDisplay) { terrain.charToDisplay =
 
 //Sets the isVisibile data member
 void Grovnick::setVisibility(bool newIsVisible) { isVisible = newIsVisible; }
-
-//Sets the isVisibleLocally data member
-void Grovnick::setIsVisibleLocally(bool newVisible) { isVisibleLocally = newVisible; }
-
-bool Grovnick::getLocalVisibility() { return isVisibleLocally; }
 
 //Returns the isVisible data member
 bool Grovnick::getVisibility() { return isVisible; }
