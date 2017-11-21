@@ -35,66 +35,8 @@ Type::~Type()
 //name and description. This function
 //is called by the hero class's display
 //inventory function
-//TODO this need to be revisited as tools are implemented
 void Type::displayType()
 {
-     /*
-     if(name == "Chainsaw")
-     {
-//        cout << "Chainsaw: Consume to Clear Trees" ;
-         cout << name << ": ";
-         cout << message;
-     }
-
-     if(name == "Machete")
-     {
-         cout << name << ": ";
-         cout << message;
-         //cout << "Machete: Consume to Clear Blackberry Bushes" ;
-     }
-     if(name == "Sledgehammer")
-     {
-         cout << name << ": ";
-         cout << message;
-         //cout << "Sledgehammer: Consume to Clear Boulders" ;
-     }
-
-     if(name == "Hatchet")
-     {
-         cout << name << ": ";
-         cout << message;
-         //cout << "Hatchet: Consume to Clear Trees" ;
-     }
-
-     if(name == "Axe")
-     {
-         cout << name << ": ";
-         cout << message;
-         //cout << "Axe: Consume to Clear Trees" ;
-     }
-
-     if(name == "Chisel")
-     {
-         cout << name << ": ";
-         cout << message;
-         //cout << "Chisel: Consume to Clear Boulders" ;
-     }
-
-     if(name == "Jackhammer")
-     {
-         cout << name << ": ";
-         cout << message;
-         //cout << "Jackhammer: Consume to Clear Boulders" ;
-     }
-
-     if(name == "Shears")
-     {
-         cout << name << ": ";
-         cout << message;
-         //cout << "Shears: Consume to Clear Blackberry Bushes" ;
-     }
-*/
-
          cout << name << ": ";
          cout << message;
 }
@@ -103,6 +45,46 @@ void Type::displayType()
 char Type::getCharToDisplay()
 {
 	return charToDisplay;
+}
+
+//Checks if the type is a type of tool
+//Returns 0 for fail, 1-3 for boulder tools,
+//4-6 for trees, 7-8 for bushes
+int Type::checkObstacleType()
+{
+     if(name == "Jackhammer")
+          return 1;
+
+     if(name == "Sledgehammer")
+          return 2;
+
+     if(name == "Chisel")
+          return 3;
+
+     if(name == "Hatchet")
+          return 4;
+
+     if(name == "Chainsaw")
+          return 5;
+
+     if(name == "Axe")
+          return 6;
+
+     if(name == "Machete")
+          return 7;
+
+     if(name == "Shears")
+          return 8;
+
+     return 0;
+}
+
+int Type::checkEnergyCost(){
+    return 0;
+}
+
+int Type::checkRemovalCost(){
+    return 0;
 }
 
 //Default Clue Constructor
@@ -176,6 +158,10 @@ Tool::Tool(Map * mapPtr)
 Tool::~Tool()
 {
 
+}
+
+int Tool::checkEnergyCost(){
+    return energyCost;
 }
 
 //Clue
@@ -263,8 +249,57 @@ Boulder::Boulder(Map * mapPtr)
 //Boulder
 int Boulder::interactWithType()
 {
-    map->getHeroPtr()->changeEnergy(-removalCost);
+    int toolNumber = 0;//used for hero inventory index
+    bool validTool = false;//flag for checking tool type
+
+    //Checks if the hero has any boulder tools by calling
+    //checkBoulderTools with -1
+    if(map->getHeroPtr()->checkBoulderTools(-1) == true)
+    {
+        //Alerts players and displays current inventory
+        cout << "You have encountered a boulder...";
+        map->getHeroPtr()->displayInventory();
+
+        //A loop for prompting the user's tool choice
+        while(validTool == false)
+        {
+
+            //Prompts players for tool choice number
+            cout << endl << "Consume a tool?" << endl
+            << "(Enter item's number): ";
+            cin >> toolNumber;
+            cin.ignore(1000, '\n');
+            --toolNumber;//Transforms inventory index from
+            //starting at 1 to starting at 0
+
+            //Checks if selected tool is a boulder tool
+            if(map->getHeroPtr()->checkBoulderTools(toolNumber))
+            {
+                //If valid, the valid flag is set true to end
+                //this loop.
+                validTool = true;
+                //Calls energy deduction using tool's cost
+                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+                ++toolNumber;//Transform to index starting at 1
+                //Calls tool to be removed from inventory
+                map->getHeroPtr()->useItem(toolNumber);
+     
+            }
+        
+        }
+    }
+    //Else branch for if player has no applicable tools
+    else{    
+        cout << "You have encountered a boulder, costing "
+        << BOULDER_REMOVAL_COST << " additional energy to break...";
+        map->getHeroPtr()->changeEnergy(-removalCost);
+    }
+    
     return 1;
+}
+
+int Boulder::checkRemovalCost(){
+    return removalCost;
 }
 
 RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
@@ -313,8 +348,57 @@ Bush::Bush(Map * mapPtr)
 //Bush
 int Bush::interactWithType()
 {
-    map->getHeroPtr()->changeEnergy(-removalCost);
+    int toolNumber = 0;//used for hero inventory index
+    bool validTool = false;//flag for checking tool type
+
+    //Checks if the hero has any boulder tools by calling
+    //checkBushTools with -1
+    if(map->getHeroPtr()->checkBushTools(-1) == true)
+    {
+        //Alerts players and displays current inventory
+        cout << "You have encountered a boulder...";
+        map->getHeroPtr()->displayInventory();
+
+        //A loop for prompting the user's tool choice
+        while(validTool == false)
+        {
+
+            //Prompts players for tool choice number
+            cout << endl << "Consume a tool?" << endl
+            << "(Enter item's number): ";
+            cin >> toolNumber;
+            cin.ignore(1000, '\n');
+            --toolNumber;//Transforms inventory index from
+            //starting at 1 to starting at 0
+
+            //Checks if selected tool is a Bush tool
+            if(map->getHeroPtr()->checkBushTools(toolNumber))
+            {
+                //If valid, the valid flag is set true to end
+                //this loop.
+                validTool = true;
+                //Calls energy deduction using tool's cost
+                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+                ++toolNumber;//Transform to index starting at 1
+                //Calls tool to be removed from inventory
+                map->getHeroPtr()->useItem(toolNumber);
+     
+            }
+        
+        }
+    }
+    //Else branch for if player has no applicable tools
+    else{    
+        cout << "You have encountered a Bush, costing "
+        << BUSH_REMOVAL_COST << " additional energy to break...";
+        map->getHeroPtr()->changeEnergy(-removalCost);
+    }
+    
     return 1;
+}
+
+int Bush::checkRemovalCost(){
+    return removalCost;
 }
 
 Tree::Tree(Map * mapPtr)
@@ -327,9 +411,58 @@ Tree::Tree(Map * mapPtr)
 //Tree
 int Tree::interactWithType()
 {
-    map->getHeroPtr()->changeEnergy(-removalCost);
+    int toolNumber = 0;//used for hero inventory index
+    bool validTool = false;//flag for checking tool type
+
+    //Checks if the hero has any boulder tools by calling
+    //checkTreeTools with -1
+    if(map->getHeroPtr()->checkTreeTools(-1) == true)
+    {
+        //Alerts players and displays current inventory
+        cout << "You have encountered a boulder...";
+        map->getHeroPtr()->displayInventory();
+
+        //A loop for prompting the user's tool choice
+        while(validTool == false)
+        {
+
+            //Prompts players for tool choice number
+            cout << endl << "Consume a tool?" << endl
+            << "(Enter item's number): ";
+            cin >> toolNumber;
+            cin.ignore(1000, '\n');
+            --toolNumber;//Transforms inventory index from
+            //starting at 1 to starting at 0
+
+            //Checks if selected tool is a Tree tool
+            if(map->getHeroPtr()->checkTreeTools(toolNumber))
+            {
+                //If valid, the valid flag is set true to end
+                //this loop.
+                validTool = true;
+                //Calls energy deduction using tool's cost
+                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+                ++toolNumber;//Transform to index starting at 1
+                //Calls tool to be removed from inventory
+                map->getHeroPtr()->useItem(toolNumber);
+     
+            }
+        
+        }
+    }
+    //Else branch for if player has no applicable tools
+    else{    
+        cout << "You have encountered a Tree, costing "
+        << TREE_REMOVAL_COST << " additional energy to break...";
+        map->getHeroPtr()->changeEnergy(-removalCost);
+    }
+    
     return 1;
 }
+
+int Tree::checkRemovalCost(){
+    return removalCost;
+} 
 
 //Hatchet
 Hatchet::Hatchet(Map * mapPtr)

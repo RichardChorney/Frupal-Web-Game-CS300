@@ -26,6 +26,9 @@ int const DEFAULT_ENERGY_CONSUMPTION = 1;
 std::string const HORIZONTAL_OUTLINE = "######################";
 char const MAP_OUTLINE_CHAR = '#';
 std::string const SPACE_BEFORE_MAP = "   "; //Space indented before map is displayed
+int const BOULDER_REMOVAL_COST = 16;
+int const TREE_REMOVAL_COST = 10;
+int const BUSH_REMOVAL_COST = 4;
 
 /* Type Constants */
 //Amount of whiffles recieved if you open the chest

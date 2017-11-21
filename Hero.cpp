@@ -348,3 +348,85 @@ void Hero::displayTerrainMsg(string terra)
    		cout << "Yuck, you have walked into a Swamp, watch out for alligators!!" << endl;
 	}
 }
+
+//Checks the inventory list at index and returns true if
+//its a boulder tool. Call this function with -1 to check
+//all hero inventory slots at once
+bool Hero::checkBoulderTools(int index){
+     int i = 0;
+
+     //If branch for checking all elements or just one
+     if(index == -1){
+         for(i = 0;i < BAG_MAX; ++i)
+         {
+             if(list[i] == NULL)
+                 break;
+             //Calls the type's check type function
+             //returns 1-3 for boulder tools
+             else if(list[i]->checkObstacleType() < 4 && list[i]->checkObstacleType() > 0)
+                  return true;
+         }
+     }
+
+     //Branch for checking one element
+     else
+         if(list[index]->checkObstacleType() < 4 && list[index]->checkObstacleType() > 0)
+              return true;
+     
+     return false;
+}
+
+bool Hero::checkTreeTools(int index){
+
+     int i = 0;
+
+     //If branch for checking all elements or just one
+     if(index == -1){
+         for(i = 0;i < BAG_MAX; ++i)
+         {
+             if(list[i] == NULL)
+                 break;
+             //Calls the type's check type function
+             //returns 4-6 for boulder tools
+             if(list[i]->checkObstacleType() < 7 && list[i]->checkObstacleType() > 3)
+                  return true;
+         }
+     }
+
+     //Branch for checking one element
+     else
+         if(list[index]->checkObstacleType() < 7 && list[index]->checkObstacleType() > 3)
+              return true;
+     
+     return false;
+}
+
+bool Hero::checkBushTools(int index){
+
+     int i = 0;
+
+     //If branch for checking all elements or just one
+     if(index == -1){
+         for(i = 0;i < BAG_MAX; ++i)
+         {
+             if(list[i] == NULL)
+                  break;
+             //Calls the type's check type function
+             //returns 1-3 for boulder tools
+             if(list[i]->checkObstacleType() < 9 && list[i]->checkObstacleType() > 7)
+                  return true;
+         }
+     }
+
+     //Branch for checking one element
+     else
+         if(list[index]->checkObstacleType() < 9 && list[index]->checkObstacleType() > 7)
+              return true;
+     
+     return false;
+}
+
+int Hero::checkItemEnergyCost(int index){
+    return list[index]->checkEnergyCost();
+}
+

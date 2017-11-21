@@ -25,9 +25,12 @@ public:
 	Type(string newName, string newMessage, Map * newMap);
 	virtual ~Type() = 0;
 	virtual int interactWithType() = 0; //Dynamic Binding!
+    virtual int checkEnergyCost();
+    virtual int checkRemovalCost();
     void displayType();
     bool promptPurchase(int cost);
-	char getCharToDisplay();
+    char getCharToDisplay();
+    int  checkObstacleType();//returns 1 for boulders, 2 - trees, 3 - bushes  
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
@@ -41,6 +44,7 @@ public:
 	Tool();
 	Tool(Map * mapPtr);
 	int interactWithType();
+    int checkEnergyCost();
 	virtual ~Tool() = 0;
 
 protected:
@@ -91,6 +95,7 @@ class Boulder : public Type {
 public:
     Boulder(Map * mapPtr);
     int interactWithType();
+    int checkRemovalCost();
 protected:
     int removalCost;
 };
@@ -113,6 +118,7 @@ class Bush : public Type {
 public:
     Bush(Map * mapPtr);
     int interactWithType();
+    int checkRemovalCost();
 protected:
     int removalCost;
 };
@@ -121,6 +127,7 @@ class Tree : public Type {
 public:
     Tree(Map * mapPtr);
     int interactWithType();
+    int checkRemovalCost();
 protected:
     int removalCost;
 };
