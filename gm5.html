@@ -145,7 +145,7 @@
 	<div id="block29"></div>
 	<div id="block30"></div>
 	<div id="block31"></div>
-	
+
 	<div id="block32"></div>
 	<div id="block33"></div>
 	<div id="block34"></div>
@@ -167,7 +167,7 @@
 	<div id="block49"></div>
 	<div id="block50"></div>
 	<div id="block51"></div>
-	
+
 	<div id="block52"></div>
 	<div id="block53"></div>
 	<div id="block54"></div>
@@ -178,7 +178,7 @@
 	<div id="block59"></div>
 	<div id="block60"></div>
 	<div id="block61"></div>
-	
+
 </div>
 
 <div id="message" style="color:red;">
@@ -192,7 +192,7 @@ var guy = document.getElementById('guy');
 var guyLeft = 0;
 var guyTop = 0;
 var flag = 0;
-var secret_x = 100; 
+var secret_x = 100;
 var secret_y = 200;
 var spooky = 0;
 
@@ -203,23 +203,23 @@ function move(e) {
 		if(e.keyCode == 39 && guyLeft < 450) {	//right
 			guyLeft += 50;
 			guy.style.left = guyLeft + 'px';
-			displayLocation();	
-					
+			displayLocation();
+
 		}
 		else if(e.keyCode == 37 && guyLeft > 0) {	//left
 			guyLeft -= 50;
 			guy.style.left = guyLeft + 'px';
-			displayLocation();	
+			displayLocation();
 		}
 		else if(e.keyCode == 38 && guyTop > 0) {	//up
 			guyTop -= 50;
 			guy.style.top = guyTop + 'px';
-			displayLocation();	
+			displayLocation();
 		}
 		else if(e.keyCode == 40 && guyTop < 250) {	//down
 			guyTop += 50;
 			guy.style.top = guyTop + 'px';
-			displayLocation();	
+			displayLocation();
 		}
 			checkWater();
 			checkBlock();
@@ -235,11 +235,11 @@ function move(e) {
 }
 
 function checkBlock() {
-	if(guyLeft == secret_x && guyTop == secret_y && flag == 0) 
+	if(guyLeft == secret_x && guyTop == secret_y && flag == 0)
 	{
 		alert("found the royal diamonds!!");
 		block1.style.opacity = 100;
-		flag = 1;	
+		flag = 1;
 	}
 }
 
@@ -248,7 +248,7 @@ function checkWater() {
 		alert("your in water! You died. (" + guyLeft + ", " + guyTop + ")");
 		flag = -1;
 	}
-	
+
 }
 
 function checkForest() {
