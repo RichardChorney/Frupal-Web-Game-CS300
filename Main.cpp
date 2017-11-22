@@ -10,6 +10,7 @@
 
 #include "Map.h"
 #include "Animation.h"
+#include <cgi.h>
 
 using namespace std;
 
@@ -24,6 +25,8 @@ int main()
 {
     if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
     system("clear");
+
+    cgi = cgiInit(); //Initialize CGI
 
     Hero * hero;
 

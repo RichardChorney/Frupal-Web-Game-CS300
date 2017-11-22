@@ -33,13 +33,25 @@ window.onload = function() {
     loadMapFromString();
 }
 
-function launchCGI() {
-
+//Launch cgi
+//This funciton sends a single string to the
+//backend of Frupal by concatenating all of the
+//parameters together.
+//moveDirection -> Direction the Hero attempted to step
+//decision -> Yes or No decision if he was prompted for something.
+function launchCGI(moveDirection, decision) {
+    arguments = moveDirection + "|" + decision;
+    var xhttp = new XMLHttpRequest();
+    URL = "frupalCGI.cgi?" + arguments;
+    xhttp.open("GET", URL, false);
+    xhttp.send();
+    alert(xhttp.responseText); //TEST
 }
 
 //Move North
 function move(direction) {
     //This is where we would send the movement to c++ land
+    launchCGI(direction, "none");
 }
 
 //Once the last image has been loaded, display the map
