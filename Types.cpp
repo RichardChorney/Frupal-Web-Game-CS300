@@ -338,6 +338,32 @@ int Binoculars::interactWithType()
     return 0;
 }
 
+Boat::Boat(Map * mapPtr) {
+    map = mapPtr;
+    name = "Boat";
+    message = "Lets you travel on water";
+    price = 500;
+    charToDisplay = 'V';
+}
+
+int Boat::interactWithType() {
+    cout << "You found a boat for sale! It will let you travel on water." << endl;
+    if(promptPurchase(price)) {
+        for (int i = 0; i < MAX; ++i){
+            for(int j = 0; j < MAX; ++j){
+                if(map->getMap()[i][j].getTerrain()->terrainName == "Water"){
+                    map->getMap()[i][j].getTerrain()->canWalkOn = true;
+                }
+            }
+        }
+        return 1;
+    } 
+    else {
+        cout << "You decided to keep your whiffles for now." << endl;
+        return 0;
+    }
+}        
+
 Bush::Bush(Map * mapPtr)
 {
 	map = mapPtr;

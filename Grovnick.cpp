@@ -130,6 +130,7 @@ void Grovnick::setTypeFromMapFile(string & typeString, Map * MapPtr)
 	else if (typeString == "Jackhammer") type = new Jackhammer(MapPtr);
 	else if (typeString == "Machete") type = new Machete(MapPtr);
 	else if (typeString == "Shears") type = new Shears(MapPtr);
+    else if (typeString == "Boat") type = new Boat(MapPtr);
 }
 
 
