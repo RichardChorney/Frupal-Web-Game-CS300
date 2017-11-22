@@ -353,6 +353,7 @@ int Boat::interactWithType() {
             for(int j = 0; j < MAX; ++j){
                 if(map->getMap()[i][j].getTerrain()->terrainName == "Water"){
                     map->getMap()[i][j].getTerrain()->canWalkOn = true;
+                    map->getMap()[i][j].getTerrain()->energyConsumption = 0;
                 }
             }
         }

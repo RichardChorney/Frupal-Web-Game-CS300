@@ -338,8 +338,10 @@ void Hero::displayTerrainMsg(string terra)
    		cout << "You have walked into a beautiful Meadow..." << endl;
 	} else if (terra == "Forest") {
    		cout << "You have walked into a deep, dark Forest..." << endl;
-	} else if (terra == "Water") {
+	} else if (terra == "Water" && terrain.energyConsumption > 0) {
    		cout << "You can not go into the Water without a boat..." << endl;		//TODO will need to change when we add boats
+    } else if (terra == "Water" && terrain.energyConsumption == 0) {
+        cout << "Feels nice to be sailing..." << endl;
 	} else if (terra == "Wall") {
    		cout << "You can not climb over the border Wall, it is just too high..." << endl;
 	} else if (terra == "Bog") {
@@ -429,4 +431,3 @@ bool Hero::checkBushTools(int index){
 int Hero::checkItemEnergyCost(int index){
     return list[index]->checkEnergyCost();
 }
-
