@@ -114,6 +114,14 @@ protected:
     int price;
 };
 
+class Boat : public Type {
+public:
+    Boat(Map * mapPtr);
+    int interactWithType();
+protected:
+    int price;
+};
+
 class Bush : public Type {
 public:
     Bush(Map * mapPtr);

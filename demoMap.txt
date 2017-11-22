@@ -9,6 +9,7 @@ simple map
 0,0,0,2,None
 0,1,0,2,None
 1,0,0,2,None
+3,0,0,0,Boat
 0,2,0,3,None
 0,3,0,3,None
 2,2,0,0,Binoculars

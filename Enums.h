@@ -27,8 +27,8 @@ enum typeIndex {
 	sledgehammer = 14,
 	jackhammer = 15,
 	machete = 16,
-	shears = 17
-
+	shears = 17,
+    boat = 18
 };
 
 //Terrain Index enumeration
