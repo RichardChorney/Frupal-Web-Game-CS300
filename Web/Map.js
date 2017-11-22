@@ -7,7 +7,6 @@
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
 var terrainMap = "1222221111111222111111112211111111121111111111111111111111111111111111111111133311111113331111111111";
-var terrainMap2 = "2222222221111222222222222211111222222222222222222222221111112222222222222222222222222222222222222222";
 var typeMap = "0000000000001000000000000000010000000000000002000000000000000003000000000000000000000000000000000000";
 
 //Get the canvas details
@@ -32,6 +31,15 @@ window.onload = function() {
     initImages();
     initMap();
     loadMapFromString();
+}
+
+function launchCGI() {
+
+}
+
+//Move North
+function move(direction) {
+    //This is where we would send the movement to c++ land
 }
 
 //Once the last image has been loaded, display the map
@@ -64,6 +72,9 @@ function displayMap() {
             }
         }
     }
+
+    //TODO There is no point in iterating twice here,
+    //just add the logic into one of the nested for loops
 
     /* Draw the objects / types */
     for (var i = 0; i < mapSize; ++i) {

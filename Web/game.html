@@ -49,8 +49,17 @@
 <p> Welcome to Frupal </p>
 
 <!-- Example of a way to call a function from a button -->
-<button type="button" onclick="changeMap()">Change Map</button>
+<!-- <button type="button" onclick="changeMap()">Change Map</button><br> -->
+
+
+<!-- Movement Buttons -->
+<button type="button" onclick="move(1)">UP</button>
+<button type="button" onclick="move(3)">DOWN</button>
+<button type="button" onclick="moveWest(4)">LEFT</button>
+<button type="button" onclick="moveEast(2)">RIGHT</button>
+
 <br>
+
 <!-- Create the main canvas, where the game map will be displayed -->
 <canvas id="frupalCanvas" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
 
