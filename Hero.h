@@ -43,6 +43,11 @@ class Hero {
 	int lookAhead(Map & map, Location aheadLoc); //Checks Grovnick ahead of Hero, returns info based on used items etc.
 	void addToWhiffles(int whifflesToAdd); //Either add or subtract whiffles
 	void displayTerrainMsg(string terraName);
+        bool checkBoulderTools(int);//Checks inv for tools that
+        //work on boulders and returns tree on success
+        bool checkTreeTools(int);
+        bool checkBushTools(int);
+        int checkItemEnergyCost(int);//Returns energy cost of item at index using argument
 
   protected:
     Terrain terrain;        //Terrain that the hero is on
