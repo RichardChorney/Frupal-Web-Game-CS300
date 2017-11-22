@@ -1,5 +1,49 @@
 <!DOCTYPE html>
 <html>
+
+<!-- Creates the inventory list drop down menu -->
+<style>
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+	bottom: 200px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 250px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 2px 2px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+</style>
+
 <body>
 
 <p> Welcome to Frupal </p>
@@ -10,10 +54,49 @@
 <!-- Create the main canvas, where the game map will be displayed -->
 <canvas id="frupalCanvas" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
 
+
 <!-- Tell our html file where our javascript functions are located -->
 <script src="Map.js"></script>
+<script src="Inventory.js"></script>
 
+<!-- Sets up what is displayed when inventory button is clicked -->
+<div class="dropdown">
+<button onclick="displayInventory()" class="dropbtn">Inventory</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#slot1">1--></a>
+    <a href="#slot2">2--></a>
+    <a href="#slot3">3--></a>
+	<a href="#slot4">4--></a>
+    <a href="#slot5">5--></a>
+    <a href="#slot6">6--></a>
+    <a href="#slot7">7--></a>
+    <a href="#slot8">8--></a>
+    <a href="#slot9">9--></a>
+	<a href="#slot10">10-></a>
+  </div>
+</div>
 
+<script>
+//When the user clicks on the button, toggle between hiding and showing the dropdown content
+function displayInventory() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 
 </body>
 </html>
