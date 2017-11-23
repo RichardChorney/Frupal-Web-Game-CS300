@@ -23,6 +23,8 @@ Hero::Hero()
 	for(int i = 0; i < BAG_MAX; ++i){
 		list[i] = NULL;
 	}
+
+	updateInventoryFile();
 }
 
 //Parmeterized Constructor
@@ -42,6 +44,8 @@ Hero::Hero(Location& locToCopy, int energyToCopy, int whifflesToCopy, Terrain& t
 	for(int i = 0; i < BAG_MAX; ++i){
 		list[i] = NULL;
 	}
+
+	updateInventoryFile();
 }
 
 //Destructor to clean up inventory list

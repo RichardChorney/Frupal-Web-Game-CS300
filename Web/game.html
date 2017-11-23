@@ -137,28 +137,28 @@ function displayInventory() {
 								document.getElementById("slot" + i).innerHTML = i + "--> Empty";
 								break;
 							case 1:
-								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " (" + k + ") Removes Trees for 8 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " (" + listContents[k] + ") Removes Trees for 8 energy points";
 								break;
 							case 2:
-								document.getElementById("slot" + i).innerHTML = i + "--> Axe" + " (" + k + ") Removes Trees for 6 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Axe" + " (" + listContents[k] + ") Removes Trees for 6 energy points";
 								break;
 							case 3:
-								document.getElementById("slot" + i).innerHTML = i + "--> Chainsaw" + " (" + k + ") Removes Trees for 2 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Chainsaw" + " (" + listContents[k] + ") Removes Trees for 2 energy points";
 								break;
 							case 4:
-								document.getElementById("slot" + i).innerHTML = i + "--> Chisel" + " (" + k + ") Removes Boulders for 15 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Chisel" + " (" + listContents[k] + ") Removes Boulders for 15 energy points";
 								break;
 							case 5:
-								document.getElementById("slot" + i).innerHTML = i + "--> Sledgehammer" + " (" + k + ") Removes Boulders for 12 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Sledgehammer" + " (" + listContents[k] + ") Removes Boulders for 12 energy points";
 								break;
 							case 6:
-								document.getElementById("slot" + i).innerHTML = i + "--> Jackhammer" + " (" + k + ") Removes Boulders for 4 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Jackhammer" + " (" + listContents[k] + ") Removes Boulders for 4 energy points";
 								break;
 							case 7:
-								document.getElementById("slot" + i).innerHTML = i + "--> Machete" + " (" + k + ") Removes Blackberry Bushes for 2 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Machete" + " (" + listContents[k] + ") Removes Blackberry Bushes for 2 energy points";
 								break;
 							case 8:
-								document.getElementById("slot" + i).innerHTML = i + "--> Shears" + " (" + k + ") Removes Blackberry Bushes for 2 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Shears" + " (" + listContents[k] + ") Removes Blackberry Bushes for 2 energy points";
 								break;
 							default:
 								document.getElementById("slot" + i).innerHTML = i + "--> Empty";
@@ -177,7 +177,7 @@ function displayInventory() {
 
 //This function will launch the appropriate action when an inventory item is clicked on, will check if the action
 //is valid, and will update the status of the inventory item on the back-end
-function useItem(){
+function useItem(slot){
 	
 }
 
