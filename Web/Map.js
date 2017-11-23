@@ -4,11 +4,9 @@
 //This file contains the javascript involving the map
 /////////////////////////////////////////////////////
 
+const SHOW_MIST = false; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-var terrainMap = "1222221111111222111111112211111111121111111111111111111111111111111111111111133311111113331111111111";
-var terrainMapContent;
-var typeMap = "0000000000001000000000000000010000000000000002000000000000000003000000000000000000000000000000000000";
 
 //Get the canvas details
 var canvas = document.getElementById("frupalCanvas");
@@ -21,18 +19,29 @@ var water = new Image();
 var hatchet = new Image();
 var chest = new Image();
 var explosiveChest = new Image();
+var mist = new Image();
+var hero = new Image();
 
 /* Map arrays */
 var terrains = new Array(mapSize); //2D map array of terrains to dsiplay
 var types = new Array(mapSize);    //2D map array of types to be displayed over terrains
+var mists = new Array(mapSize);
 
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
     initImages();
     initMap();
+    update();
+}
+
+//This function should be called after
+//anything has changed on the backend
+//and needs to be updated on the Web.
+function update() {
     loadTerrainFromString();
     loadTypesFromString();
+    loadMistsFromString();
 }
 
 //Launch cgi
@@ -60,7 +69,7 @@ function move(direction) {
 
 //Once the last image has been loaded, display the map
 //TODO: Make sure to update this to the last image!!!
-explosiveChest.onload = function() {
+hero.onload = function() {
     displayMap();
 }
 
@@ -72,6 +81,8 @@ function initImages() {
     hatchet.src = "Sprites/hatchet.png";
     chest.src = "Sprites/chest.png";
     explosiveChest.src = "Sprites/explosiveChest.png";
+    mist.src = "Sprites/mist.png";
+    hero.src = "Sprites/hero.png";
 }
 
 //Called when the window first loads
@@ -79,29 +90,22 @@ function displayMap() {
     /* Draw the terrains */
     for (var i = 0; i < mapSize; ++i) {
         for (var j = 0; j < mapSize; ++j) {
-            if (terrains[i][j] == 1) {
-                displayImg(grass, i, j);
-            } else if (terrains[i][j] == 2) {
-                displayImg(dirt, i, j);
-            } else if (terrains[i][j] == 3) {
-                displayImg(water, i, j);
-            }
-        }
-    }
 
-    //TODO There is no point in iterating twice here,
-    //just add the logic into one of the nested for loops
+            /* Display Terrain */
+            if (terrains[i][j] == 1) { displayImg(grass, i, j); }
+            else if (terrains[i][j] == 2) { displayImg(dirt, i, j); }
+            else if (terrains[i][j] == 3) { displayImg(water, i, j); }
 
-    /* Draw the objects / types */
-    for (var i = 0; i < mapSize; ++i) {
-        for (var j = 0; j < mapSize; ++j) {
-            if (types[i][j] == 1) {
-                displayImg(hatchet, i, j);
-            } else if (types[i][j] == 2) {
-                displayImg(chest, i, j);
-            } else if (types[i][j] == 3) {
-                displayImg(explosiveChest, i, j);
-            }
+            /* Display Type */
+            if (types[i][j] == 1) { displayImg(hatchet, i, j); }
+            else if (types[i][j] == 2) { displayImg(chest, i, j); }
+            else if (types[i][j] == 3) { displayImg(explosiveChest, i, j); }
+
+            /* Display Mist & Hero */
+            if (mists[i][j] == 0 && SHOW_MIST == true) {
+                displayImg(mist, i, j);
+            } else if (mists[i][j] == 2) { displayImg(hero, i, j); }
+
         }
     }
 }
@@ -113,6 +117,7 @@ function initMap() {
     for (var i = 0; i < mapSize; ++i) {
         terrains[i] = new Array(mapSize);
         types[i] = new Array(mapSize);
+        mists[i] = new Array(mapSize);
     }
 }
 
@@ -200,6 +205,49 @@ function fillTypes(ty) {
     for (var i = 0; i < mapSize; ++i) {
         for (var j = 0; j < mapSize; ++j) {
             types[i][j] = ty[strIndex];
+            ++strIndex;
+        }
+    }
+
+    displayMap();
+}
+
+//Loads in from file the grovnicks
+//that should be covered in mist.
+function loadMistsFromString() {
+    var httpRequest;
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = parseMistString;
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webMists.html', true);
+    httpRequest.send();
+
+
+    function parseMistString() {
+
+        //Makes sure the server has responded
+        if(httpRequest.readyState === XMLHttpRequest.DONE){
+
+            //Checks for the all clear code from the server
+            if(httpRequest.status === 200){
+
+                //Takes the server response as a text string
+                var  listContents = httpRequest.responseText;
+                fillMists(listContents);
+
+            } else {
+                alert('Types: There was a problem with the request');
+            }
+        }
+    }
+}
+
+//Fills in the mists array
+//with the values passed in
+function fillMists(mis) {
+    var strIndex = 0;
+    for (var i = 0; i < mapSize; ++i) {
+        for (var j = 0; j < mapSize; ++j) {
+            mists[i][j] = mis[strIndex];
             ++strIndex;
         }
     }
