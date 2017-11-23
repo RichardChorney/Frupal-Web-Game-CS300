@@ -48,23 +48,23 @@ function update() {
 //This funciton sends a single string to the
 //backend of Frupal by concatenating all of the
 //parameters together.
-//moveDirection -> Direction the Hero attempted to step
-//decision -> Yes or No decision if he was prompted for something.
-function launchCGI(moveDirection, decision) {
-    /*
-    arguments = moveDirection + "|" + decision;
+//actionCode -> Which action we are wishing to take, ie move, access inventory etc.
+//decision -> Subcode for which action within primary action we wish to take, ie north, use, yes
+function launchCGI(actionCode, decision) {
+    
+    arguments = actionCode + "|" + decision + "*";
     var xhttp = new XMLHttpRequest();
     URL = "frupalCGI.cgi?" + arguments;
     xhttp.open("GET", URL, false);
     xhttp.send();
     alert(xhttp.responseText); //TEST
-    */
+    
 }
 
 //Move North
 function move(direction) {
     //This is where we would send the movement to c++ land
-    launchCGI(direction, "none");
+    launchCGI("move", direction);
 }
 
 //Once the last image has been loaded, display the map

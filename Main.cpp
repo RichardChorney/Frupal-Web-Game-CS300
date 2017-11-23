@@ -23,7 +23,7 @@ string const basicMap = "basicMap.txt";
 string const basicMap2 = "basicMap2.txt";
 string const demoMap = "demoMap.txt";
 
-int main()
+int main(void)
 {
     Hero * hero;
     Map map; //Create a map of size MAX
@@ -36,30 +36,24 @@ int main()
 		char * web_data;
 		web_data = getenv("QUERY_STRING");
 		cout << "Content-Type: text/plain;charset=us-ascii" << endl << endl;
-
-		char original[128];
-		char temp[128];
-		char temp2[128];
+		
+		char original[144];
+		char temp[16];				//Temporary string to hold the action code
+		char temp2[128];			//Temporary string to hold the action to be taken
 		char * strptr;
 
 		strcpy(original, web_data);
 		strptr = original;
-		strptr = strtok(strptr, "=");
 
-		while(strptr != NULL){
-				strcpy(temp, strptr);
-				strptr = strtok(strptr+strlen(strptr)+1, "&");
-				strcpy(temp2, strptr);
-				strptr = strtok(strptr+strlen(strptr)+1, "=");
-				if(strcmp(temp, "1") == 0){
-				}	
-				else if(strcmp(temp, "2") == 0){
-				}	
-				else if(strcmp(temp, "3") == 0){
-				}	
-				else if(strcmp(temp, "4") == 0){
-				}	
-		}	
+		strptr = strtok(strptr, "|");	//Breaks up QUERY_STRING into the first token (action code)
+		strcpy(temp, strptr);			//Copies first token into temporary holder
+
+		strptr = strtok(NULL, "*");		//Grabs the second part of the QUERY_STRING
+		strcpy(temp2, strptr);			//Copies second token into temporary holder
+
+		cout << temp << endl;
+		cout << temp2 << endl; 
+
 	}  //End of WEB_MODE if
 	
 	else{
