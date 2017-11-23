@@ -10,6 +10,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "Map.h"
 #include "Types.h"
 #include "Constants.h"
@@ -48,6 +49,7 @@ class Hero {
         bool checkTreeTools(int);
         bool checkBushTools(int);
         int checkItemEnergyCost(int);//Returns energy cost of item at index using argument
+	bool updateInventoryFile();	//Updates inventory file state
 
   protected:
     Terrain terrain;        //Terrain that the hero is on

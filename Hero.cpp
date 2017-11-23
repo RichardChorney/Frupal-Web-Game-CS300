@@ -228,6 +228,7 @@ int Hero::fillBag(Type * itemToAdd)
 		for(int i = 0; i < BAG_MAX; ++i){
 			if(list[i] == NULL){
 				list[i] = itemToAdd;
+				updateInventoryFile();
 				return 1;
 			}
 			if(i == (BAG_MAX - 1)){
@@ -245,9 +246,53 @@ bool Hero::useItem(int itemToUse){
 
 		delete list[itemToUse - 1];
 		list[itemToUse - 1] = NULL;
+		updateInventoryFile();
 		return true;
 	}
 	else{ return false; }
+}
+
+//Function to update the inventories state file for front-back end communication
+bool Hero::updateInventoryFile()
+{
+	ofstream output;
+	output.open ("inventory.html");
+	
+	for(int i = 0; i < BAG_MAX; ++i){
+		if(list[i]){
+			if(list[i]->checkName() == "Hatchet"){
+				output << "11";
+			}
+			else if(list[i]->checkName() == "Axe"){
+				output << "21";
+			}
+			else if(list[i]->checkName() == "Chainsaw"){
+				output << "31";
+			}
+			else if(list[i]->checkName() == "Chisel"){
+				output << "41";
+			}
+			else if(list[i]->checkName() == "Sledgehammer"){
+				output << "51";
+			}
+			else if(list[i]->checkName() == "Jackhammer"){
+				output << "61";
+			}
+			else if(list[i]->checkName() == "Machete"){
+				output << "71";
+			}
+			else if(list[i]->checkName() == "Shears"){
+				output << "81";
+			}
+		}
+
+		else{
+			output << "00";
+		}
+	}
+
+	output.close();
+	return true;
 }
 
 //Prints relevant Hero status information
