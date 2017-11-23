@@ -14,7 +14,7 @@ var context = canvas.getContext("2d");
 
 /* Images */
 var grass = new Image();
-var dirt = new Image();
+var bog = new Image();
 var water = new Image();
 var hatchet = new Image();
 var chest = new Image();
@@ -77,7 +77,7 @@ function move(direction) {
 //Initialize the images
 function initImages() {
     grass.src = "Sprites/grass.png";
-    dirt.src = "Sprites/dirt.png";
+    bog.src = "Sprites/dirt.png";
     water.src = "Sprites/water.png";
     hatchet.src = "Sprites/hatchet.png";
     chest.src = "Sprites/chest.png";
@@ -93,9 +93,9 @@ function displayMap() {
         for (var j = 0; j < mapSize; ++j) {
 
             /* Display Terrain */
-            if (terrains[i][j] == 1) { displayImg(grass, i, j); }
-            else if (terrains[i][j] == 2) { displayImg(dirt, i, j); }
-            else if (terrains[i][j] == 3) { displayImg(water, i, j); }
+            if (terrains[i][j] == 'G') { displayImg(grass, i, j); }
+            else if (terrains[i][j] == 'S') { displayImg(bog, i, j); }
+            else if (terrains[i][j] == 'W') { displayImg(water, i, j); }
 
             /* Display Type */
             if (types[i][j] == 1) { displayImg(hatchet, i, j); }
@@ -259,7 +259,7 @@ function fillMists(mis) {
 //Test function that updates the graphics on the canvas
 //Triggered with a button click
 function changeMap() {
-    //Change some grass into dirt
+    //Change some grass into bog
     terrains[5][2] = 2;
     terrains[4][3] = 2;
     terrains[4][4] = 2;

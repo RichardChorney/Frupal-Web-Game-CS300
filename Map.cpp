@@ -43,7 +43,7 @@ Map::~Map()
 
 //Writes the to the terrain file that will be read by
 //the Web, so that it can update the display.
-int writeWebTerrain()
+int Map::writeWebTerrain()
 {
     //Opens or creates the file for writing
     ofstream file;
@@ -65,9 +65,11 @@ int writeWebTerrain()
 
 //Writes the to the types file that will be read by
 //the Web, so that it can update the display.
-void writeWebTypes()
+int Map::writeWebTypes()
 {
 
+
+    return 1;
 }
 
 //Loads the map (2D array) from a file

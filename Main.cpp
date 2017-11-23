@@ -40,6 +40,9 @@ int main()
 
 	while(proceed){
         map.displayMap();
+
+        map.writeWebTerrain(); //Test
+        
         hero->printStatus();
 		cout << endl << "What would you like to do?" << endl;
 		cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
