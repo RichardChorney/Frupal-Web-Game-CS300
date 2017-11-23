@@ -361,17 +361,18 @@ bool Hero::checkBoulderTools(int index){
      if(index == -1){
          for(i = 0;i < BAG_MAX; ++i)
          {
-             if(list[i] == NULL)
-                 break;
+             //Checks for NULL and does nothing if it is
+             if(list[i] != NULL)
              //Calls the type's check type function
              //returns 1-3 for boulder tools
-             else if(list[i]->checkObstacleType() < 4 && list[i]->checkObstacleType() > 0)
+             if(list[i]->checkObstacleType() < 4 && list[i]->checkObstacleType() > 0)
                   return true;
          }
      }
 
      //Branch for checking one element
      else
+         if(list[index] != NULL)
          if(list[index]->checkObstacleType() < 4 && list[index]->checkObstacleType() > 0)
               return true;
      
@@ -386,8 +387,7 @@ bool Hero::checkTreeTools(int index){
      if(index == -1){
          for(i = 0;i < BAG_MAX; ++i)
          {
-             if(list[i] == NULL)
-                 break;
+             if(list[i] != NULL)
              //Calls the type's check type function
              //returns 4-6 for boulder tools
              if(list[i]->checkObstacleType() < 7 && list[i]->checkObstacleType() > 3)
@@ -397,6 +397,7 @@ bool Hero::checkTreeTools(int index){
 
      //Branch for checking one element
      else
+         if(list[index] != NULL)
          if(list[index]->checkObstacleType() < 7 && list[index]->checkObstacleType() > 3)
               return true;
      
@@ -411,8 +412,7 @@ bool Hero::checkBushTools(int index){
      if(index == -1){
          for(i = 0;i < BAG_MAX; ++i)
          {
-             if(list[i] == NULL)
-                  break;
+             if(list[i] != NULL)
              //Calls the type's check type function
              //returns 1-3 for boulder tools
              if(list[i]->checkObstacleType() < 9 && list[i]->checkObstacleType() > 7)
@@ -422,6 +422,7 @@ bool Hero::checkBushTools(int index){
 
      //Branch for checking one element
      else
+         if(list[index] != NULL)
          if(list[index]->checkObstacleType() < 9 && list[index]->checkObstacleType() > 7)
               return true;
      

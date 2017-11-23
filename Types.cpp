@@ -251,6 +251,7 @@ int Boulder::interactWithType()
 {
     int toolNumber = 0;//used for hero inventory index
     bool validTool = false;//flag for checking tool type
+    bool repeat = false;
 
     //Checks if the hero has any boulder tools by calling
     //checkBoulderTools with -1
@@ -265,8 +266,17 @@ int Boulder::interactWithType()
         {
 
             //Prompts players for tool choice number
+            if(repeat == false)
             cout << endl << "Consume a tool?" << endl
             << "(Enter item's number): ";
+            else
+            cout << "Can't use that tool here..." << endl << endl
+            << "Consume a tool?" << endl;
+   
+            //Changes repeat so loop will display a different message
+            //after the first loop iteration
+            repeat = true;   
+
             cin >> toolNumber;
             cin.ignore(1000, '\n');
             --toolNumber;//Transforms inventory index from
@@ -377,13 +387,14 @@ int Bush::interactWithType()
 {
     int toolNumber = 0;//used for hero inventory index
     bool validTool = false;//flag for checking tool type
+    bool repeat = false;
 
     //Checks if the hero has any boulder tools by calling
     //checkBushTools with -1
     if(map->getHeroPtr()->checkBushTools(-1) == true)
     {
         //Alerts players and displays current inventory
-        cout << "You have encountered a boulder...";
+        cout << "You have encountered a bush...";
         map->getHeroPtr()->displayInventory();
 
         //A loop for prompting the user's tool choice
@@ -391,8 +402,16 @@ int Bush::interactWithType()
         {
 
             //Prompts players for tool choice number
+            if(repeat == false)
             cout << endl << "Consume a tool?" << endl
             << "(Enter item's number): ";
+            else
+            cout << "Can't use that tool here..." << endl << endl
+            << "Consume a tool?" << endl;
+   
+            //Changes repeat so loop will display a different message
+            //after the first loop iteration
+            repeat = true;   
             cin >> toolNumber;
             cin.ignore(1000, '\n');
             --toolNumber;//Transforms inventory index from
@@ -440,13 +459,14 @@ int Tree::interactWithType()
 {
     int toolNumber = 0;//used for hero inventory index
     bool validTool = false;//flag for checking tool type
+    bool repeat = false;
 
     //Checks if the hero has any boulder tools by calling
     //checkTreeTools with -1
     if(map->getHeroPtr()->checkTreeTools(-1) == true)
     {
         //Alerts players and displays current inventory
-        cout << "You have encountered a boulder...";
+        cout << "You have encountered a tree...";
         map->getHeroPtr()->displayInventory();
 
         //A loop for prompting the user's tool choice
@@ -454,8 +474,17 @@ int Tree::interactWithType()
         {
 
             //Prompts players for tool choice number
+            if(repeat == false)
             cout << endl << "Consume a tool?" << endl
             << "(Enter item's number): ";
+            else
+            cout << "Can't use that tool here..." << endl << endl
+            << "Consume a tool?" << endl;
+   
+            //Changes repeat so loop will display a different message
+            //after the first loop iteration
+            repeat = true;   
+
             cin >> toolNumber;
             cin.ignore(1000, '\n');
             --toolNumber;//Transforms inventory index from
