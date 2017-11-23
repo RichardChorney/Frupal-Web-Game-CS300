@@ -40,12 +40,14 @@ window.onload = function() {
 //moveDirection -> Direction the Hero attempted to step
 //decision -> Yes or No decision if he was prompted for something.
 function launchCGI(moveDirection, decision) {
+    /*
     arguments = moveDirection + "|" + decision;
     var xhttp = new XMLHttpRequest();
     URL = "frupalCGI.cgi?" + arguments;
     xhttp.open("GET", URL, false);
     xhttp.send();
     alert(xhttp.responseText); //TEST
+    */
 }
 
 //Move North
