@@ -41,6 +41,35 @@ Map::~Map()
 	hero = NULL;
 }
 
+//Writes the to the terrain file that will be read by
+//the Web, so that it can update the display.
+int writeWebTerrain()
+{
+    //Opens or creates the file for writing
+    ofstream file;
+    file.open(WEB_TERRAIN.c_str());
+    if(!file) return 0;
+
+    //Iterate through the map
+    for(int i = 0; i <  mapSize ; ++i)
+    {
+        for(int j = 0; j < mapSize; ++j)
+        {
+            file << map[i][j].getCharToDisplay();
+        }
+    }
+
+    file.close();
+    return 1;
+}
+
+//Writes the to the types file that will be read by
+//the Web, so that it can update the display.
+void writeWebTypes()
+{
+
+}
+
 //Loads the map (2D array) from a file
 int Map::loadMapFromFile(string fileName)
 {
