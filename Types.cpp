@@ -87,6 +87,10 @@ int Type::checkRemovalCost(){
     return 0;
 }
 
+string Type::checkName(){
+	return name;
+}
+
 //Default Clue Constructor
 Clue::Clue()
 {
