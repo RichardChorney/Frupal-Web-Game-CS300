@@ -7,6 +7,7 @@
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
 var terrainMap = "1222221111111222111111112211111111121111111111111111111111111111111111111111133311111113331111111111";
+var terrainMapContent;
 var typeMap = "0000000000001000000000000000010000000000000002000000000000000003000000000000000000000000000000000000";
 
 //Get the canvas details
@@ -30,7 +31,8 @@ var types = new Array(mapSize);    //2D map array of types to be displayed over 
 window.onload = function() {
     initImages();
     initMap();
-    loadMapFromString();
+    loadTerrainFromString();
+    loadTypesFromString();
 }
 
 //Launch cgi
@@ -116,52 +118,93 @@ function initMap() {
 
 //Initializes the map array's from a string
 //This string will be sent through ajax eventually
-function loadMapFromString() {
-
-    /* HTTP REQUEST MAJESTICNESS */
+function loadTerrainFromString()
+{
     var httpRequest;
     httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = parseMapString();
+    httpRequest.onreadystatechange = parseTerrainString;
     httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webTerrain.html', true);
     httpRequest.send();
 
-    //Parses the string and turns it into a beautiful map
-    function parseMapString() {
+
+    function parseTerrainString() {
+
         //Makes sure the server has responded
-        if(httpRequest.readyState === XMLHttpRequest.DONE) {
+        if(httpRequest.readyState === XMLHttpRequest.DONE){
+
             //Checks for the all clear code from the server
-            if(httpRequest.status === 200) {
+            if(httpRequest.status === 200){
 
                 //Takes the server response as a text string
-                var contents = httpRequest.responseText;
-                alert(contents);
+                var  listContents = httpRequest.responseText;
+                fillTerrain(listContents);
+
             } else {
-                alert("HttpRequest is not ready!");
+                alert('Terrain: There was a problem with the request');
             }
-        } else {
-            alert("Status != 200");
         }
     }
+}
 
-
+//Fills in the terrain array
+//with contents in terr
+function fillTerrain(terr) {
     /* Load in Terrain from terrainMap string */
     var strIndex = 0;
     for (var i = 0; i < mapSize; ++i) {
         for (var j = 0; j < mapSize; ++j) {
-            terrains[i][j] = terrainMap[strIndex];
+            terrains[i][j] = terr[strIndex];
             ++strIndex;
         }
     }
 
-    /* Load in Types from typeMap string */
-    var typeIndex = 0;
+    displayMap();
+}
+
+//Loads the Types from a file,
+//puts it into a string,
+//and then loads it into the type
+//array
+function loadTypesFromString()
+{
+    var httpRequest;
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = parseTypesString;
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webTypes.html', true);
+    httpRequest.send();
+
+
+    function parseTypesString() {
+
+        //Makes sure the server has responded
+        if(httpRequest.readyState === XMLHttpRequest.DONE){
+
+            //Checks for the all clear code from the server
+            if(httpRequest.status === 200){
+
+                //Takes the server response as a text string
+                var  listContents = httpRequest.responseText;
+                fillTypes(listContents);
+
+            } else {
+                alert('Types: There was a problem with the request');
+            }
+        }
+    }
+}
+
+//Fills in the types array
+//with the values passed in by 'ty'
+function fillTypes(ty) {
+    var strIndex = 0;
     for (var i = 0; i < mapSize; ++i) {
         for (var j = 0; j < mapSize; ++j) {
-            types[i][j] = typeMap[typeIndex];
-            ++typeIndex;
+            types[i][j] = ty[strIndex];
+            ++strIndex;
         }
     }
 
+    displayMap();
 }
 
 //Test function that updates the graphics on the canvas

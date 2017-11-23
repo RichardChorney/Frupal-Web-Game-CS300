@@ -104,8 +104,8 @@ function displayInventory() {
 
 	//This tells the program what function to handle the request when the request has been answered
 	httpRequest.onreadystatechange = parseInventory;
-	httpRequest.open('GET', 'http://web.cecs.pdx.edu/~aasquier/CS300_project/Web/inventory.html', true); //The true arg indicates a text response
-    //    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/inventory.html', true); //The true arg indicates a text response
+    //	httpRequest.open('GET', 'http://web.cecs.pdx.edu/~aasquier/CS300_project/inventory.html', true); //The true arg indicates a text response
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/inventory.html', true); //The true arg indicates a text response
 	httpRequest.send();
 
 	//Parses the servers response into the inventory list
@@ -131,7 +131,7 @@ function displayInventory() {
 					for(var i = 1; i <= LIST_MAX; ++i){
 						switch(parseInt(listContents[j])){
 							case 0:
-								document.getElementById("slot" + i).innerHTML = i + "--> Empty";
+                                document.getElementById("slot" + i).innerHTML = i + "--> Empty";
 								break;
 							case 1:
 								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " (" + k + ") Removes Trees for 8 energy points";

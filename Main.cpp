@@ -26,8 +26,6 @@ int main()
     if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
     system("clear");
 
-    //cgi = cgiInit(); //Initialize CGI
-
     Hero * hero;
 
     Map map; //Create a map of size MAX
@@ -65,7 +63,6 @@ int main()
 		}
 
 		switch(keyPress){
-
             case 'w':
 			case '1':  hero->moveHero(1, map); break;
             case 'd':
