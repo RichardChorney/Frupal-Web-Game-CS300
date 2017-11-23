@@ -36,7 +36,7 @@ int main(void)
 		char * web_data;
 		web_data = getenv("QUERY_STRING");
 		cout << "Content-Type: text/plain;charset=us-ascii" << endl << endl;
-		
+
 		char original[144];
 		char temp[16];				//Temporary string to hold the action code
 		char temp2[128];			//Temporary string to hold the action to be taken
@@ -52,10 +52,10 @@ int main(void)
 		strcpy(temp2, strptr);			//Copies second token into temporary holder
 
 		cout << temp << endl;
-		cout << temp2 << endl; 
+		cout << temp2 << endl;
 
 	}  //End of WEB_MODE if
-	
+
 	else{
 			if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
 			system("clear");
@@ -156,16 +156,16 @@ int main(void)
 				strcpy(temp2, strptr);
 				strptr = strtok(strptr+strlen(strptr)+1, "=");
 				if(strcmp(temp, "1") == 0){
-				}	
+				}
 				else if(strcmp(temp, "2") == 0){
-				}	
+				}
 				else if(strcmp(temp, "3") == 0){
-				}	
+				}
 				else if(strcmp(temp, "4") == 0){
-				}	
-		}	
+				}
+		}
 	}  //End of WEB_MODE if
-	
+
 	else{
 			if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
 			system("clear");
