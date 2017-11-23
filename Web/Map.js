@@ -118,6 +118,32 @@ function initMap() {
 //This string will be sent through ajax eventually
 function loadMapFromString() {
 
+    /* HTTP REQUEST MAJESTICNESS */
+    var httpRequest;
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = parseMapString();
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webTerrain.html', true);
+    httpRequest.send();
+
+    //Parses the string and turns it into a beautiful map
+    function parseMapString() {
+        //Makes sure the server has responded
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
+            //Checks for the all clear code from the server
+            if(httpRequest.status === 200) {
+
+                //Takes the server response as a text string
+                var contents = httpRequest.responseText;
+                alert(contents);
+            } else {
+                alert("HttpRequest is not ready!");
+            }
+        } else {
+            alert("Status != 200");
+        }
+    }
+
+
     /* Load in Terrain from terrainMap string */
     var strIndex = 0;
     for (var i = 0; i < mapSize; ++i) {
