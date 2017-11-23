@@ -71,6 +71,8 @@ public:
     void resetMapState();
     bool getWon();
     void setWon(bool newStatus);
+    int writeWebTerrain();
+    int writeWebTypes();
 
 protected:
     void allocateMap(int newMapSize = MAX);

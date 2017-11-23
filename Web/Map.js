@@ -27,6 +27,12 @@ var terrains = new Array(mapSize); //2D map array of terrains to dsiplay
 var types = new Array(mapSize);    //2D map array of types to be displayed over terrains
 var mists = new Array(mapSize);
 
+//Once the last image has been loaded, display the map
+//TODO: Make sure to update this to the last image!!!
+hero.onload = function() {
+    displayMap();
+}
+
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
@@ -50,7 +56,7 @@ function update() {
 //parameters together.
 //moveDirection -> Direction the Hero attempted to step
 //decision -> Yes or No decision if he was prompted for something.
-function launchCGI(moveDirection, decision) {
+function launchCGI(moveDirection) {
     /*
     arguments = moveDirection + "|" + decision;
     var xhttp = new XMLHttpRequest();
@@ -67,11 +73,6 @@ function move(direction) {
     launchCGI(direction, "none");
 }
 
-//Once the last image has been loaded, display the map
-//TODO: Make sure to update this to the last image!!!
-hero.onload = function() {
-    displayMap();
-}
 
 //Initialize the images
 function initImages() {
@@ -135,10 +136,10 @@ function loadTerrainFromString()
     function parseTerrainString() {
 
         //Makes sure the server has responded
-        if(httpRequest.readyState === XMLHttpRequest.DONE){
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
 
             //Checks for the all clear code from the server
-            if(httpRequest.status === 200){
+            if(httpRequest.status === 200) {
 
                 //Takes the server response as a text string
                 var  listContents = httpRequest.responseText;
@@ -182,10 +183,10 @@ function loadTypesFromString()
     function parseTypesString() {
 
         //Makes sure the server has responded
-        if(httpRequest.readyState === XMLHttpRequest.DONE){
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
 
             //Checks for the all clear code from the server
-            if(httpRequest.status === 200){
+            if(httpRequest.status === 200) {
 
                 //Takes the server response as a text string
                 var  listContents = httpRequest.responseText;
@@ -225,10 +226,10 @@ function loadMistsFromString() {
     function parseMistString() {
 
         //Makes sure the server has responded
-        if(httpRequest.readyState === XMLHttpRequest.DONE){
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
 
             //Checks for the all clear code from the server
-            if(httpRequest.status === 200){
+            if(httpRequest.status === 200) {
 
                 //Takes the server response as a text string
                 var  listContents = httpRequest.responseText;
