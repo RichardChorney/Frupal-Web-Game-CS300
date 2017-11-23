@@ -10,6 +10,7 @@
 
 #include "Map.h"
 #include "Animation.h"
+//#include <cgi.h>
 
 using namespace std;
 
@@ -62,7 +63,6 @@ int main()
 		}
 
 		switch(keyPress){
-
             case 'w':
 			case '1':  hero->moveHero(1, map); break;
             case 'd':

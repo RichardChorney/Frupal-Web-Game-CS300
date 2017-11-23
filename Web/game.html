@@ -11,17 +11,14 @@
     border: none;
     cursor: pointer;
 }
-
 .dropbtn:hover, .dropbtn:focus {
     background-color: #3e8e41;
 }
-
 .dropdown {
     position: relative;
     display: inline-block;
 	bottom: 200px;
 }
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -31,16 +28,13 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
-
 .dropdown-content a {
     color: black;
     padding: 2px 2px;
     text-decoration: none;
     display: block;
 }
-
 .dropdown a:hover {background-color: #f1f1f1}
-
 .show {display:block;}
 </style>
 
@@ -48,9 +42,13 @@
 
 <p> Welcome to Frupal </p>
 
-<!-- Example of a way to call a function from a button -->
-<button type="button" onclick="changeMap()">Change Map</button>
+<!-- Movement Buttons -->
+<button type="button" onclick="move(1)">UP</button>
+<button type="button" onclick="move(3)">DOWN</button>
+<button type="button" onclick="moveWest(4)">LEFT</button>
+<button type="button" onclick="moveEast(2)">RIGHT</button>
 <br>
+
 <!-- Create the main canvas, where the game map will be displayed -->
 <canvas id="frupalCanvas" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
 
@@ -71,14 +69,14 @@
     <a href='' id="slot7" onclick="useItem(7)"></a>
     <a href='' id="slot8" onclick="useItem(8)"></a>
     <a href='' id="slot9" onclick="useItem(9)"></a>
-	<a href='' id="slot10" onclick="useItem(10)"></a>  
+	<a href='' id="slot10" onclick="useItem(10)"></a>
   </div>
 </div>
 
 <script>
 //Max size of the inventory bag
 const LIST_MAX = 10;
- 
+
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
@@ -93,48 +91,47 @@ window.onclick = function(event) {
     }
   }
 }
-
 //When the user clicks on the button, toggle between hiding and showing the dropdown content, also
 //takes a string as an argument and parses it to populate the inventory with. The string will be in the form of
-//pairs of integers, first element of the pair is inventory slot number, second element of the pair is the quantity 
+//pairs of integers, first element of the pair is inventory slot number, second element of the pair is the quantity
 //of that item, i.e. 12 would be axe, quantity 2
 function displayInventory() {
-	
-	//These are the necessary variable to create a "request variable" and then opens a request to my working directory, we will need to create a 
-	//global constant for the right directory to GET from. 
+
+	//These are the necessary variable to create a "request variable" and then opens a request to my working directory, we will need to create a
+	//global constant for the right directory to GET from.
 	var httpRequest;
 	httpRequest = new XMLHttpRequest();
 
 	//This tells the program what function to handle the request when the request has been answered
 	httpRequest.onreadystatechange = parseInventory;
-
-	httpRequest.open('GET', 'http://web.cecs.pdx.edu/~aasquier/CS300_project/inventory.html', true); //The true arg indicates a text response
+    //	httpRequest.open('GET', 'http://web.cecs.pdx.edu/~aasquier/CS300_project/inventory.html', true); //The true arg indicates a text response
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/inventory.html', true); //The true arg indicates a text response
 	httpRequest.send();
 
 	//Parses the servers response into the inventory list
 	function parseInventory() {
-			
+
 			//Makes sure the server has responded
 			if(httpRequest.readyState === XMLHttpRequest.DONE){
-				
+
 				//Checks for the all clear code from the server
 				if(httpRequest.status === 200){
-					
+
 					//Index variables
 					var j = 0;
 					var k = 1;
-					
+
 					//Takes the server response as a text string
 					var listContents = httpRequest.responseText;
-					
+
 					//Toggles the dropdown menu
 					document.getElementById("myDropdown").classList.toggle("show");
-					
+
 					//Populates the inventory list with the string from the back end
 					for(var i = 1; i <= LIST_MAX; ++i){
 						switch(parseInt(listContents[j])){
 							case 0:
-								document.getElementById("slot" + i).innerHTML = i + "--> Empty";
+                                document.getElementById("slot" + i).innerHTML = i + "--> Empty";
 								break;
 							case 1:
 								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " (" + k + ") Removes Trees for 8 energy points";
@@ -166,7 +163,7 @@ function displayInventory() {
 						}
 						j += 2;
 						k += 2;
-					} 		
+					}
 				} else{
 					alert('There was a problem with the request');
 				}
@@ -178,9 +175,8 @@ function displayInventory() {
 //This function will launch the appropriate action when an inventory item is clicked on, will check if the action
 //is valid, and will update the status of the inventory item on the back-end
 function useItem(){
-	
-}
 
+}
 </script>
 
 </body>

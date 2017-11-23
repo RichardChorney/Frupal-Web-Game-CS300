@@ -257,7 +257,7 @@ bool Hero::updateInventoryFile()
 {
 	ofstream output;
 	output.open ("inventory.html");
-	
+
 	for(int i = 0; i < BAG_MAX; ++i){
 		if(list[i]){
 			if(list[i]->checkName() == "Hatchet"){
@@ -420,7 +420,7 @@ bool Hero::checkBoulderTools(int index){
          if(list[index] != NULL)
          if(list[index]->checkObstacleType() < 4 && list[index]->checkObstacleType() > 0)
               return true;
-     
+
      return false;
 }
 
@@ -445,7 +445,7 @@ bool Hero::checkTreeTools(int index){
          if(list[index] != NULL)
          if(list[index]->checkObstacleType() < 7 && list[index]->checkObstacleType() > 3)
               return true;
-     
+
      return false;
 }
 
@@ -470,7 +470,7 @@ bool Hero::checkBushTools(int index){
          if(list[index] != NULL)
          if(list[index]->checkObstacleType() < 9 && list[index]->checkObstacleType() > 7)
               return true;
-     
+
      return false;
 }
 
