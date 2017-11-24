@@ -31,6 +31,37 @@ int main(void)
     hero = map.getHeroPtr();
 
 	bool proceed = true;
+<<<<<<< HEAD
+=======
+    bool showInventory = false;
+	char keyPress = '0';
+
+	cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
+
+	while(proceed){
+        map.displayMap();
+
+        //TODO
+        //Will need to move these after each time the map needs to update.
+        map.writeWebTerrain();
+        map.writeWebTypes();
+        map.writeWebMists();
+
+        hero->printStatus();
+		cout << endl << "What would you like to do?" << endl;
+		cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
+        cout << endl << "5) INVENTORY" << endl << "6) QUIT ON FRUPAL" << endl << endl;
+
+        if(showInventory)
+        {
+            hero->displayInventory();
+            showInventory = false;
+        }
+
+
+		cin >> keyPress;
+		system("clear");
+>>>>>>> 6f924f315389daead4f0303cc235d15f15ebf44e
 
 	if(WEB_MODE){
 		char * web_data;
