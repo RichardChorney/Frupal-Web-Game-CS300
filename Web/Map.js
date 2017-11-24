@@ -66,7 +66,7 @@ window.onload = function() {
 function update() {
     loadTerrainFromString();
     loadTypesFromString();
-    //loadMistsFromString();
+    loadMistsFromString();
     displayMap();
 }
 
@@ -158,9 +158,9 @@ function displayMap() {
             else if (types[i][j] == '8') { displayImg(binoculars, i, j); }
 
             /* Display Mist & Hero */
-            if (mists[i][j] == 0 && SHOW_MIST == true) {
-                displayImg(mist, i, j);
-            } else if (mists[i][j] == 2) { displayImg(hero, i, j); }
+            if (mists[i][j] == 'H') { displayImg(hero, i, j); }
+            else if (mists[i][j] == 'X' && SHOW_MIST == true) { displayImg(mist, i, j); }
+
 
         }
     }
@@ -268,6 +268,53 @@ function fillTypes(ty) {
 
     displayMap();
 }
+
+//Loads the Mist and Hero from a file,
+//puts it into a string,
+//and then loads it into the mists
+//array
+function loadMistsFromString()
+{
+    var httpRequest;
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = parseMistsString;
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webMists.html', true);
+    httpRequest.send();
+
+
+    function parseMistsString() {
+
+        //Makes sure the server has responded
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
+
+            //Checks for the all clear code from the server
+            if(httpRequest.status === 200) {
+
+                //Takes the server response as a text string
+                var  listContents = httpRequest.responseText;
+                fillMists(listContents);
+
+            } else {
+                alert('Mists: There was a problem with the request');
+            }
+        }
+    }
+}
+
+//Fills in the mists array
+//with the values passed in by 'mi'
+function fillMists(mi) {
+    var strIndex = 0;
+    for (var i = 0; i < mapSize; ++i) {
+        for (var j = 0; j < mapSize; ++j) {
+            mists[i][j] = mi[strIndex];
+            ++strIndex;
+        }
+    }
+
+    displayMap();
+}
+
 
 //Loads in from file the grovnicks
 //that should be covered in mist.

@@ -41,8 +41,11 @@ int main()
 	while(proceed){
         map.displayMap();
 
-        map.writeWebTerrain(); //Test
+        //TODO
+        //Will need to move these after each time the map needs to update.
+        map.writeWebTerrain();
         map.writeWebTypes();
+        map.writeWebMists();
 
         hero->printStatus();
 		cout << endl << "What would you like to do?" << endl;

@@ -33,7 +33,7 @@ int const BUSH_REMOVAL_COST = 4;
 /* File Path */
 std::string const WEB_TERRAIN = "Web/webTerrain.html";
 std::string const WEB_TYPES = "Web/webTypes.html";
-//std::string const WEB_TERRAIN = "Web/webTerrain.html";
+std::string const WEB_MISTS= "Web/webMists.html";
 
 /* Type Constants */
 //Amount of whiffles recieved if you open the chest
