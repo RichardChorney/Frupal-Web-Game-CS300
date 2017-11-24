@@ -15,7 +15,6 @@ Grovnick::Grovnick()
 {
     type = NULL;
     isVisible = false;
-    //Terrain
 	terrain.terrainName = "Meadow";
 }
 

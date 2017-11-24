@@ -61,9 +61,6 @@ int Map::writeWebTerrain()
     return 1;
 }
 
-/* TODO CHANGE THIS, I LITERALLY JUST COPIED THIS */
-//WriteWebTypes that is...
-
 //Writes the to the types file that will be read by
 //the Web, so that it can update the display.
 int Map::writeWebTypes()
@@ -77,7 +74,6 @@ int Map::writeWebTypes()
     for(int i = 0; i <  mapSize ; ++i) {
         for(int j = 0; j < mapSize; ++j) {
             char typeChar = map[i][j].getTypeCharToDisplay();
-            cout << "Type char: " << typeChar << endl;
             file << typeChar;
         }
     }
