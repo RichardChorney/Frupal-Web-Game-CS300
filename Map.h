@@ -40,6 +40,7 @@ public:
     bool getVisibility(); //Returns if it's visibile
     int getEnergyConsumption();
     char getCharToDisplay(); //Returns the display character
+    char getTypeCharToDisplay();
     //void copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int newType, int newTerrain, Map * newMap);
 	Terrain * getTerrain();
 	Type * getType();
