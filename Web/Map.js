@@ -13,15 +13,32 @@ var canvas = document.getElementById("frupalCanvas");
 var context = canvas.getContext("2d");
 
 /* Images */
+//Terrains
 var grass = new Image();
 var bog = new Image();
 var water = new Image();
-var hatchet = new Image();
+var forest = new Image();
+var wall = new Image();
+var mist = new Image();
+//Types
 var chest = new Image();
 var explosiveChest = new Image();
-var mist = new Image();
-var wall = new Image();
-var forest = new Image();
+var royalDiamonds = new Image();
+var powerBar = new Image();
+var tree = new Image();
+var boulder = new Image();
+var clue = new Image();
+var binoculars = new Image();
+//Tools
+var hatchet = new Image();
+var axe = new Image();
+var chainsaw = new Image();
+var chisel = new Image();
+var hammer = new Image();
+var jackhammer = new Image();
+var machete = new Image();
+var shears = new Image();
+//Hero
 var hero = new Image();
 
 /* Map arrays */
@@ -76,18 +93,34 @@ function move(direction) {
     launchCGI(direction, "none");
 }
 
-
 //Initialize the images
 function initImages() {
+    //Terrain
     grass.src = "Sprites/grass.png";
     bog.src = "Sprites/dirt.png";
     water.src = "Sprites/water.png";
-    hatchet.src = "Sprites/hatchet.png";
-    chest.src = "Sprites/chest.png";
-    explosiveChest.src = "Sprites/explosiveChest.png";
     mist.src = "Sprites/mist.png";
     wall.src = "Sprites/wall.png";
     forest.src = "Sprites/forest.png";
+    //Types
+    chest.src = "Sprites/chest.png";
+    explosiveChest.src = "Sprites/explosiveChest.png";
+    royalDiamonds.src = "Sprites/royalDiamonds.png";
+    powerBar.src = "Sprites/powerBar.png";
+    tree.src = "Sprites/tree.png";
+    boulder.src = "Sprites/boulder.png";
+    clue.src = "Sprites/clue.png";
+    binoculars.src = "Sprites/binoculars.png";
+    //Tools
+    hatchet.src = "Sprites/hatchet.png";
+    axe.src = "Sprites/axe.png";
+    chainsaw.src = "Sprites/chainsaw.png";
+    chisel.src = "Sprites/chisel.png";
+    hammer.src = "Sprites/hammer.png";
+    jackhammer.src = "Sprites/jackhammer.png";
+    machete.src = "Sprites/machete.png";
+    shears.src = "Sprites/shears.png";
+    //Hero
     hero.src = "Sprites/hero.png";
 }
 
@@ -101,14 +134,28 @@ function displayMap() {
             /* Display Terrain */
             if (terrains[i][j] == 'G') { displayImg(grass, i, j); } //Change this to back to grass
             else if (terrains[i][j] == 'S') { displayImg(bog, i, j); }
+            else if (terrains[i][j] == 'B') { displayImg(bog, i, j); }
             else if (terrains[i][j] == 'W') { displayImg(water, i, j); }
             else if (terrains[i][j] == '|') { displayImg(wall, i, j); }
             else if (terrains[i][j] == 'F') { displayImg(forest, i, j); }
 
             /* Display Type */
-            if (types[i][j] == 1) { displayImg(hatchet, i, j); }
-            else if (types[i][j] == 2) { displayImg(chest, i, j); }
-            else if (types[i][j] == 3) { displayImg(explosiveChest, i, j); }
+            if (types[i][j] == 'A') { displayImg(hatchet, i, j); }
+            else if (types[i][j] == 'X') { displayImg(axe, i, j); }
+            else if (types[i][j] == 'E') { displayImg(chainsaw, i, j); }
+            else if (types[i][j] == 'J') { displayImg(chisel, i, j); }
+            else if (types[i][j] == 'L') { displayImg(hammer, i, j); }
+            else if (types[i][j] == 'Y') { displayImg(jackhammer, i, j); }
+            else if (types[i][j] == 'M') { displayImg(machete, i, j); }
+            else if (types[i][j] == 'Q') { displayImg(shears, i, j); }
+            else if (types[i][j] == '$') { displayImg(chest, i, j); }
+            else if (types[i][j] == '$') { displayImg(explosiveChest, i, j); }
+            else if (types[i][j] == 'R') { displayImg(royalDiamonds, i, j); }
+            else if (types[i][j] == 'P') { displayImg(powerBar, i, j); }
+            else if (types[i][j] == '^') { displayImg(tree, i, j); }
+            else if (types[i][j] == 'B') { displayImg(boulder, i, j); }
+            else if (types[i][j] == 'C') { displayImg(clue, i, j); }
+            else if (types[i][j] == '8') { displayImg(binoculars, i, j); }
 
             /* Display Mist & Hero */
             if (mists[i][j] == 0 && SHOW_MIST == true) {
