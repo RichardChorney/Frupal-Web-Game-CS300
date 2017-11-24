@@ -20,6 +20,8 @@ var hatchet = new Image();
 var chest = new Image();
 var explosiveChest = new Image();
 var mist = new Image();
+var wall = new Image();
+var forest = new Image();
 var hero = new Image();
 
 /* Map arrays */
@@ -47,7 +49,8 @@ window.onload = function() {
 function update() {
     loadTerrainFromString();
     loadTypesFromString();
-    loadMistsFromString();
+    //loadMistsFromString();
+    displayMap();
 }
 
 //Launch cgi
@@ -83,19 +86,24 @@ function initImages() {
     chest.src = "Sprites/chest.png";
     explosiveChest.src = "Sprites/explosiveChest.png";
     mist.src = "Sprites/mist.png";
+    wall.src = "Sprites/wall.png";
+    forest.src = "Sprites/forest.png";
     hero.src = "Sprites/hero.png";
 }
 
 //Called when the window first loads
 function displayMap() {
+
     /* Draw the terrains */
     for (var i = 0; i < mapSize; ++i) {
         for (var j = 0; j < mapSize; ++j) {
 
             /* Display Terrain */
-            if (terrains[i][j] == 'G') { displayImg(grass, i, j); }
+            if (terrains[i][j] == 'G') { displayImg(grass, i, j); } //Change this to back to grass
             else if (terrains[i][j] == 'S') { displayImg(bog, i, j); }
             else if (terrains[i][j] == 'W') { displayImg(water, i, j); }
+            else if (terrains[i][j] == '|') { displayImg(wall, i, j); }
+            else if (terrains[i][j] == 'F') { displayImg(forest, i, j); }
 
             /* Display Type */
             if (types[i][j] == 1) { displayImg(hatchet, i, j); }
@@ -110,6 +118,7 @@ function displayMap() {
         }
     }
 }
+
 
 //Initialize maps
 function initMap() {
@@ -253,7 +262,7 @@ function fillMists(mis) {
         }
     }
 
-    displayMap();
+    //displayMap();
 }
 
 //Test function that updates the graphics on the canvas

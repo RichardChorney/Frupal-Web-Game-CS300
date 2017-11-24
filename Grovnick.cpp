@@ -62,6 +62,14 @@ char Grovnick::getCharToDisplay()
      return terrain.charToDisplay;
 }
 
+//Returns the char to display for the Type
+//that the grovnick has.
+char Grovnick::getTypeCharToDisplay()
+{
+    if (!type) { return 'n'; }
+    else return type->getCharToDisplay();
+}
+
 //Takes an integer and maps it to the kind of type
 //that it is. Then it upcasts it into the type.
 /*

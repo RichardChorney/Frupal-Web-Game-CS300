@@ -51,10 +51,8 @@ int Map::writeWebTerrain()
     if(!file) return 0;
 
     //Iterate through the map
-    for(int i = 0; i <  mapSize ; ++i)
-    {
-        for(int j = 0; j < mapSize; ++j)
-        {
+    for(int i = 0; i <  mapSize ; ++i) {
+        for(int j = 0; j < mapSize; ++j) {
             file << map[i][j].getCharToDisplay();
         }
     }
@@ -63,12 +61,28 @@ int Map::writeWebTerrain()
     return 1;
 }
 
+/* TODO CHANGE THIS, I LITERALLY JUST COPIED THIS */
+//WriteWebTypes that is...
+
 //Writes the to the types file that will be read by
 //the Web, so that it can update the display.
 int Map::writeWebTypes()
 {
+    //Opens or creates the file for writing
+    ofstream file;
+    file.open(WEB_TYPES.c_str());
+    if(!file) return 0;
 
+    //Iterate through the map
+    for(int i = 0; i <  mapSize ; ++i) {
+        for(int j = 0; j < mapSize; ++j) {
+            char typeChar = map[i][j].getTypeCharToDisplay();
+            cout << "Type char: " << typeChar << endl;
+            file << typeChar;
+        }
+    }
 
+    file.close();
     return 1;
 }
 
