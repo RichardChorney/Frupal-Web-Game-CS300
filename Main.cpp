@@ -83,6 +83,10 @@ int main()
 
 		}
 
+        map.writeWebTerrain();
+        map.writeWebTypes();
+        map.writeWebMists();
+
         if(map.getWon()) { //Win state
             delete hero;
             hero = new Hero();

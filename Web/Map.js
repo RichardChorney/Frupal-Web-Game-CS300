@@ -48,7 +48,7 @@ var mists = new Array(mapSize);
 
 //Once the last image has been loaded, display the map
 //TODO: Make sure to update this to the last image!!!
-hero.onload = function() {
+powerBar.onload = function() {
     displayMap();
 }
 
@@ -58,6 +58,7 @@ window.onload = function() {
     initImages();
     initMap();
     update();
+    displayMap();
 }
 
 //This function should be called after
@@ -356,7 +357,7 @@ function fillMists(mis) {
         }
     }
 
-    //displayMap();
+    displayMap();
 }
 
 //Test function that updates the graphics on the canvas
