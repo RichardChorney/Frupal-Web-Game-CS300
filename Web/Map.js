@@ -13,13 +13,32 @@ var canvas = document.getElementById("frupalCanvas");
 var context = canvas.getContext("2d");
 
 /* Images */
+//Terrains
 var grass = new Image();
-var dirt = new Image();
+var bog = new Image();
 var water = new Image();
-var hatchet = new Image();
+var forest = new Image();
+var wall = new Image();
+var mist = new Image();
+//Types
 var chest = new Image();
 var explosiveChest = new Image();
-var mist = new Image();
+var royalDiamonds = new Image();
+var powerBar = new Image();
+var tree = new Image();
+var boulder = new Image();
+var clue = new Image();
+var binoculars = new Image();
+//Tools
+var hatchet = new Image();
+var axe = new Image();
+var chainsaw = new Image();
+var chisel = new Image();
+var hammer = new Image();
+var jackhammer = new Image();
+var machete = new Image();
+var shears = new Image();
+//Hero
 var hero = new Image();
 
 /* Map arrays */
@@ -27,12 +46,19 @@ var terrains = new Array(mapSize); //2D map array of terrains to dsiplay
 var types = new Array(mapSize);    //2D map array of types to be displayed over terrains
 var mists = new Array(mapSize);
 
+//Once the last image has been loaded, display the map
+//TODO: Make sure to update this to the last image!!!
+powerBar.onload = function() {
+    displayMap();
+}
+
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
     initImages();
     initMap();
     update();
+    displayMap();
 }
 
 //This function should be called after
@@ -42,73 +68,105 @@ function update() {
     loadTerrainFromString();
     loadTypesFromString();
     loadMistsFromString();
+    displayMap();
 }
 
 //Launch cgi
 //This funciton sends a single string to the
 //backend of Frupal by concatenating all of the
 //parameters together.
-//actionCode -> Which action we are wishing to take, ie move, access inventory etc.
-//decision -> Subcode for which action within primary action we wish to take, ie north, use, yes
-function launchCGI(actionCode, decision) {
-    
-    arguments = actionCode + "|" + decision + "*";
+//moveDirection -> Direction the Hero attempted to step
+//decision -> Yes or No decision if he was prompted for something.
+function launchCGI(moveDirection) {
+    /*
+    arguments = moveDirection + "|" + decision;
     var xhttp = new XMLHttpRequest();
     URL = "frupalCGI.cgi?" + arguments;
     xhttp.open("GET", URL, false);
     xhttp.send();
     alert(xhttp.responseText); //TEST
-    
+    */
 }
 
 //Move North
 function move(direction) {
     //This is where we would send the movement to c++ land
-    launchCGI("move", direction);
-}
-
-//Once the last image has been loaded, display the map
-//TODO: Make sure to update this to the last image!!!
-hero.onload = function() {
-    displayMap();
+    launchCGI(direction, "none");
 }
 
 //Initialize the images
 function initImages() {
+    //Terrain
     grass.src = "Sprites/grass.png";
-    dirt.src = "Sprites/dirt.png";
+    bog.src = "Sprites/dirt.png";
     water.src = "Sprites/water.png";
-    hatchet.src = "Sprites/hatchet.png";
+    mist.src = "Sprites/mist.png";
+    wall.src = "Sprites/wall.png";
+    forest.src = "Sprites/forest.png";
+    //Types
     chest.src = "Sprites/chest.png";
     explosiveChest.src = "Sprites/explosiveChest.png";
-    mist.src = "Sprites/mist.png";
+    royalDiamonds.src = "Sprites/royalDiamonds.png";
+    powerBar.src = "Sprites/powerBar.png";
+    tree.src = "Sprites/tree.png";
+    boulder.src = "Sprites/boulder.png";
+    clue.src = "Sprites/clue.png";
+    binoculars.src = "Sprites/binoculars.png";
+    //Tools
+    hatchet.src = "Sprites/hatchet.png";
+    axe.src = "Sprites/axe.png";
+    chainsaw.src = "Sprites/chainsaw.png";
+    chisel.src = "Sprites/chisel.png";
+    hammer.src = "Sprites/hammer.png";
+    jackhammer.src = "Sprites/jackhammer.png";
+    machete.src = "Sprites/machete.png";
+    shears.src = "Sprites/shears.png";
+    //Hero
     hero.src = "Sprites/hero.png";
 }
 
 //Called when the window first loads
 function displayMap() {
+
     /* Draw the terrains */
     for (var i = 0; i < mapSize; ++i) {
         for (var j = 0; j < mapSize; ++j) {
 
             /* Display Terrain */
-            if (terrains[i][j] == 1) { displayImg(grass, i, j); }
-            else if (terrains[i][j] == 2) { displayImg(dirt, i, j); }
-            else if (terrains[i][j] == 3) { displayImg(water, i, j); }
+            if (terrains[i][j] == 'G') { displayImg(grass, i, j); } //Change this to back to grass
+            else if (terrains[i][j] == 'S') { displayImg(bog, i, j); }
+            else if (terrains[i][j] == 'B') { displayImg(bog, i, j); }
+            else if (terrains[i][j] == 'W') { displayImg(water, i, j); }
+            else if (terrains[i][j] == '|') { displayImg(wall, i, j); }
+            else if (terrains[i][j] == 'F') { displayImg(forest, i, j); }
 
             /* Display Type */
-            if (types[i][j] == 1) { displayImg(hatchet, i, j); }
-            else if (types[i][j] == 2) { displayImg(chest, i, j); }
-            else if (types[i][j] == 3) { displayImg(explosiveChest, i, j); }
+            if (types[i][j] == 'A') { displayImg(hatchet, i, j); }
+            else if (types[i][j] == 'X') { displayImg(axe, i, j); }
+            else if (types[i][j] == 'E') { displayImg(chainsaw, i, j); }
+            else if (types[i][j] == 'J') { displayImg(chisel, i, j); }
+            else if (types[i][j] == 'L') { displayImg(hammer, i, j); }
+            else if (types[i][j] == 'Y') { displayImg(jackhammer, i, j); }
+            else if (types[i][j] == 'M') { displayImg(machete, i, j); }
+            else if (types[i][j] == 'Q') { displayImg(shears, i, j); }
+            else if (types[i][j] == '$') { displayImg(chest, i, j); }
+            else if (types[i][j] == '$') { displayImg(explosiveChest, i, j); }
+            else if (types[i][j] == 'R') { displayImg(royalDiamonds, i, j); }
+            else if (types[i][j] == 'P') { displayImg(powerBar, i, j); }
+            else if (types[i][j] == '^') { displayImg(tree, i, j); }
+            else if (types[i][j] == 'B') { displayImg(boulder, i, j); }
+            else if (types[i][j] == 'C') { displayImg(clue, i, j); }
+            else if (types[i][j] == '8') { displayImg(binoculars, i, j); }
 
             /* Display Mist & Hero */
-            if (mists[i][j] == 0 && SHOW_MIST == true) {
-                displayImg(mist, i, j);
-            } else if (mists[i][j] == 2) { displayImg(hero, i, j); }
+            if (mists[i][j] == 'H') { displayImg(hero, i, j); }
+            else if (mists[i][j] == 'X' && SHOW_MIST == true) { displayImg(mist, i, j); }
+
 
         }
     }
 }
+
 
 //Initialize maps
 function initMap() {
@@ -135,10 +193,10 @@ function loadTerrainFromString()
     function parseTerrainString() {
 
         //Makes sure the server has responded
-        if(httpRequest.readyState === XMLHttpRequest.DONE){
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
 
             //Checks for the all clear code from the server
-            if(httpRequest.status === 200){
+            if(httpRequest.status === 200) {
 
                 //Takes the server response as a text string
                 var  listContents = httpRequest.responseText;
@@ -182,10 +240,10 @@ function loadTypesFromString()
     function parseTypesString() {
 
         //Makes sure the server has responded
-        if(httpRequest.readyState === XMLHttpRequest.DONE){
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
 
             //Checks for the all clear code from the server
-            if(httpRequest.status === 200){
+            if(httpRequest.status === 200) {
 
                 //Takes the server response as a text string
                 var  listContents = httpRequest.responseText;
@@ -212,6 +270,53 @@ function fillTypes(ty) {
     displayMap();
 }
 
+//Loads the Mist and Hero from a file,
+//puts it into a string,
+//and then loads it into the mists
+//array
+function loadMistsFromString()
+{
+    var httpRequest;
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = parseMistsString;
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webMists.html', true);
+    httpRequest.send();
+
+
+    function parseMistsString() {
+
+        //Makes sure the server has responded
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
+
+            //Checks for the all clear code from the server
+            if(httpRequest.status === 200) {
+
+                //Takes the server response as a text string
+                var  listContents = httpRequest.responseText;
+                fillMists(listContents);
+
+            } else {
+                alert('Mists: There was a problem with the request');
+            }
+        }
+    }
+}
+
+//Fills in the mists array
+//with the values passed in by 'mi'
+function fillMists(mi) {
+    var strIndex = 0;
+    for (var i = 0; i < mapSize; ++i) {
+        for (var j = 0; j < mapSize; ++j) {
+            mists[i][j] = mi[strIndex];
+            ++strIndex;
+        }
+    }
+
+    displayMap();
+}
+
+
 //Loads in from file the grovnicks
 //that should be covered in mist.
 function loadMistsFromString() {
@@ -225,10 +330,10 @@ function loadMistsFromString() {
     function parseMistString() {
 
         //Makes sure the server has responded
-        if(httpRequest.readyState === XMLHttpRequest.DONE){
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
 
             //Checks for the all clear code from the server
-            if(httpRequest.status === 200){
+            if(httpRequest.status === 200) {
 
                 //Takes the server response as a text string
                 var  listContents = httpRequest.responseText;
@@ -258,7 +363,7 @@ function fillMists(mis) {
 //Test function that updates the graphics on the canvas
 //Triggered with a button click
 function changeMap() {
-    //Change some grass into dirt
+    //Change some grass into bog
     terrains[5][2] = 2;
     terrains[4][3] = 2;
     terrains[4][4] = 2;

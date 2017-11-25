@@ -15,7 +15,6 @@ Grovnick::Grovnick()
 {
     type = NULL;
     isVisible = false;
-    //Terrain
 	terrain.terrainName = "Meadow";
 }
 
@@ -60,6 +59,14 @@ void Grovnick::displayChar()
 char Grovnick::getCharToDisplay()
 {
      return terrain.charToDisplay;
+}
+
+//Returns the char to display for the Type
+//that the grovnick has.
+char Grovnick::getTypeCharToDisplay()
+{
+    if (!type) { return 'n'; }
+    else return type->getCharToDisplay();
 }
 
 //Takes an integer and maps it to the kind of type
