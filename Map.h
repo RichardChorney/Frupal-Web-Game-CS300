@@ -12,6 +12,8 @@
 #include <cstdlib>
 #include <vector>
 #include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
 #include "Hero.h"
 #include "Types.h"
 #include "Constants.h"

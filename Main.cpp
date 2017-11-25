@@ -10,7 +10,6 @@
 
 #include "Map.h"
 #include "Animation.h"
-//#include <cgi.h>
 
 using namespace std;
 
@@ -26,263 +25,115 @@ string const demoMap = "demoMap.txt";
 int main(void)
 {
     Hero * hero;
-    Map map; //Create a map of size MAX
+	  Map map; //Create a map of size MAX
     map.loadMapFromFile(demoMap);
-    hero = map.getHeroPtr();
-
+    hero = map.getHeroPtr();	
     bool proceed = true;
-    bool showInventory = false;
-    char keyPress = '0';
 
-    cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
+	if(WEB_MODE){
+		char * web_data;
+		web_data = getenv("QUERY_STRING");
+		printf("Content-Type: text/plain;charset=us-ascii\n\n");
+		printf("%s\t%s\n\n","Output",web_data);	
 
-    while(proceed){
-        map.displayMap();
+		char original[144];
+		char temp[16];				//Temporary string to hold the action code
+		char temp2[128];			//Temporary string to hold the action to be taken
+		char * strptr;
 
-        //TODO
-        //Will need to move these after each time the map needs to update.
-        map.writeWebTerrain();
-        map.writeWebTypes();
-        map.writeWebMists();
+		strcpy(original, web_data);
+		strptr = original;
 
-        hero->printStatus();
-        cout << endl << "What would you like to do?" << endl;
-        cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
-        cout << endl << "5) INVENTORY" << endl << "6) QUIT ON FRUPAL" << endl << endl;
+		strptr = strtok(strptr, "|");	//Breaks up QUERY_STRING into the first token (action code)
+		strcpy(temp, strptr);			//Copies first token into temporary holder
 
-        if(showInventory)
-        {
-            hero->displayInventory();
-            showInventory = false;
-        }
+		strptr = strtok(NULL, "*");		//Grabs the second part of the QUERY_STRING
+		strcpy(temp2, strptr);			//Copies second token into temporary holder
 
+		cout << temp << endl;
+		cout << temp2 << endl;  
 
-        cin >> keyPress;
-        system("clear");
+	 }  //End of WEB_MODE if
+	
+		else{
+			if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
+			system("clear");
 
-        if(WEB_MODE){
-            char * web_data;
-            web_data = getenv("QUERY_STRING");
-            cout << "Content-Type: text/plain;charset=us-ascii" << endl << endl;
+			bool showInventory = false;
+			char keyPress = '0';
 
-            char original[144];
-            char temp[16];				//Temporary string to hold the action code
-            char temp2[128];			//Temporary string to hold the action to be taken
-            char * strptr;
+			cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
 
-            strcpy(original, web_data);
-            strptr = original;
+			while(proceed){
+				map.displayMap();
+				hero->printStatus();
+				cout << endl << "What would you like to do?" << endl;
+				cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
+				cout << endl << "5) INVENTORY" << endl << "6) QUIT ON FRUPAL" << endl << endl;
 
-            strptr = strtok(strptr, "|");	//Breaks up QUERY_STRING into the first token (action code)
-            strcpy(temp, strptr);			//Copies first token into temporary holder
-
-            strptr = strtok(NULL, "*");		//Grabs the second part of the QUERY_STRING
-            strcpy(temp2, strptr);			//Copies second token into temporary holder
-
-            cout << temp << endl;
-            cout << temp2 << endl;
-
-        }  //End of WEB_MODE if
-
-        else{
-            if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
-            system("clear");
-
-            bool showInventory = false;
-            char keyPress = '0';
-
-            cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
-
-            while(proceed){
-                map.displayMap();
-                hero->printStatus();
-                cout << endl << "What would you like to do?" << endl;
-                cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
-                cout << endl << "5) INVENTORY" << endl << "6) QUIT ON FRUPAL" << endl << endl;
-
-                if(showInventory)
-                {
-                    hero->displayInventory();
-                    showInventory = false;
-                }
+				if(showInventory)
+				{
+					hero->displayInventory();
+					showInventory = false;
+				}
 
 
-                cin >> keyPress;
-                system("clear");
+				cin >> keyPress;
+				system("clear");
 
-                //Make sure the keypress is within the menu items
-                if (!((keyPress >= '0' && keyPress <= '6')
-                || keyPress == 'w' || keyPress == 'a'
-                || keyPress == 's' || keyPress == 'd')) {
-                    continue;
-                }
+				//Make sure the keypress is within the menu items
+				if (!((keyPress >= '0' && keyPress <= '6')
+				|| keyPress == 'w' || keyPress == 'a'
+				|| keyPress == 's' || keyPress == 'd')) {
+					continue;
+				}
 
-                switch(keyPress){
+				switch(keyPress){
 
-                    case 'w':
-                    case '1':  hero->moveHero(1, map); break;
-                    case 'd':
-                    case '2':  hero->moveHero(2, map); break;
-                    case 's':
-                    case '3':  hero->moveHero(3, map); break;
-                    case 'a':
-                    case '4':  hero->moveHero(4, map); break;
-                    case '5':   showInventory = true; break;
-                    case '6':  proceed = false; break;
+					case 'w':
+					case '1':  hero->moveHero(1, map); break;
+					case 'd':
+					case '2':  hero->moveHero(2, map); break;
+					case 's':
+					case '3':  hero->moveHero(3, map); break;
+					case 'a':
+					case '4':  hero->moveHero(4, map); break;
+					case '5':   showInventory = true; break;
+					case '6':  proceed = false; break;
 
-                }
+				}
 
-                //Update web files after movement
-                map.writeWebTerrain();
-                map.writeWebTypes();
-                map.writeWebMists();
+				if(map.getWon()) { //Win state
+					delete hero;
+					hero = new Hero();
+					map.setHero(hero);
+					cout << "Would you like to restart...? Y/N ";
+					while (keyPress != 'y' && keyPress != 'Y' && keyPress != 'n' && keyPress != 'N') {
+						cin >> keyPress;
 
-                if(map.getWon()) { //Win state
-                    delete hero;
-                    hero = new Hero();
-                    map.setHero(hero);
-                    cout << "Would you like to restart...? Y/N ";
-                    while (keyPress != 'y' && keyPress != 'Y' && keyPress != 'n' && keyPress != 'N') {
-                        cin >> keyPress;
+						switch(keyPress) {
+							case 'y':
+							case 'Y':
+								map.setWon(false);
+								break;
+							case 'n':
+							case 'N':
+								proceed = false;
+								break;
+							default:
+								cout << endl << "Please enter a Y or N" << endl;
+						}
+					}
+				}
 
-                        switch(keyPress) {
-                            case 'y':
-                            case 'Y':
-                            map.setWon(false);
-                            break;
-                            case 'n':
-                            case 'N':
-                            proceed = false;
-                            break;
-                            default:
-                            cout << endl << "Please enter a Y or N" << endl;
-                        }
-                    }
-                }
+				if(!hero->checkAlive()){
+					cout << "GAME OVER" << endl << endl;
+					proceed = false;
+				}
 
-                if(!hero->checkAlive()){
-                    cout << "GAME OVER" << endl << endl;
-                    proceed = false;
-                }
+			}
 
-            }
+	}	//End of COMMAND_LINE_MODE else  
 
-        }	//End of COMMAND_LINE_MODE else
-
-        if(WEB_MODE){
-            char * web_data;
-            web_data = getenv("QUERY_STRING");
-            cout << "Content-Type: text/plain;charset=us-ascii" << endl << endl;
-
-            char original[128];
-            char temp[128];
-            char temp2[128];
-            char * strptr;
-
-            strcpy(original, web_data);
-            strptr = original;
-            strptr = strtok(strptr, "=");
-
-            while(strptr != NULL){
-                strcpy(temp, strptr);
-                strptr = strtok(strptr+strlen(strptr)+1, "&");
-                strcpy(temp2, strptr);
-                strptr = strtok(strptr+strlen(strptr)+1, "=");
-                if(strcmp(temp, "1") == 0){
-                }
-                else if(strcmp(temp, "2") == 0){
-                }
-                else if(strcmp(temp, "3") == 0){
-                }
-                else if(strcmp(temp, "4") == 0){
-                }
-            }
-        }  //End of WEB_MODE if
-
-        else{
-            if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
-            system("clear");
-
-            bool showInventory = false;
-            char keyPress = '0';
-
-            cout << "Welcome to the mythical land of whiffles and Grovnicks, FRUPAL" << endl << endl;
-
-            while(proceed){
-                map.displayMap();
-                hero->printStatus();
-                cout << endl << "What would you like to do?" << endl;
-                cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
-                cout << endl << "5) INVENTORY" << endl << "6) QUIT ON FRUPAL" << endl << endl;
-
-                if(showInventory)
-                {
-                    hero->displayInventory();
-                    showInventory = false;
-                }
-
-
-                cin >> keyPress;
-                system("clear");
-
-                //Make sure the keypress is within the menu items
-                if (!((keyPress >= '0' && keyPress <= '6')
-                || keyPress == 'w' || keyPress == 'a'
-                || keyPress == 's' || keyPress == 'd')) {
-                    continue;
-                }
-
-                switch(keyPress){
-
-                    case 'w':
-                    case '1':  hero->moveHero(1, map); break;
-                    case 'd':
-                    case '2':  hero->moveHero(2, map); break;
-                    case 's':
-                    case '3':  hero->moveHero(3, map); break;
-                    case 'a':
-                    case '4':  hero->moveHero(4, map); break;
-                    case '5':   showInventory = true; break;
-                    case '6':  proceed = false; break;
-
-                }
-
-                map.writeWebTerrain();
-                map.writeWebTypes();
-                map.writeWebMists();
-
-                if(map.getWon()) { //Win state
-                    delete hero;
-                    hero = new Hero();
-                    map.setHero(hero);
-                    cout << "Would you like to restart...? Y/N ";
-                    while (keyPress != 'y' && keyPress != 'Y' && keyPress != 'n' && keyPress != 'N') {
-                        cin >> keyPress;
-
-                        switch(keyPress) {
-                            case 'y':
-                            case 'Y':
-                            map.setWon(false);
-                            break;
-                            case 'n':
-                            case 'N':
-                            proceed = false;
-                            break;
-                            default:
-                            cout << endl << "Please enter a Y or N" << endl;
-                        }
-                    }
-                }
-
-                if(!hero->checkAlive()){
-                    cout << "GAME OVER" << endl << endl;
-                    proceed = false;
-                }
-
-            }
-
-        }	//End of COMMAND_LINE_MODE else
-
-        return 0;
-    }
+    return 0;
 }
