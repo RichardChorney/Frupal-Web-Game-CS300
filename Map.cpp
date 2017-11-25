@@ -41,6 +41,76 @@ Map::~Map()
 	hero = NULL;
 }
 
+//Writes the to the terrain file that will be read by
+//the Web, so that it can update the display.
+int Map::writeWebTerrain()
+{
+    //Opens or creates the file for writing
+    ofstream file;
+    file.open(WEB_TERRAIN.c_str());
+    if(!file) return 0;
+
+    //Iterate through the map
+    for(int i = 0; i <  mapSize ; ++i) {
+        for(int j = 0; j < mapSize; ++j) {
+            file << map[i][j].getCharToDisplay();
+        }
+    }
+
+    file.close();
+    return 1;
+}
+
+//Writes the to the types file that will be read by
+//the Web, so that it can update the display.
+int Map::writeWebTypes()
+{
+    //Opens or creates the file for writing
+    ofstream file;
+    file.open(WEB_TYPES.c_str());
+    if(!file) return 0;
+
+    //Iterate through the map
+    for(int i = 0; i <  mapSize ; ++i) {
+        for(int j = 0; j < mapSize; ++j) {
+            char typeChar = map[i][j].getTypeCharToDisplay();
+            file << typeChar;
+        }
+    }
+
+    file.close();
+    return 1;
+}
+
+//Writes the to the mists file that will be read by
+//the Web, so that it can update the display.
+int Map::writeWebMists()
+{
+    //Opens or creates the file for writing
+    ofstream file;
+    file.open(WEB_MISTS.c_str());
+    if(!file) return 0;
+
+    //Iterate through the map
+    for(int i = 0; i <  mapSize ; ++i) {
+        for(int j = 0; j < mapSize; ++j) {
+
+            Location t = hero->getLocation();
+            bool isVis = map[i][j].getVisibility();
+
+            if (t.x == i && t.y == j) { //'H' => Hero
+                file << HERO_CHAR;
+            } else if (isVis) { //'0' => is visible
+                file << '0';
+            } else { //'X' => Mist
+                file << MIST;
+            }
+        }
+    }
+    file.close();
+    return 1;
+}
+
 //Loads the map (2D array) from a file
 int Map::loadMapFromFile(string fileName)
 {

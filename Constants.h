@@ -30,6 +30,11 @@ int const BOULDER_REMOVAL_COST = 16;
 int const TREE_REMOVAL_COST = 10;
 int const BUSH_REMOVAL_COST = 4;
 
+/* File Path */
+std::string const WEB_TERRAIN = "Web/webTerrain.html";
+std::string const WEB_TYPES = "Web/webTypes.html";
+std::string const WEB_MISTS= "Web/webMists.html";
+
 /* Type Constants */
 //Amount of whiffles recieved if you open the chest
 int const CHEST_WHIFFLES_RECIEVED = 100;

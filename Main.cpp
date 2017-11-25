@@ -14,7 +14,7 @@
 using namespace std;
 
 /* Main game loop Constants */
-bool const WEB_MODE = true;
+bool const WEB_MODE = false;
 //Test maps (these don't conform to the standard map files)
 string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
@@ -25,11 +25,10 @@ string const demoMap = "demoMap.txt";
 int main(void)
 {
     Hero * hero;
-	Map map; //Create a map of size MAX
+	  Map map; //Create a map of size MAX
     map.loadMapFromFile(demoMap);
-    hero = map.getHeroPtr();
-
-	bool proceed = true;
+    hero = map.getHeroPtr();	
+    bool proceed = true;
 
 	if(WEB_MODE){
 		char * web_data;

@@ -276,10 +276,10 @@ int Boulder::interactWithType()
             else
             cout << "Can't use that tool here..." << endl << endl
             << "Consume a tool?" << endl;
-   
+
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;   
+            repeat = true;
 
             cin >> toolNumber;
             cin.ignore(1000, '\n');
@@ -297,18 +297,18 @@ int Boulder::interactWithType()
                 ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
                 map->getHeroPtr()->useItem(toolNumber);
-     
+
             }
-        
+
         }
     }
     //Else branch for if player has no applicable tools
-    else{    
+    else{
         cout << "You have encountered a boulder, costing "
         << BOULDER_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
     }
-    
+
     return 1;
 }
 
@@ -372,12 +372,12 @@ int Boat::interactWithType() {
             }
         }
         return 1;
-    } 
+    }
     else {
         cout << "You decided to keep your whiffles for now." << endl;
         return 0;
     }
-}        
+}
 
 Bush::Bush(Map * mapPtr)
 {
@@ -412,10 +412,10 @@ int Bush::interactWithType()
             else
             cout << "Can't use that tool here..." << endl << endl
             << "Consume a tool?" << endl;
-   
+
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;   
+            repeat = true;
             cin >> toolNumber;
             cin.ignore(1000, '\n');
             --toolNumber;//Transforms inventory index from
@@ -432,18 +432,18 @@ int Bush::interactWithType()
                 ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
                 map->getHeroPtr()->useItem(toolNumber);
-     
+
             }
-        
+
         }
     }
     //Else branch for if player has no applicable tools
-    else{    
+    else{
         cout << "You have encountered a Bush, costing "
         << BUSH_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
     }
-    
+
     return 1;
 }
 
@@ -484,10 +484,10 @@ int Tree::interactWithType()
             else
             cout << "Can't use that tool here..." << endl << endl
             << "Consume a tool?" << endl;
-   
+
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;   
+            repeat = true;
 
             cin >> toolNumber;
             cin.ignore(1000, '\n');
@@ -505,24 +505,24 @@ int Tree::interactWithType()
                 ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
                 map->getHeroPtr()->useItem(toolNumber);
-     
+
             }
-        
+
         }
     }
     //Else branch for if player has no applicable tools
-    else{    
+    else{
         cout << "You have encountered a Tree, costing "
         << TREE_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
     }
-    
+
     return 1;
 }
 
 int Tree::checkRemovalCost(){
     return removalCost;
-} 
+}
 
 //Hatchet
 Hatchet::Hatchet(Map * mapPtr)
@@ -570,7 +570,7 @@ Axe::Axe(Map * mapPtr)
 	worksOn = tree;
     name = "Axe";
     message = "Consume to decrease tree clearing energy cost to 6.";
-	charToDisplay = 'A';
+	charToDisplay = 'X';
 }
 
 //Axe
@@ -608,7 +608,7 @@ Chainsaw::Chainsaw(Map * mapPtr)
 	worksOn = tree;
     name = "Chainsaw";
     message = "Consume to decrease tree clearing energy cost to 2.";
-	charToDisplay = 'A';
+	charToDisplay = 'E';
 }
 
 int Chainsaw::interactWithType()
@@ -682,7 +682,7 @@ Sledgehammer::Sledgehammer(Map * mapPtr)
 	worksOn = boulder;
 	name = "Sledgehammer";
 	message = "Consume to decrease boulder clearing energy cost to 12.";
-	charToDisplay = 'J';
+	charToDisplay = 'L';
 }
 
 int Sledgehammer::interactWithType()
@@ -719,7 +719,7 @@ Jackhammer::Jackhammer(Map * mapPtr)
 	worksOn = boulder;
    	name = "Jackhammer";
     message = "Consume to decrease boulder clearing energy cost to 4.";
-	charToDisplay = 'J';
+	charToDisplay = 'Y';
 }
 
 int Jackhammer::interactWithType()
@@ -793,7 +793,7 @@ Shears::Shears(Map * mapPtr)
 	worksOn = bush;
     name = "Shears";
     message = "Consume to decrease bush clearing energy cost 2.";
-	charToDisplay = 'M';
+	charToDisplay = 'Q';
 }
 
 int Shears::interactWithType()
