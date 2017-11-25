@@ -55,7 +55,7 @@ function launchCGI(actionCode, decision) {
     arguments = actionCode + "|" + decision + "*";
     var xhttp = new XMLHttpRequest();
     URL = "frupalCGI.cgi?" + arguments;
-    xhttp.open("GET", URL, false);
+    xhttp.open("GET", URL, true);
     xhttp.send();
     alert(xhttp.responseText); //TEST
     
