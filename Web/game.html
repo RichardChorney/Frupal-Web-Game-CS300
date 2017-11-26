@@ -17,7 +17,7 @@
     background-color: #3e8e41;
 }
 .dropdown {
-    position: relative;
+    position: absolute;
     display: inline-block;
 	top: 205px;
 }
@@ -49,7 +49,8 @@
 }
 
 #messageWindow {
-   width: 400px;
+    width: 400px;
+    display: inline-block;
 }
 </style>
 
@@ -68,7 +69,7 @@
 <div id="wrapper">
 <canvas id="frupalCanvas" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
 <!-- Create the message window, where stats and terrain messages will be displayed -->
-<canvas id="messageWindow" width="400" height="200" style="border:1px solid #d3d3d3;display:inline-block;"></canvas>
+<div id="messageWindow" width="400" height="200" style="border:1px solid #d3d3d3;"></div>
 
 <!-- Tell our html file where our javascript functions are located -->
 <script src="Map.js"></script>
