@@ -46,12 +46,13 @@ class Hero {
 	void addToWhiffles(int whifflesToAdd); //Either add or subtract whiffles
 	void displayTerrainMsg(string terraName);
     void writeTerrainMsg(string terraName, ofstream& out);
-        bool checkBoulderTools(int);//Checks inv for tools that
-        //work on boulders and returns tree on success
-        bool checkTreeTools(int);
-        bool checkBushTools(int);
-        int checkItemEnergyCost(int);//Returns energy cost of item at index using argument
+    bool checkBoulderTools(int);//Checks inv for tools that
+    //work on boulders and returns tree on success
+    bool checkTreeTools(int);
+    bool checkBushTools(int);
+    int checkItemEnergyCost(int);//Returns energy cost of item at index using argument
 	bool updateInventoryFile();	//Updates inventory file state
+    ostream& printSaveInfo(ostream& out);
 
   protected:
     Terrain terrain;        //Terrain that the hero is on

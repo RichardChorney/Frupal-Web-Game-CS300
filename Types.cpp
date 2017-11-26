@@ -91,6 +91,10 @@ string Type::checkName(){
 	return name;
 }
 
+//string& Type::getName() {
+//    return name;
+//}
+
 //Default Clue Constructor
 Clue::Clue()
 {
@@ -245,6 +249,7 @@ int PowerBar::interactWithType()
 //Constructor boulder
 Boulder::Boulder(Map * mapPtr)
 {
+    name = "Boulder";
 	charToDisplay = 'B';
 	map = mapPtr;
 	removalCost = 16;
@@ -381,6 +386,7 @@ int Boat::interactWithType() {
 
 Bush::Bush(Map * mapPtr)
 {
+    name = "Bush";
 	map = mapPtr;
 	removalCost = 4;
 	charToDisplay = '@';
@@ -453,6 +459,7 @@ int Bush::checkRemovalCost(){
 
 Tree::Tree(Map * mapPtr)
 {
+    name = "Tree";
 	map = mapPtr;
 	removalCost = 10;
 	charToDisplay = '^';
