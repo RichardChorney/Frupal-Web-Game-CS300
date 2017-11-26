@@ -100,6 +100,7 @@ int main(void)
 				map.displayMap();
                 map.saveState();
 				hero->printStatus();
+                hero->updateWebStatus();
 				cout << endl << "What would you like to do?" << endl;
 				cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
 				cout << endl << "5) INVENTORY" << endl << "6) QUIT ON FRUPAL" << endl << endl;

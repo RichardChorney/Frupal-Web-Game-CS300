@@ -68,6 +68,7 @@ function update() {
     loadTerrainFromString();
     loadTypesFromString();
     loadMistsFromString();
+    loadStatusFromString();
     displayMap();
 }
 
@@ -185,6 +186,47 @@ function initMap() {
         types[i] = new Array(mapSize);
         mists[i] = new Array(mapSize);
     }
+}
+
+//Reads status string from Web/status.html
+function loadStatusFromString()
+{
+    var httpRequest;
+    httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = parseStatusString;
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~lwarden/CS300_project/Web/status.html', true);
+    httpRequest.send();
+
+
+    function parseStatusString() {
+
+        //Makes sure the server has responded
+        if(httpRequest.readyState === XMLHttpRequest.DONE) {
+
+            //Checks for the all clear code from the server
+            if(httpRequest.status === 200) {
+
+                //Takes the server response as a text string
+                var statusString = httpRequest.responseText;
+                updateMessageWindow(statusString);
+
+            } else {
+                alert('Status: There was a problem with the request');
+            }
+        }
+    }
+}
+
+function updateMessageWindow(statStr)
+{
+    var statArr = statStr.split('|'); //splits the string into an array, separating on '|'
+
+    document.getElementById("messageWindow").innerHTML =
+             "Whiffles: " + statArr[0] + "<br>" +
+             "Energy: " + statArr[1] + "<br>" + 
+             "Location: (" + statArr[2] + ", " + statArr[3] + ")<br>" +
+             "Terrain: " + statArr[4] + "<br><br>" +
+             statArr[5];
 }
 
 //Initializes the map array's from a string
