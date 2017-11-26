@@ -14,7 +14,7 @@
 using namespace std;
 
 /* Main game loop Constants */
-bool const WEB_MODE = false;
+bool const WEB_MODE = true;
 //Test maps (these don't conform to the standard map files)
 string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
@@ -34,7 +34,6 @@ int main(void)
 		char * web_data;
 		web_data = getenv("QUERY_STRING");
 		printf("Content-Type: text/plain;charset=us-ascii\n\n");
-		printf("%s\t%s\n\n","Output",web_data);	
 
 		char original[144];
 		char temp[16];				//Temporary string to hold the action code
@@ -50,8 +49,8 @@ int main(void)
 		strptr = strtok(NULL, "*");		//Grabs the second part of the QUERY_STRING
 		strcpy(temp2, strptr);			//Copies second token into temporary holder
 
-		cout << temp << endl;
-		cout << temp2 << endl;  
+		printf("%s\n", temp);
+		printf("%s\n", temp2);  
 
 	 }  //End of WEB_MODE if
 	
