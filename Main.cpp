@@ -15,7 +15,7 @@
 using namespace std;
 
 /* Main game loop Constants */
-bool const WEB_MODE = true;
+bool const WEB_MODE = false;
 //Test maps (these don't conform to the standard map files)
 string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
