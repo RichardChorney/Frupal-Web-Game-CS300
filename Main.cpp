@@ -10,11 +10,12 @@
 
 #include "Map.h"
 #include "Animation.h"
+#include <cstdio>
 
 using namespace std;
 
 /* Main game loop Constants */
-bool const WEB_MODE = true;
+bool const WEB_MODE = false;
 //Test maps (these don't conform to the standard map files)
 string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
@@ -136,6 +137,7 @@ int main(void)
 				}
 
 				if(map.getWon()) { //Win state
+                    remove("saveFile.txt");
 					delete hero;
 					hero = new Hero();
 					map.setHero(hero);
@@ -147,6 +149,7 @@ int main(void)
 							case 'y':
 							case 'Y':
 								map.setWon(false);
+                                map.resetMapState();
 								break;
 							case 'n':
 							case 'N':
@@ -159,6 +162,7 @@ int main(void)
 				}
 
 				if(!hero->checkAlive()){
+                    remove("saveFile.txt");
 					cout << "GAME OVER" << endl << endl;
 					proceed = false;
 				}

@@ -333,7 +333,8 @@ RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 int RoyalDiamonds::interactWithType()
 {
     cout << "Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
-    map->resetMapState();
+    //map->resetMapState();
+    map->setWon(true);
     return 0;													//This may cause issues where interactWithType is called by lookAhead in Hero.cpp TODO
 }
 
