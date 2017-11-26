@@ -72,26 +72,32 @@ function update() {
 }
 
 //Launch cgi
-//This funciton sends a single string to the
-//backend of Frupal by concatenating all of the
-//parameters together.
-//moveDirection -> Direction the Hero attempted to step
-//decision -> Yes or No decision if he was prompted for something.
-function launchCGI(moveDirection) {
-    /*
-    arguments = moveDirection + "|" + decision;
+//Takes an action code to tell the back end what function to launch, such as move, change inventory etc.
+//The action1 will be what parameter to send to the appropriate back end function, will expand to an "action2"
+//if more parameters are needed
+function launchCGI(actionCode, action1) {
+    
+    arguments = actionCode + "|" + action1 + "*";
     var xhttp = new XMLHttpRequest();
-    URL = "frupalCGI.cgi?" + arguments;
+    URL = "http://web.cecs.pdx.edu/~aasquier/CS300_project/frupalCGI.cgi?" + arguments;
     xhttp.open("GET", URL, true);
     xhttp.send();
-    alert(xhttp.responseText); //TEST
-    */
+    xhttp.onreadystatechange = afterResponse;
+
+	function afterResponse() {
+			if(xhttp.readyState === XMLHttpRequest.DONE){
+				if(xhttp.status === 200){
+					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
+					alert(xhttp.responseText); //TEST
+				}
+			} 
+	}
 }
 
 //Move North
 function move(direction) {
     //This is where we would send the movement to c++ land
-    launchCGI(direction, "none");
+    launchCGI("move", direction);
 }
 
 //Initialize the images
