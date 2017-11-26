@@ -114,6 +114,7 @@ int Map::writeWebMists()
 //Loads the map (2D array) from a file
 int Map::loadMapFromFile(string fileName)
 {
+    //string const saveFile = "saveFile.txt";
 
     int energy = 0;
     int whiffles = 0;
@@ -121,10 +122,23 @@ int Map::loadMapFromFile(string fileName)
     vector<string> v;
     char delim = ',';
 
-    //Open the file for reading
     ifstream file;
-    file.open(fileName.c_str());
-    if (!file) return 0;
+
+    //Open the file for reading
+    file.open(SAVEFILE.c_str());
+    //if (file.open(saveFile.c_str())) {
+    //    file.open(saveFile.c_str());
+    //    // load save file instead
+    //}
+    //else {
+    //    file.open(fileName.c_str());
+    //    if (!file) return 0;
+    //}
+    if (!file) {
+        file.open(fileName.c_str());
+        if (!file) return 0;
+    }
+
 
     // Get Game map function
     std::getline(file,line);
@@ -152,9 +166,38 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
+    Terrain defaultTerrain;
+    hero = new Hero(heroLoc, energy, whiffles, defaultTerrain);
+
+    //inventory item(s)
+    int invDone = 0;
+    while(!invDone) {
+        getline(file, line);
+        Type * typeToAdd;
+
+        if (line.compare(GAMEMAP_SEPARATOR) == 0) {
+            invDone = 1;
+        }
+        else {
+            if (!line.compare("Binoculars")) {
+                typeToAdd = new Binoculars(this);
+                hero->setVisibility(true);
+            }
+            else if (!line.compare("Hatchet")) typeToAdd = new Hatchet(this);
+            else if (!line.compare("Axe")) typeToAdd = new Axe(this);
+            else if (!line.compare("Chainsaw")) typeToAdd = new Chainsaw(this);
+            else if (!line.compare("Chisel")) typeToAdd = new Chisel(this);
+            else if (!line.compare("Sledgehammer")) typeToAdd = new Sledgehammer(this);
+            else if (!line.compare("Jackhammer")) typeToAdd = new Jackhammer(this);
+            else if (!line.compare("Machete")) typeToAdd = new Machete(this);
+            else if (!line.compare("Shears")) typeToAdd = new Shears(this);
+            hero->fillBag(typeToAdd);
+        }
+    }
+    /*
     // consume the ### line of the map file
     std::getline(file, line);
-
+    */
     int x = 0;
     int y = 0;
     while(getline(file, line)) {
@@ -170,7 +213,8 @@ int Map::loadMapFromFile(string fileName)
         v.clear();
     }
     Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
-    hero = new Hero(heroLoc, energy, whiffles, *t);
+    hero->updateHeroTerrain(t);
+    //hero = new Hero(heroLoc, energy, whiffles, *t);
     setHero(hero);
     this->fileName = fileName;
 
@@ -394,4 +438,80 @@ void Map::resetMapState() {
 	delete [] map;
     loadMapFromFile(fileName);
     wonMap = true;
+}
+
+void Map::saveState() 
+{
+    ofstream file;
+    file.open(SAVEFILE.c_str());
+    // game map details
+    file << "save file" << endl;
+    file << mapSize << endl;
+    file << GAMEMAP_SEPARATOR << endl; 
+    // hero details
+    hero->printSaveInfo(file);
+    file << GAMEMAP_SEPARATOR << endl; 
+   
+    int visibility = 0;
+    int terrain = 0;
+    Terrain * t;
+    Type * type; 
+    string contents;
+    string object;
+    for (int i = 0; i < mapSize; ++i) {
+        for (int j = 0; j < mapSize; ++j) {
+            // reset tracking values
+            visibility = 0;
+            terrain = 0;
+            object = "None";
+
+            // determine visibility
+            if (map[i][j].getVisibility()) visibility = 1;
+            // determine terrain
+            t = map[i][j].getTerrain();
+            if (!t->terrainName.compare("Forest")) terrain = 1;
+            else if (!t->terrainName.compare("Water")) terrain = 2;
+            else if (!t->terrainName.compare("Wall")) terrain = 3;
+            else if (!t->terrainName.compare("Bog")) terrain = 4;
+            else if (!t->terrainName.compare("Swamp")) terrain = 5;
+            // determine type
+            type = map[i][j].getType();
+            if (!type) object = "None";
+            else {
+                //contents = type->getName();
+                contents = type->checkName();
+                if (!contents.compare("Chest")) object = "Type 1 Treasure Chest";
+                else if (!contents.compare("Explosive Chest")) object = "Type 2 Treasure Chest";
+                else if (!contents.compare("Power Bar")) object = "Power Bar";
+                else if (!contents.compare("Boulder")) object = "Boulder";
+                else if (!contents.compare("Royal Diamonds")) object = "Royal Diamonds";
+                else if (!contents.compare("Binoculars")) object = "Binoculars";
+                else if (!contents.compare("Bush")) object = "Blackberry Bush";
+                else if (!contents.compare("Tree")) object = "Tree";
+                else if (!contents.compare("Hatchet")) object = "Hatchet";
+                else if (!contents.compare("Axe")) object = "Axe";
+                else if (!contents.compare("Chainsaw")) object = "Chainsaw";
+                else if (!contents.compare("Chisel")) object = "Chisel";
+                else if (!contents.compare("Sledgehammer")) object = "Sledgehammer";
+                else if (!contents.compare("Jackhammer")) object = "Jackhammer";
+                else if (!contents.compare("Machete")) object = "Machete";
+                else if (!contents.compare("Shears")) object = "Shears";
+            }
+            //else object = "None";
+
+
+            // print grovnick details if not x,y,0,0,None
+            if (visibility + terrain > 0 || object.compare("None") != 0) {
+                file << i << "," << j << ",";
+                file << visibility << ",";
+                file << terrain << ",";
+                file << object << endl;
+            }
+        }
+    }
+
+
+    file.close();
+
+    
 }

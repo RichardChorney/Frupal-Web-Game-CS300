@@ -53,3 +53,6 @@ bool const SHOW_ALL_GROVNICKS = false;
 bool const SHOW_MIST = false;
 //Shows an animated welcome greeting to FRUPAL
 bool const SHOW_WELCOME_ANIMATION = false;
+
+std::string const SAVEFILE = "saveFile.txt";
+std::string const GAMEMAP_SEPARATOR = "###################";

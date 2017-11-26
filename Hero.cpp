@@ -481,3 +481,32 @@ bool Hero::checkBushTools(int index){
 int Hero::checkItemEnergyCost(int index){
     return list[index]->checkEnergyCost();
 }
+
+ostream & Hero::printSaveInfo(ostream& out) 
+{
+    out << location.x << "," << location.y << endl;
+    out << energy << endl;
+    out << whiffles << endl;
+    for (int i = 0; i < BAG_MAX; ++i) {
+        if (list[i]) {
+            if (!list[i]->checkName().compare("Binoculars")) out << "Binoculars" << endl;
+            else if (!list[i]->checkName().compare("Hatchet")) out << "Hatchet" << endl;
+            else if (!list[i]->checkName().compare("Axe")) out << "Axe" << endl;
+            else if (!list[i]->checkName().compare("Chainsaw")) out << "Chainsaw" << endl;
+            else if (!list[i]->checkName().compare("Chisel")) out <<  "Chisel" << endl;
+            else if (!list[i]->checkName().compare("Sledgehammer")) out <<  "Sledgehammer" << endl;
+            else if (!list[i]->checkName().compare("Jackhammer")) out <<  "Jackhammer" << endl;
+            else if (!list[i]->checkName().compare("Machete")) out << "Machete" << endl;
+            else if (!list[i]->checkName().compare("Shears")) out << "Shears" << endl;
+        }
+    }
+    return out;
+}
+
+void Hero::updateHeroTerrain(Terrain * t) 
+{
+    terrain.terrainName = t->terrainName;
+    terrain.charToDisplay = t->charToDisplay;
+    terrain.canWalkOn = t->canWalkOn;
+    terrain.energyConsumption = t->energyConsumption;
+}

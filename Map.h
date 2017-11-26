@@ -78,6 +78,7 @@ public:
     int writeWebTerrain();
     int writeWebTypes();
     int writeWebMists();
+    void saveState();
 
 protected:
     void allocateMap(int newMapSize = MAX);
