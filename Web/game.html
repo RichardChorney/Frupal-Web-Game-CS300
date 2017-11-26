@@ -10,6 +10,8 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
+    display: inline-block;
+    
 }
 .dropbtn:hover, .dropbtn:focus {
     background-color: #3e8e41;
@@ -17,11 +19,11 @@
 .dropdown {
     position: relative;
     display: inline-block;
-	bottom: 200px;
+	top: 205px;
 }
 .dropdown-content {
     display: none;
-    position: absolute;
+    position: relative;
     background-color: #f9f9f9;
     min-width: 440px;
     overflow: auto;
@@ -36,6 +38,19 @@
 }
 .dropdown a:hover {background-color: #f1f1f1}
 .show {display:block;}
+
+#wrapper {
+    width: 905px;
+}
+
+#frupalCanvas {
+    width: 500px;
+    float: left;
+}
+
+#messageWindow {
+   width: 400px;
+}
 </style>
 
 <body>
@@ -50,8 +65,10 @@
 <br>
 
 <!-- Create the main canvas, where the game map will be displayed -->
+<div id="wrapper">
 <canvas id="frupalCanvas" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
-
+<!-- Create the message window, where stats and terrain messages will be displayed -->
+<canvas id="messageWindow" width="400" height="200" style="border:1px solid #d3d3d3;display:inline-block;"></canvas>
 
 <!-- Tell our html file where our javascript functions are located -->
 <script src="Map.js"></script>
@@ -72,7 +89,7 @@
 	<a href='' id="slot10" onclick="useItem(10)"></a>
   </div>
 </div>
-
+</div>
 <script>
 //Max size of the inventory bag
 const LIST_MAX = 10;
