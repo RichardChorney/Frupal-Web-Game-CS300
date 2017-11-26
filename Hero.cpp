@@ -319,10 +319,12 @@ void Hero::updateWebStatus()
     output.open("Web/status.html", ofstream::out | ofstream::trunc);
 
     //order is WELT
-    output << whiffles << ','
-           << energy << ','
-           << location.x << ',' << location.y << ',' 
-           << terrain.terrainName << endl; 
+    output << whiffles << '|'
+           << energy << '|'
+           << location.x << '|' << location.y << '|' 
+           << terrain.terrainName << '|'; 
+
+    writeTerrainMsg(terrain.terrainName, output);
 
     output.close();
 }
@@ -415,6 +417,24 @@ void Hero::displayTerrainMsg(string terra)
 	}
 }
 
+void Hero::writeTerrainMsg(string terra, ofstream& out)
+{
+	if (terra == "Meadow") {
+   		out << "You have walked into a beautiful Meadow..." << endl;
+	} else if (terra == "Forest") {
+   		out << "You have walked into a deep, dark Forest..." << endl;
+	} else if (terra == "Water" && terrain.energyConsumption > 0) {
+   		out << "You can not go into the Water without a boat..." << endl;		//TODO will need to change when we add boats
+    } else if (terra == "Water" && terrain.energyConsumption == 0) {
+        out << "Feels nice to be sailing..." << endl;
+	} else if (terra == "Wall") {
+   		out << "You can not climb over the border Wall, it is just too high..." << endl;
+	} else if (terra == "Bog") {
+   		out << "Eewww, you have walked into a nasty Bog, costing 2 energy..." << endl;
+	} else if (terra == "Swamp") {
+   		out << "Yuck, you have walked into a Swamp, watch out for alligators!!" << endl;
+	}
+}
 //Checks the inventory list at index and returns true if
 //its a boulder tool. Call this function with -1 to check
 //all hero inventory slots at once
