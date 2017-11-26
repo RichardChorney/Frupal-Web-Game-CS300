@@ -10,6 +10,7 @@
 
 #include "Map.h"
 #include "Animation.h"
+#include <cstdio>
 
 using namespace std;
 
@@ -137,6 +138,7 @@ int main(void)
 				}
 
 				if(map.getWon()) { //Win state
+                    remove("saveFile.txt");
 					delete hero;
 					hero = new Hero();
 					map.setHero(hero);
@@ -148,6 +150,7 @@ int main(void)
 							case 'y':
 							case 'Y':
 								map.setWon(false);
+                                map.resetMapState();
 								break;
 							case 'n':
 							case 'N':
@@ -160,6 +163,7 @@ int main(void)
 				}
 
 				if(!hero->checkAlive()){
+                    remove("saveFile.txt");
 					cout << "GAME OVER" << endl << endl;
 					proceed = false;
 				}
