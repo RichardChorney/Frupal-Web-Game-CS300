@@ -74,10 +74,12 @@ function update() {
 //Launch cgi
 //Takes an action code to tell the back end what function to launch, such as move, change inventory etc.
 //The action1 will be what parameter to send to the appropriate back end function, will expand to an "action2"
-//if more parameters are needed
-function launchCGI(actionCode, action1) {
+//if more parameters are needed.   
+//ACTION CODES  --->   move (action1 is our 1,2,3,4 code for movement), loadDefault (loads default map, no args), 
+//loadFile (action1 is file name to load), buyItem (action1 is the type being purchased), useItem (action1 is the slot in the inventory bag)
+function launchCGI(actionCode, action1, action2) {
     
-    arguments = actionCode + "|" + action1 + "*";
+    arguments = actionCode + "|" + action1 + "|" + action2 + "*";
     var xhttp = new XMLHttpRequest();
     URL = "http://web.cecs.pdx.edu/~aasquier/CS300_project/frupalCGI.cgi?" + arguments;
     xhttp.open("GET", URL, true);
@@ -97,7 +99,7 @@ function launchCGI(actionCode, action1) {
 //Move North
 function move(direction) {
     //This is where we would send the movement to c++ land
-    launchCGI("move", direction);
+    launchCGI("move", direction, "empty");
 }
 
 //Initialize the images

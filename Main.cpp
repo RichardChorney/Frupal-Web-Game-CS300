@@ -24,37 +24,69 @@ string const demoMap = "demoMap.txt";
 
 int main(void)
 {
-    Hero * hero;
-	Map map; //Create a map of size MAX
-    map.loadMapFromFile(demoMap);
-    hero = map.getHeroPtr();	
-    bool proceed = true;
-
 	if(WEB_MODE){
 		char * web_data;
 		web_data = getenv("QUERY_STRING");
 		printf("Content-Type: text/plain;charset=us-ascii\n\n");
 
 		char original[144];
-		char temp[16];				//Temporary string to hold the action code
-		char temp2[128];			//Temporary string to hold the action to be taken
+		char actionCode[16];		//Temporary string to hold the action code
+		char action1[64];			//Temporary string to hold the action1 parameter to be taken
+		char action2[64];			//Temporary string to hold the action2 parameter to be taken	
 		char * strptr;
 
 		strcpy(original, web_data);
 		strptr = original;
 
 		strptr = strtok(strptr, "|");	//Breaks up QUERY_STRING into the first token (action code)
-		strcpy(temp, strptr);			//Copies first token into temporary holder
+		strcpy(actionCode, strptr);		//Copies first token into temporary holder
 
-		strptr = strtok(NULL, "*");		//Grabs the second part of the QUERY_STRING
-		strcpy(temp2, strptr);			//Copies second token into temporary holder
+		strptr = strtok(NULL, "|");		//Grabs the second part of the QUERY_STRING
+		strcpy(action1, strptr);		//Copies second token into temporary holder
 
-		printf("%s\n", temp);
-		printf("%s\n", temp2);  
+		strptr = strtok(NULL, "*");		//Grabs the third part of the QUERY_STRING
+		strcpy(action2, strptr);		//Copies third token into temporary holder
+
+	    Hero * hero;
+		Map map; //Create a map of size MAX
+
+		//TODO we need to remove the next 2 lines when we are able to prompt user to load a specific file
+		map.loadMapFromFile(demoMap);
+		hero = map.getHeroPtr();	
+
+		if(strcmp(actionCode, "move") == 0) {
+			hero->moveHero(atoi(action1), map);
+		} 
+		else if(strcmp(actionCode, "removeItem") == 0) {
+			
+		}
+		else if(strcmp(actionCode, "buyItem") == 0) {
+
+		}
+		else if(strcmp(actionCode, "loadFile") == 0) {
+		    map.loadMapFromFile(action1);
+    		hero = map.getHeroPtr();	
+		}
+		else if(strcmp(actionCode, "loadDefault") == 0) {
+		    map.loadMapFromFile(demoMap);
+    		hero = map.getHeroPtr();	
+		}
+
+//		printf("%s\n", actionCode);		//FOR
+//		printf("%s\n", action1);  	//TESTING
+
+		
 
 	 }  //End of WEB_MODE if
 	
 		else{
+			Hero * hero;
+			Map map; //Create a map of size MAX
+			map.loadMapFromFile(demoMap);
+			hero = map.getHeroPtr();	
+			bool proceed = true;
+
+
 			if (SHOW_WELCOME_ANIMATION) welcomeAnimation();
 			system("clear");
 

@@ -184,7 +184,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         changeEnergy(-terrain.energyConsumption);
     }
 
-	//displayTerrainMsg(terrain.terrainName);
+	displayTerrainMsg(terrain.terrainName);  //TODO  comment this back out was just for testing
 
 	return true;
 }
