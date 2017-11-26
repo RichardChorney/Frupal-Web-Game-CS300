@@ -437,7 +437,7 @@ void Map::resetMapState() {
 
 	delete [] map;
     loadMapFromFile(fileName);
-    wonMap = true;
+    //wonMap = true;
 }
 
 void Map::saveState() 
