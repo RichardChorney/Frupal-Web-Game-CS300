@@ -123,7 +123,7 @@ function displayInventory() {
 	//This tells the program what function to handle the request when the request has been answered
 	httpRequest.onreadystatechange = parseInventory;
     //	httpRequest.open('GET', 'http://web.cecs.pdx.edu/~aasquier/CS300_project/inventory.html', true); //The true arg indicates a text response
-    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/inventory.html', true); //The true arg indicates a text response
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/inventory.html', true); //The true arg indicates a text response
 	httpRequest.send();
 
 	//Parses the servers response into the inventory list
