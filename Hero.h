@@ -51,6 +51,7 @@ class Hero {
     int checkItemEnergyCost(int);//Returns energy cost of item at index using argument
 	bool updateInventoryFile();	//Updates inventory file state
     ostream& printSaveInfo(ostream& out);
+    void updateHeroTerrain(Terrain * t);
 
   protected:
     Terrain terrain;        //Terrain that the hero is on

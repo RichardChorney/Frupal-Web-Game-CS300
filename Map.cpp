@@ -166,11 +166,38 @@ int Map::loadMapFromFile(string fileName)
     std::getline(file, line);
     whiffles = atoi(line.c_str());
 
-    //inventory item(s)
+    Terrain defaultTerrain;
+    hero = new Hero(heroLoc, energy, whiffles, defaultTerrain);
 
+    //inventory item(s)
+    int invDone = 0;
+    while(!invDone) {
+        getline(file, line);
+        Type * typeToAdd;
+
+        if (line.compare(GAMEMAP_SEPARATOR) == 0) {
+            invDone = 1;
+        }
+        else {
+            if (!line.compare("Binoculars")) {
+                typeToAdd = new Binoculars(this);
+                hero->setVisibility(true);
+            }
+            else if (!line.compare("Hatchet")) typeToAdd = new Hatchet(this);
+            else if (!line.compare("Axe")) typeToAdd = new Axe(this);
+            else if (!line.compare("Chainsaw")) typeToAdd = new Chainsaw(this);
+            else if (!line.compare("Chisel")) typeToAdd = new Chisel(this);
+            else if (!line.compare("Sledgehammer")) typeToAdd = new Sledgehammer(this);
+            else if (!line.compare("Jackhammer")) typeToAdd = new Jackhammer(this);
+            else if (!line.compare("Machete")) typeToAdd = new Machete(this);
+            else if (!line.compare("Shears")) typeToAdd = new Shears(this);
+            hero->fillBag(typeToAdd);
+        }
+    }
+    /*
     // consume the ### line of the map file
     std::getline(file, line);
-
+    */
     int x = 0;
     int y = 0;
     while(getline(file, line)) {
@@ -186,7 +213,8 @@ int Map::loadMapFromFile(string fileName)
         v.clear();
     }
     Terrain * t = map[heroLoc.x][heroLoc.y].getTerrain();
-    hero = new Hero(heroLoc, energy, whiffles, *t);
+    hero->updateHeroTerrain(t);
+    //hero = new Hero(heroLoc, energy, whiffles, *t);
     setHero(hero);
     this->fileName = fileName;
 
