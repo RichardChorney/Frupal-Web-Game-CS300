@@ -481,3 +481,11 @@ bool Hero::checkBushTools(int index){
 int Hero::checkItemEnergyCost(int index){
     return list[index]->checkEnergyCost();
 }
+
+ostream & Hero::printSaveInfo(ostream& out) 
+{
+    out << location.x << "," << location.y << endl;
+    out << energy << endl;
+    out << whiffles << endl;
+    return out;
+}

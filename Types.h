@@ -32,7 +32,7 @@ public:
     char getCharToDisplay();
     int  checkObstacleType();//returns 1 for boulders, 2 - trees, 3 - bushes  
 	string checkName();
-
+    //string & getName();
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
