@@ -40,6 +40,7 @@ class Hero {
 	int fillBag(Type * obj);	//Places an Item ptr into the Heroes inventory list of item pointers, returns 0 for full bag, 1 for success, 2 for fail
 	bool useItem(int num);		//Updates heroes pointer list
 	void printStatus();			//Prints heroes status
+    void updateWebStatus();     //Writes to a file containing status info for the web to read from
 	void displayInventory();
 	int lookAhead(Map & map, Location aheadLoc); //Checks Grovnick ahead of Hero, returns info based on used items etc.
 	void addToWhiffles(int whifflesToAdd); //Either add or subtract whiffles

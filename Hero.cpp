@@ -312,6 +312,21 @@ void Hero::printStatus()
     cout << "-----------------------------\n";
 }
 
+void Hero::updateWebStatus()
+{
+    ofstream output;
+    //this will clear the text file it opens
+    output.open("Web/status.html", ofstream::out | ofstream::trunc);
+
+    //order is WELT
+    output << whiffles << ','
+           << energy << ','
+           << location.x << ',' << location.y << ',' 
+           << terrain.terrainName << endl; 
+
+    output.close();
+}
+
 //TODO As the items are implemented this needs to be reviewed
 //to make sure it displays correctly
 void Hero::displayInventory()
