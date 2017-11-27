@@ -112,7 +112,7 @@ bool Hero::checkAlive()
   	if(energy <= 0)
   	{
   		alive = false;
-  		cout << "You ran out of energy and DIED!!\n";
+  		cout << "*!*! You ran out of energy and DIED!!\n";
   	}
 
     return alive;
@@ -164,7 +164,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     aheadLoc.x = x;
     aheadLoc.y = y;
 
-aheadLocation = aheadLoc;
+	aheadLocation = aheadLoc;
     //Look ahead before actually stepping.
 	int temp = lookAhead(mapToCopy, aheadLoc);
 	if(temp)
@@ -191,7 +191,7 @@ aheadLocation = aheadLoc;
         changeEnergy(-terrain.energyConsumption);
     }
 
-	displayTerrainMsg(terrain.terrainName);  //TODO  comment this back out was just for testing
+	//displayTerrainMsg(terrain.terrainName);  //TODO  comment this back out was just for testing
 
 	return true;
 }

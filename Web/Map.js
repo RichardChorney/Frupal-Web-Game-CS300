@@ -58,6 +58,16 @@ powerBar.onload = function() {
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
+	launchCGI("loadDefault", " ", " ");
+    initImages();
+    initMap();
+    update();
+    displayMap();
+}
+
+//Restarts the game state if the hero dies, is just a clone of the onload function
+function restart() {
+	launchCGI("loadDefault", " ", " ");
     initImages();
     initMap();
     update();
@@ -94,7 +104,12 @@ function launchCGI(actionCode, action1, action2) {
 				if(xhttp.status === 200){
 					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
 					update();
-					//alert(xhttp.responseText); //TEST
+					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
+						alert(xhttp.responseText);
+						if(xhttp.responseText[1] == '!'){	//This will restart the game state if the hero dies triggered by second char in cout (!)
+							restart();						
+						}
+					}
 				}
 			} 
 	}
@@ -458,6 +473,7 @@ window.onclick = function(event) {
     }
   }
 }
+
 //When the user clicks on the button, toggle between hiding and showing the dropdown content, also
 //takes a string as an argument and parses it to populate the inventory with. The string will be in the form of
 //pairs of integers, first element of the pair is inventory slot number, second element of the pair is the quantity

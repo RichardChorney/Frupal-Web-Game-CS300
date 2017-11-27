@@ -22,6 +22,7 @@ string const simpleMap = "simpleMap.txt";
 string const basicMap = "basicMap.txt";
 string const basicMap2 = "basicMap2.txt";
 string const demoMap = "demoMap.txt";
+string const saveFile = "saveFile.txt";
 
 int main(void)
 {
@@ -51,32 +52,33 @@ int main(void)
 	    Hero * hero;
 		Map map; //Create a map of size MAX
 
-		//TODO we need to remove the next 2 lines when we are able to prompt user to load a specific file
-		map.loadMapFromFile("saveFile.txt");
-		hero = map.getHeroPtr();	
+		if(strcmp(actionCode, "loadDefault") == 0) {
+		    map.loadMapFromFile(demoMap);
+    		hero = map.getHeroPtr();	
+		} else {
+			map.loadMapFromFile(saveFile);
+			hero = map.getHeroPtr();
+		}
 
 		if(strcmp(actionCode, "move") == 0) {
 			hero->moveHero(atoi(action1), map);
-		} 
-		else if(strcmp(actionCode, "removeItem") == 0) {
+		} else if(strcmp(actionCode, "removeItem") == 0) {
 			
-		}
-		else if(strcmp(actionCode, "buyItem") == 0) {
+		} else if(strcmp(actionCode, "buyItem") == 0) {
 
 		}
-		else if(strcmp(actionCode, "loadFile") == 0) {
-		    map.loadMapFromFile(action1);
-    		hero = map.getHeroPtr();	
+		
+		if(!hero->checkAlive()){
+			remove("saveFile.txt");
+			cout << "**GAME OVER**" << endl << endl;
+			
+		} else {		
+			map.saveState();
+			hero->updateWebStatus();
+			map.writeWebTerrain();
+			map.writeWebTypes();
+			map.writeWebMists();
 		}
-		else if(strcmp(actionCode, "loadDefault") == 0) {
-		    map.loadMapFromFile(demoMap);
-    		hero = map.getHeroPtr();	
-		}
-		map.saveState();
-		hero->updateWebStatus();
-		map.writeWebTerrain();
-		map.writeWebTypes();
-		map.writeWebMists();
 
 	 }  //End of WEB_MODE if
 	
