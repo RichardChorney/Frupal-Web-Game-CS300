@@ -12,7 +12,7 @@ const LIST_MAX = 10;	//Max size of the inventory bag
 
 
 //Get the canvas details
-var canvas = document.getElementById("frupalCanvas");s
+var canvas = document.getElementById("frupalCanvas");
 var context = canvas.getContext("2d");
 
 /* Images */

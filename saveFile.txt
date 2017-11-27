@@ -4,7 +4,6 @@ save file
 4,4
 100
 1000
-Binoculars
 Chainsaw
 ###################
 0,0,0,2,None

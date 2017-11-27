@@ -81,8 +81,8 @@ int main(void)
 			remove("saveFile.txt");
 			cout << "**GAME OVER**" << endl << endl;
 		} else {
-			map.saveState();
 			map.displayMap(); //In WEB_MODE it just updates the map
+			map.saveState();
 			hero->updateWebStatus();
 			map.writeWebTerrain();
 			map.writeWebTypes();
