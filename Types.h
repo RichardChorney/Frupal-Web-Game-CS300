@@ -60,10 +60,18 @@ protected:
 class Clue : public Type {
 public:
     Clue();
+    Clue(bool clueTruthDefault);
     Clue(string newName, string newMessage, Map * mapPtr);
+    Clue(string newName, string newMessage, Map * mapPtr,bool clueTruthDefault);
+    int trueClueOne();
+    int trueClueTwo();
+    int trueClueThree();
+    int falseClueOne();
+    int falseClueTwo();
+    int falseClueThree();
     int interactWithType();
 protected:
-    bool isLegit;
+    bool clueTruth;
 };
 
 //('$')
