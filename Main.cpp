@@ -107,7 +107,7 @@ int main(void)
 
 				if(showInventory)
 				{
-					hero->displayInventory();
+					hero->displayInventory(-1);
 					showInventory = false;
 				}
 
