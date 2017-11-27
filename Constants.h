@@ -9,7 +9,8 @@
 #pragma once
 #include <string>
 
-/* Main game loop Constants */
+
+/* WEB Constants */
 bool const WEB_MODE = true;
 
 /* Hero Constants */

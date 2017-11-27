@@ -4,10 +4,10 @@
 //This file contains the javascript involving the map
 /////////////////////////////////////////////////////
 
-const SHOW_MIST = false; //Set true to show mist
+const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "aasquier";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "cofer2";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
@@ -88,11 +88,11 @@ function update() {
 //Launch cgi
 //Takes an action code to tell the back end what function to launch, such as move, change inventory etc.
 //The action1 will be what parameter to send to the appropriate back end function, will expand to an "action2"
-//if more parameters are needed.   
-//ACTION CODES  --->   move (action1 is our 1,2,3,4 code for movement), loadDefault (loads default map, no args), 
+//if more parameters are needed.
+//ACTION CODES  --->   move (action1 is our 1,2,3,4 code for movement), loadDefault (loads default map, no args),
 //loadFile (action1 is file name to load), buyItem (action1 is the type being purchased), useItem (action1 is the slot in the inventory bag)
 function launchCGI(actionCode, action1, action2) {
-    
+
     arguments = actionCode + "|" + action1 + "|" + action2 + "*";
     var xhttp = new XMLHttpRequest();
     URL = "http://web.cecs.pdx.edu/~" + USER_NAME + "/CS300_project/frupalCGI.cgi?" + arguments;
@@ -109,11 +109,11 @@ function launchCGI(actionCode, action1, action2) {
 					}
 					else if(xhttp.responseText[0] == '!'){	//This will restart the game state if the hero dies triggered when cout begins with (!)
 						restart();
-						alert(xhttp.responseText);							
+						alert(xhttp.responseText);
 					}
 					else if(xhttp.responseText[0] == '>'){ //This will trigger a prompt from the user on purchases of tools
 						if(xhttp.responseText[1] == '>'){
-							
+
 						}
 						else if(xhttp.responseText[1] == '<'){		//This will trigger a prompt from the user for a powerbar
 							if(confirm(xhttp.responseText) == true){
@@ -254,7 +254,7 @@ function updateMessageWindow(statStr)
 
     document.getElementById("messageWindow").innerHTML =
              "Whiffles: " + statArr[0] + "<br>" +
-             "Energy: " + statArr[1] + "<br>" + 
+             "Energy: " + statArr[1] + "<br>" +
              "Location: (" + statArr[2] + ", " + statArr[3] + ")<br>" +
              "Terrain: " + statArr[4] + "<br><br>" +
              statArr[5];
@@ -571,7 +571,7 @@ function displayInventory() {
 //This function will launch the appropriate action when an inventory item is clicked on, will check if the action
 //is valid, and will update the status of the inventory item on the back-end
 function useItem(slot){
-	
+
 }
 
 //this function will prevent user from moving and spit out an alert if the user is dead
@@ -583,4 +583,3 @@ function deadUser(isDead){
 	}
 	return;
 }
-

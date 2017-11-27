@@ -290,38 +290,38 @@ void Map::displayMap()
         setAllLocalVisibleGrovnicksOnMap(true);
     }
 
-    cout << endl; //Space before map is shown
+    if (!WEB_MODE) cout << endl; //Space before map is shown
 
     //Display an outline of the map if toggled
-    if (!SHOW_MIST) cout << SPACE_BEFORE_MAP << HORIZONTAL_OUTLINE << endl;
+    if (!SHOW_MIST && !WEB_MODE) cout << SPACE_BEFORE_MAP << HORIZONTAL_OUTLINE << endl;
 
     //Display the Grovnicks to the map while checking
     //if isVisibile is true or not.
     for (int j = 0; j < mapSize; ++j) {
-        if (!SHOW_MIST) cout << SPACE_BEFORE_MAP << MAP_OUTLINE_CHAR;
+        if (!SHOW_MIST && !WEB_MODE) cout << SPACE_BEFORE_MAP << MAP_OUTLINE_CHAR;
         for (int i = 0; i < mapSize; ++i) {
 
             //Debug Mode
-            if (DISPLAY_COORDINATES) {
+            if (DISPLAY_COORDINATES && !WEB_MODE) {
                 cout << "(" << j << ", " << i << ") ";
             }
 
             //Display the Hero if he is on this Grovnick, and
             //ignore the type that would have been displayed
             if ((hero->getLocation().x == i) && (hero->getLocation().y == j)) {
-                cout << HERO_CHAR; //Display the Hero
+                if (!WEB_MODE) cout << HERO_CHAR; //Display the Hero
             } else {
                 //If theres a type then display the type
 
                 map[i][j].displayChar();
             }
-            cout << " "; //Spaces characters on x-axis
+            if (!WEB_MODE) cout << " "; //Spaces characters on x-axis
         }
-        if (!SHOW_MIST) cout << MAP_OUTLINE_CHAR;
-        cout << endl; //At the end of a row
+        if (!SHOW_MIST && !WEB_MODE) cout << MAP_OUTLINE_CHAR;
+        if (!WEB_MODE) cout << endl; //At the end of a row
     }
 
-    if (!SHOW_MIST) cout << SPACE_BEFORE_MAP << HORIZONTAL_OUTLINE << endl;
+    if (!SHOW_MIST && !WEB_MODE) cout << SPACE_BEFORE_MAP << HORIZONTAL_OUTLINE << endl;
 }
 
 //Sets what grovnicks should be displayed on the map,
@@ -451,22 +451,22 @@ void Map::resetMapState() {
     //wonMap = true;
 }
 
-void Map::saveState() 
+void Map::saveState()
 {
     ofstream file;
     file.open(SAVEFILE.c_str());
     // game map details
     file << "save file" << endl;
     file << mapSize << endl;
-    file << GAMEMAP_SEPARATOR << endl; 
+    file << GAMEMAP_SEPARATOR << endl;
     // hero details
     hero->printSaveInfo(file);
-    file << GAMEMAP_SEPARATOR << endl; 
-   
+    file << GAMEMAP_SEPARATOR << endl;
+
     int visibility = 0;
     int terrain = 0;
     Terrain * t;
-    Type * type; 
+    Type * type;
     string contents;
     string object;
     for (int i = 0; i < mapSize; ++i) {
@@ -524,7 +524,7 @@ void Map::saveState()
 
     file.close();
 
-    
+
 }
 
 
@@ -532,4 +532,3 @@ Location Map::getRoyalDiamondsLocation()
 {
     return royalDiamondsLocation;
 }
-
