@@ -75,7 +75,15 @@ int main(void)
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 			}
 			else { cout << "*** You are to broke for that power bar sorry"; }
-		}
+		} else if (strcmp(actionCode, "Binoculars") == 0) {
+            if(hero->getBalance() > 50) {
+                hero->setBalance(-50);
+				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
+				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+            }
+            else { cout << "*** You are too broke for that set of binoculars sorry"; }
+
+        }
 
 		if(!hero->checkAlive()){
 			remove("saveFile.txt");
