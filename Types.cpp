@@ -122,7 +122,7 @@ bool Type::promptPurchase(int cost) {
 				}
 		}
 		return false;
-	} 
+	}
 	else {
 		cout << "Sorry you do not have enough Whiffles to pay for that..." << endl;
 		return false;
@@ -179,7 +179,7 @@ Clue::Clue(string newName, string newMessage, Map * mapPtr)
     name = newName;
     message = newMessage;
     map = mapPtr;
-    
+
     //If statements to assign true or false randomly
     if(i == 0)
     clueTruth = true;
@@ -236,7 +236,7 @@ int Clue::interactWithType()
         if(random == 2){
            this->trueClueThree(); //changes to false once implemented fully
         }
-    
+
 
     }
 
@@ -279,9 +279,9 @@ int Clue::trueClueTwo()
     cout << "True Clue Two selected! (test)" << endl; //Test message
 
     //Tells the user the true player location coordinates
-    cout << "The hero is located at " << temp.x << "," 
+    cout << "The hero is located at " << temp.x << ","
     << temp.y << " on the map." << endl;
-    
+
 
     //Loads the coordinates of the royal diamonds to a temp container
     temp = map->getRoyalDiamondsLocation();
@@ -301,11 +301,11 @@ int Clue::trueClueThree()
     bool toolsPresent = false;//Flag for if hero has tools at all
     srand(time(NULL));//initializes the random seed
     Location temp;//a temp container for coordinates
-    
+
     //A random value is generated in a range covering the bag slots
     int random = rand() % BAG_SIZE;
 
-    //Iterates through bag list, 
+    //Iterates through bag list,
     for(i = 0; i < BAG_SIZE; ++i)
     {
         if(!map->getHeroPtr()->checkNullInventorySlot(i))
@@ -327,7 +327,7 @@ int Clue::trueClueThree()
 
             //Will pick randomly at list  until a non-NULL slot is found
             if(!map->getHeroPtr()->checkNullInventorySlot(random))
-            { 
+            {
                 map->getHeroPtr()->displayInventory(random);
                 i = 50;
             }
@@ -337,7 +337,7 @@ int Clue::trueClueThree()
 
         }while(i < 50);
     }
-   
+
     //Branch for function where hero has no tools
     else
     {
@@ -433,9 +433,9 @@ int Clue::falseClueTwo()
     match = true;
 
     //Tells the user the false player location coordinates
-    cout << "The hero is located at " << falseStatus[0] << "," 
+    cout << "The hero is located at " << falseStatus[0] << ","
     << falseStatus[1] << " on the map." << endl;
-    
+
 
     //Loads the coordinates of the royal diamonds to a temp container
     temp = map->getRoyalDiamondsLocation();
@@ -464,11 +464,11 @@ int Clue::falseClueThree()
     bool toolsPresent = false;//Flag for if hero has tools at all
     srand(time(NULL));//initializes the random seed
     Location temp;//a temp container for coordinates
-    
+
     //A random value is generated in a range covering the bag slots
     int random = rand() % BAG_SIZE;
 
-    //Iterates through bag list, 
+    //Iterates through bag list,
     for(i = 0; i < BAG_SIZE; ++i)
     {
         if(!map->getHeroPtr()->checkNullInventorySlot(i))
@@ -490,7 +490,7 @@ int Clue::falseClueThree()
 
             //Will pick randomly at list  until a non-NULL slot is found
             if(!map->getHeroPtr()->checkNullInventorySlot(random))
-            { 
+            {
                 map->getHeroPtr()->displayInventory(random);
                 i = 50;
             }
@@ -500,7 +500,7 @@ int Clue::falseClueThree()
 
         }while(i < 50);
     }
-   
+
     //Branch for function where hero has no tools
     else
     {

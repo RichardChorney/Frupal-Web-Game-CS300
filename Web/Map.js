@@ -32,6 +32,7 @@ var tree = new Image();
 var boulder = new Image();
 var clue = new Image();
 var binoculars = new Image();
+var boat = new Image();
 //Tools
 var hatchet = new Image();
 var axe = new Image();
@@ -164,6 +165,7 @@ function initImages() {
     boulder.src = "Sprites/boulder.png";
     clue.src = "Sprites/clue.png";
     binoculars.src = "Sprites/binoculars.png";
+    boat.src = "Sprites/boat.png";
     //Tools
     hatchet.src = "Sprites/hatchet.png";
     axe.src = "Sprites/axe.png";
@@ -209,6 +211,7 @@ function displayMap() {
             else if (types[i][j] == 'B') { displayImg(boulder, i, j); }
             else if (types[i][j] == 'C') { displayImg(clue, i, j); }
             else if (types[i][j] == '8') { displayImg(binoculars, i, j); }
+            else if (types[i][j] == 'V') { displayImg(boat, i, j); }
 
             /* Display Mist & Hero */
             if (mists[i][j] == 'H') { displayImg(hero, i, j); }
