@@ -527,7 +527,9 @@ void Map::saveState()
     
 }
 
+
 Location Map::getRoyalDiamondsLocation()
 {
     return royalDiamondsLocation;
 }
+
