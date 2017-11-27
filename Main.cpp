@@ -14,15 +14,13 @@
 
 using namespace std;
 
-/* Main game loop Constants */
-bool const WEB_MODE = true;
+
 //Test maps (these don't conform to the standard map files)
 string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
 string const basicMap = "basicMap.txt";
 string const basicMap2 = "basicMap2.txt";
 string const demoMap = "demoMap.txt";
-string const saveFile = "saveFile.txt";
 
 int main(void)
 {
@@ -51,12 +49,16 @@ int main(void)
 
 	    Hero * hero;
 		Map map; //Create a map of size MAX
-
-		if(strcmp(actionCode, "loadDefault") == 0) {
+		
+		if(strcmp(actionCode, "restart") == 0) {
+			remove("saveFile.txt");
+			map.loadMapFromFile(demoMap);
+    		hero = map.getHeroPtr();	
+		} else if(strcmp(actionCode, "loadDefault") == 0) {
 		    map.loadMapFromFile(demoMap);
     		hero = map.getHeroPtr();	
 		} else {
-			map.loadMapFromFile(saveFile);
+			map.loadMapFromFile("saveFile.txt");
 			hero = map.getHeroPtr();
 		}
 
@@ -66,12 +68,19 @@ int main(void)
 			
 		} else if(strcmp(actionCode, "buyItem") == 0) {
 
+		} else if(strcmp(actionCode, "powerBar") == 0) {
+			if(hero->getBalance() > 0) {
+				hero->setBalance(-1);
+				hero->changeEnergy(20);
+				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
+				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+			}
+			else { cout << "*** You are to broke for that power bar sorry"; } 
 		}
 		
 		if(!hero->checkAlive()){
 			remove("saveFile.txt");
 			cout << "**GAME OVER**" << endl << endl;
-			
 		} else {		
 			map.saveState();
 			hero->updateWebStatus();

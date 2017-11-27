@@ -9,6 +9,9 @@
 #pragma once
 #include <string>
 
+/* Main game loop Constants */
+bool const WEB_MODE = true;
+
 /* Hero Constants */
 int const DEFAULT_ENERGY = 100; //Starting amount of Energy
 int const DEFAULT_WHIFFLES = 1000; //Starting amount of Whiffles

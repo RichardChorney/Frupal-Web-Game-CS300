@@ -71,6 +71,11 @@ Location Hero::getAheadLocation()
   	return aheadLocation;
 }
 
+Location Hero::getCurrLocation()
+{
+	return location;
+}
+
 Terrain Hero::getTerrain()
 {
     return terrain;
@@ -112,7 +117,7 @@ bool Hero::checkAlive()
   	if(energy <= 0)
   	{
   		alive = false;
-  		cout << "*!*! You ran out of energy and DIED!!\n";
+  		cout << "!!! You ran out of energy and DIED !!!\n";
   	}
 
     return alive;
@@ -213,6 +218,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
     //if the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
+		cout << "*** ";
 		displayTerrainMsg(ahead.terrainName);
 		cout << "You lose your turn and " << ahead.energyConsumption << " Energy point." << endl;		//TODO Need to change this for boats
 		changeEnergy(-ahead.energyConsumption);

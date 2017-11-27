@@ -67,7 +67,7 @@ window.onload = function() {
 
 //Restarts the game state if the hero dies, is just a clone of the onload function
 function restart() {
-	launchCGI("loadDefault", " ", " ");
+	launchCGI("restart", " ", " ");
     initImages();
     initMap();
     update();
@@ -102,16 +102,29 @@ function launchCGI(actionCode, action1, action2) {
 	function afterResponse() {
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
-					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
 					update();
+					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
 					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
 						alert(xhttp.responseText);
-						if(xhttp.responseText[1] == '!'){	//This will restart the game state if the hero dies triggered by second char in cout (!)
-							restart();						
+					}
+					else if(xhttp.responseText[0] == '!'){	//This will restart the game state if the hero dies triggered when cout begins with (!)
+						restart();
+						alert(xhttp.responseText);							
+					}
+					else if(xhttp.responseText[0] == '>'){ //This will trigger a prompt from the user on purchases of tools
+						if(xhttp.responseText[1] == '>'){
+							
+						}
+						else if(xhttp.responseText[1] == '<'){		//This will trigger a prompt from the user for a powerbar
+							if(confirm(xhttp.responseText) == true){
+								launchCGI("powerBar", " ", " ");
+							} else {
+								alert("Oh well, I guess not everyone likes power bars...");
+							}
 						}
 					}
-				}
-			} 
+			}
+		}
 	}
 }
 
