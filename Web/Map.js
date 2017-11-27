@@ -7,6 +7,9 @@
 const SHOW_MIST = false; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
+const USER_NAME = "aasquier";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const LIST_MAX = 10;	//Max size of the inventory bag
+
 
 //Get the canvas details
 var canvas = document.getElementById("frupalCanvas");
@@ -82,16 +85,16 @@ function launchCGI(actionCode, action1, action2) {
     
     arguments = actionCode + "|" + action1 + "|" + action2 + "*";
     var xhttp = new XMLHttpRequest();
-    URL = "http://web.cecs.pdx.edu/~aasquier/CS300_project/frupalCGI.cgi?" + arguments;
+    URL = "http://web.cecs.pdx.edu/~" + USER_NAME + "/CS300_project/frupalCGI.cgi?" + arguments;
     xhttp.open("GET", URL, true);
     xhttp.send();
     xhttp.onreadystatechange = afterResponse;
-
 	function afterResponse() {
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
 					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
-					alert(xhttp.responseText); //TEST
+					update();
+					//alert(xhttp.responseText); //TEST
 				}
 			} 
 	}
@@ -194,7 +197,7 @@ function loadStatusFromString()
     var httpRequest;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = parseStatusString;
-    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~lwarden/CS300_project/Web/status.html', true);
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~' + USER_NAME + '/CS300_project/Web/status.html', true);
     httpRequest.send();
 
 
@@ -236,7 +239,7 @@ function loadTerrainFromString()
     var httpRequest;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = parseTerrainString;
-    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webTerrain.html', true);
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~' + USER_NAME + '/CS300_project/Web/webTerrain.html', true);
     httpRequest.send();
 
 
@@ -283,7 +286,7 @@ function loadTypesFromString()
     var httpRequest;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = parseTypesString;
-    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webTypes.html', true);
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~' + USER_NAME + '/CS300_project/Web/webTypes.html', true);
     httpRequest.send();
 
 
@@ -329,7 +332,7 @@ function loadMistsFromString()
     var httpRequest;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = parseMistsString;
-    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webMists.html', true);
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~' + USER_NAME + '/CS300_project/Web/webMists.html', true);
     httpRequest.send();
 
 
@@ -373,7 +376,7 @@ function loadMistsFromString() {
     var httpRequest;
     httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = parseMistString;
-    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~cofer2/CS300_project/Web/webMists.html', true);
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~' + USER_NAME + '/CS300_project/Web/webMists.html', true);
     httpRequest.send();
 
 
@@ -440,3 +443,115 @@ function displayImg(img, x, y) {
 function changeText() {
     document.getElementById("demo").innerHTML = "Hello there";
 }
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+//When the user clicks on the button, toggle between hiding and showing the dropdown content, also
+//takes a string as an argument and parses it to populate the inventory with. The string will be in the form of
+//pairs of integers, first element of the pair is inventory slot number, second element of the pair is the quantity
+//of that item, i.e. 12 would be axe, quantity 2
+function displayInventory() {
+
+	//These are the necessary variable to create a "request variable" and then opens a request to my working directory, we will need to create a
+	//global constant for the right directory to GET from.
+	var httpRequest;
+	httpRequest = new XMLHttpRequest();
+
+	//This tells the program what function to handle the request when the request has been answered
+	httpRequest.onreadystatechange = parseInventory;
+    //	httpRequest.open('GET', 'http://web.cecs.pdx.edu/~aasquier/CS300_project/inventory.html', true); //The true arg indicates a text response
+    httpRequest.open('GET', 'http://web.cecs.pdx.edu/~' + USER_NAME + '/CS300_project/inventory.html', true); //The true arg indicates a text response
+	httpRequest.send();
+
+	//Parses the servers response into the inventory list
+	function parseInventory() {
+
+			//Makes sure the server has responded
+			if(httpRequest.readyState === XMLHttpRequest.DONE){
+
+				//Checks for the all clear code from the server
+				if(httpRequest.status === 200){
+
+					//Index variables
+					var j = 0;
+					var k = 1;
+
+					//Takes the server response as a text string
+					var listContents = httpRequest.responseText;
+
+					//Toggles the dropdown menu
+					document.getElementById("myDropdown").classList.toggle("show");
+
+					//Populates the inventory list with the string from the back end
+					for(var i = 1; i <= LIST_MAX; ++i){
+						switch(parseInt(listContents[j])){
+							case 0:
+                                document.getElementById("slot" + i).innerHTML = i + "--> Empty";
+								break;
+							case 1:
+								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " (" + listContents[k] + ") Removes Trees for 8 energy points";
+								break;
+							case 2:
+								document.getElementById("slot" + i).innerHTML = i + "--> Axe" + " (" + listContents[k] + ") Removes Trees for 6 energy points";
+								break;
+							case 3:
+								document.getElementById("slot" + i).innerHTML = i + "--> Chainsaw" + " (" + listContents[k] + ") Removes Trees for 2 energy points";
+								break;
+							case 4:
+								document.getElementById("slot" + i).innerHTML = i + "--> Chisel" + " (" + listContents[k] + ") Removes Boulders for 15 energy points";
+								break;
+							case 5:
+								document.getElementById("slot" + i).innerHTML = i + "--> Sledgehammer" + " (" + listContents[k] + ") Removes Boulders for 12 energy points";
+								break;
+							case 6:
+								document.getElementById("slot" + i).innerHTML = i + "--> Jackhammer" + " (" + listContents[k] + ") Removes Boulders for 4 energy points";
+								break;
+							case 7:
+								document.getElementById("slot" + i).innerHTML = i + "--> Machete" + " (" + listContents[k] + ") Removes Blackberry Bushes for 2 energy points";
+								break;
+							case 8:
+								document.getElementById("slot" + i).innerHTML = i + "--> Shears" + " (" + listContents[k] + ") Removes Blackberry Bushes for 2 energy points";
+								break;
+							default:
+								document.getElementById("slot" + i).innerHTML = i + "--> Empty";
+								break;
+						}
+						j += 2;
+						k += 2;
+					}
+				} else{
+					alert('There was a problem with the request');
+				}
+			}
+		}
+}
+
+
+//This function will launch the appropriate action when an inventory item is clicked on, will check if the action
+//is valid, and will update the status of the inventory item on the back-end
+function useItem(slot){
+	
+}
+
+//this function will prevent user from moving and spit out an alert if the user is dead
+//does nothing currently
+function deadUser(isDead){
+	if(isDead==1)
+	{
+		alert('Player out of energy');
+	}
+	return;
+}
+

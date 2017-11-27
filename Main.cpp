@@ -15,7 +15,7 @@
 using namespace std;
 
 /* Main game loop Constants */
-bool const WEB_MODE = false;
+bool const WEB_MODE = true;
 //Test maps (these don't conform to the standard map files)
 string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
@@ -52,7 +52,7 @@ int main(void)
 		Map map; //Create a map of size MAX
 
 		//TODO we need to remove the next 2 lines when we are able to prompt user to load a specific file
-		map.loadMapFromFile(demoMap);
+		map.loadMapFromFile("saveFile.txt");
 		hero = map.getHeroPtr();	
 
 		if(strcmp(actionCode, "move") == 0) {
@@ -72,11 +72,11 @@ int main(void)
 		    map.loadMapFromFile(demoMap);
     		hero = map.getHeroPtr();	
 		}
-
-//		printf("%s\n", actionCode);		//FOR
-//		printf("%s\n", action1);  	//TESTING
-
-		
+		map.saveState();
+		hero->updateWebStatus();
+		map.writeWebTerrain();
+		map.writeWebTypes();
+		map.writeWebMists();
 
 	 }  //End of WEB_MODE if
 	
