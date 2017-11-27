@@ -197,6 +197,7 @@ int Map::loadMapFromFile(string fileName)
             else if (!line.compare("Jackhammer")) typeToAdd = new Jackhammer(this);
             else if (!line.compare("Machete")) typeToAdd = new Machete(this);
             else if (!line.compare("Shears")) typeToAdd = new Shears(this);
+            else if (!line.compare("Boat")) typeToAdd = new Boat(this);
             hero->fillBag(typeToAdd);
         }
     }
@@ -507,6 +508,7 @@ void Map::saveState()
                 else if (!contents.compare("Jackhammer")) object = "Jackhammer";
                 else if (!contents.compare("Machete")) object = "Machete";
                 else if (!contents.compare("Shears")) object = "Shears";
+                else if (!contents.compare("Boat")) object = "Boat";
             }
             //else object = "None";
 
