@@ -55,7 +55,7 @@ class Hero {
 	bool updateInventoryFile();	//Updates inventory file state
     ostream& printSaveInfo(ostream& out);
     void updateHeroTerrain(Terrain * t);
-    Location aheadLocation;//Stores the coordinates of tile the player is moving into
+    Location getAheadLocation();//Returns Heroes ahead x and y coordinates
 
   protected:
     Terrain terrain;        //Terrain that the hero is on
