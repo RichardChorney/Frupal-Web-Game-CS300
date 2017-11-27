@@ -32,7 +32,7 @@ int main(void)
 		char original[144];
 		char actionCode[16];		//Temporary string to hold the action code
 		char action1[64];			//Temporary string to hold the action1 parameter to be taken
-		char action2[64];			//Temporary string to hold the action2 parameter to be taken	
+		char action2[64];			//Temporary string to hold the action2 parameter to be taken
 		char * strptr;
 
 		strcpy(original, web_data);
@@ -49,14 +49,14 @@ int main(void)
 
 	    Hero * hero;
 		Map map; //Create a map of size MAX
-		
+
 		if(strcmp(actionCode, "restart") == 0) {
 			remove("saveFile.txt");
 			map.loadMapFromFile(demoMap);
-    		hero = map.getHeroPtr();	
+    		hero = map.getHeroPtr();
 		} else if(strcmp(actionCode, "loadDefault") == 0) {
 		    map.loadMapFromFile(demoMap);
-    		hero = map.getHeroPtr();	
+    		hero = map.getHeroPtr();
 		} else {
 			map.loadMapFromFile("saveFile.txt");
 			hero = map.getHeroPtr();
@@ -65,7 +65,7 @@ int main(void)
 		if(strcmp(actionCode, "move") == 0) {
 			hero->moveHero(atoi(action1), map);
 		} else if(strcmp(actionCode, "removeItem") == 0) {
-			
+
 		} else if(strcmp(actionCode, "buyItem") == 0) {
 
 		} else if(strcmp(actionCode, "powerBar") == 0) {
@@ -75,13 +75,13 @@ int main(void)
 				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 			}
-			else { cout << "*** You are to broke for that power bar sorry"; } 
+			else { cout << "*** You are to broke for that power bar sorry"; }
 		}
-		
+
 		if(!hero->checkAlive()){
 			remove("saveFile.txt");
 			cout << "**GAME OVER**" << endl << endl;
-		} else {		
+		} else {
 			map.saveState();
 			hero->updateWebStatus();
 			map.writeWebTerrain();
@@ -90,12 +90,12 @@ int main(void)
 		}
 
 	 }  //End of WEB_MODE if
-	
+
 		else{
 			Hero * hero;
 			Map map; //Create a map of size MAX
 			map.loadMapFromFile(demoMap);
-			hero = map.getHeroPtr();	
+			hero = map.getHeroPtr();
 			bool proceed = true;
 
 
@@ -181,6 +181,6 @@ int main(void)
 
 			}
 
-	}	//End of COMMAND_LINE_MODE else  
+	}	//End of COMMAND_LINE_MODE else
     return 0;
 }

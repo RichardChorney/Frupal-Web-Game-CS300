@@ -451,22 +451,22 @@ void Map::resetMapState() {
     //wonMap = true;
 }
 
-void Map::saveState() 
+void Map::saveState()
 {
     ofstream file;
     file.open(SAVEFILE.c_str());
     // game map details
     file << "save file" << endl;
     file << mapSize << endl;
-    file << GAMEMAP_SEPARATOR << endl; 
+    file << GAMEMAP_SEPARATOR << endl;
     // hero details
     hero->printSaveInfo(file);
-    file << GAMEMAP_SEPARATOR << endl; 
-   
+    file << GAMEMAP_SEPARATOR << endl;
+
     int visibility = 0;
     int terrain = 0;
     Terrain * t;
-    Type * type; 
+    Type * type;
     string contents;
     string object;
     for (int i = 0; i < mapSize; ++i) {
@@ -524,7 +524,7 @@ void Map::saveState()
 
     file.close();
 
-    
+
 }
 
 
@@ -532,4 +532,3 @@ Location Map::getRoyalDiamondsLocation()
 {
     return royalDiamondsLocation;
 }
-
