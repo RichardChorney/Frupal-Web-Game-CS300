@@ -41,7 +41,8 @@ class Hero {
 	bool useItem(int num);		//Updates heroes pointer list
 	void printStatus();			//Prints heroes status
     void updateWebStatus();     //Writes to a file containing status info for the web to read from
-	void displayInventory();
+	void displayInventory(int slot);
+        int checkNullInventorySlot(int slot);//Checks a inventory slot if it's null and returns 1 if it is
 	int lookAhead(Map & map, Location aheadLoc); //Checks Grovnick ahead of Hero, returns info based on used items etc.
 	void addToWhiffles(int whifflesToAdd); //Either add or subtract whiffles
 	void displayTerrainMsg(string terraName);
@@ -58,6 +59,7 @@ class Hero {
   protected:
     Terrain terrain;        //Terrain that the hero is on
 	Location location; 		//Coordinates of the player on the map
+    Location aheadLocation;//Stores the coordinates of tile the player is moving into
     int energy; 			//Amount of energy that the play has
     bool alive; 			//is the user alive?
     int whiffles; 			//Amount of whiffles that the player has
