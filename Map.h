@@ -67,6 +67,7 @@ public:
     int loadMapFromFile(string fileName); //Loads the file into the array
     int loadMapToFile(string fileName); //Stores array into file
     void setHero(Hero * newHero);
+    int getMapSize();
     void setLocalVisibileGrovnicksOnMap(Location & location, int visibility);
     void setAllLocalVisibleGrovnicksOnMap(bool newValue); //Sets all grovnicks local visibilty
     Hero* getHeroPtr();
@@ -79,6 +80,7 @@ public:
     int writeWebTypes();
     int writeWebMists();
     void saveState();
+    Location getRoyalDiamondsLocation();
 
 protected:
     void allocateMap(int newMapSize = MAX);
@@ -88,4 +90,5 @@ protected:
     Hero * hero; //A pointer to the user
     string fileName;
     bool wonMap;
+    Location royalDiamondsLocation;
 };
