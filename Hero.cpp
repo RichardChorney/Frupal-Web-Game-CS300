@@ -88,6 +88,7 @@ int Hero::getVisibilityRadius()
 }
 
 //Sets the visibility radius to max of 2 returns true if successful
+//FIXME This really should be called setVisibilityRadius()
 bool Hero::setVisibility(bool range)
 {
 	if(range){
@@ -334,8 +335,8 @@ void Hero::updateWebStatus()
     //order is WELT
     output << whiffles << '|'
            << energy << '|'
-           << location.x << '|' << location.y << '|' 
-           << terrain.terrainName << '|'; 
+           << location.x << '|' << location.y << '|'
+           << terrain.terrainName << '|';
 
     writeTerrainMsg(terrain.terrainName, output);
 
@@ -349,12 +350,12 @@ void Hero::displayInventory(int slot = -1)
     int InventoryCounter = 0;
 //For loop counts how many tools are in the bag
     int i = 0;
-	
+
 	//If statement switches between displaying all slots on -1 or
     //a specific slot if given that slot's value
     if(slot == -1)
-    {   
-	
+    {
+
     for(i = 0; i < BAG_MAX; ++i)
     {
         if(list[i])
@@ -549,7 +550,7 @@ int Hero::checkItemEnergyCost(int index){
     return list[index]->checkEnergyCost();
 }
 
-ostream & Hero::printSaveInfo(ostream& out) 
+ostream & Hero::printSaveInfo(ostream& out)
 {
     out << location.x << "," << location.y << endl;
     out << energy << endl;
@@ -570,7 +571,7 @@ ostream & Hero::printSaveInfo(ostream& out)
     return out;
 }
 
-void Hero::updateHeroTerrain(Terrain * t) 
+void Hero::updateHeroTerrain(Terrain * t)
 {
     terrain.terrainName = t->terrainName;
     terrain.charToDisplay = t->charToDisplay;

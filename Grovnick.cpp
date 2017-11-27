@@ -49,10 +49,11 @@ void Grovnick::copyGrovnick(bool newIsVisibleLocally, bool newIsVisible, int new
 //Hero instead.
 void Grovnick::displayChar()
 {
-    //if (isHeroOnGrovnick) cout << HERO_CHAR;
-    if (isVisible) cout << terrain.charToDisplay;
-    else if (SHOW_MIST) cout << MIST;
-    else cout << " ";
+    if (!WEB_MODE) {
+        if (isVisible) cout << terrain.charToDisplay;
+        else if (SHOW_MIST) cout << MIST;
+        else cout << " ";
+    }
 }
 
 //Returns the char the grovnick will display

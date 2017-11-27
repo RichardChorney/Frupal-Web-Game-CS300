@@ -14,7 +14,6 @@
 
 using namespace std;
 
-
 //Test maps (these don't conform to the standard map files)
 string const allGrassMap = "allGrassMap.txt";
 string const simpleMap = "simpleMap.txt";
@@ -83,6 +82,7 @@ int main(void)
 			cout << "**GAME OVER**" << endl << endl;
 		} else {
 			map.saveState();
+			map.displayMap(); //In WEB_MODE it just updates the map
 			hero->updateWebStatus();
 			map.writeWebTerrain();
 			map.writeWebTypes();

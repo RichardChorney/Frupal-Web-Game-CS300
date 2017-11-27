@@ -1,6 +1,8 @@
-CFLAGS = -Wall -pedantic -static
+CFLAGS = -Wall -pedantic
 
 all:
+	g++ $(CFLAGS) -static *.cpp -o frupal
+mac:
 	g++ $(CFLAGS) *.cpp -o frupal
 
 clean:
