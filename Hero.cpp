@@ -65,6 +65,12 @@ Location Hero::getLocation()
   	return location;
 }
 
+//Returns the location of the hero's next step
+Location Hero::getAheadLocation()
+{
+  	return aheadLocation;
+}
+
 Terrain Hero::getTerrain()
 {
     return terrain;
@@ -158,6 +164,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     aheadLoc.x = x;
     aheadLoc.y = y;
 
+aheadLocation = aheadLoc;
     //Look ahead before actually stepping.
 	int temp = lookAhead(mapToCopy, aheadLoc);
 	if(temp)
@@ -331,11 +338,17 @@ void Hero::updateWebStatus()
 
 //TODO As the items are implemented this needs to be reviewed
 //to make sure it displays correctly
-void Hero::displayInventory()
+void Hero::displayInventory(int slot = -1)
 {
     int InventoryCounter = 0;
 //For loop counts how many tools are in the bag
     int i = 0;
+	
+	//If statement switches between displaying all slots on -1 or
+    //a specific slot if given that slot's value
+    if(slot == -1)
+    {   
+	
     for(i = 0; i < BAG_MAX; ++i)
     {
         if(list[i])
@@ -388,6 +401,11 @@ void Hero::displayInventory()
     cout << endl << endl;
 
     cout << "The Hero is standing on " << terrain.terrainName << " ." << endl;
+	    }
+    else
+    {
+        list[slot]->displayType();
+    }
 }
 
 //Adds whiffles to the Hero's bank account
@@ -511,6 +529,14 @@ bool Hero::checkBushTools(int index){
               return true;
 
      return false;
+}
+
+int Hero::checkNullInventorySlot(int slot)
+{
+    if(list[slot])
+        return 0;
+
+    return 1;
 }
 
 int Hero::checkItemEnergyCost(int index){

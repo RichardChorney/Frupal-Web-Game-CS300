@@ -95,22 +95,6 @@ string Type::checkName(){
 //    return name;
 //}
 
-//Default Clue Constructor
-Clue::Clue()
-{
-    cout << "Clue constructor!" << endl; //Test
-	charToDisplay = 'C';
-}
-
-//Clue Constructor with arguments
-Clue::Clue(string newName, string newMessage, Map * mapPtr)
-{
-    //Should probably use init lists instead, huh?
-    name = newName;
-    message = newMessage;
-    map = mapPtr;
-	charToDisplay = 'C';
-}
 
 //Purchase UI, returns true for a successful transaction, false if not enough funds or user decides to not purchase
 bool Type::promptPurchase(int cost) {
@@ -173,9 +157,361 @@ int Tool::checkEnergyCost(){
 }
 
 //Clue
+//Default Clue Constructor
+Clue::Clue()
+{
+    //Clues are true by default.
+    clueTruth = true;
+    charToDisplay = 'C';
+}
+
+//Clue Constructor with arguments
+Clue::Clue(string newName, string newMessage, Map * mapPtr)
+{
+    //Generate random value to create a random truth value.
+    srand(time(NULL));
+    int i = (rand() % 2);
+
+    //Assigns arguments to variables
+    name = newName;
+    message = newMessage;
+    map = mapPtr;
+    
+    //If statements to assign true or false randomly
+    if(i == 0)
+    clueTruth = true;
+    if(i == 1)
+    clueTruth = false;//test
+
+    charToDisplay = 'C';
+}
+
+//A constructor to control the clue's truth at generation.
+Clue::Clue(string newName, string newMessage, Map * mapPtr,bool clueTruthDefault = true)
+{
+    //Assigns arguments to variables
+    name = newName;
+    message = newMessage;
+    map = mapPtr;
+    charToDisplay = 'C';
+    clueTruth = clueTruthDefault;
+}
+
+/*The function to be called when the hero steps on a clue grovnik.*/
 int Clue::interactWithType()
 {
-    cout << "You called the CLUE function." << endl; //Test
+    //An int to store random values to select clue functions calls
+    int random = 0;
+    srand(time(NULL));
+
+     cout << "You called the CLUE function." << endl; //Test
+
+    /*An if statement branch for false and true clues*/
+    if(clueTruth == true)
+    {
+        random = (rand() % 3);
+//        random = 1; //TEST to control which clue is called
+
+        if(random == 0){
+           this->trueClueOne();
+        }
+        if(random == 1){
+           this->trueClueTwo();
+        }
+        if(random == 2){
+           this->trueClueThree();
+        }
+    }
+    else if(clueTruth == false)
+    {
+        if(random == 0){
+           this->falseClueOne();
+        }
+        if(random == 1){
+           this->falseClueTwo();
+        }
+        if(random == 2){
+           this->trueClueThree(); //changes to false once implemented fully
+        }
+    
+
+    }
+
+    return 0;
+}
+
+//1 of 3 true clues. Displays the true status of the player
+//and the royal diamonds
+int Clue::trueClueOne()
+{
+    //A temporary container for the royal diamond coordinates
+    Location temp;
+    temp = map->getHeroPtr()->getAheadLocation();
+
+    cout << "True Clue One selected! (test)" << endl; //Testing Message
+
+    //Tells the user the true player status
+    cout << "The hero has " << (map->getHeroPtr()->checkEnergy() - 1) << " energy, and "
+    << map->getHeroPtr()->getBalance() << " whiffles." << endl;
+
+
+    //Loads the coordinates of the royal diamonds to a temp container
+    temp = map->getRoyalDiamondsLocation();
+
+    //Tells user the true location of the diamonds as part of a true clue
+    cout << endl << "And the royal diamonds are located at ";
+    cout << temp.y << " " << temp.x << "!" << endl << endl;
+
+    return 0;
+}
+
+//2 of 3 true clues. Displays the true location of the player
+//and the royal diamonds location
+int Clue::trueClueTwo()
+{
+    //A temp container for the royal diamond coordinates
+    Location temp;
+    temp = map->getHeroPtr()->getAheadLocation();
+
+    cout << "True Clue Two selected! (test)" << endl; //Test message
+
+    //Tells the user the true player location coordinates
+    cout << "The hero is located at " << temp.x << "," 
+    << temp.y << " on the map." << endl;
+    
+
+    //Loads the coordinates of the royal diamonds to a temp container
+    temp = map->getRoyalDiamondsLocation();
+
+    //Tells user the true location of the diamonds as part of a true clue
+    cout << endl << "And the royal diamonds are located at ";
+    cout << temp.y << " " << temp.x << "!" << endl << endl;
+
+    return 0;
+}
+
+//3 of 3 true clues. Displays a tool the player actually holds
+//and the royal diamonds location
+int Clue::trueClueThree()
+{
+    int i = 0;
+    bool toolsPresent = false;//Flag for if hero has tools at all
+    srand(time(NULL));//initializes the random seed
+    Location temp;//a temp container for coordinates
+    
+    //A random value is generated in a range covering the bag slots
+    int random = rand() % BAG_SIZE;
+
+    //Iterates through bag list, 
+    for(i = 0; i < BAG_SIZE; ++i)
+    {
+        if(!map->getHeroPtr()->checkNullInventorySlot(i))
+            toolsPresent = true;
+    }
+
+    cout << "True Clue Three selected!" << endl; //Test
+
+    //Branch for function when the hero has tools
+    if(toolsPresent)
+    {
+        //Tells user what tool they have.
+        cout << "The hero has this tool ";
+
+        //Selects a random slot to tell the user about
+        do
+        {
+            random = rand() % BAG_SIZE;
+
+            //Will pick randomly at list  until a non-NULL slot is found
+            if(!map->getHeroPtr()->checkNullInventorySlot(random))
+            { 
+                map->getHeroPtr()->displayInventory(random);
+                i = 50;
+            }
+
+            else
+                ++i;
+
+        }while(i < 50);
+    }
+   
+    //Branch for function where hero has no tools
+    else
+    {
+        //User is told the true fact the hero has no tools.
+        cout << "The hero has no tools. " << endl;
+    }
+
+    //Loads the coordinates of the royal diamonds to a temp container
+    temp = map->getRoyalDiamondsLocation();
+    //Tells user the true location of the diamonds as part of a true clue
+    cout << endl << "And the royal diamonds are located at ";
+    cout << temp.y << " " << temp.x << "!" << endl << endl;
+
+
+    return 0;
+}
+
+//1 of 3 false clues. Displays the false status of the player
+//and a false royal diamonds
+int Clue::falseClueOne()
+{
+    //A temporary container for the royal diamond coordinates
+    Location temp;
+    temp = map->getHeroPtr()->getAheadLocation();
+    int realStatus[2];
+    int falseStatus[2];
+    bool match = true;
+    srand(time(NULL));//initializes the random seed
+
+    cout << "False Clue One selected! (test)" << endl; //Testing Message
+
+    //Stores the real player status so it doesn't accidentally get
+    //randomly generated later, making the clue true when it should be false
+    realStatus[0] = (map->getHeroPtr()->checkEnergy() - 1);
+    realStatus[1] = map->getHeroPtr()->getBalance();
+
+    //While loop to compare the generated false values to the real ones.
+    //If they don't match, then the loop ends and the function continues
+    while(match == true)
+    {
+        falseStatus[0] = rand() % map->getMapSize();
+        falseStatus[1] = rand() % map->getMapSize();
+        if(realStatus[0] != falseStatus[0] && realStatus[1] != falseStatus[1])
+            match = false;
+    }
+    match = true;
+
+    //Tells user a false fact about their status
+    cout << "The hero has " << falseStatus[0] << " energy, and "
+    << falseStatus[1] << " whiffles." << endl;
+
+    //Loads the coordinates of the royal diamonds to a temp container
+    temp = map->getRoyalDiamondsLocation();
+
+    //While loop to compare the generated false values to the real ones.
+    //If they don't match, then the loop ends and the function continues
+    while(match == true)
+    {
+        falseStatus[0] = rand() % map->getMapSize();
+        falseStatus[1] = rand() % map->getMapSize();
+        if(temp.x != falseStatus[0] && temp.y != falseStatus[1])
+            match = false;
+    }
+    //Tells user the true location of the diamonds as part of a true clue
+    cout << endl << "And the royal diamonds are located at ";
+    cout << falseStatus[0] << " " << falseStatus[1] << "!" << endl << endl;
+
+    return 0;
+}
+
+//2 of 3 false clues. Displays the false location of the player
+//and a false royal diamonds location
+int Clue::falseClueTwo()
+{
+    //A temp container for the royal diamond coordinates
+    Location temp;
+    temp = map->getHeroPtr()->getAheadLocation();
+    int falseStatus[2];
+    bool match = true;
+    srand(time(NULL));//initializes the random seed
+
+    cout << "False Clue Two selected! (test)" << endl; //Test message
+
+    //While loop to compare the generated false values to the real ones.
+    //If they don't match, then the loop ends and the function continues
+    while(match == true)
+    {
+        falseStatus[0] = rand() % map->getMapSize();
+        falseStatus[1] = rand() % map->getMapSize();
+        if(temp.x != falseStatus[0] && temp.y != falseStatus[1])
+            match = false;
+    }
+    match = true;
+
+    //Tells the user the false player location coordinates
+    cout << "The hero is located at " << falseStatus[0] << "," 
+    << falseStatus[1] << " on the map." << endl;
+    
+
+    //Loads the coordinates of the royal diamonds to a temp container
+    temp = map->getRoyalDiamondsLocation();
+
+    //While loop to compare the generated false values to the real ones.
+    //If they don't match, then the loop ends and the function continues
+    while(match == true)
+    {
+        falseStatus[0] = rand() % map->getMapSize();
+        falseStatus[1] = rand() % map->getMapSize();
+        if(temp.x != falseStatus[0] && temp.y != falseStatus[1])
+            match = false;
+    }
+    //Tells user the false location of the diamonds as part of a false clue
+    cout << endl << "And the royal diamonds are located at ";
+    cout << falseStatus[0] << " " << falseStatus[1] << "!" << endl << endl;
+
+    return 0;
+}
+
+//3 of 3 false clues. Displays a tool the player does not hold
+//and a false royal diamonds location
+int Clue::falseClueThree()
+{
+    int i = 0;
+    bool toolsPresent = false;//Flag for if hero has tools at all
+    srand(time(NULL));//initializes the random seed
+    Location temp;//a temp container for coordinates
+    
+    //A random value is generated in a range covering the bag slots
+    int random = rand() % BAG_SIZE;
+
+    //Iterates through bag list, 
+    for(i = 0; i < BAG_SIZE; ++i)
+    {
+        if(!map->getHeroPtr()->checkNullInventorySlot(i))
+            toolsPresent = true;
+    }
+
+    cout << "True Clue Three selected!" << endl; //Test
+
+    //Branch for function when the hero has tools
+    if(toolsPresent)
+    {
+        //Tells user what tool they have.
+        cout << "The hero has this tool ";
+
+        //Selects a random slot to tell the user about
+        do
+        {
+            random = rand() % BAG_SIZE;
+
+            //Will pick randomly at list  until a non-NULL slot is found
+            if(!map->getHeroPtr()->checkNullInventorySlot(random))
+            { 
+                map->getHeroPtr()->displayInventory(random);
+                i = 50;
+            }
+
+            else
+                ++i;
+
+        }while(i < 50);
+    }
+   
+    //Branch for function where hero has no tools
+    else
+    {
+        //User is told the true fact the hero has no tools.
+        cout << "The hero has no tools. " << endl;
+    }
+
+    //Loads the coordinates of the royal diamonds to a temp container
+    temp = map->getRoyalDiamondsLocation();
+    //Tells user the true location of the diamonds as part of a true clue
+    cout << endl << "And the royal diamonds are located at ";
+    cout << temp.y << " " << temp.x << "!" << endl << endl;
+
+
     return 0;
 }
 
@@ -268,7 +604,7 @@ int Boulder::interactWithType()
     {
         //Alerts players and displays current inventory
         cout << "You have encountered a boulder...";
-        map->getHeroPtr()->displayInventory();
+        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
         while(validTool == false)
@@ -406,7 +742,7 @@ int Bush::interactWithType()
     {
         //Alerts players and displays current inventory
         cout << "You have encountered a bush...";
-        map->getHeroPtr()->displayInventory();
+        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
         while(validTool == false)
@@ -479,7 +815,7 @@ int Tree::interactWithType()
     {
         //Alerts players and displays current inventory
         cout << "You have encountered a tree...";
-        map->getHeroPtr()->displayInventory();
+        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
         while(validTool == false)

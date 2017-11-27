@@ -111,6 +111,12 @@ int Map::writeWebMists()
     return 1;
 }
 
+//Gets the map size stored in map
+int Map::getMapSize()
+{
+    return mapSize;
+}
+
 //Loads the map (2D array) from a file
 int Map::loadMapFromFile(string fileName)
 {
@@ -208,6 +214,11 @@ int Map::loadMapFromFile(string fileName)
 
         map[x][y].setVisibility(atoi(v[2].c_str()));
         map[x][y].mapIntToTerrain(atoi(v[3].c_str()));
+	if(v[4] == "Royal Diamonds")
+        {
+            this->royalDiamondsLocation.x = x;
+            this->royalDiamondsLocation.y = y;
+        }
         map[x][y].setTypeFromMapFile(v[4], this);
 
         v.clear();
@@ -514,5 +525,11 @@ void Map::saveState()
     file.close();
 
     
+}
+
+
+Location Map::getRoyalDiamondsLocation()
+{
+    return royalDiamondsLocation;
 }
 
