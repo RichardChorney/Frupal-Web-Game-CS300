@@ -8,7 +8,7 @@ const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
 const USER_NAME = "deb24";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
-const LIST_MAX = 10;	//Max size of the inventory bag
+const LIST_MAX = 10;	//Max size:s of the inventory bag
 
 
 //Get the canvas details
@@ -140,11 +140,27 @@ function launchCGI(actionCode, action1, action2) {
 		}
 	}
 }
+document.onkeydown = move_key;
 
-//Move North
+
 function move(direction) {
     //This is where we would send the movement to c++ land
     launchCGI("move", direction, "empty");
+}
+
+function move_key(e) {
+	if(e.keyCode == 39) {	//right
+		launchCGI("move", 2, "empty");
+	}
+	else if(e.keyCode == 37) {	//left
+		launchCGI("move", 4, "empty");
+	}
+	if(e.keyCode == 38) {	//up
+		launchCGI("move", 1, "empty");
+	}
+	if(e.keyCode == 40) {	//down
+		launchCGI("move", 3, "empty");
+	}
 }
 
 //Initialize the images
