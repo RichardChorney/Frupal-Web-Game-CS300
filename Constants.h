@@ -9,11 +9,8 @@
 #pragma once
 #include <string>
 
-<<<<<<< HEAD
-/* Main game loop Constants */
-=======
+
 /* WEB Constants */
->>>>>>> Updated displayMap to account for WEB_MODE. Also added a mac comp to the Make file, since mac's apparently can't compile with -static.
 bool const WEB_MODE = true;
 
 /* Hero Constants */
