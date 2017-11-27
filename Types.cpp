@@ -102,24 +102,27 @@ bool Type::promptPurchase(int cost) {
    	Hero * heroPtr = map->getHeroPtr();
 	if((heroPtr->getBalance()) >= cost){
 		cout << "Would you like to purchase this item for " << cost << " whiffle(s)? Y/N" << endl;
-		while (true) {
-   		     cin >> userInput;
-       		 switch (userInput) {
-           		case 'Y':
-            	case 'y':
-               		heroPtr->setBalance(-cost);
-                	return true;
-                	break;
-            	case 'N':
-            	case 'n':
-               		 //Do nothing
-                	return false;
-                	break;
-            	default:
-                	cout << "I didn't quite catch that. Please enter another character\n";
-        	};
-    	}
-	}
+		if(!WEB_MODE){
+				while (true) {
+					 cin >> userInput;
+					 switch (userInput) {
+						case 'Y':
+						case 'y':
+							heroPtr->setBalance(-cost);
+							return true;
+							break;
+						case 'N':
+						case 'n':
+							 //Do nothing
+							return false;
+							break;
+						default:
+							cout << "I didn't quite catch that. Please enter another character\n";
+					};
+				}
+		}
+		return false;
+	} 
 	else {
 		cout << "Sorry you do not have enough Whiffles to pay for that..." << endl;
 		return false;
@@ -567,7 +570,7 @@ PowerBar::PowerBar(Map * mapPtr)
 int PowerBar::interactWithType()
 {
 	system("clear");
-	cout << "You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
+	cout << "><>< You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
 
 	if (promptPurchase(1)) {
     	Hero * currHero = map->getHeroPtr();
@@ -577,7 +580,7 @@ int PowerBar::interactWithType()
 		return 1;
 	}
 
-	cout << "Oh well, I guess not everyone likes Power Bars...." << endl;
+	if(!WEB_MODE) { cout << "Oh well, I guess not everyone likes Power Bars...." << endl; }
 
     return 0;
 }
@@ -645,7 +648,7 @@ int Boulder::interactWithType()
     }
     //Else branch for if player has no applicable tools
     else{
-        cout << "You have encountered a boulder, costing "
+        cout << "*** You have encountered a boulder, costing "
         << BOULDER_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
     }
@@ -668,9 +671,10 @@ RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 //Royal Diamonds
 int RoyalDiamonds::interactWithType()
 {
-    cout << "Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
+    cout << "*** Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
     //map->resetMapState();
     map->setWon(true);
+
     return 0;													//This may cause issues where interactWithType is called by lookAhead in Hero.cpp TODO
 }
 
@@ -685,7 +689,7 @@ Binoculars::Binoculars(Map * mapPtr){
 //Binoculars
 int Binoculars::interactWithType()
 {
-    cout << "You've found the binoculars! They increase your vision radius by 1 tile." << endl;
+    cout << "*** You've found the binoculars! They increase your vision radius by 1 tile." << endl;
     if (promptPurchase(price)) {
         map->getHeroPtr()->setVisibility(true);
         return 1;
@@ -782,7 +786,7 @@ int Bush::interactWithType()
     }
     //Else branch for if player has no applicable tools
     else{
-        cout << "You have encountered a Bush, costing "
+        cout << "*** You have encountered a Bush, costing "
         << BUSH_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
     }
@@ -856,7 +860,7 @@ int Tree::interactWithType()
     }
     //Else branch for if player has no applicable tools
     else{
-        cout << "You have encountered a Tree, costing "
+        cout << "*** You have encountered a Tree, costing "
         << TREE_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
     }
@@ -1105,8 +1109,8 @@ Machete::Machete(Map * mapPtr)
 
 int Machete::interactWithType()
 {
- 	system("clear");
-	cout << "You have found a MACHETE" << endl;
+ 	//system("clear");
+	cout << ">>> You have found a MACHETE" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
 
 	if (promptPurchase(price)) {

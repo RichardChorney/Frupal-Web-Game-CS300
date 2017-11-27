@@ -56,6 +56,7 @@ class Hero {
     ostream& printSaveInfo(ostream& out);
     void updateHeroTerrain(Terrain * t);
     Location getAheadLocation();//Returns Heroes ahead x and y coordinates
+	Location getCurrLocation();
 
   protected:
     Terrain terrain;        //Terrain that the hero is on
