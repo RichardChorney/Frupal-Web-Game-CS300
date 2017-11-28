@@ -51,6 +51,8 @@ var hero = new Image();
 var terrains = new Array(mapSize); //2D map array of terrains to dsiplay
 var types = new Array(mapSize);    //2D map array of types to be displayed over terrains
 var mists = new Array(mapSize);
+/* file name passed from login screen */
+var fileParam;
 
 //Once the last image has been loaded, display the map
 //TODO: Make sure to update this to the last image!!!
@@ -61,11 +63,23 @@ powerBar.onload = function() {
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
-	launchCGI("loadDefault", " ", " ");
+	alert("begin here.");
+    launchCGI("loadDefault", " ", " ");
     initImages();
     initMap();
     update();
     displayMap();
+    alertFileParam();
+}
+
+function getParam() {
+	alert("here.");
+	return window.location.search.substring(1);
+}
+
+function alertFileParam() {
+	fileParam = getParam();
+	alert("fileParam = " + fileParam);
 }
 
 //Restarts the game state if the hero dies, is just a clone of the onload function
