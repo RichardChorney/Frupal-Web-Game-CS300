@@ -6,9 +6,9 @@
 /////////////////////////////////////////////////////
 
 const SHOW_MIST = true; //Set true to show mist
-const SIZE = 50; //Width and Height of all Grovnicks
+const SIZE = 45; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "chorney";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
@@ -118,7 +118,7 @@ function launchCGI(actionCode, action1, action2) {
     xhttp.send();
     xhttp.onreadystatechange = afterResponse;
 	function afterResponse() {
-			update();	
+			update();
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
 					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
@@ -164,7 +164,7 @@ function launchCGI(actionCode, action1, action2) {
 							alert("Oh well, I guess you will have to do it the hard way...");
 							launchCGI("adjustEnergy", " ", " ");
 						}
-          			}  
+          			}
 					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
 							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("Binoculars", " ", " ");
@@ -634,7 +634,7 @@ function displayInventory() {
 							case 9:
 								document.getElementById("slot" + i).innerHTML = i + "--> Binoculars" + " Qty.(" + listContents[k] + ") Doubles visibility range -->Cost:35Wh";
 								break;
-	
+
 							default:
 								document.getElementById("slot" + i).innerHTML = i + "--> Empty";
 								break;
