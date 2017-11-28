@@ -63,7 +63,7 @@ powerBar.onload = function() {
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
-	alert("begin here.");
+	//alert("begin here.");
     launchCGI("loadDefault", " ", " ");
     initImages();
     initMap();
@@ -71,9 +71,9 @@ window.onload = function() {
     displayMap();
     alertFileParam();
 }
-
+/*
 function getParam() {
-	alert("here.");
+	//alert("here.");
 	return window.location.search.substring(1);
 }
 
@@ -81,6 +81,7 @@ function alertFileParam() {
 	fileParam = getParam();
 	alert("fileParam = " + fileParam);
 }
+*/
 
 //Restarts the game state if the hero dies, is just a clone of the onload function
 function restart() {
