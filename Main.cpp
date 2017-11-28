@@ -136,8 +136,7 @@ int main(void)
 			delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
 			map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 		}
-
-        } else if (strcmp(actionCode, "boat") == 0) {
+        else if (strcmp(actionCode, "boat") == 0) {
             if(hero->getBalance() >= 500) {
                 hero->setBalance(-500);
                 hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
