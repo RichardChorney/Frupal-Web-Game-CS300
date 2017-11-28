@@ -92,6 +92,12 @@ int main(void)
             }
             else { cout << "*** Sorry, you are too broke for that set of binoculars..."; }
 
+        } else if (strcmp(actionCode, "boat") == 0) {
+            if(hero->getBalance() >= 500) {
+                hero->setBalance(-500);
+                hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
+                map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+            } else { cout << "*** Sorry, you are too broke to buy this boat..."; }
         }
 
 		if(!hero->checkAlive()){
