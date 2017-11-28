@@ -143,6 +143,11 @@ int main(void)
                 map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
             } else { cout << "*** Sorry, you are too broke to buy this boat..."; }
         }
+	 else if(strcmp(actionCode, "clue1") == 0) 
+         {
+		delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
+		map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+         }
 
 
 		if(!hero->checkAlive()){

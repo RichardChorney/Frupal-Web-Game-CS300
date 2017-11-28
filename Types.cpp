@@ -197,7 +197,7 @@ Clue::Clue(string newName, string newMessage, Map * mapPtr)
     if(i == 0)
     clueTruth = true;
     if(i == 1)
-    clueTruth = false;//test
+    clueTruth = true;//test
 
     charToDisplay = 'C';
 }
@@ -219,14 +219,14 @@ int Clue::interactWithType()
     //An int to store random values to select clue functions calls
     int random = 0;
     srand(time(NULL));
+    random = (rand() % 3);
 
-     cout << "You called the CLUE function." << endl; //Test
+//     cout << "You called the CLUE function." << endl; //Test
 
     /*An if statement branch for false and true clues*/
     if(clueTruth == true)
     {
-        random = (rand() % 3);
-//        random = 1; //TEST to control which clue is called
+        random = 1; //TEST to control which clue is called
 
         if(random == 0){
            this->trueClueOne();
@@ -264,8 +264,8 @@ int Clue::trueClueOne()
     Location temp;
     temp = map->getHeroPtr()->getAheadLocation();
 
-    cout << "True Clue One selected! (test)" << endl; //Testing Message
-
+    cout << "?1 True Clue One selected! (test)"; //Testing Message
+/*
     //Tells the user the true player status
     cout << "The hero has " << (map->getHeroPtr()->checkEnergy() - 1) << " energy, and "
     << map->getHeroPtr()->getBalance() << " whiffles." << endl;
@@ -277,7 +277,7 @@ int Clue::trueClueOne()
     //Tells user the true location of the diamonds as part of a true clue
     cout << endl << "And the royal diamonds are located at ";
     cout << temp.y << " " << temp.x << "!" << endl << endl;
-
+*/
     return 0;
 }
 
