@@ -133,22 +133,23 @@ function launchCGI(actionCode, action1, action2) {
 								alert("Oh well, I guess not everyone likes power bars...");
 							}
 						}
-                        else if(xhttp.responseText[1] == 'v'){ //Trigger a prompt to buy a boat
+					}
+					else if(xhttp.responseText[1] == '@'){  //This will ask a user to use a tool on an obstacle
+						if(confirm(xhttp.responseText.slice(4)) == true){
+							displayInventory();
+							update();
+            }	else{
+							alert("Oh well, I guess you will have to do it the hard way...");
+							launchCGI("adjustEnergy", " ", " ");
+						}
+          }  
+           else if(xhttp.responseText[1] == 'v'){ //Trigger a prompt to buy a boat
                             if(confirm(xhttp.responseText.slice(3)) == true){
                                 launchCGI("boat", " ", " ");
                             } else {
                                 alert("Boats are too expensive anyway...");
                             }
-					    }
-                    }
-					else if(xhttp.responseText[0] == '&'){
-						if(confirm(xhttp.reponseText.slice(4)) == true){
-							launchCGI("useItem", " ", " ");
-						}
-						else{
-							alert("Oh well, I guess you will have to do it the hard way...");
-						}
-					}
+          }
 					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
 							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("Binoculars", " ", " ");
@@ -627,7 +628,7 @@ function displayInventory() {
 //This function will launch the appropriate action when an inventory item is clicked on, will check if the action
 //is valid, and will update the status of the inventory item on the back-end
 function useItem(slot){
-
+	launchCGI("useItem", slot, " ");
 }
 
 //this function will prevent user from moving and spit out an alert if the user is dead
