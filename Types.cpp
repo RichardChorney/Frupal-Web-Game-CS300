@@ -562,7 +562,7 @@ ExplosiveChest::ExplosiveChest(Map * mapPtr)
 //Explosive Chest
 int ExplosiveChest::interactWithType()
 {
-    cout << "*** You opened an Exploading Chest! You lose all of your whiffles!";
+    cout << "*** The chest exploded!!! You lost all of your whiffles...";
 
     Hero * currHero = map->getHeroPtr();
     //currHero->setBalance(0); //Zero out bank account
@@ -583,17 +583,17 @@ PowerBar::PowerBar(Map * mapPtr)
 int PowerBar::interactWithType()
 {
 	system("clear");
-	cout << "><>< You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
+	cout << ">< You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
 
 	if (promptPurchase(1)) {
     	Hero * currHero = map->getHeroPtr();
 		currHero->changeEnergy(20);
-		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty...." << endl;
+		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty..." << endl;
 
 		return 1;
 	}
 
-	if(!WEB_MODE) { cout << "Oh well, I guess not everyone likes Power Bars...." << endl; }
+	if(!WEB_MODE) { cout << "Oh well, I guess not everyone likes Power Bars..." << endl; }
 
     return 0;
 }
@@ -723,7 +723,7 @@ Boat::Boat(Map * mapPtr) {
 }
 
 int Boat::interactWithType() {
-    cout << "You found a boat for sale! It will let you travel on water." << endl;
+    cout << ">v You found a boat for sale! It will let you travel on water." << endl;
     if(promptPurchase(price)) {
         for (int i = 0; i < MAX; ++i){
             for(int j = 0; j < MAX; ++j){
@@ -736,7 +736,7 @@ int Boat::interactWithType() {
         return 1;
     }
     else {
-        cout << "You decided to keep your whiffles for now." << endl;
+        //cout << "You decided to keep your whiffles for now." << endl;
         return 0;
     }
 }

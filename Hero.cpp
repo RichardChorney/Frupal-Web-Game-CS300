@@ -194,10 +194,13 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         terrain.terrainName = mapToCopy.getMap()[location.x][location.y].getTerrain()->terrainName;
         terrain.charToDisplay = mapToCopy.getMap()[location.x][location.y].getTerrain()->charToDisplay;
         terrain.canWalkOn = mapToCopy.getMap()[location.x][location.y].getTerrain()->canWalkOn;
+
         if(temp != 4){
 			terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
         	changeEnergy(-terrain.energyConsumption);
-		}
+          updateWebStatus(terrain);
+        }
+
     }
 
 	//displayTerrainMsg(terrain.terrainName);  //TODO  comment this back out was just for testing
@@ -218,14 +221,23 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 
 	Type * typePtr = NULL;
 	typePtr = map.getMap()[aheadLoc.x][aheadLoc.y].getType();
+    
+    if(ahead.terrainName == "Water") {
+        for (int i = 0; i < BAG_MAX; ++i) {
+            if (list[i]->checkName() == "Boat") {
+                changeEnergy(1);
+                return 3;
+            }
+        }
+    }
 
     //if the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
-		cout << "*** ";
 		displayTerrainMsg(ahead.terrainName);
 		cout << "You lose your turn and " << ahead.energyConsumption << " Energy point." << endl;		//TODO Need to change this for boats
 		changeEnergy(-ahead.energyConsumption);
+        updateWebStatus(ahead);
 
 		return 0;								//Returns a 0 so no movement is executed for impassable terrains
     }
@@ -335,7 +347,7 @@ void Hero::printStatus()
     cout << "-----------------------------\n";
 }
 
-void Hero::updateWebStatus()
+void Hero::updateWebStatus(Terrain terra)
 {
     ofstream output;
     //this will clear the text file it opens
@@ -347,7 +359,7 @@ void Hero::updateWebStatus()
            << location.x << '|' << location.y << '|'
            << terrain.terrainName << '|';
 
-    writeTerrainMsg(terrain.terrainName, output);
+    writeTerrainMsg(terra.terrainName, output);
 
     output.close();
 }
@@ -454,19 +466,23 @@ void Hero::displayTerrainMsg(string terra)
 void Hero::writeTerrainMsg(string terra, ofstream& out)
 {
 	if (terra == "Meadow") {
-   		out << "You have walked into a beautiful Meadow..." << endl;
+   		out << "You are standing in a beautiful meadow..." << endl;
 	} else if (terra == "Forest") {
    		out << "You have walked into a deep, dark Forest..." << endl;
-	} else if (terra == "Water" && terrain.energyConsumption > 0) {
-   		out << "You can not go into the Water without a boat..." << endl;		//TODO will need to change when we add boats
-    } else if (terra == "Water" && terrain.energyConsumption == 0) {
-        out << "Feels nice to be sailing..." << endl;
+	} else if (terra == "Water") {
+        for(int i = 0; i < BAG_MAX; ++i) {
+            if(list[i]->checkName() == "Boat"){ 
+                out << "Sailing on the water feels great!" << endl;
+                return;
+            }
+        }
+   		out << "You can not go into the Water without a boat..." << endl;
 	} else if (terra == "Wall") {
-   		out << "You can not climb over the border Wall, it is just too high..." << endl;
+   		out << "You can not climb over the wall. It is just too high..." << endl;
 	} else if (terra == "Bog") {
-   		out << "Eewww, you have walked into a nasty Bog, costing 2 energy..." << endl;
+   		out << "Eewww, you have walked into a nasty bog. It cost you 2 energy..." << endl;
 	} else if (terra == "Swamp") {
-   		out << "Yuck, you have walked into a Swamp, watch out for alligators!!" << endl;
+   		out << "Yuck, you have walked into a Swamp! It cost you 2 energy..." << endl;
 	}
 }
 //Checks the inventory list at index and returns true if
@@ -567,6 +583,7 @@ ostream & Hero::printSaveInfo(ostream& out)
     for (int i = 0; i < BAG_MAX; ++i) {
         if (list[i]) {
             if (!list[i]->checkName().compare("Binoculars")) out << "Binoculars" << endl;
+            else if (!list[i]->checkName().compare("Boat")) out << "Boat" << endl;
             else if (!list[i]->checkName().compare("Hatchet")) out << "Hatchet" << endl;
             else if (!list[i]->checkName().compare("Axe")) out << "Axe" << endl;
             else if (!list[i]->checkName().compare("Chainsaw")) out << "Chainsaw" << endl;
