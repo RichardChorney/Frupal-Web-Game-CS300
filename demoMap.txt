@@ -20,7 +20,7 @@ Chainsaw
 2,8,0,0,Machete
 5,2,0,0,Type 1 Treasure Chest
 6,3,0,0,Type 2 Treasure Chest
-6,0,0,4,None
+6,0,0,4,Clue
 6,1,0,5,None
 7,1,0,4,None
 7,2,0,5,None
