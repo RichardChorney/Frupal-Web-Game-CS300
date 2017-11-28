@@ -126,7 +126,7 @@ bool Type::promptPurchase(int cost) {
 		return false;
 	}
 	else {
-		cout << "Sorry you do not have enough Whiffles to pay for that..." << endl;
+		//cout << "Sorry you do not have enough Whiffles to pay for that..." << endl;
 		return false;
 	}
 }
@@ -697,7 +697,7 @@ Binoculars::Binoculars(Map * mapPtr){
 int Binoculars::interactWithType()
 {
     //cout << "*** You've found the binoculars! They increase your vision radius by 1 tile." << endl;
-    cout << "<o You've found the binoculars! They increase your vision radius by 1 tile." << endl;
+    cout << ">o You've found the binoculars! They increase your vision radius by 1 tile." << endl;
     if (promptPurchase(price)) {
         map->getHeroPtr()->setVisibility(true);
         return 1;
@@ -728,7 +728,7 @@ int Boat::interactWithType() {
         return 1;
     }
     else {
-        cout << "You decided to keep your whiffles for now." << endl;
+      //cout << "You decided to keep your whiffles for now." << endl;
         return 0;
     }
 }
