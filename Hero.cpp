@@ -304,6 +304,9 @@ bool Hero::updateInventoryFile()
 			else if(list[i]->checkName() == "Shears"){
 				output << "81";
 			}
+			else if(list[i]->checkName() == "Binoculars"){
+				output << "91";
+			}
 		}
 
 		else{
