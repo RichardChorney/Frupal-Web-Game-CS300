@@ -6,8 +6,8 @@
 /////////////////////////////////////////////////////
 
 const SHOW_MIST = true; //Set true to show mist
-const SIZE = 16; //Width and Height of all Grovnicks
-const mapSize = 16; //One dimension of the map size
+const SIZE = 45; //Width and Height of all Grovnicks
+const mapSize = 10; //One dimension of the map size
 const USER_NAME = "cofer2";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
@@ -63,13 +63,13 @@ powerBar.onload = function() {
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
-	alert("begin here.");
+	// alert("begin here.");
     launchCGI("loadDefault", " ", " ");
     initImages();
     initMap();
     update();
     displayMap();
-    alertFileParam();
+    // alertFileParam();
 }
 
 function getParam() {
