@@ -217,6 +217,15 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 
 	Type * typePtr = NULL;
 	typePtr = map.getMap()[aheadLoc.x][aheadLoc.y].getType();
+    
+    if(ahead.terrainName == "Water") {
+        for (int i = 0; i < BAG_MAX; i++) {
+            if (list[i]->checkName() == "Boat") {
+                changeEnergy(1);
+                return 3;
+            }
+        }
+    }
 
     //if the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
@@ -566,6 +575,7 @@ ostream & Hero::printSaveInfo(ostream& out)
     for (int i = 0; i < BAG_MAX; ++i) {
         if (list[i]) {
             if (!list[i]->checkName().compare("Binoculars")) out << "Binoculars" << endl;
+            else if (!list[i]->checkName().compare("Boat")) out << "Boat" << endl;
             else if (!list[i]->checkName().compare("Hatchet")) out << "Hatchet" << endl;
             else if (!list[i]->checkName().compare("Axe")) out << "Axe" << endl;
             else if (!list[i]->checkName().compare("Chainsaw")) out << "Chainsaw" << endl;

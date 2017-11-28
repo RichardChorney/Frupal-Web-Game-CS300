@@ -95,16 +95,10 @@ int main(void)
         } else if (strcmp(actionCode, "boat") == 0) {
             if(hero->getBalance() > 500) {
                 hero->setBalance(-500);
+                hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
                 delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
-                for (int i = 0; i < MAX; i++) {
-                    for (int j = 0; j < MAX; j++) {
-                        if(map.getMap()[i][j].getTerrain()->terrainName == "Water") {
-                            map.getMap()[i][j].getTerrain()->canWalkOn = true;
-                        }
-                    }
-                }
-            } else {cout << "*** You are too broke from that boat"; }
+            } else {cout << "*** You are too broke for that boat"; }
         }
 
 		if(!hero->checkAlive()){

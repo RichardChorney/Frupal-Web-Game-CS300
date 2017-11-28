@@ -717,14 +717,15 @@ Boat::Boat(Map * mapPtr) {
 int Boat::interactWithType() {
     cout << ">v You found a boat for sale! It will let you travel on water." << endl;
     if(promptPurchase(price)) {
-        for (int i = 0; i < MAX; ++i){
+        /*for (int i = 0; i < MAX; ++i){
             for(int j = 0; j < MAX; ++j){
                 if(map->getMap()[i][j].getTerrain()->terrainName == "Water"){
                     map->getMap()[i][j].getTerrain()->canWalkOn = true;
                     map->getMap()[i][j].getTerrain()->energyConsumption = 0;
                 }
             }
-        }
+        }*/
+        map->getHeroPtr()->fillBag(this); 
         return 1;
     }
     else {
