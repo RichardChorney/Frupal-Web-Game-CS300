@@ -80,6 +80,7 @@ int main(void)
                 hero->setBalance(-50);
 				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+				hero->setVisibility(true);
             }
             else { cout << "*** You are too broke for that set of binoculars sorry"; }
 
