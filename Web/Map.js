@@ -8,7 +8,7 @@
 const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "lwarden";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "chorney";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
@@ -157,6 +157,10 @@ function launchCGI(actionCode, action1, action2) {
 								alert("Oh well, I guess you didn't want those binoculars anyways...");
 							}
 					}
+                            else if(xhttp.responseText[0] == '?' && xhttp.responseText[1] == '?')
+                            {
+                                launchCGI("Clue", " ", " ");
+                            }
 			}
 		}
 	}
