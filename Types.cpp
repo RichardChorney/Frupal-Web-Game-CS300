@@ -692,7 +692,7 @@ Binoculars::Binoculars(Map * mapPtr){
 int Binoculars::interactWithType()
 {
     //cout << "*** You've found the binoculars! They increase your vision radius by 1 tile." << endl;
-    cout << ">B You've found the binoculars! They increase your vision radius by 1 tile." << endl;
+    cout << "oo You've found the binoculars! They increase your vision radius by 1 tile." << endl;
     if (promptPurchase(price)) {
         map->getHeroPtr()->setVisibility(true);
         return 1;
