@@ -577,7 +577,7 @@ PowerBar::PowerBar(Map * mapPtr)
 int PowerBar::interactWithType()
 {
 	system("clear");
-	cout << "><>< You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
+	cout << ">< You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
 
 	if (promptPurchase(1)) {
     	Hero * currHero = map->getHeroPtr();
@@ -697,7 +697,7 @@ Binoculars::Binoculars(Map * mapPtr){
 int Binoculars::interactWithType()
 {
     //cout << "*** You've found the binoculars! They increase your vision radius by 1 tile." << endl;
-    cout << "oo You've found the binoculars! They increase your vision radius by 1 tile." << endl;
+    cout << "<o You've found the binoculars! They increase your vision radius by 1 tile." << endl;
     if (promptPurchase(price)) {
         map->getHeroPtr()->setVisibility(true);
         return 1;
@@ -715,7 +715,7 @@ Boat::Boat(Map * mapPtr) {
 }
 
 int Boat::interactWithType() {
-    cout << "You found a boat for sale! It will let you travel on water." << endl;
+    cout << ">v You found a boat for sale! It will let you travel on water." << endl;
     if(promptPurchase(price)) {
         for (int i = 0; i < MAX; ++i){
             for(int j = 0; j < MAX; ++j){

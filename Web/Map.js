@@ -125,14 +125,27 @@ function launchCGI(actionCode, action1, action2) {
 									} else {
 										alert("Oh well, I guess you are too cheap for this fine frupal tool...");
 									}
+						if(xhttp.responseText[1] == 'v'){ //Trigger a prompt for boats
+                            if(confirm(xhttp.responseText.slice(3))== true) {
+                                launchCGI("boat", " ", " ");
+                            } else {
+                                alert("Boats are pretty expensive anyway...");
+                            }
 						}
 						else if(xhttp.responseText[1] == '<'){		//This will trigger a prompt from the user for a powerbar
-							if(confirm(xhttp.responseText) == true){
+							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("powerBar", " ", " ");
 							} else {
 								alert("Oh well, I guess not everyone likes power bars...");
 							}
 						}
+                        else if(xhttp.responseText[1] == 'o') {
+                            if(confirm(xhttp.responseText.slice(3)) == true){
+                                launchCGI("Binoculars", " ", " ");
+                            } else {
+                                alert("Vision must not be very important to you");
+					        }
+                        }
 					}
 					else if(xhttp.responseText[0] == '&'){
 						if(confirm(xhttp.reponseText.slice(4)) == true){
@@ -142,14 +155,7 @@ function launchCGI(actionCode, action1, action2) {
 							alert("Oh well, I guess you will have to do it the hard way...");
 						}
 					}
-					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
-							if(confirm(xhttp.responseText) == true){
-								launchCGI("Binoculars", " ", " ");
-							} else {
-								alert("Oh well, I guess you didn't want those binoculars anyways...");
-							}
-					}
-			}
+            }
 		}
 	}
 }

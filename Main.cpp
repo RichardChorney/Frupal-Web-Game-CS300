@@ -92,6 +92,19 @@ int main(void)
             }
             else { cout << "*** Sorry, you are too broke for that set of binoculars..."; }
 
+        } else if (strcmp(actionCode, "boat") == 0) {
+            if(hero->getBalance() > 500) {
+                hero->setBalance(-500);
+                delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
+				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+                for (int i = 0; i < MAX; i++) {
+                    for (int j = 0; j < MAX; j++) {
+                        if(map.getMap()[i][j].getTerrain()->terrainName == "Water") {
+                            map.getMap()[i][j].getTerrain()->canWalkOn = true;
+                        }
+                    }
+                }
+            } else {cout << "*** You are too broke from that boat"; }
         }
 
 		if(!hero->checkAlive()){
