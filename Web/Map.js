@@ -157,6 +157,13 @@ function launchCGI(actionCode, action1, action2) {
 								alert("Oh well, I guess you didn't want those binoculars anyways...");
 							}
 					}
+                            else if(xhttp.responseText[0] == '?')
+                            {
+                                if(xhttp.responseText[1] == '1')
+                                {
+                                    launchCGI("clue1", " " , " ");
+                                }
+                            }
 			}
 		}
 	}
