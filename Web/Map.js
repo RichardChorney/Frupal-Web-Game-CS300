@@ -127,13 +127,20 @@ function launchCGI(actionCode, action1, action2) {
 									}
 						}
 						else if(xhttp.responseText[1] == '<'){		//This will trigger a prompt from the user for a powerbar
-							if(confirm(xhttp.responseText) == true){
+							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("powerBar", " ", " ");
 							} else {
 								alert("Oh well, I guess not everyone likes power bars...");
 							}
 						}
-					}
+                        else if(xhttp.responseText[1] == 'v'){ //Trigger a prompt to buy a boat
+                            if(confirm(xhttp.responseText.slice(3)) == true){
+                                launchCGI("boat", " ", " ");
+                            } else {
+                                alert("Boats are too expensive anyway...");
+                            }
+					    }
+                    }
 					else if(xhttp.responseText[0] == '&'){
 						if(confirm(xhttp.reponseText.slice(4)) == true){
 							launchCGI("useItem", " ", " ");
@@ -143,7 +150,7 @@ function launchCGI(actionCode, action1, action2) {
 						}
 					}
 					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
-							if(confirm(xhttp.responseText) == true){
+							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("Binoculars", " ", " ");
 							} else {
 								alert("Oh well, I guess you didn't want those binoculars anyways...");

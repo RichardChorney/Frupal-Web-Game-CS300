@@ -217,6 +217,15 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 
 	Type * typePtr = NULL;
 	typePtr = map.getMap()[aheadLoc.x][aheadLoc.y].getType();
+    
+    if(ahead.terrainName == "Water") {
+        for (int i = 0; i < BAG_MAX; ++i) {
+            if (list[i]->checkName() == "Boat") {
+                changeEnergy(1);
+                return 3;
+            }
+        }
+    }
 
     //if the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
@@ -453,19 +462,23 @@ void Hero::displayTerrainMsg(string terra)
 void Hero::writeTerrainMsg(string terra, ofstream& out)
 {
 	if (terra == "Meadow") {
-   		out << "You have walked into a beautiful Meadow..." << endl;
+   		out << "You are standing in a beautiful meadow..." << endl;
 	} else if (terra == "Forest") {
    		out << "You have walked into a deep, dark Forest..." << endl;
-	} else if (terra == "Water" && terrain.energyConsumption > 0) {
-   		out << "You can not go into the Water without a boat..." << endl;		//TODO will need to change when we add boats
-    } else if (terra == "Water" && terrain.energyConsumption == 0) {
-        out << "Feels nice to be sailing..." << endl;
+	} else if (terra == "Water") {
+        for(int i = 0; i < BAG_MAX; ++i) {
+            if(list[i]->checkName() == "Boat"){ 
+                out << "Sailing on the water feels great!" << endl;
+                return;
+            }
+        }
+   		out << "You can not go into the Water without a boat..." << endl;
 	} else if (terra == "Wall") {
-   		out << "You can not climb over the border Wall, it is just too high..." << endl;
+   		out << "You can not climb over the wall. It is just too high..." << endl;
 	} else if (terra == "Bog") {
-   		out << "Eewww, you have walked into a nasty Bog, costing 2 energy..." << endl;
+   		out << "Eewww, you have walked into a nasty bog. It cost you 2 energy..." << endl;
 	} else if (terra == "Swamp") {
-   		out << "Yuck, you have walked into a Swamp, watch out for alligators!!" << endl;
+   		out << "Yuck, you have walked into a Swamp! It cost you 2 energy..." << endl;
 	}
 }
 //Checks the inventory list at index and returns true if
@@ -566,6 +579,7 @@ ostream & Hero::printSaveInfo(ostream& out)
     for (int i = 0; i < BAG_MAX; ++i) {
         if (list[i]) {
             if (!list[i]->checkName().compare("Binoculars")) out << "Binoculars" << endl;
+            else if (!list[i]->checkName().compare("Boat")) out << "Boat" << endl;
             else if (!list[i]->checkName().compare("Hatchet")) out << "Hatchet" << endl;
             else if (!list[i]->checkName().compare("Axe")) out << "Axe" << endl;
             else if (!list[i]->checkName().compare("Chainsaw")) out << "Chainsaw" << endl;
