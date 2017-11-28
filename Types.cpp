@@ -103,7 +103,7 @@ bool Type::promptPurchase(int cost) {
     char userInput;
    	Hero * heroPtr = map->getHeroPtr();
 	if((heroPtr->getBalance()) >= cost){
-		cout << "Would you like to purchase this item for " << cost << " whiffle(s)? Y/N" << endl;
+		cout << "Would you like to purchase this item for " << cost << " whiffle(s)?" << endl << endl << "OK/Cancel" << endl;
 		if(!WEB_MODE){
 				while (true) {
 					 cin >> userInput;
@@ -150,6 +150,11 @@ Tool::Tool(){
 Tool::Tool(Map * mapPtr)
 {
 	map = mapPtr;
+}
+
+int Type::getPrice()
+{
+	return price;
 }
 
 Tool::~Tool()
@@ -890,7 +895,7 @@ Hatchet::Hatchet(Map * mapPtr)
 int Hatchet::interactWithType()
 {
 	system("clear");
-	cout << "You have found a HATCHET" << endl;
+	cout << ">> You have found a HATCHET" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -902,7 +907,7 @@ int Hatchet::interactWithType()
 		return 2;
 	}
 
-	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+	//cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
     return 0;
 }
@@ -928,7 +933,7 @@ Axe::Axe(Map * mapPtr)
 int Axe::interactWithType()
 {
  	system("clear");
-	cout << "You have found an AXE" << endl;
+	cout << ">> You have found an AXE" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -940,7 +945,7 @@ int Axe::interactWithType()
 		return 2;
 	}
 
-	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+	//cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
     return 0;
 }
@@ -965,7 +970,7 @@ Chainsaw::Chainsaw(Map * mapPtr)
 int Chainsaw::interactWithType()
 {
  	system("clear");
-	cout << "You have found a CHAINSAW" << endl;
+	cout << ">> You have found a CHAINSAW" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -977,7 +982,7 @@ int Chainsaw::interactWithType()
 		return 2;
 	}
 
-	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+	//cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
 	return 0;
 }
@@ -1002,7 +1007,7 @@ Chisel::Chisel(Map * mapPtr)
 int Chisel::interactWithType()
 {
  	system("clear");
-	cout << "You have found a CHISEL" << endl;
+	cout << ">> You have found a CHISEL" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1014,7 +1019,7 @@ int Chisel::interactWithType()
 		return 2;
 	}
 
-	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+	//cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
 	return 0;
 }
@@ -1039,7 +1044,7 @@ Sledgehammer::Sledgehammer(Map * mapPtr)
 int Sledgehammer::interactWithType()
 {
  	system("clear");
-	cout << "You have found a SLEDGEHAMMER" << endl;
+	cout << ">> You have found a SLEDGEHAMMER" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1051,7 +1056,7 @@ int Sledgehammer::interactWithType()
 		return 2;
 	}
 
-	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+	//cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
 	return 0;
 }
@@ -1076,7 +1081,7 @@ Jackhammer::Jackhammer(Map * mapPtr)
 int Jackhammer::interactWithType()
 {
  	system("clear");
-	cout << "You have found a JACKHAMMER" << endl;
+	cout << ">> You have found a JACKHAMMER" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1088,7 +1093,7 @@ int Jackhammer::interactWithType()
 		return 2;
 	}
 
-	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+	//cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
 	return 0;
 }
@@ -1113,7 +1118,7 @@ Machete::Machete(Map * mapPtr)
 int Machete::interactWithType()
 {
  	//system("clear");
-	cout << ">>> You have found a MACHETE" << endl;
+	cout << ">> You have found a MACHETE" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1125,7 +1130,7 @@ int Machete::interactWithType()
 		return 2;
 	}
 
-	cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
+	//cout << "Oh well, I guess not everyone likes a " << name << "...." << endl;
 
 	return 0;
 }
@@ -1150,7 +1155,7 @@ Shears::Shears(Map * mapPtr)
 int Shears::interactWithType()
 {
  	system("clear");
-	cout << "You have found SHEARS" << endl;
+	cout << ">> You have found SHEARS" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
 
 	if (promptPurchase(price)) {
