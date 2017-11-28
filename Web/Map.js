@@ -8,7 +8,7 @@
 const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "lwarden";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "aasquier";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
@@ -133,23 +133,23 @@ function launchCGI(actionCode, action1, action2) {
 								alert("Oh well, I guess not everyone likes power bars...");
 							}
 						}
-					}
-					else if(xhttp.responseText[1] == '@'){  //This will ask a user to use a tool on an obstacle
-						if(confirm(xhttp.responseText.slice(4)) == true){
-							displayInventory();
-							update();
-            }	else{
-							alert("Oh well, I guess you will have to do it the hard way...");
-							launchCGI("adjustEnergy", " ", " ");
-						}
-          }  
-           else if(xhttp.responseText[1] == 'v'){ //Trigger a prompt to buy a boat
+					    else if(xhttp.responseText[1] == 'v'){ //Trigger a prompt to buy a boat
                             if(confirm(xhttp.responseText.slice(3)) == true){
                                 launchCGI("boat", " ", " ");
                             } else {
                                 alert("Boats are too expensive anyway...");
                             }
-          }
+          				}
+					}
+					else if(xhttp.responseText[1] == '@'){  //This will ask a user to use a tool on an obstacle
+						if(confirm(xhttp.responseText.slice(4)) == true){
+							displayInventory();
+							update();
+            			} else{
+							alert("Oh well, I guess you will have to do it the hard way...");
+							launchCGI("adjustEnergy", " ", " ");
+						}
+          			}  
 					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
 							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("Binoculars", " ", " ");
