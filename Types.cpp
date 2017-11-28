@@ -1,4 +1,6 @@
 //////////////////////////////////////
+//Types.cpp
+//Authors: CC, AS, MK, CD, RC, EB
 //The Types file contains all implementations
 //of either Type-Class functions, or any child from
 //the type class. All virtual function overrides
@@ -671,7 +673,7 @@ RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 //Royal Diamonds
 int RoyalDiamonds::interactWithType()
 {
-    cout << "*** Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
+    cout << "?! Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
     //map->resetMapState();
     map->setWon(true);
 

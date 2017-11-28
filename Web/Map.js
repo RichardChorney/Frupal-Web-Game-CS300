@@ -1,13 +1,14 @@
 /////////////////////////////////////////////////////
 //Map.js
 //CS300 Group E
+//Authors: CC, AS, MK, CD, RC, EB
 //This file contains the javascript involving the map
 /////////////////////////////////////////////////////
 
 const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "deb24";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "dietric";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
@@ -109,6 +110,10 @@ function launchCGI(actionCode, action1, action2) {
 						alert(xhttp.responseText);
 					}
 					else if(xhttp.responseText[0] == '!'){	//This will restart the game state if the hero dies triggered when cout begins with (!)
+						restart();
+						alert(xhttp.responseText);
+					}
+					else if(xhttp.responseText[0] == '?' && xhttp.responseText[1] == '!'){ //This case happens if the royal diamonds were stepped on.
 						restart();
 						alert(xhttp.responseText);
 					}
