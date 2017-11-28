@@ -122,9 +122,13 @@ int main(void)
 				hero->setVisibility(true);
             }
             else { cout << "*** Sorry, you are too broke for that set of binoculars..."; }
+       } 
+            else if(strcmp(actionCode, "clue") == 0)
+            {
+            
+            }
 
-
-        } else if(strcmp(actionCode, "adjustEnergy") == 0) {
+            else if(strcmp(actionCode, "adjustEnergy") == 0) {
         	hero->changeEnergy(-(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getEnergyConsumption()));
 			if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Tree") {
 				hero->changeEnergy(-10);
@@ -137,7 +141,7 @@ int main(void)
 			map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 		}
 
-        } else if (strcmp(actionCode, "boat") == 0) {
+         else if (strcmp(actionCode, "boat") == 0) {
             if(hero->getBalance() >= 500) {
                 hero->setBalance(-500);
                 hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
@@ -150,7 +154,7 @@ int main(void)
 			remove("saveFile.txt");
 			cout << "**GAME OVER**" << endl << endl;
 		} else {
-			map.displayMap(); //In WEB_MODE it just updates the map
+                        map.displayMap(); //In WEB_MODE it just updates the map
 			map.saveState();
 			map.writeWebTerrain();
 			map.writeWebTypes();
@@ -248,6 +252,6 @@ int main(void)
 
 			}
 
-	}	//End of COMMAND_LINE_MODE else
+	}	//End of COMMAND_LINE_MODE else 
     return 0;
 }

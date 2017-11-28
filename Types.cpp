@@ -220,7 +220,7 @@ int Clue::interactWithType()
     int random = 0;
     srand(time(NULL));
 
-     cout << "You called the CLUE function." << endl; //Test
+     cout << "??" << endl; //?? used as clue symbol in cgiLauncher
 
     /*An if statement branch for false and true clues*/
     if(clueTruth == true)
