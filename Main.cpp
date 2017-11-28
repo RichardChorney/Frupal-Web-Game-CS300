@@ -64,7 +64,38 @@ int main(void)
 		if(strcmp(actionCode, "move") == 0) {
 			hero->moveHero(atoi(action1), map);
 		} else if(strcmp(actionCode, "useItem") == 0) {
-
+				if((hero->getInventoryType(atoi(action1))->getWorksOn() == tree) && (map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Tree")) {
+					if(hero->getInventoryType(atoi(action1))->checkName() == "Hatchet") {
+						hero->changeEnergy(-8);
+					} else if(hero->getInventoryType(atoi(action1))->checkName() == "Axe") {
+						hero->changeEnergy(-6);
+					} else if(hero->getInventoryType(atoi(action1))->checkName() == "Chainsaw") {
+						hero->changeEnergy(-2);
+					}
+					hero->useItem(atoi(action1));
+				} else if((hero->getInventoryType(atoi(action1))->getWorksOn() == bush) && (map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Bush")) { 
+					if(hero->getInventoryType(atoi(action1))->checkName() == "Machete") {
+						hero->changeEnergy(-2);
+					} else if(hero->getInventoryType(atoi(action1))->checkName() == "Shears") {
+						hero->changeEnergy(-2);
+					}
+					hero->useItem(atoi(action1));
+				} else if((hero->getInventoryType(atoi(action1))->getWorksOn() == boulder) && (map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Boulder")) {
+					if(hero->getInventoryType(atoi(action1))->checkName() == "Chisel") {
+						hero->changeEnergy(-15);
+					} else if(hero->getInventoryType(atoi(action1))->checkName() == "Sledgehammer") {
+						hero->changeEnergy(-12);
+					} else if(hero->getInventoryType(atoi(action1))->checkName() == "Jackhammer") {
+						hero->changeEnergy(-4);
+					}
+					hero->useItem(atoi(action1));
+				} else {
+					cout << "*** That is the wrong tool, your loss, sorry..." << endl << endl;
+				}
+		
+		      	hero->changeEnergy(-(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getEnergyConsumption()));
+				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
+				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 		} else if(strcmp(actionCode, "buyItem") == 0) {
 				if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->getPrice() <= hero->getBalance()) {
 						hero->setBalance(-map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->getPrice());
@@ -82,7 +113,7 @@ int main(void)
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 			}
 			else { cout << "*** Sorry, you are too broke to buy that power bar..."; }
-		} else if (strcmp(actionCode, "Binoculars") == 0) {
+		} else if(strcmp(actionCode, "Binoculars") == 0) {
             if(hero->getBalance() > 50) {
                 hero->setBalance(-50);
 				hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
@@ -91,7 +122,18 @@ int main(void)
             }
             else { cout << "*** Sorry, you are too broke for that set of binoculars..."; }
 
-        }
+        } else if(strcmp(actionCode, "adjustEnergy") == 0) {
+        	hero->changeEnergy(-(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getEnergyConsumption()));
+			if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Tree") {
+				hero->changeEnergy(-10);
+			} else if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Boulder") { 
+				hero->changeEnergy(-16);
+			} else if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Bush") {
+				hero->changeEnergy(-4);
+			}
+			delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
+			map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+		}
 
 		if(!hero->checkAlive()){
 			remove("saveFile.txt");

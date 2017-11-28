@@ -194,8 +194,10 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         terrain.terrainName = mapToCopy.getMap()[location.x][location.y].getTerrain()->terrainName;
         terrain.charToDisplay = mapToCopy.getMap()[location.x][location.y].getTerrain()->charToDisplay;
         terrain.canWalkOn = mapToCopy.getMap()[location.x][location.y].getTerrain()->canWalkOn;
-        terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
-        changeEnergy(-terrain.energyConsumption);
+        if(temp != 4){
+			terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
+        	changeEnergy(-terrain.energyConsumption);
+		}
     }
 
 	//displayTerrainMsg(terrain.terrainName);  //TODO  comment this back out was just for testing
@@ -235,6 +237,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 		else if(result == 2) { 											//If interactWithType returns 2 it means an item was purchased and the type ptr
 			return 2;													//needs NULLed out for that Grovnick
 		}
+		else { return 4; }
     }
 
 	return 3;
@@ -260,11 +263,10 @@ int Hero::fillBag(Type * itemToAdd)
 
 //Function to remove an Items pointer from the inventory list
 bool Hero::useItem(int itemToUse){
-	if((itemToUse > 0) && (itemToUse <= BAG_MAX)){
-		//TODO we need to call a function to use each item HERE
+	if((itemToUse >= 0) && (itemToUse < BAG_MAX)){
 
-		delete list[itemToUse - 1];
-		list[itemToUse - 1] = NULL;
+		delete list[itemToUse];
+		list[itemToUse] = NULL;
 		updateInventoryFile();
 		return true;
 	}
@@ -531,7 +533,7 @@ bool Hero::checkBushTools(int index){
              if(list[i] != NULL)
              //Calls the type's check type function
              //returns 1-3 for boulder tools
-             if(list[i]->checkObstacleType() < 9 && list[i]->checkObstacleType() > 7)
+             if(list[i]->checkObstacleType() < 9 && list[i]->checkObstacleType() > 6)
                   return true;
          }
      }
@@ -585,3 +587,8 @@ void Hero::updateHeroTerrain(Terrain * t)
     terrain.canWalkOn = t->canWalkOn;
     terrain.energyConsumption = t->energyConsumption;
 }
+
+Type * Hero::getInventoryType(int slot)
+{
+	return list[slot];
+} 

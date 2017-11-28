@@ -136,12 +136,14 @@ function launchCGI(actionCode, action1, action2) {
 							}
 						}
 					}
-					else if(xhttp.responseText[0] == '&'){
-						if(confirm(xhttp.reponseText.slice(4)) == true){
-							launchCGI("useItem", " ", " ");
+					else if(xhttp.responseText[1] == '@'){
+						if(confirm(xhttp.responseText.slice(4)) == true){
+							displayInventory();
+							update();
 						}
 						else{
 							alert("Oh well, I guess you will have to do it the hard way...");
+							launchCGI("adjustEnergy", " ", " ");
 						}
 					}
 					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
@@ -622,7 +624,7 @@ function displayInventory() {
 //This function will launch the appropriate action when an inventory item is clicked on, will check if the action
 //is valid, and will update the status of the inventory item on the back-end
 function useItem(slot){
-
+	launchCGI("useItem", slot, " ");
 }
 
 //this function will prevent user from moving and spit out an alert if the user is dead

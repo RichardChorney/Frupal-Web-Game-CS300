@@ -103,8 +103,10 @@ bool Type::promptPurchase(int cost) {
     char userInput;
    	Hero * heroPtr = map->getHeroPtr();
 	if((heroPtr->getBalance()) >= cost){
-		cout << "Would you like to purchase this item for " << cost << " whiffle(s)?" << endl << endl << "OK/Cancel" << endl;
-		if(!WEB_MODE){
+		if(cost == 1) { cout << "Would you like to purchase this item for a whiffle?" << endl << endl; }
+		else{ cout << "Would you like to purchase this item for " << cost << " whiffles?" << endl << endl; } 
+		
+			if(!WEB_MODE){
 				while (true) {
 					 cin >> userInput;
 					 switch (userInput) {
@@ -165,6 +167,10 @@ Tool::~Tool()
 int Tool::checkEnergyCost(){
     return energyCost;
 }
+
+int Type::getWorksOn(){
+	return worksOn;
+}	
 
 //Clue
 //Default Clue Constructor
@@ -613,54 +619,56 @@ int Boulder::interactWithType()
     if(map->getHeroPtr()->checkBoulderTools(-1) == true)
     {
         //Alerts players and displays current inventory
-        cout << "You have encountered a boulder...";
-        map->getHeroPtr()->displayInventory(-1);
+        cout << "@@@ You have encountered a boulder...";
+//        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
-        while(validTool == false)
-        {
+//        while(validTool == false)
+//        {
 
             //Prompts players for tool choice number
-            if(repeat == false)
-            cout << endl << "Consume a tool?" << endl
-            << "(Enter item's number): ";
-            else
-            cout << "Can't use that tool here..." << endl << endl
-            << "Consume a tool?" << endl;
+//            if(repeat == false)
+            cout << endl << "Smash it?" << endl << endl;
+//            << "(Enter item's number): ";
+//            else
+//            cout << "Can't use that tool here..." << endl << endl
+//            << "Consume a tool?" << endl;
 
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;
+//            repeat = true;
 
-            cin >> toolNumber;
-            cin.ignore(1000, '\n');
-            --toolNumber;//Transforms inventory index from
+//            cin >> toolNumber;
+//            cin.ignore(1000, '\n');
+//            --toolNumber;//Transforms inventory index from
             //starting at 1 to starting at 0
 
             //Checks if selected tool is a boulder tool
-            if(map->getHeroPtr()->checkBoulderTools(toolNumber))
-            {
+//            if(map->getHeroPtr()->checkBoulderTools(toolNumber))
+//            {
                 //If valid, the valid flag is set true to end
                 //this loop.
-                validTool = true;
+//                validTool = true;
                 //Calls energy deduction using tool's cost
-                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
-                ++toolNumber;//Transform to index starting at 1
+//                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+//                ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
-                map->getHeroPtr()->useItem(toolNumber);
+//                map->getHeroPtr()->useItem(toolNumber);
 
-            }
+//            }
 
-        }
+//        }
+		return 4;
     }
     //Else branch for if player has no applicable tools
     else{
         cout << "*** You have encountered a boulder, costing "
         << BOULDER_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
-    }
+    	
+		return 1;
+	}
 
-    return 1;
 }
 
 int Boulder::checkRemovalCost(){
@@ -753,53 +761,55 @@ int Bush::interactWithType()
     if(map->getHeroPtr()->checkBushTools(-1) == true)
     {
         //Alerts players and displays current inventory
-        cout << "You have encountered a bush...";
-        map->getHeroPtr()->displayInventory(-1);
+        cout << "@@@ You have encountered Blackberry Bushes...";
+//        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
-        while(validTool == false)
-        {
+//        while(validTool == false)
+//        {
 
             //Prompts players for tool choice number
-            if(repeat == false)
-            cout << endl << "Consume a tool?" << endl
-            << "(Enter item's number): ";
-            else
-            cout << "Can't use that tool here..." << endl << endl
-            << "Consume a tool?" << endl;
+//            if(repeat == false)
+            cout << endl << "Cut them down?" << endl << endl;
+//            << "(Enter item's number): ";
+//            else
+//            cout << "Can't use that tool here..." << endl << endl
+//            << "Consume a tool?" << endl;
 
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;
-            cin >> toolNumber;
-            cin.ignore(1000, '\n');
-            --toolNumber;//Transforms inventory index from
+//            repeat = true;
+//            cin >> toolNumber;
+//            cin.ignore(1000, '\n');
+//            --toolNumber;//Transforms inventory index from
             //starting at 1 to starting at 0
 
             //Checks if selected tool is a Bush tool
-            if(map->getHeroPtr()->checkBushTools(toolNumber))
-            {
+//            if(map->getHeroPtr()->checkBushTools(toolNumber))
+//            {
                 //If valid, the valid flag is set true to end
                 //this loop.
-                validTool = true;
+//                validTool = true;
                 //Calls energy deduction using tool's cost
-                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
-                ++toolNumber;//Transform to index starting at 1
+//                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+//                ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
-                map->getHeroPtr()->useItem(toolNumber);
+//                map->getHeroPtr()->useItem(toolNumber);
 
-            }
+//            }
 
-        }
+//        }
+		return 4;
     }
     //Else branch for if player has no applicable tools
     else{
         cout << "*** You have encountered a Bush, costing "
         << BUSH_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
+
+    	return 1;
     }
 
-    return 1;
 }
 
 int Bush::checkRemovalCost(){
@@ -825,55 +835,57 @@ int Tree::interactWithType()
     //checkTreeTools with -1
     if(map->getHeroPtr()->checkTreeTools(-1) == true)
     {
-        //Alerts players and displays current inventory
-        cout << "You have encountered a tree...";
-        map->getHeroPtr()->displayInventory(-1);
+      
+		//Alerts players and displays current inventory
+        cout << "@@@ You have encountered a tree...";
+//        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
-        while(validTool == false)
-        {
+//        while(validTool == false)
+//      {
 
             //Prompts players for tool choice number
-            if(repeat == false)
-            cout << endl << "Consume a tool?" << endl
-            << "(Enter item's number): ";
-            else
-            cout << "Can't use that tool here..." << endl << endl
-            << "Consume a tool?" << endl;
+//            if(repeat == false)
+            cout << endl << "Cut it down??" << endl << endl;
+//            << "(Enter item's number): ";
+//            else
+//            cout << "Can't use that tool here..." << endl << endl
+//            << "Consume a tool?" << endl;
 
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;
+//            repeat = true;
 
-            cin >> toolNumber;
-            cin.ignore(1000, '\n');
-            --toolNumber;//Transforms inventory index from
+//            cin >> toolNumber;
+//            cin.ignore(1000, '\n');
+//            --toolNumber;//Transforms inventory index from
             //starting at 1 to starting at 0
 
             //Checks if selected tool is a Tree tool
-            if(map->getHeroPtr()->checkTreeTools(toolNumber))
-            {
+//            if(map->getHeroPtr()->checkTreeTools(toolNumber))
+//            {
                 //If valid, the valid flag is set true to end
                 //this loop.
-                validTool = true;
+//                validTool = true;
                 //Calls energy deduction using tool's cost
-                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
-                ++toolNumber;//Transform to index starting at 1
+//                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+//                ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
-                map->getHeroPtr()->useItem(toolNumber);
+//                map->getHeroPtr()->useItem(toolNumber);
 
-            }
+ //           }
 
-        }
+//        }
+		return 4;
     }
     //Else branch for if player has no applicable tools
     else{
         cout << "*** You have encountered a Tree, costing "
         << TREE_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
-    }
 
-    return 1;
+		return 1;
+    }
 }
 
 int Tree::checkRemovalCost(){
