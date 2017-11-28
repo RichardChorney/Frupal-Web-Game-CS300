@@ -1,38 +1,46 @@
-simple map
+save file
 10
 ###################
-4,4
-100
-1000
+2,5
+113
+949
 Chainsaw
 ###################
-0,9,0,0,Royal Diamonds
 0,0,0,2,None
 0,1,0,2,None
-1,0,0,2,None
-3,0,0,0,Boat
 0,2,0,3,None
 0,3,0,3,None
+0,9,0,0,Royal Diamonds
+1,0,0,2,None
+1,7,0,0,Sledgehammer
 2,2,0,0,Binoculars
 2,3,0,0,Power Bar
-1,7,0,0,Sledgehammer
 2,7,0,0,Chainsaw
 2,8,0,0,Machete
+3,0,0,0,Boat
+3,3,1,0,None
+3,4,1,0,None
+3,5,1,0,None
+4,3,1,0,None
+4,4,1,0,None
+4,5,1,0,None
 5,2,0,0,Type 1 Treasure Chest
-6,3,0,0,Type 2 Treasure Chest
+5,3,1,0,None
+5,4,1,0,None
+5,5,1,1,None
+5,6,0,1,None
 6,0,0,4,None
 6,1,0,5,None
-7,1,0,4,None
-7,2,0,5,None
-8,1,0,4,Power Bar
-5,5,0,1,None
-5,6,0,1,None
+6,3,0,0,Type 2 Treasure Chest
 6,5,0,1,None
 6,6,0,1,None
+7,1,0,4,None
+7,2,0,5,None
 7,7,0,0,Boulder
 7,8,0,0,Tree
-8,8,0,0,Blackberry Bush
-9,8,0,5,Boulder
 7,9,0,0,Boulder
+8,1,0,4,Power Bar
+8,8,0,0,Blackberry Bush
 8,9,0,0,Boulder
+9,8,0,5,Boulder
 9,9,0,0,Boulder

@@ -8,13 +8,14 @@
 const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "dietric";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "lwarden";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
 //Get the canvas details
 var canvas = document.getElementById("frupalCanvas");
 var context = canvas.getContext("2d");
+document.onkeydown = move_key; //Kep press
 
 /* Images */
 //Terrains
@@ -129,11 +130,8 @@ function launchCGI(actionCode, action1, action2) {
 							}
 						}
 					}
-					else if(xhttp.responseText[0] == '>'){ //This will trigger a prompt from the user on purchases of tools
-						if(xhttp.responseText[1] == 'B'){
-
-						}
-						else if(xhttp.responseText[1] == 'B'){		//This will trigger a prompt from the user for Binoculars
+					if(xhttp.responseText[0] == 'o'){ //This will trigger a prompt from the user on purchases of tools
+						if(xhttp.responseText[1] == 'o'){		//This will trigger a prompt from the user for Binoculars
 							if(confirm(xhttp.responseText) == true){
 								launchCGI("Binoculars", " ", " ");
 							} else {
@@ -150,6 +148,23 @@ function launchCGI(actionCode, action1, action2) {
 function move(direction) {
     //This is where we would send the movement to c++ land
     launchCGI("move", direction, "empty");
+}
+
+//Allows the user to move using the arrow keys,
+//or using w,a,s,d
+function move_key(e){
+	if(e.keyCode == 39 || e.keyCode == 68) { //right
+		launchCGI("move", 2, "empty");
+	}
+	else if(e.keyCode == 37 || e.keyCode == 65) {	//left
+		launchCGI("move", 4, "empty");
+	}
+	else if(e.keyCode == 38 || e.keyCode == 87) {	//up
+		launchCGI("move", 1, "empty");
+	}
+	else if(e.keyCode == 40 || e.keyCode == 83) {	//down
+		launchCGI("move", 3, "empty");
+	}
 }
 
 //Initialize the images

@@ -196,6 +196,7 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         terrain.canWalkOn = mapToCopy.getMap()[location.x][location.y].getTerrain()->canWalkOn;
         terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
         changeEnergy(-terrain.energyConsumption);
+        updateWebStatus(terrain);
     }
 
 	//displayTerrainMsg(terrain.terrainName);  //TODO  comment this back out was just for testing
@@ -220,10 +221,10 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
     //if the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
 		//Display appropriate terrain message
-		cout << "*** ";
 		displayTerrainMsg(ahead.terrainName);
 		cout << "You lose your turn and " << ahead.energyConsumption << " Energy point." << endl;		//TODO Need to change this for boats
 		changeEnergy(-ahead.energyConsumption);
+        updateWebStatus(ahead);
 
 		return 0;								//Returns a 0 so no movement is executed for impassable terrains
     }
@@ -327,7 +328,7 @@ void Hero::printStatus()
     cout << "-----------------------------\n";
 }
 
-void Hero::updateWebStatus()
+void Hero::updateWebStatus(Terrain terra)
 {
     ofstream output;
     //this will clear the text file it opens
@@ -339,7 +340,7 @@ void Hero::updateWebStatus()
            << location.x << '|' << location.y << '|'
            << terrain.terrainName << '|';
 
-    writeTerrainMsg(terrain.terrainName, output);
+    writeTerrainMsg(terra.terrainName, output);
 
     output.close();
 }

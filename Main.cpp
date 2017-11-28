@@ -53,6 +53,7 @@ int main(void)
 			remove("saveFile.txt");
 			map.loadMapFromFile(demoMap);
     		hero = map.getHeroPtr();
+            hero->updateWebStatus(hero->getTerrain());
 		} else if(strcmp(actionCode, "loadDefault") == 0) {
 		    map.loadMapFromFile(demoMap);
     		hero = map.getHeroPtr();
@@ -80,6 +81,7 @@ int main(void)
                 hero->setBalance(-50);
 				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+				hero->setVisibility(true);
             }
             else { cout << "*** You are too broke for that set of binoculars sorry"; }
 
@@ -91,7 +93,6 @@ int main(void)
 		} else {
 			map.displayMap(); //In WEB_MODE it just updates the map
 			map.saveState();
-			hero->updateWebStatus();
 			map.writeWebTerrain();
 			map.writeWebTypes();
 			map.writeWebMists();
@@ -119,7 +120,6 @@ int main(void)
 				map.displayMap();
                 map.saveState();
 				hero->printStatus();
-                hero->updateWebStatus();
 				cout << endl << "What would you like to do?" << endl;
 				cout << "1) NORTH" << endl << "2) EAST" << endl << "3) SOUTH" << endl << "4) WEST";
 				cout << endl << "5) INVENTORY" << endl << "6) QUIT ON FRUPAL" << endl << endl;
