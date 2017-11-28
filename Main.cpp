@@ -1,4 +1,4 @@
-///////////////////////////////////////////
+//////////////////////////////////////////
 //Main.cpp
 //CS300 Group E
 //This file contains the main function
@@ -102,6 +102,7 @@ int main(void)
 						hero->setBalance(-map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->getPrice());
 						hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
 						map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+					    hero->updateWebStatus(hero->getTerrain());
 				}
 				else {
 					cout << "*** Sorry, you are too broke to purchase that tool..." << endl;

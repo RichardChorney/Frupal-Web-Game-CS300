@@ -103,10 +103,9 @@ function launchCGI(actionCode, action1, action2) {
     xhttp.send();
     xhttp.onreadystatechange = afterResponse;
 	function afterResponse() {
+			update();	
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
-					update();
-					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
 					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
 						alert(xhttp.responseText.slice(4));
 					}
@@ -122,6 +121,7 @@ function launchCGI(actionCode, action1, action2) {
 						if(xhttp.responseText[1] == '>'){
 								if(confirm(xhttp.responseText.slice(4)) == true){
 										launchCGI("buyItem", " ", " ");
+										update();
 									} else {
 										alert("Oh well, I guess you are too cheap for this fine frupal tool...");
 									}
