@@ -134,15 +134,21 @@ function launchCGI(actionCode, action1, action2) {
 							}
 						}
 					}
-					if(xhttp.responseText[0] == 'o'){ //This will trigger a prompt from the user on purchases of tools
-						if(xhttp.responseText[1] == 'o'){		//This will trigger a prompt from the user for Binoculars
+					else if(xhttp.responseText[0] == '&'){
+						if(confirm(xhttp.reponseText.slice(4)) == true){
+							launchCGI("useItem", " ", " ");
+						}
+						else{
+							alert("Oh well, I guess you will have to do it the hard way...");
+						}
+					}
+					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
 							if(confirm(xhttp.responseText) == true){
 								launchCGI("Binoculars", " ", " ");
 							} else {
-								alert("Oh well, guess you didn't want those binoculars anyway...");
+								alert("Oh well, I guess you didn't want those binoculars anyways...");
 							}
-						}
-                    }
+					}
 			}
 		}
 	}
@@ -566,7 +572,7 @@ function displayInventory() {
 					for(var i = 1; i <= LIST_MAX; ++i){
 						switch(parseInt(listContents[j])){
 							case 0:
-                                document.getElementById("slot" + i).innerHTML = i + "--> Empty";
+                                document.getElementById("slot" + i).innerHTML = i + "--> Boat" + " (" + listContents[k] + ") Allows water traversal";
 								break;
 							case 1:
 								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " (" + listContents[k] + ") Removes Trees for 8 energy points";

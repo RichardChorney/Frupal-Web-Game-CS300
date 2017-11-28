@@ -678,7 +678,7 @@ RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 //Royal Diamonds
 int RoyalDiamonds::interactWithType()
 {
-    cout << "?! Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
+    cout << "?!  Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
     //map->resetMapState();
     map->setWon(true);
 
@@ -895,7 +895,7 @@ Hatchet::Hatchet(Map * mapPtr)
 int Hatchet::interactWithType()
 {
 	system("clear");
-	cout << ">> You have found a HATCHET" << endl;
+	cout << ">>  You have found a HATCHET" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -933,7 +933,7 @@ Axe::Axe(Map * mapPtr)
 int Axe::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found an AXE" << endl;
+	cout << ">>  You have found an AXE" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -970,7 +970,7 @@ Chainsaw::Chainsaw(Map * mapPtr)
 int Chainsaw::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found a CHAINSAW" << endl;
+	cout << ">>  You have found a CHAINSAW" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1007,7 +1007,7 @@ Chisel::Chisel(Map * mapPtr)
 int Chisel::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found a CHISEL" << endl;
+	cout << ">>  You have found a CHISEL" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1044,7 +1044,7 @@ Sledgehammer::Sledgehammer(Map * mapPtr)
 int Sledgehammer::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found a SLEDGEHAMMER" << endl;
+	cout << ">>  You have found a SLEDGEHAMMER" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1081,7 +1081,7 @@ Jackhammer::Jackhammer(Map * mapPtr)
 int Jackhammer::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found a JACKHAMMER" << endl;
+	cout << ">>  You have found a JACKHAMMER" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1118,7 +1118,7 @@ Machete::Machete(Map * mapPtr)
 int Machete::interactWithType()
 {
  	//system("clear");
-	cout << ">> You have found a MACHETE" << endl;
+	cout << ">>  You have found a MACHETE" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1155,7 +1155,7 @@ Shears::Shears(Map * mapPtr)
 int Shears::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found SHEARS" << endl;
+	cout << ">>  You have found SHEARS" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
 
 	if (promptPurchase(price)) {
