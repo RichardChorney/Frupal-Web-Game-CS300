@@ -67,7 +67,14 @@ int main(void)
 		} else if(strcmp(actionCode, "removeItem") == 0) {
 
 		} else if(strcmp(actionCode, "buyItem") == 0) {
-
+				if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->getPrice() <= hero->getBalance()) {
+						hero->setBalance(-map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->getPrice());
+						hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
+						map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
+				}
+				else {
+					cout << "*** Sorry you are too broke to purchase that tool..." << endl;
+				}	
 		} else if(strcmp(actionCode, "powerBar") == 0) {
 			if(hero->getBalance() > 0) {
 				hero->setBalance(-1);
@@ -79,7 +86,7 @@ int main(void)
 		} else if (strcmp(actionCode, "Binoculars") == 0) {
             if(hero->getBalance() > 50) {
                 hero->setBalance(-50);
-				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
+				hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 				hero->setVisibility(true);
             }

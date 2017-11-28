@@ -32,12 +32,14 @@ public:
     char getCharToDisplay();
     int  checkObstacleType();//returns 1 for boulders, 2 - trees, 3 - bushes  
 	string checkName();
+	int getPrice();
     //string & getName();
 protected:
     string name; //The name of the Type
     string message; //Message to display to user.
     Map * map; //Pointer to the Map
 	char charToDisplay;
+    int price;			//Tool cost
 };
 
 //('T')
@@ -51,7 +53,7 @@ public:
 
 protected:
     int multiplier; 	//X1, X2, X3 ...
-    int price;			//Tool cost
+
 	int energyCost;		//How much energy the tool deducts from energy balance
 	int worksOn;		//Identifies which kind of obstacle this tool will work on
 };

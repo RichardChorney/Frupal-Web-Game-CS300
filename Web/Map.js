@@ -108,19 +108,23 @@ function launchCGI(actionCode, action1, action2) {
 					update();
 					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
 					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
-						alert(xhttp.responseText);
+						alert(xhttp.responseText.slice(4));
 					}
 					else if(xhttp.responseText[0] == '!'){	//This will restart the game state if the hero dies triggered when cout begins with (!)
 						restart();
-						alert(xhttp.responseText);
+						alert(xhttp.responseText.slice(4));
 					}
 					else if(xhttp.responseText[0] == '?' && xhttp.responseText[1] == '!'){ //This case happens if the royal diamonds were stepped on.
 						restart();
-						alert(xhttp.responseText);
+						alert(xhttp.responseText.slice(4));
 					}
 					else if(xhttp.responseText[0] == '>'){ //This will trigger a prompt from the user on purchases of tools
 						if(xhttp.responseText[1] == '>'){
-
+								if(confirm(xhttp.responseText.slice(4)) == true){
+										launchCGI("buyItem", " ", " ");
+									} else {
+										alert("Oh well, I guess you are too cheap for this fine frupal tool...");
+									}
 						}
 						else if(xhttp.responseText[1] == '<'){		//This will trigger a prompt from the user for a powerbar
 							if(confirm(xhttp.responseText) == true){
@@ -588,6 +592,10 @@ function displayInventory() {
 							case 8:
 								document.getElementById("slot" + i).innerHTML = i + "--> Shears" + " (" + listContents[k] + ") Removes Blackberry Bushes for 2 energy points";
 								break;
+							case 9:
+								document.getElementById("slot" + i).innerHTML = i + "--> Binoculars" + " (" + listContents[k] + ") Doubles visibility range";
+								break;
+	
 							default:
 								document.getElementById("slot" + i).innerHTML = i + "--> Empty";
 								break;
