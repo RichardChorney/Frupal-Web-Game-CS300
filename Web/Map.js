@@ -121,9 +121,9 @@ function launchCGI(actionCode, action1, action2) {
     xhttp.send();
     xhttp.onreadystatechange = afterResponse;
 	function afterResponse() {
-			update();
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
+                    update();
 					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
 						alert(xhttp.responseText.slice(4));
 					}

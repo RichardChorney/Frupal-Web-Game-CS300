@@ -172,14 +172,29 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
     aheadLoc.y = y;
 
 	aheadLocation = aheadLoc;
+
     //Look ahead before actually stepping.
-	int temp = lookAhead(mapToCopy, aheadLoc);
-	if(temp)
+	if(lookAhead(mapToCopy, aheadLoc))
     {
         //changeEnergy(-terrain.energyConsumption);
         //Move the Hero
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
+
+        mapToCopy.displayMap(); //In WEB_MODE it just updates the map
+        mapToCopy.saveState();
+        mapToCopy.writeWebTerrain();
+        mapToCopy.writeWebTypes();
+        mapToCopy.writeWebMists();
+
+
+        Type * typePtr = NULL;
+        typePtr = mapToCopy.getMap()[location.x][location.y].getType();
+
+        int temp = 0;
+        if(typePtr){
+            temp = typePtr->interactWithType();
+        }
 
 		if((temp == 1) || (temp == 2)){
 			if(temp == 1){
@@ -244,18 +259,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 
 		return 0;								//Returns a 0 so no movement is executed for impassable terrains
     }
-	if(typePtr){								//This (if) will guard against SEG FAULTs
-        int result = typePtr->interactWithType();
-		if(result == 1) {												//If interactWithType returns 1 it means a power bar or chest was encountered
-			return 1;													//and needs deleted
-		}
-		else if(result == 2) { 											//If interactWithType returns 2 it means an item was purchased and the type ptr
-			return 2;													//needs NULLed out for that Grovnick
-		}
-		else { return 4; }
-    }
-
-	return 3;
+    return 1;
 }
 
 //Places a pointer to an "Item" into the heroes inventory list, returns 1 for success, 0 for a full bag, 2 for fail
