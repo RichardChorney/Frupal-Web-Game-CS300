@@ -181,11 +181,12 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
 
-        mapToCopy.displayMap(); //In WEB_MODE it just updates the map
-        mapToCopy.saveState();
-        mapToCopy.writeWebTerrain();
-        mapToCopy.writeWebTypes();
-        mapToCopy.writeWebMists();
+        //Leaving this here, but
+        // mapToCopy.displayMap();
+        // mapToCopy.saveState();
+        // mapToCopy.writeWebTerrain();
+        // mapToCopy.writeWebTypes();
+
 
 		if((temp == 1) || (temp == 2)){
 			if(temp == 1){
@@ -482,7 +483,7 @@ void Hero::writeTerrainMsg(string terra, ofstream& out)
         for(int i = 0; i < BAG_MAX; ++i) {
             if(list[i]){
 				if(list[i]->checkName() == "Boat"){
-               		out << "Sailing on the water feels great!" << endl;
+               		out << "Walking on water feels great!" << endl;
                 	return;
 				}
             }
