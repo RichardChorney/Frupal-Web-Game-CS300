@@ -216,43 +216,18 @@ Clue::Clue(string newName, string newMessage, Map * mapPtr,bool clueTruthDefault
 /*The function to be called when the hero steps on a clue grovnik.*/
 int Clue::interactWithType()
 {
-    //An int to store random values to select clue functions calls
-    int random = 0;
-    srand(time(NULL));
-//    random = (rand() % 3);
-
-//     cout << "You called the CLUE function." << endl; //Test
-
-    /*An if statement branch for false and true clues*/
+    //If branch sorts between true/false clues and calls their function
     if(clueTruth == true)
     {
-        random = 0; //TEST to control which clue is called
-
-        if(random == 0){
            this->trueClueOne();
-        }
-        if(random == 1){
-           this->trueClueTwo();
-        }
-        if(random == 2){
-           this->trueClueThree();
-        }
     }
     else if(clueTruth == false)
     {
-        if(random == 0){
            this->falseClueOne();
-        }
-        if(random == 1){
-           this->falseClueTwo();
-        }
-        if(random == 2){
-           this->trueClueThree(); //changes to false once implemented fully
-        }
-
-
     }
 
+    //Returns 1 to tell the hero movement function to remove the clue from
+    //the map.
     return 1;
 }
 
@@ -263,36 +238,41 @@ int Clue::trueClueOne()
     //A temporary container for the royal diamond coordinates
     Location temp;
     Location hero;
-    int distance;
-    hero = map->getHeroPtr()->getAheadLocation();
+    int distance;//holds the distance from hero to diamonds
+    hero = map->getHeroPtr()->getAheadLocation();//Gives locations coordinates of hero
     temp = map->getHeroPtr()->getAheadLocation();
 
+    srand(time(NULL));//initialize the random seed to the current time
+    int randomInt = ((rand()%9) + 1);//First random pass
+    randomInt = ((randomInt % 5) + 1);//Modulate the random value to make it more random
+    //compared to other random values using the same seed
+    randomInt = (((map->getHeroPtr()->getBalance() / randomInt))-1);//A value that is randomly
+    //less than the current player's amount of whiffles 
+
     system("clear");
-    cout << "?1 New Clue" << endl; //Testing Message
+    cout << "?1 New Clue" << endl; //Starts alert
    
     cout << "You are " << temp.x << " grovnick2s from the western border, ";
 
     //Loads the coordinates of the royal diamonds to a temp container
     temp = map->getRoyalDiamondsLocation();
 
-
+    /*If the player has 0 whiffles the program will state that instead of a lower value*/
     if(map->getHeroPtr()->getBalance() == 0)
     cout << "you possess more exactly 0 Whiffles,"
     << " and the royal diamonds are located " << temp.x - hero.x << "grovnick2s to "
     << "the east and " << temp.y - hero.y << " grovnick2s to the South." << endl << endl;
-
+    
+    //Tells the player correct facts about the game
     else
-    cout << "you possess more than " << map->getHeroPtr()->getBalance() - 1 << " Whiffles,"
+    cout << "you possess more than " << randomInt << " Whiffles,"
     << " and the royal diamonds are located " << temp.x - hero.x  << " grovnick2s to "
     << "the east and " << temp.y - hero.y << " grovnick2s to the South." << endl << endl;
-
 
     distance = abs(temp.y - hero.y);
     distance += abs(temp.x - hero.x);
 
     cout << "The diamonds are " << distance << " grovnick2s away.";
-
-
     return 0;
 }
 
@@ -300,23 +280,6 @@ int Clue::trueClueOne()
 //and the royal diamonds location
 int Clue::trueClueTwo()
 {
-    //A temp container for the royal diamond coordinates
-    Location temp;
-    temp = map->getHeroPtr()->getAheadLocation();
-
-    cout << "True Clue Two selected! (test)" << endl; //Test message
-
-    //Tells the user the true player location coordinates
-    cout << "The hero is located at " << temp.x << ","
-    << temp.y << " on the map." << endl;
-
-
-    //Loads the coordinates of the royal diamonds to a temp container
-    temp = map->getRoyalDiamondsLocation();
-
-    //Tells user the true location of the diamonds as part of a true clue
-    cout << endl << "And the royal diamonds are located at ";
-    cout << temp.y << " " << temp.x << "!" << endl << endl;
 
     return 0;
 }
@@ -325,60 +288,6 @@ int Clue::trueClueTwo()
 //and the royal diamonds location
 int Clue::trueClueThree()
 {
-    int i = 0;
-    bool toolsPresent = false;//Flag for if hero has tools at all
-    srand(time(NULL));//initializes the random seed
-    Location temp;//a temp container for coordinates
-
-    //A random value is generated in a range covering the bag slots
-    int random = rand() % BAG_SIZE;
-
-    //Iterates through bag list,
-    for(i = 0; i < BAG_SIZE; ++i)
-    {
-        if(!map->getHeroPtr()->checkNullInventorySlot(i))
-            toolsPresent = true;
-    }
-
-    cout << "True Clue Three selected!" << endl; //Test
-
-    //Branch for function when the hero has tools
-    if(toolsPresent)
-    {
-        //Tells user what tool they have.
-        cout << "The hero has this tool ";
-
-        //Selects a random slot to tell the user about
-        do
-        {
-            random = rand() % BAG_SIZE;
-
-            //Will pick randomly at list  until a non-NULL slot is found
-            if(!map->getHeroPtr()->checkNullInventorySlot(random))
-            {
-                map->getHeroPtr()->displayInventory(random);
-                i = 50;
-            }
-
-            else
-                ++i;
-
-        }while(i < 50);
-    }
-
-    //Branch for function where hero has no tools
-    else
-    {
-        //User is told the true fact the hero has no tools.
-        cout << "The hero has no tools. " << endl;
-    }
-
-    //Loads the coordinates of the royal diamonds to a temp container
-    temp = map->getRoyalDiamondsLocation();
-    //Tells user the true location of the diamonds as part of a true clue
-    cout << endl << "And the royal diamonds are located at ";
-    cout << temp.y << " " << temp.x << "!" << endl << endl;
-
 
     return 0;
 }
@@ -438,23 +347,6 @@ int Clue::falseClueOne()
         distance = 0;
 
     cout << "The diamonds are " << (distance + 12) % 20 << " grovnick2s away.";
-/*
-    //Loads the coordinates of the royal diamonds to a temp container
-    temp = map->getRoyalDiamondsLocation();
-
-    //While loop to compare the generated false values to the real ones.
-    //If they don't match, then the loop ends and the function continues
-    while(match == true)
-    {
-        falseStatus[0] = rand() % map->getMapSize();
-        falseStatus[1] = rand() % map->getMapSize();
-        if(temp.x != falseStatus[0] && temp.y != falseStatus[1])
-            match = false;
-    }
-    //Tells user the true location of the diamonds as part of a true clue
-    cout << endl << "And the royal diamonds are located at ";
-    cout << falseStatus[0] << " " << falseStatus[1] << "!" << endl << endl;
-*/
     return 0;
 }
 
@@ -462,46 +354,6 @@ int Clue::falseClueOne()
 //and a false royal diamonds location
 int Clue::falseClueTwo()
 {
-    //A temp container for the royal diamond coordinates
-    Location temp;
-    temp = map->getHeroPtr()->getAheadLocation();
-    int falseStatus[2];
-    bool match = true;
-    srand(time(NULL));//initializes the random seed
-
-    cout << "False Clue Two selected! (test)" << endl; //Test message
-
-    //While loop to compare the generated false values to the real ones.
-    //If they don't match, then the loop ends and the function continues
-    while(match == true)
-    {
-        falseStatus[0] = rand() % map->getMapSize();
-        falseStatus[1] = rand() % map->getMapSize();
-        if(temp.x != falseStatus[0] && temp.y != falseStatus[1])
-            match = false;
-    }
-    match = true;
-
-    //Tells the user the false player location coordinates
-    cout << "The hero is located at " << falseStatus[0] << ","
-    << falseStatus[1] << " on the map." << endl;
-
-
-    //Loads the coordinates of the royal diamonds to a temp container
-    temp = map->getRoyalDiamondsLocation();
-
-    //While loop to compare the generated false values to the real ones.
-    //If they don't match, then the loop ends and the function continues
-    while(match == true)
-    {
-        falseStatus[0] = rand() % map->getMapSize();
-        falseStatus[1] = rand() % map->getMapSize();
-        if(temp.x != falseStatus[0] && temp.y != falseStatus[1])
-            match = false;
-    }
-    //Tells user the false location of the diamonds as part of a false clue
-    cout << endl << "And the royal diamonds are located at ";
-    cout << falseStatus[0] << " " << falseStatus[1] << "!" << endl << endl;
 
     return 0;
 }
@@ -510,59 +362,6 @@ int Clue::falseClueTwo()
 //and a false royal diamonds location
 int Clue::falseClueThree()
 {
-    int i = 0;
-    bool toolsPresent = false;//Flag for if hero has tools at all
-    srand(time(NULL));//initializes the random seed
-    Location temp;//a temp container for coordinates
-
-    //A random value is generated in a range covering the bag slots
-    int random = rand() % BAG_SIZE;
-
-    //Iterates through bag list,
-    for(i = 0; i < BAG_SIZE; ++i)
-    {
-        if(!map->getHeroPtr()->checkNullInventorySlot(i))
-            toolsPresent = true;
-    }
-
-    cout << "True Clue Three selected!" << endl; //Test
-
-    //Branch for function when the hero has tools
-    if(toolsPresent)
-    {
-        //Tells user what tool they have.
-        cout << "The hero has this tool ";
-
-        //Selects a random slot to tell the user about
-        do
-        {
-            random = rand() % BAG_SIZE;
-
-            //Will pick randomly at list  until a non-NULL slot is found
-            if(!map->getHeroPtr()->checkNullInventorySlot(random))
-            {
-                map->getHeroPtr()->displayInventory(random);
-                i = 50;
-            }
-
-            else
-                ++i;
-
-        }while(i < 50);
-    }
-
-    //Branch for function where hero has no tools
-    else
-    {
-        //User is told the true fact the hero has no tools.
-        cout << "The hero has no tools. " << endl;
-    }
-
-    //Loads the coordinates of the royal diamonds to a temp container
-    temp = map->getRoyalDiamondsLocation();
-    //Tells user the true location of the diamonds as part of a true clue
-    cout << endl << "And the royal diamonds are located at ";
-    cout << temp.y << " " << temp.x << "!" << endl << endl;
 
 
     return 0;
