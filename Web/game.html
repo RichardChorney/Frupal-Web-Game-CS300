@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+</head>
 <!-- Creates the inventory list drop down menu -->
 <style>
 .dropbtn {
@@ -25,7 +26,7 @@
     display: none;
     position: relative;
     background-color: #f9f9f9;
-    min-width: 440px;
+    width:auto;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -54,43 +55,42 @@
 }
 </style>
 
-<body>
-
-<p> Welcome to Frupal </p>
-
+<body bgcolor="92a8d1">
+<div class="Title"><h1>Welcome to The Kingdom of Frupal</h1></div>
 <!-- Movement Buttons -->
-<button type="button" onclick="move(1)">UP</button>
-<button type="button" onclick="move(3)">DOWN</button>
-<button type="button" onclick="move(4)">LEFT</button>
-<button type="button" onclick="move(2)">RIGHT</button>
-<button type="button" onclick="restart()">RESTART GAME</button>
-<br>
+<div class="container-movement">
+	<button type="button" onclick="move(1)">UP</button>
+	<button type="button" onclick="move(3)">DOWN</button>
+	<button type="button" onclick="move(4)">LEFT</button>
+	<button type="button" onclick="move(2)">RIGHT</button>
+	<button type="button" onclick="restart()">NEW GAME</button>
+</div>
 
 <!-- Create the main canvas, where the game map will be displayed -->
 <div id="wrapper">
-<canvas id="frupalCanvas" width="720" height="720" style="border:1px solid #d3d3d3;"></canvas>
+<canvas id="frupalCanvas" width="720" height="720" style="border:1px solid #808080;"></canvas>
 <!-- Create the message window, where stats and terrain messages will be displayed -->
-<div id="messageWindow" width="400" height="200" style="border:1px solid #d3d3d3;"></div>
+<div id="messageWindow" width:auto heigh:auto style="border:1px solid #808080;"></div>
 
 <!-- Tell our html file where our javascript functions are located -->
 <script src="Map.js"></script>
-
+</div>
 <!-- Sets up what is displayed when inventory button is clicked -->
-<div class="dropdown">
-<button onclick="displayInventory()" class="dropbtn">Inventory</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href='' id="slot1" onclick="useItem(0)"></a>
-    <a href='' id="slot2" onclick="useItem(1)"></a>
-    <a href='' id="slot3" onclick="useItem(2)"></a>
-	<a href='' id="slot4" onclick="useItem(3)"></a>
-    <a href='' id="slot5" onclick="useItem(4)"></a>
-    <a href='' id="slot6" onclick="useItem(5)"></a>
-    <a href='' id="slot7" onclick="useItem(6)"></a>
-    <a href='' id="slot8" onclick="useItem(7)"></a>
-    <a href='' id="slot9" onclick="useItem(8)"></a>
-	<a href='' id="slot10" onclick="useItem(9)"></a>
-  </div>
+<div class="container-dropdown">
+	<div id="dropdown">
+	<button onclick="displayInventory()" class="dropbtn">Inventory</button>
+  		<div id="myDropdown" class="dropdown-content">
+    		<a href='' id="slot1" onclick="useItem(0)"></a>
+    		<a href='' id="slot2" onclick="useItem(1)"></a>
+    		<a href='' id="slot3" onclick="useItem(2)"></a>
+			<a href='' id="slot4" onclick="useItem(3)"></a>
+    		<a href='' id="slot5" onclick="useItem(4)"></a>
+    		<a href='' id="slot6" onclick="useItem(5)"></a>
+    		<a href='' id="slot7" onclick="useItem(6)"></a>
+    		<a href='' id="slot8" onclick="useItem(7)"></a>
+    		<a href='' id="slot9" onclick="useItem(8)"></a>
+			<a href='' id="slot10" onclick="useItem(9)"></a>
+  		</div>
+	</div>
 </div>
-</div>
-
 </html>
