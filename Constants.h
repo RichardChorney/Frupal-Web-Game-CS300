@@ -22,7 +22,7 @@ int const BAG_SIZE = 9; //Amount of inventory slots
 
 
 /* Map Constants */
-int const MAX = 10; //Default size for map
+int const MAX = 16; //Default size for map
 char const MIST = 'X'; //Invisible terrain tile
 char const HERO_CHAR = 'H'; //Display Char for Hero
 int const DEFAULT_STARTING_LOCATION = (MAX / 2) - 1;

@@ -6,9 +6,9 @@
 /////////////////////////////////////////////////////
 
 const SHOW_MIST = true; //Set true to show mist
-const SIZE = 50; //Width and Height of all Grovnicks
-const mapSize = 10; //One dimension of the map size
-const USER_NAME = "chorney";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const SIZE = 16; //Width and Height of all Grovnicks
+const mapSize = 16; //One dimension of the map size
+const USER_NAME = "";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
@@ -35,6 +35,8 @@ var boulder = new Image();
 var clue = new Image();
 var binoculars = new Image();
 var boat = new Image();
+var heroInBoat = new Image();
+var bush = new Image();
 //Tools
 var hatchet = new Image();
 var axe = new Image();
@@ -63,13 +65,14 @@ boulder.onload = function() {
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
-	//alert("begin here.");
+
+	// alert("begin here.");
     launchCGI("loadDefault", " ", " ");
     initImages();
     initMap();
     update();
     displayMap();
-//    alertFileParam();
+    // alertFileParam();
 }
 /*
 function getParam() {
@@ -118,7 +121,7 @@ function launchCGI(actionCode, action1, action2) {
     xhttp.send();
     xhttp.onreadystatechange = afterResponse;
 	function afterResponse() {
-			update();	
+			update();
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
 					if(xhttp.responseText[(xhttp.responseText).length - 1] == '*'){
@@ -168,7 +171,7 @@ function launchCGI(actionCode, action1, action2) {
 							alert("Oh well, I guess you will have to do it the hard way...");
 							launchCGI("adjustEnergy", " ", " ");
 						}
-          			}  
+          			}
 					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
 							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("Binoculars", " ", " ");
@@ -233,6 +236,8 @@ function initImages() {
     clue.src = "Sprites/clue.png";
     binoculars.src = "Sprites/binoculars.png";
     boat.src = "Sprites/boat.png";
+    heroInBoat.src = "Sprites/jesus.png";
+    bush.src = "Sprites/bush.png";
     //Tools
     hatchet.src = "Sprites/hatchet.png";
     axe.src = "Sprites/axe.png";
@@ -279,10 +284,13 @@ function displayMap() {
             else if (types[i][j] == 'C') { displayImg(clue, i, j); }
             else if (types[i][j] == '8') { displayImg(binoculars, i, j); }
             else if (types[i][j] == 'V') { displayImg(boat, i, j); }
+            else if (types[i][j] == '@') { displayImg(bush, i, j); }
+
 
             /* Display Mist & Hero */
             if (mists[i][j] == 'H') { displayImg(hero, i, j); }
             else if (mists[i][j] == 'X' && SHOW_MIST == true) { displayImg(mist, i, j); }
+            else if (mists[i][j] == '4') { displayImg(heroInBoat, i, j); }
 
 
         }
@@ -638,7 +646,7 @@ function displayInventory() {
 							case 9:
 								document.getElementById("slot" + i).innerHTML = i + "--> Binoculars" + " Qty.(" + listContents[k] + ") Doubles visibility range -->Cost:35Wh";
 								break;
-	
+
 							default:
 								document.getElementById("slot" + i).innerHTML = i + "--> Empty";
 								break;
