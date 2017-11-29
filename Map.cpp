@@ -509,6 +509,7 @@ void Map::saveState()
                 else if (!contents.compare("Machete")) object = "Machete";
                 else if (!contents.compare("Shears")) object = "Shears";
                 else if (!contents.compare("Boat")) object = "Boat";
+                else if (!contents.compare("Clue")) object = "Clue";
             }
             //else object = "None";
 

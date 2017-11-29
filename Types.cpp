@@ -103,8 +103,10 @@ bool Type::promptPurchase(int cost) {
     char userInput;
    	Hero * heroPtr = map->getHeroPtr();
 	if((heroPtr->getBalance()) >= cost){
-		cout << "Would you like to purchase this item for " << cost << " whiffle(s)?" << endl << endl << "OK/Cancel" << endl;
-		if(!WEB_MODE){
+		if(cost == 1) { cout << "Would you like to purchase this item for a whiffle?" << endl << endl; }
+		else{ cout << "Would you like to purchase this item for " << cost << " whiffles?" << endl << endl; } 
+		
+			if(!WEB_MODE){
 				while (true) {
 					 cin >> userInput;
 					 switch (userInput) {
@@ -165,6 +167,10 @@ Tool::~Tool()
 int Tool::checkEnergyCost(){
     return energyCost;
 }
+
+int Type::getWorksOn(){
+	return worksOn;
+}	
 
 //Clue
 //Default Clue Constructor
@@ -556,7 +562,7 @@ ExplosiveChest::ExplosiveChest(Map * mapPtr)
 //Explosive Chest
 int ExplosiveChest::interactWithType()
 {
-    cout << "*** You opened an Exploading Chest! You lose all of your whiffles!";
+    cout << "*** The chest exploded!!! You lost all of your whiffles...";
 
     Hero * currHero = map->getHeroPtr();
     //currHero->setBalance(0); //Zero out bank account
@@ -577,17 +583,17 @@ PowerBar::PowerBar(Map * mapPtr)
 int PowerBar::interactWithType()
 {
 	system("clear");
-	cout << "><>< You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
+	cout << ">< You have found a yummy Power Bar!! It will give you 20 extra Energy..." << endl;
 
 	if (promptPurchase(1)) {
     	Hero * currHero = map->getHeroPtr();
 		currHero->changeEnergy(20);
-		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty...." << endl;
+		cout << "Congratulations on your purchase of a fine Power Bar, hope it was tasty..." << endl;
 
 		return 1;
 	}
 
-	if(!WEB_MODE) { cout << "Oh well, I guess not everyone likes Power Bars...." << endl; }
+	if(!WEB_MODE) { cout << "Oh well, I guess not everyone likes Power Bars..." << endl; }
 
     return 0;
 }
@@ -613,54 +619,56 @@ int Boulder::interactWithType()
     if(map->getHeroPtr()->checkBoulderTools(-1) == true)
     {
         //Alerts players and displays current inventory
-        cout << "You have encountered a boulder...";
-        map->getHeroPtr()->displayInventory(-1);
+        cout << "@@@ You have encountered a boulder...";
+//        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
-        while(validTool == false)
-        {
+//        while(validTool == false)
+//        {
 
             //Prompts players for tool choice number
-            if(repeat == false)
-            cout << endl << "Consume a tool?" << endl
-            << "(Enter item's number): ";
-            else
-            cout << "Can't use that tool here..." << endl << endl
-            << "Consume a tool?" << endl;
+//            if(repeat == false)
+            cout << endl << "Smash it?" << endl << endl;
+//            << "(Enter item's number): ";
+//            else
+//            cout << "Can't use that tool here..." << endl << endl
+//            << "Consume a tool?" << endl;
 
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;
+//            repeat = true;
 
-            cin >> toolNumber;
-            cin.ignore(1000, '\n');
-            --toolNumber;//Transforms inventory index from
+//            cin >> toolNumber;
+//            cin.ignore(1000, '\n');
+//            --toolNumber;//Transforms inventory index from
             //starting at 1 to starting at 0
 
             //Checks if selected tool is a boulder tool
-            if(map->getHeroPtr()->checkBoulderTools(toolNumber))
-            {
+//            if(map->getHeroPtr()->checkBoulderTools(toolNumber))
+//            {
                 //If valid, the valid flag is set true to end
                 //this loop.
-                validTool = true;
+//                validTool = true;
                 //Calls energy deduction using tool's cost
-                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
-                ++toolNumber;//Transform to index starting at 1
+//                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+//                ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
-                map->getHeroPtr()->useItem(toolNumber);
+//                map->getHeroPtr()->useItem(toolNumber);
 
-            }
+//            }
 
-        }
+//        }
+		return 4;
     }
     //Else branch for if player has no applicable tools
     else{
         cout << "*** You have encountered a boulder, costing "
         << BOULDER_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
-    }
+    	
+		return 1;
+	}
 
-    return 1;
 }
 
 int Boulder::checkRemovalCost(){
@@ -678,7 +686,7 @@ RoyalDiamonds::RoyalDiamonds(Map * mapPtr)
 //Royal Diamonds
 int RoyalDiamonds::interactWithType()
 {
-    cout << "?! Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
+    cout << "?!  Congratulations! You've found the royal diamonds! YOU WIN!" << endl;
     //map->resetMapState();
     map->setWon(true);
 
@@ -715,7 +723,7 @@ Boat::Boat(Map * mapPtr) {
 }
 
 int Boat::interactWithType() {
-    cout << "You found a boat for sale! It will let you travel on water." << endl;
+    cout << ">v You found a boat for sale! It will let you travel on water." << endl;
     if(promptPurchase(price)) {
         for (int i = 0; i < MAX; ++i){
             for(int j = 0; j < MAX; ++j){
@@ -728,7 +736,7 @@ int Boat::interactWithType() {
         return 1;
     }
     else {
-        cout << "You decided to keep your whiffles for now." << endl;
+        //cout << "You decided to keep your whiffles for now." << endl;
         return 0;
     }
 }
@@ -753,53 +761,55 @@ int Bush::interactWithType()
     if(map->getHeroPtr()->checkBushTools(-1) == true)
     {
         //Alerts players and displays current inventory
-        cout << "You have encountered a bush...";
-        map->getHeroPtr()->displayInventory(-1);
+        cout << "@@@ You have encountered Blackberry Bushes...";
+//        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
-        while(validTool == false)
-        {
+//        while(validTool == false)
+//        {
 
             //Prompts players for tool choice number
-            if(repeat == false)
-            cout << endl << "Consume a tool?" << endl
-            << "(Enter item's number): ";
-            else
-            cout << "Can't use that tool here..." << endl << endl
-            << "Consume a tool?" << endl;
+//            if(repeat == false)
+            cout << endl << "Cut them down?" << endl << endl;
+//            << "(Enter item's number): ";
+//            else
+//            cout << "Can't use that tool here..." << endl << endl
+//            << "Consume a tool?" << endl;
 
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;
-            cin >> toolNumber;
-            cin.ignore(1000, '\n');
-            --toolNumber;//Transforms inventory index from
+//            repeat = true;
+//            cin >> toolNumber;
+//            cin.ignore(1000, '\n');
+//            --toolNumber;//Transforms inventory index from
             //starting at 1 to starting at 0
 
             //Checks if selected tool is a Bush tool
-            if(map->getHeroPtr()->checkBushTools(toolNumber))
-            {
+//            if(map->getHeroPtr()->checkBushTools(toolNumber))
+//            {
                 //If valid, the valid flag is set true to end
                 //this loop.
-                validTool = true;
+//                validTool = true;
                 //Calls energy deduction using tool's cost
-                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
-                ++toolNumber;//Transform to index starting at 1
+//                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+//                ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
-                map->getHeroPtr()->useItem(toolNumber);
+//                map->getHeroPtr()->useItem(toolNumber);
 
-            }
+//            }
 
-        }
+//        }
+		return 4;
     }
     //Else branch for if player has no applicable tools
     else{
         cout << "*** You have encountered a Bush, costing "
         << BUSH_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
+
+    	return 1;
     }
 
-    return 1;
 }
 
 int Bush::checkRemovalCost(){
@@ -825,55 +835,57 @@ int Tree::interactWithType()
     //checkTreeTools with -1
     if(map->getHeroPtr()->checkTreeTools(-1) == true)
     {
-        //Alerts players and displays current inventory
-        cout << "You have encountered a tree...";
-        map->getHeroPtr()->displayInventory(-1);
+      
+		//Alerts players and displays current inventory
+        cout << "@@@ You have encountered a tree...";
+//        map->getHeroPtr()->displayInventory(-1);
 
         //A loop for prompting the user's tool choice
-        while(validTool == false)
-        {
+//        while(validTool == false)
+//      {
 
             //Prompts players for tool choice number
-            if(repeat == false)
-            cout << endl << "Consume a tool?" << endl
-            << "(Enter item's number): ";
-            else
-            cout << "Can't use that tool here..." << endl << endl
-            << "Consume a tool?" << endl;
+//            if(repeat == false)
+            cout << endl << "Cut it down??" << endl << endl;
+//            << "(Enter item's number): ";
+//            else
+//            cout << "Can't use that tool here..." << endl << endl
+//            << "Consume a tool?" << endl;
 
             //Changes repeat so loop will display a different message
             //after the first loop iteration
-            repeat = true;
+//            repeat = true;
 
-            cin >> toolNumber;
-            cin.ignore(1000, '\n');
-            --toolNumber;//Transforms inventory index from
+//            cin >> toolNumber;
+//            cin.ignore(1000, '\n');
+//            --toolNumber;//Transforms inventory index from
             //starting at 1 to starting at 0
 
             //Checks if selected tool is a Tree tool
-            if(map->getHeroPtr()->checkTreeTools(toolNumber))
-            {
+//            if(map->getHeroPtr()->checkTreeTools(toolNumber))
+//            {
                 //If valid, the valid flag is set true to end
                 //this loop.
-                validTool = true;
+//                validTool = true;
                 //Calls energy deduction using tool's cost
-                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
-                ++toolNumber;//Transform to index starting at 1
+//                map->getHeroPtr()->changeEnergy(-map->getHeroPtr()->checkItemEnergyCost(toolNumber));
+//                ++toolNumber;//Transform to index starting at 1
                 //Calls tool to be removed from inventory
-                map->getHeroPtr()->useItem(toolNumber);
+//                map->getHeroPtr()->useItem(toolNumber);
 
-            }
+ //           }
 
-        }
+//        }
+		return 4;
     }
     //Else branch for if player has no applicable tools
     else{
         cout << "*** You have encountered a Tree, costing "
         << TREE_REMOVAL_COST << " additional energy to break...";
         map->getHeroPtr()->changeEnergy(-removalCost);
-    }
 
-    return 1;
+		return 1;
+    }
 }
 
 int Tree::checkRemovalCost(){
@@ -895,7 +907,7 @@ Hatchet::Hatchet(Map * mapPtr)
 int Hatchet::interactWithType()
 {
 	system("clear");
-	cout << ">> You have found a HATCHET" << endl;
+	cout << ">>  You have found a HATCHET" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -933,7 +945,7 @@ Axe::Axe(Map * mapPtr)
 int Axe::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found an AXE" << endl;
+	cout << ">>  You have found an AXE" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -970,7 +982,7 @@ Chainsaw::Chainsaw(Map * mapPtr)
 int Chainsaw::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found a CHAINSAW" << endl;
+	cout << ">>  You have found a CHAINSAW" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear TREES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1007,7 +1019,7 @@ Chisel::Chisel(Map * mapPtr)
 int Chisel::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found a CHISEL" << endl;
+	cout << ">>  You have found a CHISEL" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1044,7 +1056,7 @@ Sledgehammer::Sledgehammer(Map * mapPtr)
 int Sledgehammer::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found a SLEDGEHAMMER" << endl;
+	cout << ">>  You have found a SLEDGEHAMMER" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1081,7 +1093,7 @@ Jackhammer::Jackhammer(Map * mapPtr)
 int Jackhammer::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found a JACKHAMMER" << endl;
+	cout << ">>  You have found a JACKHAMMER" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BOULDERS..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1118,7 +1130,7 @@ Machete::Machete(Map * mapPtr)
 int Machete::interactWithType()
 {
  	//system("clear");
-	cout << ">> You have found a MACHETE" << endl;
+	cout << ">>  You have found a MACHETE" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
 
 	if (promptPurchase(price)) {
@@ -1155,7 +1167,7 @@ Shears::Shears(Map * mapPtr)
 int Shears::interactWithType()
 {
  	system("clear");
-	cout << ">> You have found SHEARS" << endl;
+	cout << ">>  You have found SHEARS" << endl;
 	cout << "It will cost " << energyCost << " energy units to use, and will help you clear BLACKBERRY BUSHES..." << endl;
 
 	if (promptPurchase(price)) {

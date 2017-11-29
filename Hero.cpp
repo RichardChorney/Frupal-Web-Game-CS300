@@ -194,9 +194,13 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         terrain.terrainName = mapToCopy.getMap()[location.x][location.y].getTerrain()->terrainName;
         terrain.charToDisplay = mapToCopy.getMap()[location.x][location.y].getTerrain()->charToDisplay;
         terrain.canWalkOn = mapToCopy.getMap()[location.x][location.y].getTerrain()->canWalkOn;
-        terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
-        changeEnergy(-terrain.energyConsumption);
-        updateWebStatus(terrain);
+
+        if(temp != 4){
+			terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
+        	changeEnergy(-terrain.energyConsumption);
+          updateWebStatus(terrain);
+        }
+
     }
 
 	//displayTerrainMsg(terrain.terrainName);  //TODO  comment this back out was just for testing
@@ -217,6 +221,17 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 
 	Type * typePtr = NULL;
 	typePtr = map.getMap()[aheadLoc.x][aheadLoc.y].getType();
+    
+    if(ahead.terrainName == "Water") {
+        for (int i = 0; i < BAG_MAX; ++i) {
+			if(list[i]){
+				if (list[i]->checkName() == "Boat") {
+               		changeEnergy(1);
+               		return 3;
+				}
+            }
+        }
+    }
 
     //if the Hero can't walk on it, then deduct energy and return false
     if (ahead.canWalkOn == false) {
@@ -236,6 +251,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 		else if(result == 2) { 											//If interactWithType returns 2 it means an item was purchased and the type ptr
 			return 2;													//needs NULLed out for that Grovnick
 		}
+		else { return 4; }
     }
 
 	return 3;
@@ -261,11 +277,10 @@ int Hero::fillBag(Type * itemToAdd)
 
 //Function to remove an Items pointer from the inventory list
 bool Hero::useItem(int itemToUse){
-	if((itemToUse > 0) && (itemToUse <= BAG_MAX)){
-		//TODO we need to call a function to use each item HERE
+	if((itemToUse >= 0) && (itemToUse < BAG_MAX)){
 
-		delete list[itemToUse - 1];
-		list[itemToUse - 1] = NULL;
+		delete list[itemToUse];
+		list[itemToUse] = NULL;
 		updateInventoryFile();
 		return true;
 	}
@@ -307,10 +322,13 @@ bool Hero::updateInventoryFile()
 			else if(list[i]->checkName() == "Binoculars"){
 				output << "91";
 			}
+			else if(list[i]->checkName() == "Boat"){
+				output << "01";
+			}
 		}
 
 		else{
-			output << "00";
+			output << "*0";
 		}
 	}
 
@@ -450,19 +468,25 @@ void Hero::displayTerrainMsg(string terra)
 void Hero::writeTerrainMsg(string terra, ofstream& out)
 {
 	if (terra == "Meadow") {
-   		out << "You have walked into a beautiful Meadow..." << endl;
+   		out << "You are standing in a beautiful meadow..." << endl;
 	} else if (terra == "Forest") {
    		out << "You have walked into a deep, dark Forest..." << endl;
-	} else if (terra == "Water" && terrain.energyConsumption > 0) {
-   		out << "You can not go into the Water without a boat..." << endl;		//TODO will need to change when we add boats
-    } else if (terra == "Water" && terrain.energyConsumption == 0) {
-        out << "Feels nice to be sailing..." << endl;
+	} else if (terra == "Water") {
+        for(int i = 0; i < BAG_MAX; ++i) {
+            if(list[i]){
+				if(list[i]->checkName() == "Boat"){ 
+               		out << "Sailing on the water feels great!" << endl;
+                	return;
+				}	
+            }
+        }
+   		out << "You can not go into the Water without a boat..." << endl;
 	} else if (terra == "Wall") {
-   		out << "You can not climb over the border Wall, it is just too high..." << endl;
+   		out << "You can not climb over the wall. It is just too high..." << endl;
 	} else if (terra == "Bog") {
-   		out << "Eewww, you have walked into a nasty Bog, costing 2 energy..." << endl;
+   		out << "Eewww, you have walked into a nasty bog. It cost you 2 energy..." << endl;
 	} else if (terra == "Swamp") {
-   		out << "Yuck, you have walked into a Swamp, watch out for alligators!!" << endl;
+   		out << "Yuck, you have walked into a Swamp! It cost you 2 energy..." << endl;
 	}
 }
 //Checks the inventory list at index and returns true if
@@ -529,7 +553,7 @@ bool Hero::checkBushTools(int index){
              if(list[i] != NULL)
              //Calls the type's check type function
              //returns 1-3 for boulder tools
-             if(list[i]->checkObstacleType() < 9 && list[i]->checkObstacleType() > 7)
+             if(list[i]->checkObstacleType() < 9 && list[i]->checkObstacleType() > 6)
                   return true;
          }
      }
@@ -563,6 +587,7 @@ ostream & Hero::printSaveInfo(ostream& out)
     for (int i = 0; i < BAG_MAX; ++i) {
         if (list[i]) {
             if (!list[i]->checkName().compare("Binoculars")) out << "Binoculars" << endl;
+            else if (!list[i]->checkName().compare("Boat")) out << "Boat" << endl;
             else if (!list[i]->checkName().compare("Hatchet")) out << "Hatchet" << endl;
             else if (!list[i]->checkName().compare("Axe")) out << "Axe" << endl;
             else if (!list[i]->checkName().compare("Chainsaw")) out << "Chainsaw" << endl;
@@ -583,3 +608,8 @@ void Hero::updateHeroTerrain(Terrain * t)
     terrain.canWalkOn = t->canWalkOn;
     terrain.energyConsumption = t->energyConsumption;
 }
+
+Type * Hero::getInventoryType(int slot)
+{
+	return list[slot];
+} 

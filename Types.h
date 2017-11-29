@@ -33,6 +33,7 @@ public:
     int  checkObstacleType();//returns 1 for boulders, 2 - trees, 3 - bushes  
 	string checkName();
 	int getPrice();
+	int getWorksOn();
     //string & getName();
 protected:
     string name; //The name of the Type
@@ -40,6 +41,7 @@ protected:
     Map * map; //Pointer to the Map
 	char charToDisplay;
     int price;			//Tool cost
+	int worksOn;		//Identifies which kind of obstacle this tool will work on
 };
 
 //('T')
@@ -55,7 +57,6 @@ protected:
     int multiplier; 	//X1, X2, X3 ...
 
 	int energyCost;		//How much energy the tool deducts from energy balance
-	int worksOn;		//Identifies which kind of obstacle this tool will work on
 };
 
 //('C')

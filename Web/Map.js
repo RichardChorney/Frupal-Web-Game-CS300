@@ -8,7 +8,7 @@
 const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "lwarden";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "deb24";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
@@ -51,6 +51,8 @@ var hero = new Image();
 var terrains = new Array(mapSize); //2D map array of terrains to dsiplay
 var types = new Array(mapSize);    //2D map array of types to be displayed over terrains
 var mists = new Array(mapSize);
+/* file name passed from login screen */
+var fileParam;
 
 //Once the last image has been loaded, display the map
 //TODO: Make sure to update this to the last image!!!
@@ -61,12 +63,25 @@ powerBar.onload = function() {
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
-	launchCGI("loadDefault", " ", " ");
+	//alert("begin here.");
+    launchCGI("loadDefault", " ", " ");
     initImages();
     initMap();
     update();
     displayMap();
+    alertFileParam();
 }
+/*
+function getParam() {
+	//alert("here.");
+	return window.location.search.substring(1);
+}
+
+function alertFileParam() {
+	fileParam = getParam();
+	alert("fileParam = " + fileParam);
+}
+*/
 
 //Restarts the game state if the hero dies, is just a clone of the onload function
 function restart() {
@@ -103,10 +118,9 @@ function launchCGI(actionCode, action1, action2) {
     xhttp.send();
     xhttp.onreadystatechange = afterResponse;
 	function afterResponse() {
+			update();	
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
-					update();
-					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
 					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
 						alert(xhttp.responseText.slice(4));
 					}
@@ -122,27 +136,42 @@ function launchCGI(actionCode, action1, action2) {
 						if(xhttp.responseText[1] == '>'){
 								if(confirm(xhttp.responseText.slice(4)) == true){
 										launchCGI("buyItem", " ", " ");
+										update();
 									} else {
 										alert("Oh well, I guess you are too cheap for this fine frupal tool...");
 									}
 						}
 						else if(xhttp.responseText[1] == '<'){		//This will trigger a prompt from the user for a powerbar
-							if(confirm(xhttp.responseText) == true){
+							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("powerBar", " ", " ");
 							} else {
 								alert("Oh well, I guess not everyone likes power bars...");
 							}
 						}
+					    else if(xhttp.responseText[1] == 'v'){ //Trigger a prompt to buy a boat
+                            if(confirm(xhttp.responseText.slice(3)) == true){
+                                launchCGI("boat", " ", " ");
+                            } else {
+                                alert("Boats are too expensive anyway...");
+                            }
+          				}
 					}
-					if(xhttp.responseText[0] == 'o'){ //This will trigger a prompt from the user on purchases of tools
-						if(xhttp.responseText[1] == 'o'){		//This will trigger a prompt from the user for Binoculars
-							if(confirm(xhttp.responseText) == true){
+					else if(xhttp.responseText[1] == '@'){  //This will ask a user to use a tool on an obstacle
+						if(confirm(xhttp.responseText.slice(4)) == true){
+							displayInventory();
+							update();
+            			} else{
+							alert("Oh well, I guess you will have to do it the hard way...");
+							launchCGI("adjustEnergy", " ", " ");
+						}
+          			}  
+					else if(xhttp.responseText[0] == 'o'){		//This will trigger a prompt from the user for Binoculars
+							if(confirm(xhttp.responseText.slice(3)) == true){
 								launchCGI("Binoculars", " ", " ");
 							} else {
-								alert("Oh well, guess you didn't want those binoculars anyway...");
+								alert("Oh well, I guess you didn't want those binoculars anyways...");
 							}
-						}
-                    }
+					}
 			}
 		}
 	}
@@ -566,7 +595,7 @@ function displayInventory() {
 					for(var i = 1; i <= LIST_MAX; ++i){
 						switch(parseInt(listContents[j])){
 							case 0:
-                                document.getElementById("slot" + i).innerHTML = i + "--> Empty";
+                                document.getElementById("slot" + i).innerHTML = i + "--> Boat" + " (" + listContents[k] + ") Allows water traversal";
 								break;
 							case 1:
 								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " (" + listContents[k] + ") Removes Trees for 8 energy points";
@@ -614,7 +643,7 @@ function displayInventory() {
 //This function will launch the appropriate action when an inventory item is clicked on, will check if the action
 //is valid, and will update the status of the inventory item on the back-end
 function useItem(slot){
-
+	launchCGI("useItem", slot, " ");
 }
 
 //this function will prevent user from moving and spit out an alert if the user is dead
