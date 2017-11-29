@@ -317,23 +317,23 @@ int Clue::falseClueOne()
     //If they don't match, then the loop ends and the function continues
     while(match == true)
     {
-        falseStatus[1] = rand() % 2000;
+        falseStatus[1] = rand() % (1000 + realStatus[1]);
         if(realStatus[1] != falseStatus[1] && realStatus[1] < falseStatus[1])
             match = false;
     }
     match = true;
     
    
-    cout << "You are " << (temp.y + 4) % 10 << " grovnick2s from the western border, ";
+    cout << "You are " << (temp.x + 4) % MAX << " grovnick2s from the western border, ";
 
     //Loads the coordinates of the royal diamonds to a temp container
     temp = map->getRoyalDiamondsLocation();
     distance = abs(temp.y - hero.y);
     distance += abs(temp.x - hero.x);
-    temp.x = (temp.x - hero.x + 7) %10;
+    temp.x = (temp.x - hero.x + 7) %MAX;
     if(temp.x == 0)
         temp.x = 1;
-    temp.y = (temp.y - hero.y + 3) %10;
+    temp.y = (temp.y - hero.y + 3) %MAX;
     if(temp.y == 0)
         temp.y = 1;
 
@@ -342,11 +342,11 @@ int Clue::falseClueOne()
     << "the east and " << temp.y << " grovnick2s to the South." << endl << endl;
 
 
-    distance = (distance + 12) % 20;
+    distance = (distance + 12) % ((MAX * 2)-2);
     if(distance == 0)
-        distance = 0;
+        distance = 1;
 
-    cout << "The diamonds are " << (distance + 12) % 20 << " grovnick2s away.";
+    cout << "The diamonds are " << distance << " grovnick2s away.";
     return 0;
 }
 
