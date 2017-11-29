@@ -181,6 +181,12 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         location.x = aheadLoc.x;
         location.y = aheadLoc.y;
 
+        mapToCopy.displayMap(); //In WEB_MODE it just updates the map
+        mapToCopy.saveState();
+        mapToCopy.writeWebTerrain();
+        mapToCopy.writeWebTypes();
+        mapToCopy.writeWebMists();
+
 		if((temp == 1) || (temp == 2)){
 			if(temp == 1){
 				delete //mapToCopy.getMap()[location.y][location.x].getType();
