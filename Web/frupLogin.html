@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Frupal Game!</title>
+
+<h1>FRUPAL: The Gathering </h1>
+</head>
+
+<script>
+var player;
+
+function recordToFilename() {
+   	var input1 = document.getElementById('Name');
+        player = input1.value;
+	if (player) {
+		alert('Player Name: ' + player);
+		window.location.replace("http://web.cecs.pdx.edu/~mkwong/CS300_project/Web/game.html?" + player);
+	} else {
+		alert('Please enter a name!');
+		input.focus();
+	}
+	
+
+}
+
+</script>
+
+<body align="center" style="background-image:url('https://archive-media-1.nyafuu.org/wg/image/1464/22/1464224184172.jpg'); background-repeat:no-repeat; background-size:cover;" text="black">
+
+<label for="Name">Name:</label>
+<input name="Name" id="Name" type="text"><br>
+<input type="button" id="btn" onclick="recordToFilename();" value="Submit"/>
+
+<p><a href="  http://web.cecs.pdx.edu/~mkwong/CS300_project/Web/game.html">LINK TO GAME Without Player Name</a></p>
+
+</body>
+</html>
+
