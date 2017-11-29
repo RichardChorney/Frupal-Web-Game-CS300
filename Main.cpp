@@ -20,6 +20,7 @@ string const simpleMap = "simpleMap.txt";
 string const basicMap = "basicMap.txt";
 string const basicMap2 = "basicMap2.txt";
 string const demoMap = "demoMap.txt";
+string const releaseMap = "releaseMap.txt";
 
 int main(void)
 {
@@ -51,11 +52,11 @@ int main(void)
 
 		if(strcmp(actionCode, "restart") == 0) {
 			remove("saveFile.txt");
-			map.loadMapFromFile(demoMap);
+			map.loadMapFromFile(releaseMap);
     		hero = map.getHeroPtr();
             hero->updateWebStatus(hero->getTerrain());
 		} else if(strcmp(actionCode, "loadDefault") == 0) {
-		    map.loadMapFromFile(demoMap);
+		    map.loadMapFromFile(releaseMap);
     		hero = map.getHeroPtr();
 		} else {
 			map.loadMapFromFile("saveFile.txt");
@@ -173,7 +174,7 @@ int main(void)
 		else{
 			Hero * hero;
 			Map map; //Create a map of size MAX
-			map.loadMapFromFile(demoMap);
+			map.loadMapFromFile(releaseMap);
 			hero = map.getHeroPtr();
 			bool proceed = true;
 
