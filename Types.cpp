@@ -497,7 +497,7 @@ int Boulder::interactWithType()
     else{
         cout << "*** You have encountered a boulder, costing "
         << BOULDER_REMOVAL_COST << " additional energy to break...";
-        map->getHeroPtr()->changeEnergy(-removalCost);
+        map->getHeroPtr()->changeEnergy(-this->removalCost);
     	
 		return 1;
 	}
@@ -635,7 +635,7 @@ int Bush::interactWithType()
     else{
         cout << "*** You have encountered a Bush, costing "
         << BUSH_REMOVAL_COST << " additional energy to break...";
-        map->getHeroPtr()->changeEnergy(-removalCost);
+        map->getHeroPtr()->changeEnergy(-this->removalCost);
 
     	return 1;
     }
@@ -709,7 +709,7 @@ int Tree::interactWithType()
     else{
         cout << "*** You have encountered a Tree, costing "
         << TREE_REMOVAL_COST << " additional energy to break...";
-        map->getHeroPtr()->changeEnergy(-removalCost);
+        map->getHeroPtr()->changeEnergy(-this->removalCost);
 
 		return 1;
     }
