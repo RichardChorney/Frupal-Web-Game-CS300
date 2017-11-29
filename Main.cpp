@@ -104,9 +104,7 @@ int main(void)
 						map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 					    hero->updateWebStatus(hero->getTerrain());
 				}
-				else {
-					cout << "*** Sorry, you are too broke to purchase that tool..." << endl;
-				}	
+				//else { cout << "*** Sorry, you are too broke to purchase that tool..." << endl; }	
 		} else if(strcmp(actionCode, "powerBar") == 0) {
 			if(hero->getBalance() > 0) {
 				hero->setBalance(-1);
@@ -114,7 +112,7 @@ int main(void)
 				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 			}
-			else { cout << "*** Sorry, you are too broke to buy that power bar..."; }
+			//else { cout << "*** Sorry, you are too broke to buy that power bar..."; }
 		} else if(strcmp(actionCode, "Binoculars") == 0) {
             if(hero->getBalance() > 50) {
                 hero->setBalance(-50);
@@ -122,7 +120,7 @@ int main(void)
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 				hero->setVisibility(true);
             }
-            else { cout << "*** Sorry, you are too broke for that set of binoculars..."; }
+            //else { cout << "*** Sorry, you are too broke for that set of binoculars..."; }
 
 
         } else if(strcmp(actionCode, "adjustEnergy") == 0) {
@@ -142,7 +140,7 @@ int main(void)
                 hero->setBalance(-500);
                 hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
                 map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
-            } else { cout << "*** Sorry, you are too broke to buy this boat..."; }
+            } //else { cout << "*** Sorry, you are too broke to buy this boat..."; }
         }
 
 
