@@ -99,7 +99,27 @@ int Map::writeWebMists()
             bool isVis = map[i][j].getVisibility();
 
             if (t.x == i && t.y == j) { //'H' => Hero
-                file << HERO_CHAR;
+                //file << HERO_CHAR;
+
+                bool wasOnWater = false;
+
+                //Display Hero in boat if on water and has boat
+                if(map[i][j].getTerrain()->terrainName == "Water") {
+                    for (int i = 0; i < BAG_MAX; ++i) {
+                        Type * item = hero->getInventoryType(i);
+                        if(item){
+                            if (item->checkName() == "Boat") {
+                                wasOnWater = true;
+                                file << "4";
+                            }
+                        }
+                    }
+                }
+                //Check if he was not on water, then just display
+                //the hero
+                if (!wasOnWater) { file << HERO_CHAR; }
+
+
             } else if (isVis) { //'0' => is visible
                 file << '0';
             } else { //'X' => Mist
@@ -198,6 +218,7 @@ int Map::loadMapFromFile(string fileName)
             else if (!line.compare("Machete")) typeToAdd = new Machete(this);
             else if (!line.compare("Shears")) typeToAdd = new Shears(this);
             else if (!line.compare("Boat")) typeToAdd = new Boat(this);
+            else { typeToAdd = NULL; }
             hero->fillBag(typeToAdd);
         }
     }
