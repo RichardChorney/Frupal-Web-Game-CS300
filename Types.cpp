@@ -270,7 +270,7 @@ int Clue::trueClueOne()
     system("clear");
     cout << "?1 New Clue" << endl; //Testing Message
    
-    cout << "You are " << temp.y + 1 << " grovnick2s from the western border, ";
+    cout << "You are " << temp.x << " grovnick2s from the western border, ";
 
     //Loads the coordinates of the royal diamonds to a temp container
     temp = map->getRoyalDiamondsLocation();
@@ -419,21 +419,21 @@ int Clue::falseClueOne()
 
     //Loads the coordinates of the royal diamonds to a temp container
     temp = map->getRoyalDiamondsLocation();
-    (temp.x - hero.x + 7) %10;
+    distance = abs(temp.y - hero.y);
+    distance += abs(temp.x - hero.x);
+    temp.x = (temp.x - hero.x + 7) %10;
     if(temp.x == 0)
         temp.x = 1;
-    (temp.y - hero.y + 3) %10;
+    temp.y = (temp.y - hero.y + 3) %10;
     if(temp.y == 0)
         temp.y = 1;
 
     cout << "you possess more than " << falseStatus[1] << " Whiffles,"
-    << " and the royal diamonds are located " << (temp.x - hero.x + 7) %10  << " grovnick2s to "
-    << "the east and " << (temp.y - hero.y) % 3 << " grovnick2s to the South." << endl << endl;
+    << " and the royal diamonds are located " << temp.x  << " grovnick2s to "
+    << "the east and " << temp.y << " grovnick2s to the South." << endl << endl;
 
 
-    distance = abs(temp.y - hero.y);
-    distance += abs(temp.x - hero.x);
-    (distance + 12) % 20;
+    distance = (distance + 12) % 20;
     if(distance == 0)
         distance = 0;
 
@@ -647,9 +647,6 @@ Boulder::Boulder(Map * mapPtr)
 //Boulder
 int Boulder::interactWithType()
 {
-    int toolNumber = 0;//used for hero inventory index
-    bool validTool = false;//flag for checking tool type
-    bool repeat = false;
 
     //Checks if the hero has any boulder tools by calling
     //checkBoulderTools with -1
@@ -789,9 +786,6 @@ Bush::Bush(Map * mapPtr)
 //Bush
 int Bush::interactWithType()
 {
-    int toolNumber = 0;//used for hero inventory index
-    bool validTool = false;//flag for checking tool type
-    bool repeat = false;
 
     //Checks if the hero has any boulder tools by calling
     //checkBushTools with -1
@@ -864,9 +858,6 @@ Tree::Tree(Map * mapPtr)
 //Tree
 int Tree::interactWithType()
 {
-    int toolNumber = 0;//used for hero inventory index
-    bool validTool = false;//flag for checking tool type
-    bool repeat = false;
 
     //Checks if the hero has any boulder tools by calling
     //checkTreeTools with -1

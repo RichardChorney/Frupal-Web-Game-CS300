@@ -13,6 +13,7 @@ Chainsaw
 3,0,0,0,Boat
 0,2,0,3,None
 0,3,0,3,None
+3,4,0,0,Clue
 2,2,0,0,Binoculars
 2,3,0,0,Power Bar
 1,7,0,0,Sledgehammer
