@@ -146,7 +146,8 @@ int main(void)
 
 		if(!hero->checkAlive()){
 			remove("saveFile.txt");
-			cout << "**GAME OVER**" << endl << endl;
+			cout << "**GAME OVER**";
+			return 0;
 		} else {
 			map.displayMap(); //In WEB_MODE it just updates the map
 			map.saveState();

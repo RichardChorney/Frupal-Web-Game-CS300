@@ -56,7 +56,7 @@ var fileParam;
 
 //Once the last image has been loaded, display the map
 //TODO: Make sure to update this to the last image!!!
-powerBar.onload = function() {
+boulder.onload = function() {
     displayMap();
 }
 
@@ -121,7 +121,11 @@ function launchCGI(actionCode, action1, action2) {
 			update();	
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
-					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
+					if(xhttp.responseText[(xhttp.responseText).length - 1] == '*'){
+						restart();
+						alert(xhttp.responseText.slice(4));
+					}
+					else if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
 						alert(xhttp.responseText.slice(4));
 					}
 					else if(xhttp.responseText[0] == '!'){	//This will restart the game state if the hero dies triggered when cout begins with (!)
