@@ -221,7 +221,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 
 	Type * typePtr = NULL;
 	typePtr = map.getMap()[aheadLoc.x][aheadLoc.y].getType();
-    
+
     if(ahead.terrainName == "Water") {
         for (int i = 0; i < BAG_MAX; ++i) {
 			if(list[i]){
@@ -474,10 +474,10 @@ void Hero::writeTerrainMsg(string terra, ofstream& out)
 	} else if (terra == "Water") {
         for(int i = 0; i < BAG_MAX; ++i) {
             if(list[i]){
-				if(list[i]->checkName() == "Boat"){ 
+				if(list[i]->checkName() == "Boat"){
                		out << "Sailing on the water feels great!" << endl;
                 	return;
-				}	
+				}
             }
         }
    		out << "You can not go into the Water without a boat..." << endl;
@@ -612,4 +612,4 @@ void Hero::updateHeroTerrain(Terrain * t)
 Type * Hero::getInventoryType(int slot)
 {
 	return list[slot];
-} 
+}

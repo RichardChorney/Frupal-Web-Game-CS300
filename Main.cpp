@@ -74,7 +74,7 @@ int main(void)
 						hero->changeEnergy(-2);
 					}
 					hero->useItem(atoi(action1));
-				} else if((hero->getInventoryType(atoi(action1))->getWorksOn() == bush) && (map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Bush")) { 
+				} else if((hero->getInventoryType(atoi(action1))->getWorksOn() == bush) && (map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Bush")) {
 					if(hero->getInventoryType(atoi(action1))->checkName() == "Machete") {
 						hero->changeEnergy(-2);
 					} else if(hero->getInventoryType(atoi(action1))->checkName() == "Shears") {
@@ -93,7 +93,7 @@ int main(void)
 				} else {
 					cout << "*** That is the wrong tool, your loss, sorry..." << endl << endl;
 				}
-		
+
 		      	hero->changeEnergy(-(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getEnergyConsumption()));
 				delete map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType();
 				map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
@@ -106,7 +106,7 @@ int main(void)
 				}
 				else {
 					cout << "*** Sorry, you are too broke to purchase that tool..." << endl;
-				}	
+				}
 		} else if(strcmp(actionCode, "powerBar") == 0) {
 			if(hero->getBalance() > 0) {
 				hero->setBalance(-1);
@@ -129,7 +129,7 @@ int main(void)
         	hero->changeEnergy(-(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getEnergyConsumption()));
 			if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Tree") {
 				hero->changeEnergy(-10);
-			} else if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Boulder") { 
+			} else if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Boulder") {
 				hero->changeEnergy(-16);
 			} else if(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Bush") {
 				hero->changeEnergy(-4);
@@ -146,7 +146,7 @@ int main(void)
         }
 
 
-		if(!hero->checkAlive()){
+		if(!hero->checkAlive()) {
 			remove("saveFile.txt");
 			cout << "**GAME OVER**" << endl << endl;
 		} else {
