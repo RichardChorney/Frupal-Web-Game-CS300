@@ -172,6 +172,16 @@ function launchCGI(actionCode, action1, action2) {
 								alert("Oh well, I guess you didn't want those binoculars anyways...");
 							}
 					}
+                        else if(xhttp.responseText[0] == '?' && xhttp.responseText[1] == '1')
+                        {
+			    if(confirm(xhttp.responseText.slice(3)) == true)
+                            launchCGI("clue1", " ", " ");
+                        }
+                        else if(xhttp.responseText[0] == '?' && xhttp.responseText[1] == '2')
+                        {
+			    if(confirm(xhttp.responseText.slice(3)) == true)
+                            launchCGI("clue2", " ", " ");
+                        }
 			}
 		}
 	}
