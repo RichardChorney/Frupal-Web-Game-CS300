@@ -195,13 +195,14 @@ bool Hero::moveHero(int mv, Map & mapToCopy)
         terrain.charToDisplay = mapToCopy.getMap()[location.x][location.y].getTerrain()->charToDisplay;
         terrain.canWalkOn = mapToCopy.getMap()[location.x][location.y].getTerrain()->canWalkOn;
 
-        if(temp != 4){
+        if(temp != 4) {
 			terrain.energyConsumption = mapToCopy.getMap()[location.x][location.y].getTerrain()->energyConsumption;
         	changeEnergy(-terrain.energyConsumption);
-          updateWebStatus(terrain);
+          	updateWebStatus(terrain);
         }
 
     }
+
 
 	//displayTerrainMsg(terrain.terrainName);  //TODO  comment this back out was just for testing
 
@@ -238,7 +239,7 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
 		//Display appropriate terrain message
 		displayTerrainMsg(ahead.terrainName);
 		cout << "You lose your turn and " << ahead.energyConsumption << " Energy point." << endl;		//TODO Need to change this for boats
-		changeEnergy(-ahead.energyConsumption);
+		changeEnergy(-1);
         updateWebStatus(ahead);
 
 		return 0;								//Returns a 0 so no movement is executed for impassable terrains

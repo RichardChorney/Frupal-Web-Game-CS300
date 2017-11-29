@@ -8,14 +8,14 @@
 const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "deb24";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "aasquier";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
 //Get the canvas details
 var canvas = document.getElementById("frupalCanvas");
 var context = canvas.getContext("2d");
-document.onkeydown = move_key; //Kep press
+document.onkeydown = move_key; //Key press
 
 /* Images */
 //Terrains
@@ -69,7 +69,7 @@ window.onload = function() {
     initMap();
     update();
     displayMap();
-    alertFileParam();
+//    alertFileParam();
 }
 /*
 function getParam() {
@@ -605,34 +605,34 @@ function displayInventory() {
 					for(var i = 1; i <= LIST_MAX; ++i){
 						switch(parseInt(listContents[j])){
 							case 0:
-                                document.getElementById("slot" + i).innerHTML = i + "--> Boat" + " (" + listContents[k] + ") Allows water traversal";
+                                document.getElementById("slot" + i).innerHTML = i + "--> Boat" + " Qty.(" + listContents[k] + ") Allows water traversal -->Cost:500Wh ";
 								break;
 							case 1:
-								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " (" + listContents[k] + ") Removes Trees for 8 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Hatchet" + " Qty.(" + listContents[k] + ") Removes Trees for 8 energy pts -->Cost:15Wh";
 								break;
 							case 2:
-								document.getElementById("slot" + i).innerHTML = i + "--> Axe" + " (" + listContents[k] + ") Removes Trees for 6 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Axe" + " Qty.(" + listContents[k] + ") Removes Trees for 6 energy pts -->Cost:30Wh";
 								break;
 							case 3:
-								document.getElementById("slot" + i).innerHTML = i + "--> Chainsaw" + " (" + listContents[k] + ") Removes Trees for 2 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Chainsaw" + " Qty.(" + listContents[k] + ") Removes Trees for 2 energy pts -->Cost:60Wh";
 								break;
 							case 4:
-								document.getElementById("slot" + i).innerHTML = i + "--> Chisel" + " (" + listContents[k] + ") Removes Boulders for 15 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Chisel" + " Qty.(" + listContents[k] + ") Removes Boulders for 15 energy pts -->Cost:5Wh";
 								break;
 							case 5:
-								document.getElementById("slot" + i).innerHTML = i + "--> Sledgehammer" + " (" + listContents[k] + ") Removes Boulders for 12 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Sledgehammer" + " Qty.(" + listContents[k] + ") Removes Boulders for 12 energy pts -->Cost:25Wh";
 								break;
 							case 6:
-								document.getElementById("slot" + i).innerHTML = i + "--> Jackhammer" + " (" + listContents[k] + ") Removes Boulders for 4 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Jackhammer" + " Qty.(" + listContents[k] + ") Removes Boulders for 4 energy pts -->Cost:100Wh";
 								break;
 							case 7:
-								document.getElementById("slot" + i).innerHTML = i + "--> Machete" + " (" + listContents[k] + ") Removes Blackberry Bushes for 2 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Machete" + " Qty.(" + listContents[k] + ") Removes Blackberry Bushes for 2 energy pts -->Cost:25Wh";
 								break;
 							case 8:
-								document.getElementById("slot" + i).innerHTML = i + "--> Shears" + " (" + listContents[k] + ") Removes Blackberry Bushes for 2 energy points";
+								document.getElementById("slot" + i).innerHTML = i + "--> Shears" + " Qty.(" + listContents[k] + ") Removes Blackberry Bushes for 2 energy pts -->Cost:25Wh";
 								break;
 							case 9:
-								document.getElementById("slot" + i).innerHTML = i + "--> Binoculars" + " (" + listContents[k] + ") Doubles visibility range";
+								document.getElementById("slot" + i).innerHTML = i + "--> Binoculars" + " Qty.(" + listContents[k] + ") Doubles visibility range -->Cost:35Wh";
 								break;
 	
 							default:
