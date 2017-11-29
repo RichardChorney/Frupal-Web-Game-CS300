@@ -8,7 +8,7 @@
 const SHOW_MIST = true; //Set true to show mist
 const SIZE = 50; //Width and Height of all Grovnicks
 const mapSize = 10; //One dimension of the map size
-const USER_NAME = "aasquier";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "chorney";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
@@ -51,6 +51,8 @@ var hero = new Image();
 var terrains = new Array(mapSize); //2D map array of terrains to dsiplay
 var types = new Array(mapSize);    //2D map array of types to be displayed over terrains
 var mists = new Array(mapSize);
+/* file name passed from login screen */
+var fileParam;
 
 //Once the last image has been loaded, display the map
 //TODO: Make sure to update this to the last image!!!
@@ -61,12 +63,25 @@ powerBar.onload = function() {
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
-	launchCGI("loadDefault", " ", " ");
+	//alert("begin here.");
+    launchCGI("loadDefault", " ", " ");
     initImages();
     initMap();
     update();
     displayMap();
+    alertFileParam();
 }
+/*
+function getParam() {
+	//alert("here.");
+	return window.location.search.substring(1);
+}
+
+function alertFileParam() {
+	fileParam = getParam();
+	alert("fileParam = " + fileParam);
+}
+*/
 
 //Restarts the game state if the hero dies, is just a clone of the onload function
 function restart() {
@@ -103,10 +118,9 @@ function launchCGI(actionCode, action1, action2) {
     xhttp.send();
     xhttp.onreadystatechange = afterResponse;
 	function afterResponse() {
+			update();	
 			if(xhttp.readyState === XMLHttpRequest.DONE){
 				if(xhttp.status === 200){
-					update();
-					//TODO We can put a switch statement here to respond accordingly to different actions and remove the TEST
 					if(xhttp.responseText[0] == '*'){ 		//This will trigger for chests and death since there cout begins with an (*)
 						alert(xhttp.responseText.slice(4));
 					}
@@ -122,6 +136,7 @@ function launchCGI(actionCode, action1, action2) {
 						if(xhttp.responseText[1] == '>'){
 								if(confirm(xhttp.responseText.slice(4)) == true){
 										launchCGI("buyItem", " ", " ");
+										update();
 									} else {
 										alert("Oh well, I guess you are too cheap for this fine frupal tool...");
 									}
@@ -157,13 +172,16 @@ function launchCGI(actionCode, action1, action2) {
 								alert("Oh well, I guess you didn't want those binoculars anyways...");
 							}
 					}
-                            else if(xhttp.responseText[0] == '?')
-                            {
-                                if(xhttp.responseText[1] == '1')
-                                {
-                                    launchCGI("clue1", " " , " ");
-                                }
-                            }
+                        else if(xhttp.responseText[0] == '?' && xhttp.responseText[1] == '1')
+                        {
+			    if(confirm(xhttp.responseText.slice(3)) == true)
+                            launchCGI("clue1", " ", " ");
+                        }
+                        else if(xhttp.responseText[0] == '?' && xhttp.responseText[1] == '2')
+                        {
+			    if(confirm(xhttp.responseText.slice(3)) == true)
+                            launchCGI("clue2", " ", " ");
+                        }
 			}
 		}
 	}
