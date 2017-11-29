@@ -6,9 +6,9 @@
 /////////////////////////////////////////////////////
 
 const SHOW_MIST = true; //Set true to show mist
-const SIZE = 16; //Width and Height of all Grovnicks
+const SIZE = 45; //Width and Height of all Grovnicks
 const mapSize = 16; //One dimension of the map size
-const USER_NAME = "";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
+const USER_NAME = "cofer2";  //TODO PUT YOUR USERNAME HERE FOR PATH INFORMATION
 const LIST_MAX = 10;	//Max size of the inventory bag
 
 
