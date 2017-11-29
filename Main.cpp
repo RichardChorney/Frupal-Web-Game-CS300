@@ -75,6 +75,7 @@ int main(void)
 						hero->changeEnergy(-2);
 					}
 					hero->useItem(atoi(action1));
+					hero->updateWebStatus(hero->getTerrain());
 				} else if((hero->getInventoryType(atoi(action1))->getWorksOn() == bush) && (map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->checkName() == "Bush")) {
 					if(hero->getInventoryType(atoi(action1))->checkName() == "Machete") {
 						hero->changeEnergy(-2);
@@ -103,7 +104,7 @@ int main(void)
 						hero->setBalance(-map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType()->getPrice());
 						hero->fillBag(map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].getType());
 						map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
-					    hero->updateWebStatus(hero->getTerrain());
+					    //hero->updateWebStatus(hero->getTerrain());
 				}
 				//else { cout << "*** Sorry, you are too broke to purchase that tool..." << endl; }
 		} else if(strcmp(actionCode, "powerBar") == 0) {
@@ -155,7 +156,7 @@ int main(void)
 	    map.getMap()[hero->getCurrLocation().x][hero->getCurrLocation().y].setType(NULL);
 
         }
-
+		hero->updateWebStatus(hero->getTerrain());
 
 		if(!hero->checkAlive()) {
 			remove("saveFile.txt");
