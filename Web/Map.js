@@ -65,29 +65,14 @@ powerBar.onload = function() {
 //Gets called while the window is being loaded
 //Do all initializations here.
 window.onload = function() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-	//alert("begin here.");
-=======
+
 	// alert("begin here.");
->>>>>>> Changed map size in Map.js
-=======
-	// alert("begin here.");
->>>>>>> 51a602afb9751c9419c0d24274689276b0848e23
     launchCGI("loadDefault", " ", " ");
     initImages();
     initMap();
     update();
     displayMap();
-<<<<<<< HEAD
-<<<<<<< HEAD
-//    alertFileParam();
-=======
     // alertFileParam();
->>>>>>> Changed map size in Map.js
-=======
-    // alertFileParam();
->>>>>>> 51a602afb9751c9419c0d24274689276b0848e23
 }
 /*
 function getParam() {
