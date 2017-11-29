@@ -239,7 +239,7 @@ function initImages() {
     clue.src = "Sprites/clue.png";
     binoculars.src = "Sprites/binoculars.png";
     boat.src = "Sprites/boat.png";
-    heroInBoat.src = "Sprites/heroInBoat.png";
+    heroInBoat.src = "Sprites/jesus.png";
     bush.src = "Sprites/bush.png";
     //Tools
     hatchet.src = "Sprites/hatchet.png";
