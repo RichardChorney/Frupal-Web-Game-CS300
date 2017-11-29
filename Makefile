@@ -1,7 +1,7 @@
 CFLAGS = -Wall -pedantic
 
 all:
-	g++ $(CFLAGS) -static *.cpp -o frupal
+	g++ $(CFLAGS) -static *.cpp -o frupalCGI.cgi
 mac:
 	g++ $(CFLAGS) *.cpp -o frupal
 

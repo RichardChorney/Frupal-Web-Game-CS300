@@ -224,9 +224,11 @@ int Hero::lookAhead(Map & map, Location aheadLoc)
     
     if(ahead.terrainName == "Water") {
         for (int i = 0; i < BAG_MAX; ++i) {
-            if (list[i]->checkName() == "Boat") {
-                changeEnergy(1);
-                return 3;
+			if(list[i]){
+				if (list[i]->checkName() == "Boat") {
+               		changeEnergy(1);
+               		return 3;
+				}
             }
         }
     }
@@ -471,9 +473,11 @@ void Hero::writeTerrainMsg(string terra, ofstream& out)
    		out << "You have walked into a deep, dark Forest..." << endl;
 	} else if (terra == "Water") {
         for(int i = 0; i < BAG_MAX; ++i) {
-            if(list[i]->checkName() == "Boat"){ 
-                out << "Sailing on the water feels great!" << endl;
-                return;
+            if(list[i]){
+				if(list[i]->checkName() == "Boat"){ 
+               		out << "Sailing on the water feels great!" << endl;
+                	return;
+				}	
             }
         }
    		out << "You can not go into the Water without a boat..." << endl;
